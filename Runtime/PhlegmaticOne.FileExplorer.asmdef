@@ -1,6 +1,6 @@
 {
-    "name": "OpenMyGame.FileExplorer",
-    "rootNamespace": "OpenMyGame.FileExplorer",
+    "name": "PhlegmaticOne.FileExplorer",
+    "rootNamespace": "PhlegmaticOne.FileExplorer",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,0 +1,16 @@
+{
+    "name": "PhlegmaticOne.FileExplorer.ExploreSample",
+    "rootNamespace": "PhlegmaticOne.FileExplorer.ExploreSample",
+    "references": [
+        "GUID:bd4781c4aa4fb7540a825affef640d5e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

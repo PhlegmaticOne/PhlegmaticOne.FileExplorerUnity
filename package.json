@@ -8,6 +8,13 @@
     "FileExplorer",
     "Explorer"
   ],
+  "samples": [
+    {
+      "displayName": "Explore files sample",
+      "description": "Contains explore files sample",
+      "path": "Samples~/ExploreSample"
+    }
+  ],
   "author": {
     "name": "Aleksandr Krotov",
     "email": "a.krotov@openmygame.com"
