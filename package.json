@@ -1,0 +1,15 @@
+{
+  "name": "com.phlegmaticone.fileexplorer",
+  "version": "1.0.0",
+  "displayName": "File Explorer",
+  "description": "File Explorer for Unity",
+  "unity": "2021.3",
+  "keywords": [
+    "FileExplorer",
+    "Explorer"
+  ],
+  "author": {
+    "name": "Aleksandr Krotov",
+    "email": "a.krotov@openmygame.com"
+  }
+}
