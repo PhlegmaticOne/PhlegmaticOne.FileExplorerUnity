@@ -12,7 +12,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.Views
     {
         [SerializeField] private TextMeshProUGUI _tabPathText;
         [SerializeField] private Button _backButton;
-        [SerializeField] private Button _closeButton;
+        [SerializeField] private LoadingTextView _loadingTextView;
         [SerializeField] private GameObject _emptyDirectoryText;
         [SerializeField] private TabView _tabView;
         
@@ -21,22 +21,19 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.Views
         public void Bind(NavigationViewModel viewModel)
         {
             _viewModel = viewModel;
-            _backButton.onClick.AddListener(NavigateBack);
-            _viewModel.FileEntries.CollectionChanged += HandleFileEntryCollectionChanged;
-            _viewModel.NavigationStarted += ViewModelOnNavigationStarted;
-            _viewModel.NavigationCompleted += ViewModelOnNavigationCompleted;
+            Subscribe();
         }
 
-        private void ViewModelOnNavigationStarted()
+        private void UpdateLoadingState(bool isLoading)
         {
-            _tabPathText.text = _viewModel.Path;
+            _loadingTextView.SetActive(isLoading);
+            _emptyDirectoryText.SetActive(_viewModel.IsEmpty());
+        }
+
+        private void UpdatePath(string path)
+        {
+            _tabPathText.text = path;
             _backButton.interactable = _viewModel.CanMoveBack();
-            _emptyDirectoryText.SetActive(false);
-        }
-
-        private void ViewModelOnNavigationCompleted()
-        {
-            _emptyDirectoryText.SetActive(_viewModel.FileEntries.Count == 0);
         }
 
         private void NavigateBack()
@@ -44,7 +41,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.Views
             _viewModel.NavigateBack();
         }
 
-        private void HandleFileEntryCollectionChanged(object sender, NotifyCollectionChangedEventArgs eventArgs)
+        private void HandleFileEntriesCollectionChanged(object sender, NotifyCollectionChangedEventArgs eventArgs)
         {
             switch (eventArgs.Action)
             {
@@ -61,6 +58,14 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.Views
                     _tabView.Clear();
                     break;
             }
+        }
+
+        private void Subscribe()
+        {
+            _backButton.onClick.AddListener(NavigateBack);
+            _viewModel.FileEntries.CollectionChanged += HandleFileEntriesCollectionChanged;
+            _viewModel.Path.ValueChanged += UpdatePath;
+            _viewModel.IsLoading.ValueChanged += UpdateLoadingState;
         }
     }
 }

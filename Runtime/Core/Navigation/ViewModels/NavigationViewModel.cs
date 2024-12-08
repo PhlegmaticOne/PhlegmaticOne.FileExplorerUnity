@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Configuration;
@@ -7,6 +6,7 @@ using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Cancellation;
 using PhlegmaticOne.FileExplorer.Features.Navigation;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
 {
@@ -25,24 +25,19 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
             _cancellationProvider = cancellationProvider;
             _explorerConfig = explorerConfig;
             FileEntries = new ObservableCollection<FileEntryViewModel>();
+            Path = new ReactiveProperty<string>();
+            IsLoading = new ReactiveProperty<bool>();
         }
 
-        public event Action NavigationStarted;
-        public event Action NavigationCompleted;
-        
-        public string Path { get; private set; }
+        public ReactiveProperty<bool> IsLoading { get; }
+        public ReactiveProperty<string> Path { get; }
         public ObservableCollection<FileEntryViewModel> FileEntries { get; }
-
-        public bool CanMoveBack()
-        {
-            return !Path.Equals(_explorerConfig.RootPath);
-        }
 
         public void Navigate(string path)
         {
-            Path = path;
             _cancellationProvider.Cancel();
             DisposeCurrentEntries();
+            Path.SetValue(path);
             LoadEntriesAsync().ForgetUnawareCancellation();
         }
 
@@ -54,9 +49,19 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
             }
         }
 
+        public bool CanMoveBack()
+        {
+            return !Path.Value.Equals(_explorerConfig.RootPath);
+        }
+
+        public bool IsEmpty()
+        {
+            return !IsLoading && FileEntries.Count == 0;
+        }
+
         private async Task LoadEntriesAsync()
         {
-            NavigationStarted?.Invoke();
+            IsLoading.SetValue(true);
 
             await foreach (var fileEntry in _navigator.Navigate(Path).WithCancellation(_cancellationProvider.Token))
             {
@@ -64,7 +69,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
                 await Task.Yield();
             }
             
-            NavigationCompleted?.Invoke();
+            IsLoading.SetValue(false);
         }
 
         private void DisposeCurrentEntries()

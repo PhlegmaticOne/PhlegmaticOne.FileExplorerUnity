@@ -18,7 +18,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.Views
         public void Bind(FileEntryViewModel viewModel)
         {
             _viewModel = viewModel;
-            UpdateFileName();
+            UpdateFileName(viewModel.Name);
             UpdateIcon();
             Subscribe();
         }
@@ -34,12 +34,14 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.Views
         {
             _holdBehaviour.OnClicked += HoldBehaviourOnClicked;
             _holdBehaviour.OnHoldClicked += HoldBehaviourOnHoldClicked;
+            _viewModel.Name.ValueChanged += UpdateFileName;
         }
 
         private void Unsubscribe()
         {
             _holdBehaviour.OnClicked -= HoldBehaviourOnClicked;
             _holdBehaviour.OnHoldClicked -= HoldBehaviourOnHoldClicked;
+            _viewModel.Name.ValueChanged -= UpdateFileName;
         }
 
         private void HoldBehaviourOnHoldClicked()
@@ -57,9 +59,9 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.Views
             _icon.sprite = null;
         }
 
-        private void UpdateFileName()
+        private void UpdateFileName(string value)
         {
-            _fileNameText.text = _viewModel.Name;
+            _fileNameText.text = value;
         }
 
         private void UpdateIcon()
