@@ -12,7 +12,7 @@ namespace PhlegmaticOne.FileExplorer.ExploreSample
             _exploreButton.onClick.AddListener(ExploreFiles);
         }
 
-        private static void ExploreFiles()
+        private void ExploreFiles()
         {
             Explorer.Open();
         }

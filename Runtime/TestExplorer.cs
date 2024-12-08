@@ -1,18 +1,18 @@
-﻿using System.Runtime.CompilerServices;
-using PhlegmaticOne.FileExplorer.Configuration;
+﻿using PhlegmaticOne.FileExplorer.Configuration;
+using PhlegmaticOne.FileExplorer.Core.Explorer.Views;
 using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.WebLoading;
 using PhlegmaticOne.FileExplorer.Features.Navigation;
 using UnityEngine;
 
-[assembly: InternalsVisibleTo("PhlegmaticOne.FileExplorer.ExploreSample")]
-
 namespace PhlegmaticOne.FileExplorer
 {
-    public class Explorer
+    internal sealed class TestExplorer : MonoBehaviour
     {
-        public static void Open()
+        [SerializeField] private FileExplorerView _view;
+        
+        private void Awake()
         {
             var config = Resources.Load<FileExplorerConfig>("Configs/FileExplorerConfig");
             var iconsLoader = new ExplorerIconsLoader(new WebFileLoader());
@@ -20,6 +20,10 @@ namespace PhlegmaticOne.FileExplorer
             var fileEntryFactory = new FileEntryFactory(iconsProvider);
             var navigator = new ExplorerNavigator(fileEntryFactory);
             var navigationViewModel = new NavigationViewModel(navigator, config);
+            
+            fileEntryFactory.SetupNavigation(navigationViewModel);
+
+            _view.Bind(navigationViewModel);
             
             navigationViewModel.Navigate(config.RootPath);
         }
