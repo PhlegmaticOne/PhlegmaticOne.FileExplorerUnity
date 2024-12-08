@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Configuration;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.WebLoading;
@@ -23,7 +24,7 @@ namespace PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services
             EnsureDirectoryCreated(_contentPath);
         }
 
-        public async Task<Sprite> LoadIconAsync(string fileExtension, ExplorerIconsConfig config)
+        public async Task<Sprite> LoadIconAsync(string fileExtension, ExplorerIconsConfig config, CancellationToken cancellationToken)
         {
             var fileName = fileExtension + Extension;
             var iconUrl = new Uri(new Uri(config.IconsWebDirectoryUrl), fileName);
@@ -31,15 +32,15 @@ namespace PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services
 
             if (File.Exists(filePath))
             {
-                var bytesFromFile = await File.ReadAllBytesAsync(filePath);
+                var bytesFromFile = await File.ReadAllBytesAsync(filePath, cancellationToken);
                 return bytesFromFile.CreateSpriteFromBytes();
             }
 
-            var iconLoadResult = await _webFileLoader.LoadAsync(iconUrl.AbsoluteUri);
+            var iconLoadResult = await _webFileLoader.LoadAsync(iconUrl.AbsoluteUri, cancellationToken);
 
             if (!iconLoadResult.HasError())
             {
-                await File.WriteAllBytesAsync(filePath, iconLoadResult.Value);
+                await File.WriteAllBytesAsync(filePath, iconLoadResult.Value, cancellationToken);
                 return iconLoadResult.Value.CreateSpriteFromBytes();
             }
 

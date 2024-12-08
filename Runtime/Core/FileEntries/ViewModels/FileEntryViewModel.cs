@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons;
@@ -21,7 +22,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels
         public string Path { get; }
         public string Name { get; }
 
-        public abstract Task InitializeAsync();
+        public abstract Task InitializeAsync(CancellationToken cancellationToken);
         public abstract ExplorerIconData GetIcon();
         public abstract void OnClick();
         public abstract void Dispose();

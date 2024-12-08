@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Configuration;
 using UnityEngine;
@@ -20,14 +21,14 @@ namespace PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services
 
         public bool IsPreviewImagesInsteadOfIcons => _config.IconsConfig.IsPreviewImagesInsteadOfIcons;
 
-        public async Task<Sprite> GetIconAsync(string fileExtension)
+        public async Task<Sprite> GetIconAsync(string fileExtension, CancellationToken cancellationToken)
         {
             if (_explorerIcons.TryGetValue(fileExtension, out var fileIcon))
             {
                 return fileIcon;
             }
 
-            fileIcon = await _iconsLoader.LoadIconAsync(fileExtension, _config.IconsConfig);
+            fileIcon = await _iconsLoader.LoadIconAsync(fileExtension, _config.IconsConfig, cancellationToken);
             _explorerIcons.TryAdd(fileExtension, fileIcon);
             return fileIcon;
         }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Actions;
@@ -23,9 +24,9 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels
             _navigationViewModel = navigationViewModel;
         }
 
-        public override async Task InitializeAsync()
+        public override async Task InitializeAsync(CancellationToken cancellationToken)
         {
-            _directoryIcon = await IconsProvider.GetIconAsync(DirectoryExtension);
+            _directoryIcon = await IconsProvider.GetIconAsync(DirectoryExtension, cancellationToken);
         }
 
         public override ExplorerIconData GetIcon()

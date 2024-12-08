@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
+using System.Threading;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.Navigation
@@ -13,14 +15,15 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation
             _fileEntryFactory = fileEntryFactory;
         }
         
-        public async IAsyncEnumerable<FileEntryViewModel> Navigate(string path)
+        public async IAsyncEnumerable<FileEntryViewModel> Navigate(
+            string path, [EnumeratorCancellation] CancellationToken cancellationToken)
         {
             var directory = new DirectoryInfo(path);
 
             foreach (var fileEntry in directory.EnumerateFileSystemInfos())
             {
                 var viewModel = _fileEntryFactory.CreateEntry(fileEntry);
-                await viewModel.InitializeAsync();
+                await viewModel.InitializeAsync(cancellationToken);
                 yield return viewModel;
             }
         }

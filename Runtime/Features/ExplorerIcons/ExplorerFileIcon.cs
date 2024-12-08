@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
@@ -20,15 +21,15 @@ namespace PhlegmaticOne.FileExplorer.Features.ExplorerIcons
             _iconsProvider = iconsProvider;
         }
 
-        public async Task EnsureLoadedAsync()
+        public async Task EnsureLoadedAsync(CancellationToken cancellationToken)
         {
             if (IsPreviewImage())
             {
-                _fileIcon = await LoadPreviewIconAsync();
+                _fileIcon = await LoadPreviewIconAsync(cancellationToken);
             }
             else
             {
-                _fileIcon = await _iconsProvider.GetIconAsync(_viewModel.Extension);
+                _fileIcon = await _iconsProvider.GetIconAsync(_viewModel.Extension, cancellationToken);
             }
         }
 
@@ -46,9 +47,9 @@ namespace PhlegmaticOne.FileExplorer.Features.ExplorerIcons
             }
         }
 
-        private async Task<Sprite> LoadPreviewIconAsync()
+        private async Task<Sprite> LoadPreviewIconAsync(CancellationToken cancellationToken)
         {
-            var textureBytes = await File.ReadAllBytesAsync(_viewModel.Path);
+            var textureBytes = await File.ReadAllBytesAsync(_viewModel.Path, cancellationToken);
             return textureBytes.CreateSpriteFromBytes();
         }
 

@@ -30,15 +30,12 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.Views
         private void ViewModelOnNavigationStarted()
         {
             _tabPathText.text = _viewModel.Path;
-            _backButton.interactable = false;
-            _closeButton.interactable = false;
+            _backButton.interactable = _viewModel.CanMoveBack();
             _emptyDirectoryText.SetActive(false);
         }
 
         private void ViewModelOnNavigationCompleted()
         {
-            _closeButton.interactable = true;
-            _backButton.interactable = _viewModel.CanMoveBack();
             _emptyDirectoryText.SetActive(_viewModel.FileEntries.Count == 0);
         }
 
