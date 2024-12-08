@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Configuration;
+using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services
@@ -31,6 +32,16 @@ namespace PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services
             fileIcon = await _iconsLoader.LoadIconAsync(fileExtension, _config.IconsConfig, cancellationToken);
             _explorerIcons.TryAdd(fileExtension, fileIcon);
             return fileIcon;
+        }
+
+        public void Dispose()
+        {
+            foreach (var explorerIcon in _explorerIcons)
+            {
+                explorerIcon.Value.Dispose();
+            }
+            
+            _explorerIcons.Clear();
         }
     }
 }

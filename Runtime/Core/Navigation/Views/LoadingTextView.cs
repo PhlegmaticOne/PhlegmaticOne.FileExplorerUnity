@@ -25,8 +25,8 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.Views
                 Hide();
             }
         }
-        
-        public void Show()
+
+        private void Show()
         {
             enabled = true;
             _currentTime = 0;
@@ -34,7 +34,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.Views
             UpdatePointsCount(1);
         }
 
-        public void Hide()
+        private void Hide()
         {
             _loadingText.gameObject.SetActive(false);
             enabled = false;

@@ -36,9 +36,14 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
         public void Navigate(string path)
         {
             _cancellationProvider.Cancel();
-            DisposeCurrentEntries();
+            ClearEntries();
             Path.SetValue(path);
             LoadEntriesAsync().ForgetUnawareCancellation();
+        }
+
+        public void NavigateRoot()
+        {
+            Navigate(_explorerConfig.RootPath);
         }
 
         public void NavigateBack()
@@ -59,6 +64,16 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
             return !IsLoading && FileEntries.Count == 0;
         }
 
+        public void ClearEntries()
+        {
+            foreach (var fileEntry in FileEntries)
+            {
+                fileEntry.Dispose();
+            }
+            
+            FileEntries.Clear();
+        }
+
         private async Task LoadEntriesAsync()
         {
             IsLoading.SetValue(true);
@@ -70,16 +85,6 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
             }
             
             IsLoading.SetValue(false);
-        }
-
-        private void DisposeCurrentEntries()
-        {
-            foreach (var fileEntry in FileEntries)
-            {
-                fileEntry.Dispose();
-            }
-            
-            FileEntries.Clear();
         }
 
         private string GetParentPath()
