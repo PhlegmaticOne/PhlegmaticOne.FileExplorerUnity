@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Configuration;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
@@ -24,14 +23,14 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
             _navigator = navigator;
             _cancellationProvider = cancellationProvider;
             _explorerConfig = explorerConfig;
-            FileEntries = new ObservableCollection<FileEntryViewModel>();
+            FileEntries = new ReactiveCollection<FileEntryViewModel>();
             Path = new ReactiveProperty<string>();
             IsLoading = new ReactiveProperty<bool>();
         }
 
         public ReactiveProperty<bool> IsLoading { get; }
         public ReactiveProperty<string> Path { get; }
-        public ObservableCollection<FileEntryViewModel> FileEntries { get; }
+        public ReactiveCollection<FileEntryViewModel> FileEntries { get; }
 
         public void Navigate(string path)
         {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Specialized;
-using System.Linq;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,12 +41,13 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.Views
             _viewModel.NavigateBack();
         }
 
-        private void HandleFileEntriesCollectionChanged(object sender, NotifyCollectionChangedEventArgs eventArgs)
+        private void HandleFileEntriesCollectionChanged(
+            ReactiveCollectionChangedEventArgs<FileEntryViewModel> eventArgs)
         {
             switch (eventArgs.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    _tabView.AddEntries(eventArgs.NewItems.OfType<FileEntryViewModel>());
+                    _tabView.AddEntries(eventArgs.NewItems);
                     break;
                 case NotifyCollectionChangedAction.Move:
                     break;

@@ -1,5 +1,4 @@
-﻿using System;
-using PhlegmaticOne.FileExplorer.Core.Explorer.ViewModels;
+﻿using PhlegmaticOne.FileExplorer.Core.Explorer.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Navigation.Views;
 using UnityEngine;
 using UnityEngine.UI;
