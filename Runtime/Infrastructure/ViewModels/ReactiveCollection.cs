@@ -27,6 +27,14 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels
             _collection.Add(item);
         }
 
+        public void AddRange(IEnumerable<T> actions)
+        {
+            foreach (var action in actions)
+            {
+                _collection.Add(action);
+            }
+        }
+
         public void Clear()
         {
             _collection.Clear();

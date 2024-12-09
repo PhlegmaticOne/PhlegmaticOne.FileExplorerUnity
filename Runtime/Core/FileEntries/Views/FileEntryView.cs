@@ -46,6 +46,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.Views
 
         private void HoldBehaviourOnHoldClicked()
         {
+            UpdateViewModelPosition();
             _viewModel.OnHoldClick();
         }
 
@@ -57,6 +58,12 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.Views
         private void ReleaseIcon()
         {
             _icon.sprite = null;
+        }
+
+        private void UpdateViewModelPosition()
+        {
+            var t = (transform as RectTransform)!;
+            _viewModel.Position.Update(t.anchoredPosition, t.rect.size);
         }
 
         private void UpdateFileName(string value)

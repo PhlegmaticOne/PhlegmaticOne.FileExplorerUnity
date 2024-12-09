@@ -1,4 +1,5 @@
-﻿using PhlegmaticOne.FileExplorer.Core.Explorer.ViewModels;
+﻿using PhlegmaticOne.FileExplorer.Core.Actions.Views;
+using PhlegmaticOne.FileExplorer.Core.Explorer.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Navigation.Views;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,8 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.Views
     {
         [SerializeField] private Canvas _canvas;
         [SerializeField] private NavigationView _navigationView;
+        [SerializeField] private FileEntryActionsView _actionsView;
+        [SerializeField] private FileExplorerHeaderView _headerView;
         [SerializeField] private Button _closeButton;
         
         private FileExplorerViewModel _viewModel;
@@ -16,8 +19,9 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.Views
         public void Bind(FileExplorerViewModel viewModel)
         {
             _viewModel = viewModel;
-            SetupCamera();
+            SetupCanvas();
             Subscribe();
+            BindActions();
             BindNavigation();
         }
 
@@ -41,9 +45,16 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.Views
             _closeButton.onClick.AddListener(CloseExplorer);
         }
 
-        private void SetupCamera()
+        private void SetupCanvas()
         {
             _canvas.worldCamera = Camera.main;
+            _canvas.sortingOrder = 999;
+        }
+
+        private void BindActions()
+        {
+            _actionsView.Bind(_viewModel.ActionsViewModel);
+            _headerView.Bind(_viewModel.ActionsViewModel);
         }
 
         private void BindNavigation()

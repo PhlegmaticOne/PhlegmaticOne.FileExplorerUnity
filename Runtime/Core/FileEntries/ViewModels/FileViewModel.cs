@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
+using PhlegmaticOne.FileExplorer.Infrastructure.Positioning;
 
 namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels
 {
@@ -12,9 +12,10 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels
         private readonly ExplorerFileIcon _fileIcon;
         
         public FileViewModel(
-            string path, string name, string extension,
-            IExplorerIconsProvider iconsProvider) : 
-            base(path, name, iconsProvider)
+            string path, string name, string extension, FileEntryPosition position,
+            IExplorerIconsProvider iconsProvider,
+            FileEntryActionsProvider actionsProvider) : 
+            base(path, name, position, iconsProvider, actionsProvider)
         {
             Extension = extension;
             _fileIcon = new ExplorerFileIcon(this, iconsProvider);
@@ -35,11 +36,6 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels
         public override void OnClick()
         {
             
-        }
-
-        protected override IEnumerable<IFileEntryAction> GetActions()
-        {
-            yield break;
         }
 
         public bool IsImage()

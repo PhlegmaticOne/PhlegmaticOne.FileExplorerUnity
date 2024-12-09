@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Actions;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
+using PhlegmaticOne.FileExplorer.Infrastructure.Positioning;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels
@@ -18,8 +18,11 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels
         private Sprite _directoryIcon;
         
         public DirectoryViewModel(
-            string path, string name, IExplorerIconsProvider iconsProvider, NavigationViewModel navigationViewModel) : 
-            base(path, name, iconsProvider)
+            string path, string name, FileEntryPosition position,
+            IExplorerIconsProvider iconsProvider, 
+            FileEntryActionsProvider actionsProvider,
+            NavigationViewModel navigationViewModel) : 
+            base(path, name, position, iconsProvider, actionsProvider)
         {
             _navigationViewModel = navigationViewModel;
         }
@@ -37,11 +40,6 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels
         public override void OnClick()
         {
             _navigationViewModel.Navigate(Path);
-        }
-
-        protected override IEnumerable<IFileEntryAction> GetActions()
-        {
-            yield break;
         }
 
         public override void Dispose()
