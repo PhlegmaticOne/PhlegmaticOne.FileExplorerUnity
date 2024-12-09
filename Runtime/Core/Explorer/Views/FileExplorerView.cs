@@ -1,4 +1,5 @@
-﻿using PhlegmaticOne.FileExplorer.Core.Explorer.ViewModels;
+﻿using System;
+using PhlegmaticOne.FileExplorer.Core.Explorer.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Navigation.Views;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,21 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.Views
             SetupCamera();
             Subscribe();
             BindNavigation();
+        }
+
+        private void Update()
+        {
+            if (!Input.GetKeyUp(KeyCode.Escape))
+            {
+                return;
+            }
+
+            if (_viewModel.NavigationViewModel.NavigateBack())
+            {
+                return;
+            }
+            
+            CloseExplorer();
         }
 
         private void Subscribe()

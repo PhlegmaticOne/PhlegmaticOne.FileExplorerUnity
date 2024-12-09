@@ -19,6 +19,7 @@ namespace PhlegmaticOne.FileExplorer
         {
             var config = Resources.Load<FileExplorerConfig>("Configs/FileExplorerConfig");
             var explorerPrefab = Resources.Load<FileExplorerView>("Prefabs/FileExplorer");
+            
             var iconsLoader = new ExplorerIconsLoader(new WebFileLoader());
             var cancellationProvider = new ExplorerCancellationProvider();
             var iconsProvider = new ExplorerIconsProvider(iconsLoader, config);

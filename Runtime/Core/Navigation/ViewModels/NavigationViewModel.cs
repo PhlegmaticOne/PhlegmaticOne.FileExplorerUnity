@@ -46,12 +46,15 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
             Navigate(_explorerConfig.RootPath);
         }
 
-        public void NavigateBack()
+        public bool NavigateBack()
         {
-            if (CanMoveBack())
+            if (!CanMoveBack())
             {
-                Navigate(GetParentPath());
+                return false;
             }
+            
+            Navigate(GetParentPath());
+            return true;
         }
 
         public bool CanMoveBack()
