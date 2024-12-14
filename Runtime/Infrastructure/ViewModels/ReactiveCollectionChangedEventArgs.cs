@@ -21,6 +21,11 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels
         public IEnumerable<T> OldItems => CollectionOrDefault(_collectionChangedEventArgs.OldItems);
         public int OldStartingIndex => _collectionChangedEventArgs.OldStartingIndex;
 
+        public override string ToString()
+        {
+            return _collectionChangedEventArgs.ToString();
+        }
+
         private static IEnumerable<T> CollectionOrDefault(IList list)
         {
             return list is null || list.Count == 0 ? Enumerable.Empty<T>() : list.OfType<T>();

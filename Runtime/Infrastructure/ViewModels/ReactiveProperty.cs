@@ -20,7 +20,19 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels
             return property.Value;
         }
 
-        public void SetValue(T value)
+        public void SetValue(T value, bool notify)
+        {
+            if (notify)
+            {
+                SetValueNotify(value);
+            }
+            else
+            {
+                SetValueWithoutNotify(value);
+            }
+        }
+        
+        public void SetValueNotify(T value)
         {
             Value = value;
             OnPropertyChanged();
@@ -29,6 +41,11 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels
         public void SetValueWithoutNotify(T value)
         {
             Value = value;
+        }
+
+        public override string ToString()
+        {
+            return Value.ToString();
         }
 
         private void OnPropertyChanged()

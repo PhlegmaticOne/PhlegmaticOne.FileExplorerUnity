@@ -29,6 +29,11 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.ViewModels
         public FileEntryActionsViewModel ActionsViewModel { get; }
         public TabViewModel TabViewModel { get; }
 
+        public void NavigateRoot()
+        {
+            NavigationViewModel.NavigateRoot();
+        }
+
         public void OnClosing()
         {
             _cancellationProvider.Cancel();

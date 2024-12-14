@@ -42,7 +42,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
             _cancellationProvider.Cancel();
             _actionsViewModel.Deactivate();
             _tabViewModel.Clear();
-            Path.SetValue(path);
+            Path.SetValueNotify(path);
             LoadEntriesAsync().ForgetUnawareCancellation();
         }
 
@@ -69,7 +69,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
 
         private async Task LoadEntriesAsync()
         {
-            IsLoading.SetValue(true);
+            IsLoading.SetValueNotify(true);
 
             await foreach (var fileEntry in _navigator.Navigate(Path).WithCancellation(_cancellationProvider.Token))
             {
@@ -78,7 +78,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
             }
 
             _tabViewModel.UpdateIsEmpty();
-            IsLoading.SetValue(false);
+            IsLoading.SetValueNotify(false);
         }
 
         private string GetParentPath()

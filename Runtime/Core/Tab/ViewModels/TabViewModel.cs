@@ -14,25 +14,25 @@ namespace PhlegmaticOne.FileExplorer.Core.Tab.ViewModels
         public ReactiveCollection<FileEntryViewModel> FileEntries { get; }
         public ReactiveProperty<bool> IsEmpty { get; }
 
-        public void Add(FileEntryViewModel fileEntry)
+        public void Add(FileEntryViewModel file)
         {
-            FileEntries.Add(fileEntry);
+            FileEntries.Add(file);
             UpdateIsEmpty();
         }
 
-        public void Remove(FileEntryViewModel fileEntry)
+        public void Remove(FileEntryViewModel file)
         {
-            FileEntries.Remove(fileEntry);
+            FileEntries.Remove(file);
             UpdateIsEmpty();
         }
 
         public void UpdateIsEmpty()
         {
             var isEmpty = FileEntries.Count == 0;
-            IsEmpty.SetValue(isEmpty);
+            IsEmpty.SetValueNotify(isEmpty);
         }
 
-        public void Clear()
+        public void Clear(bool isNotify = false)
         {
             foreach (var fileEntry in FileEntries)
             {
@@ -40,7 +40,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Tab.ViewModels
             }
             
             FileEntries.Clear();
-            IsEmpty.SetValueWithoutNotify(true);
+            IsEmpty.SetValue(true, isNotify);
         }
     }
 }

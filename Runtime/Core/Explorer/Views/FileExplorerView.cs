@@ -2,6 +2,7 @@
 using PhlegmaticOne.FileExplorer.Core.Explorer.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Navigation.Views;
 using PhlegmaticOne.FileExplorer.Core.Tab.Views;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,32 +16,29 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.Views
         [SerializeField] private FileEntryActionsView _actionsView;
         [SerializeField] private FileExplorerHeaderView _headerView;
         [SerializeField] private Button _closeButton;
+        [SerializeField] private PopupProvider _popupProvider;
         
         private FileExplorerViewModel _viewModel;
+
+        public IPopupProvider PopupProvider => _popupProvider;
 
         public void Bind(FileExplorerViewModel viewModel)
         {
             _viewModel = viewModel;
+            
             SetupCanvas();
             Subscribe();
-            BindActions();
-            BindTab();
-            BindNavigation();
+            BindViews();
+            
+            _viewModel.NavigateRoot();
         }
 
         private void Update()
         {
-            if (!Input.GetKeyUp(KeyCode.Escape))
+            if (Input.GetKeyUp(KeyCode.Escape) && !_viewModel.NavigationViewModel.NavigateBack())
             {
-                return;
+                CloseExplorer();
             }
-
-            if (_viewModel.NavigationViewModel.NavigateBack())
-            {
-                return;
-            }
-            
-            CloseExplorer();
         }
 
         private void Subscribe()
@@ -54,22 +52,12 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.Views
             _canvas.sortingOrder = 999;
         }
 
-        private void BindActions()
+        private void BindViews()
         {
             _actionsView.Bind(_viewModel.ActionsViewModel);
             _headerView.Bind(_viewModel.ActionsViewModel);
-        }
-
-        private void BindTab()
-        {
             _tabView.Bind(_viewModel.TabViewModel);
-        }
-
-        private void BindNavigation()
-        {
-            var viewModel = _viewModel.NavigationViewModel;
-            _navigationView.Bind(viewModel);
-            viewModel.NavigateRoot();
+            _navigationView.Bind(_viewModel.NavigationViewModel);
         }
 
         private void CloseExplorer()

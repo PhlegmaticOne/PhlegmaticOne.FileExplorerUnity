@@ -23,9 +23,9 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.Views
             Subscribe();
         }
 
-        public bool IsBindTo(FileEntryViewModel fileEntry)
+        public bool IsBindTo(FileEntryViewModel file)
         {
-            return ReferenceEquals(_viewModel, fileEntry);
+            return ReferenceEquals(_viewModel, file);
         }
 
         public void Release()

@@ -1,35 +1,32 @@
 ﻿using System.IO;
-using PhlegmaticOne.FileExplorer.Core.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
+using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories;
 using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
-using PhlegmaticOne.FileExplorer.Core.Tab.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Actions;
-using PhlegmaticOne.FileExplorer.Features.Actions.Directories;
-using PhlegmaticOne.FileExplorer.Features.Actions.Files;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
-using PhlegmaticOne.FileExplorer.Infrastructure.Positioning;
+using PhlegmaticOne.FileExplorer.Features.FileOperations;
 
 namespace PhlegmaticOne.FileExplorer.Features.Navigation
 {
     internal sealed class FileEntryFactory : IFileEntryFactory
     {
         private readonly IExplorerIconsProvider _iconsProvider;
-        private readonly FileEntryActionsViewModel _actionsViewModel;
+        private readonly FileEntryActionsProvider _fileActionsProvider;
+        private readonly FileEntryActionsProvider _directoryActionsProvider;
+        private readonly IFileOperations _fileOperations;
 
-        private readonly IFileEntryActionsFactory _fileActionsFactory;
-        private readonly IFileEntryActionsFactory _directoryActionsFactory;
-        
         private NavigationViewModel _navigationViewModel;
 
         public FileEntryFactory(
-            IExplorerIconsProvider iconsProvider, 
-            FileEntryActionsViewModel actionsViewModel,
-            TabViewModel tabViewModel)
+            IExplorerIconsProvider iconsProvider,
+            FileEntryActionsProvider fileActionsProvider,
+            FileEntryActionsProvider directoryActionsProvider,
+            IFileOperations fileOperations)
         {
             _iconsProvider = iconsProvider;
-            _actionsViewModel = actionsViewModel;
-            _fileActionsFactory = new FileEntryActionsFactoryFile(_actionsViewModel, tabViewModel);
-            _directoryActionsFactory = new FileEntryActionsFactoryDirectory(_actionsViewModel, tabViewModel);
+            _fileActionsProvider = fileActionsProvider;
+            _directoryActionsProvider = directoryActionsProvider;
+            _fileOperations = fileOperations;
         }
 
         public void SetupNavigation(NavigationViewModel navigationViewModel)
@@ -46,22 +43,16 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation
 
         private FileEntryViewModel CreateFileEntry(FileSystemInfo fileInfo)
         {
-            var actionsProvider = new FileEntryActionsProvider(_actionsViewModel, _fileActionsFactory);
-            var position = new FileEntryPosition();
-            
-            return new FileViewModel(
-                fileInfo.FullName, fileInfo.Name, fileInfo.Extension, position,
-                _iconsProvider, actionsProvider);
+            return new Core.FileEntries.ViewModels.Files.FileViewModel(
+                fileInfo.FullName, fileInfo.Name, fileInfo.Extension,
+                _iconsProvider, _fileActionsProvider, _fileOperations);
         }
 
         private FileEntryViewModel CreateDirectoryEntry(FileSystemInfo fileInfo)
         {
-            var actionsProvider = new FileEntryActionsProvider(_actionsViewModel, _directoryActionsFactory);
-            var position = new FileEntryPosition();
-            
             return new DirectoryViewModel(
-                fileInfo.FullName, fileInfo.Name, position,
-                _iconsProvider, actionsProvider, _navigationViewModel);
+                fileInfo.FullName, fileInfo.Name,
+                _iconsProvider, _directoryActionsProvider, _navigationViewModel, _fileOperations);
         }
     }
 }

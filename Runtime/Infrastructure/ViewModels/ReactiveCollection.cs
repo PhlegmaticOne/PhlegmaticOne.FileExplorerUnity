@@ -60,6 +60,11 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels
             return _collection.GetEnumerator();
         }
 
+        public override string ToString()
+        {
+            return _collection.ToString();
+        }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)_collection).GetEnumerator();

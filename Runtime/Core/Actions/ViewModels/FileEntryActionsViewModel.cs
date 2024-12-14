@@ -28,7 +28,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Actions.ViewModels
             _position = position;
             Actions.Clear();
             Actions.AddRange(actions);
-            IsActive.SetValue(true);
+            IsActive.SetValueNotify(true);
         }
 
         public void RaiseUpdatePosition(Vector2 size)
@@ -40,13 +40,13 @@ namespace PhlegmaticOne.FileExplorer.Core.Actions.ViewModels
             var offsetY = -1f * (_position.Size.y / 2); 
 
             var position = filePosition + new Vector2(offsetX, offsetY);
-            Position.SetValue(position);
+            Position.SetValueNotify(position);
         }
 
         public void Deactivate()
         {
             Actions.Clear();
-            IsActive.SetValue(false);
+            IsActive.SetValueNotify(false);
             _position = null;
         }
     }
