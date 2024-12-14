@@ -26,6 +26,11 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels
             OnPropertyChanged();
         }
 
+        public void SetValueWithoutNotify(T value)
+        {
+            Value = value;
+        }
+
         private void OnPropertyChanged()
         {
             ValueChanged?.Invoke(Value);

@@ -2,12 +2,12 @@
 using PhlegmaticOne.FileExplorer.Core.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
+using PhlegmaticOne.FileExplorer.Core.Tab.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Actions;
 using PhlegmaticOne.FileExplorer.Features.Actions.Directories;
 using PhlegmaticOne.FileExplorer.Features.Actions.Files;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
 using PhlegmaticOne.FileExplorer.Infrastructure.Positioning;
-using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.Navigation
 {
@@ -15,7 +15,6 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation
     {
         private readonly IExplorerIconsProvider _iconsProvider;
         private readonly FileEntryActionsViewModel _actionsViewModel;
-        private readonly Camera _camera;
 
         private readonly IFileEntryActionsFactory _fileActionsFactory;
         private readonly IFileEntryActionsFactory _directoryActionsFactory;
@@ -25,13 +24,12 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation
         public FileEntryFactory(
             IExplorerIconsProvider iconsProvider, 
             FileEntryActionsViewModel actionsViewModel,
-            Camera camera)
+            TabViewModel tabViewModel)
         {
             _iconsProvider = iconsProvider;
             _actionsViewModel = actionsViewModel;
-            _camera = camera;
-            _fileActionsFactory = new FileEntryActionsFactoryFile(_actionsViewModel);
-            _directoryActionsFactory = new FileEntryActionsFactoryDirectory(_actionsViewModel);
+            _fileActionsFactory = new FileEntryActionsFactoryFile(_actionsViewModel, tabViewModel);
+            _directoryActionsFactory = new FileEntryActionsFactoryDirectory(_actionsViewModel, tabViewModel);
         }
 
         public void SetupNavigation(NavigationViewModel navigationViewModel)
@@ -49,7 +47,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation
         private FileEntryViewModel CreateFileEntry(FileSystemInfo fileInfo)
         {
             var actionsProvider = new FileEntryActionsProvider(_actionsViewModel, _fileActionsFactory);
-            var position = new FileEntryPosition(_camera);
+            var position = new FileEntryPosition();
             
             return new FileViewModel(
                 fileInfo.FullName, fileInfo.Name, fileInfo.Extension, position,
@@ -59,7 +57,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation
         private FileEntryViewModel CreateDirectoryEntry(FileSystemInfo fileInfo)
         {
             var actionsProvider = new FileEntryActionsProvider(_actionsViewModel, _directoryActionsFactory);
-            var position = new FileEntryPosition(_camera);
+            var position = new FileEntryPosition();
             
             return new DirectoryViewModel(
                 fileInfo.FullName, fileInfo.Name, position,

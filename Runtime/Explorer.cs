@@ -3,6 +3,7 @@ using PhlegmaticOne.FileExplorer.Core.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Explorer.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Explorer.Views;
 using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
+using PhlegmaticOne.FileExplorer.Core.Tab.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Cancellation;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.WebLoading;
@@ -17,18 +18,22 @@ namespace PhlegmaticOne.FileExplorer
         {
             var config = Resources.Load<FileExplorerConfig>("Configs/FileExplorerConfig");
             var explorerPrefab = Resources.Load<FileExplorerView>("Prefabs/FileExplorer");
-            var camera = Camera.main;
-            
-            var iconsLoader = new ExplorerIconsLoader(new WebFileLoader());
+
+            var fileLoader = new WebFileLoader();
+            var iconsLoader = new ExplorerIconsLoader(fileLoader);
             var cancellationProvider = new ExplorerCancellationProvider();
             var iconsProvider = new ExplorerIconsProvider(iconsLoader, config);
+            
             var actionsViewModel = new FileEntryActionsViewModel();
-            var fileEntryFactory = new FileEntryFactory(iconsProvider, actionsViewModel, camera);
+            var tabViewModel = new TabViewModel();
+            var fileEntryFactory = new FileEntryFactory(iconsProvider, actionsViewModel, tabViewModel);
             var navigator = new ExplorerNavigator(fileEntryFactory);
+            
             var navigationViewModel = new NavigationViewModel(
-                navigator, cancellationProvider, actionsViewModel, config);
+                navigator, cancellationProvider, actionsViewModel, config, tabViewModel);
+            
             var explorerViewModel = new FileExplorerViewModel(
-                cancellationProvider, iconsProvider, navigationViewModel, actionsViewModel);
+                cancellationProvider, iconsProvider, navigationViewModel, actionsViewModel, tabViewModel);
             
             fileEntryFactory.SetupNavigation(navigationViewModel);
 

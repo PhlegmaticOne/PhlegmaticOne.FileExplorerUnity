@@ -23,6 +23,11 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.Views
             Subscribe();
         }
 
+        public bool IsBindTo(FileEntryViewModel fileEntry)
+        {
+            return ReferenceEquals(_viewModel, fileEntry);
+        }
+
         public void Release()
         {
             ReleaseIcon();

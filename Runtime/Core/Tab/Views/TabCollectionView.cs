@@ -4,9 +4,9 @@ using PhlegmaticOne.FileExplorer.Core.FileEntries.Views;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace PhlegmaticOne.FileExplorer.Core.Navigation.Views
+namespace PhlegmaticOne.FileExplorer.Core.Tab.Views
 {
-    internal sealed class TabView : MonoBehaviour
+    internal sealed class TabCollectionView : MonoBehaviour
     {
         [SerializeField] private FileEntryView _entryViewPrefab;
         [SerializeField] private GridLayoutGroup _fileContainer;
@@ -23,15 +23,30 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.Views
             }
         }
 
+        public void RemoveEntries(IEnumerable<FileEntryViewModel> fileEntries)
+        {
+            foreach (var fileEntry in fileEntries)
+            {
+                var view = _fileEntryViews.Find(x => x.IsBindTo(fileEntry));
+                DestroyView(view);
+                _fileEntryViews.Remove(view);
+            }
+        }
+
         public void Clear()
         {
             foreach (var fileEntryView in _fileEntryViews)
             {
-                fileEntryView.Release();
-                Destroy(fileEntryView.gameObject);
+                DestroyView(fileEntryView);
             }
             
             _fileEntryViews.Clear();
+        }
+
+        private static void DestroyView(FileEntryView fileEntryView)
+        {
+            fileEntryView.Release();
+            Destroy(fileEntryView.gameObject);
         }
     }
 }

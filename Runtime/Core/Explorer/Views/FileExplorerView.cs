@@ -1,6 +1,7 @@
 ﻿using PhlegmaticOne.FileExplorer.Core.Actions.Views;
 using PhlegmaticOne.FileExplorer.Core.Explorer.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Navigation.Views;
+using PhlegmaticOne.FileExplorer.Core.Tab.Views;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.Views
     internal sealed class FileExplorerView : MonoBehaviour
     {
         [SerializeField] private Canvas _canvas;
+        [SerializeField] private TabView _tabView;
         [SerializeField] private NavigationView _navigationView;
         [SerializeField] private FileEntryActionsView _actionsView;
         [SerializeField] private FileExplorerHeaderView _headerView;
@@ -22,6 +24,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.Views
             SetupCanvas();
             Subscribe();
             BindActions();
+            BindTab();
             BindNavigation();
         }
 
@@ -55,6 +58,11 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.Views
         {
             _actionsView.Bind(_viewModel.ActionsViewModel);
             _headerView.Bind(_viewModel.ActionsViewModel);
+        }
+
+        private void BindTab()
+        {
+            _tabView.Bind(_viewModel.TabViewModel);
         }
 
         private void BindNavigation()
