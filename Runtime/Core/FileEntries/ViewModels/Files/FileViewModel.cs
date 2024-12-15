@@ -1,9 +1,11 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
 using PhlegmaticOne.FileExplorer.Features.FileOperations;
+using PhlegmaticOne.FileExplorer.Features.Properties.Files;
 
 namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
 {
@@ -28,6 +30,16 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
         {
             await _fileIcon.EnsureLoadedAsync(cancellationToken);
             Icon.SetIcon(_fileIcon.GetIcon());
+        }
+
+        public override Dictionary<string, string> GetProperties()
+        {
+            var properties = new FileProperties(Path);
+            var baseProperties = properties.GetBaseProperties();
+            baseProperties.Add("Directory", properties.Directory);
+            baseProperties.Add("Extension", properties.Extension);
+            baseProperties.Add("Size", properties.Size.BuildUnitView());
+            return baseProperties;
         }
 
         public override void Rename(string newName)

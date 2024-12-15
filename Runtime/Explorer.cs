@@ -12,6 +12,7 @@ using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.WebLoading;
 using PhlegmaticOne.FileExplorer.Features.FileOperations;
 using PhlegmaticOne.FileExplorer.Features.Navigation;
+using PhlegmaticOne.FileExplorer.Features.Properties.Services;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using UnityEngine;
 
@@ -35,6 +36,7 @@ namespace PhlegmaticOne.FileExplorer
             container.Register<IExplorerIconsProvider, ExplorerIconsProvider>();
             container.Register<IExplorerCancellationProvider, ExplorerCancellationProvider>();
             container.Register<IFileEntryRenameDataProvider, FileEntryRenameDataProvider>();
+            container.Register<IFileEntryPropertiesViewProvider, FileEntryPropertiesViewProvider>();
             container.Register<IFileOperations, FileOperations>();
             
             container.Register<FileEntryActionsFactoryFile>();

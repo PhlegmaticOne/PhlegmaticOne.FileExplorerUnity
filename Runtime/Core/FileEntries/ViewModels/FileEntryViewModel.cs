@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions;
@@ -38,6 +39,8 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels
         public ExplorerIconData Icon { get; }
 
         public abstract Task InitializeAsync(CancellationToken cancellationToken);
+        public abstract Dictionary<string, string> GetProperties();
+        
         public abstract void Rename(string newName);
         public abstract void Delete();
         public abstract void OnClick();
