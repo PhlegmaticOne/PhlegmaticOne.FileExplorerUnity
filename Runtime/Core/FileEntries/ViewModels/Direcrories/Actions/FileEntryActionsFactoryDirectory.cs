@@ -29,14 +29,24 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories
         
         protected override IEnumerable<IFileEntryAction> GetActions(DirectoryViewModel fileEntry)
         {
-            yield return new FileEntryActionRename(
-                fileEntry, _renameDataProvider, _actionsViewModel);
-            
-            yield return new FileEntryActionProperties(
-                fileEntry, _propertiesViewProvider, _actionsViewModel);
-            
-            yield return new FileEntryActionDelete(
-                fileEntry, _tabViewModel, _actionsViewModel);
+            yield return Rename(fileEntry);
+            yield return Properties(fileEntry);
+            yield return Delete(fileEntry);
+        }
+        
+        private FileEntryActionDelete Delete(FileEntryViewModel viewModel)
+        {
+            return new FileEntryActionDelete(viewModel, _tabViewModel, _actionsViewModel);
+        }
+
+        private FileEntryActionProperties Properties(FileEntryViewModel viewModel)
+        {
+            return new FileEntryActionProperties(viewModel, _propertiesViewProvider, _actionsViewModel);
+        }
+
+        private FileEntryActionRename Rename(FileEntryViewModel viewModel)
+        {
+            return new FileEntryActionRename(viewModel, _renameDataProvider, _actionsViewModel);
         }
     }
 }

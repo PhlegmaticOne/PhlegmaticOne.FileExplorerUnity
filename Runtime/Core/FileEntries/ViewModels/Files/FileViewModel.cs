@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files.Extensions;
 using PhlegmaticOne.FileExplorer.Features.Actions;
 using PhlegmaticOne.FileExplorer.Features.Actions.Properties.Files;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons;
@@ -14,17 +15,18 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
         private readonly ExplorerFileIcon _fileIcon;
         
         public FileViewModel(
-            string path, string name, string extension,
+            string path, string name,
             IExplorerIconsProvider iconsProvider,
             FileEntryActionsProvider actionsProvider,
-            IFileOperations fileOperations) : 
+            IFileOperations fileOperations,
+            FileExtension fileExtension) : 
             base(path, name, iconsProvider, actionsProvider, fileOperations)
         {
-            Extension = extension;
+            Extension = fileExtension;
             _fileIcon = new ExplorerFileIcon(this, iconsProvider);
         }
 
-        public string Extension { get; }
+        public FileExtension Extension { get; }
         
         public override async Task InitializeAsync(CancellationToken cancellationToken)
         {
@@ -56,11 +58,6 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
         public override void OnClick()
         {
             
-        }
-
-        public bool IsImage()
-        {
-            return Extension is ".png" or ".jpg";
         }
 
         public override void Dispose()

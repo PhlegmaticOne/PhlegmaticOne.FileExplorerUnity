@@ -22,7 +22,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Extensions
         
         public static void Dispose(this Sprite sprite)
         {
-            if (sprite.GetInstanceID() > 0)
+            if (sprite == null || sprite.GetInstanceID() > 0)
             {
                 return;
             }

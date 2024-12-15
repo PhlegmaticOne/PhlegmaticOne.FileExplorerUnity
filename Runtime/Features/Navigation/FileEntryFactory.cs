@@ -3,6 +3,7 @@ using PhlegmaticOne.FileExplorer.Core.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files;
+using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files.Extensions;
 using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Actions;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
@@ -40,11 +41,13 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation
         private FileEntryViewModel CreateFileEntry(FileSystemInfo fileInfo)
         {
             var actions = _dependencyContainer.Resolve<FileEntryActionsFactoryFile>();
+            var fileExtensions = _dependencyContainer.Resolve<IFileExtensions>();
             var actionsProvider = new FileEntryActionsProvider(_actionsViewModel, actions);
+            var extension = new FileExtension(fileInfo.Extension, fileExtensions);
             
             return new FileViewModel(
-                fileInfo.FullName, fileInfo.Name, fileInfo.Extension,
-                _iconsProvider, actionsProvider, _fileOperations);
+                fileInfo.FullName, fileInfo.Name,
+                _iconsProvider, actionsProvider, _fileOperations, extension);
         }
 
         private FileEntryViewModel CreateDirectoryEntry(FileSystemInfo fileInfo)

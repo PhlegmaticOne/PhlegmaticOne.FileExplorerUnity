@@ -16,3 +16,11 @@ MonoBehaviour:
   _iconsConfig:
     _isPreviewImagesInsteadIcons: 1
     _iconsWebDirectoryUrl: https://static.openmygame.com/word_spells/test/krotov_test/Icons/
+  _extensionsConfig:
+    _textExtensions:
+    - .txt
+    - .json
+    - .xml
+    _imageExtensions:
+    - .jpg
+    - .png

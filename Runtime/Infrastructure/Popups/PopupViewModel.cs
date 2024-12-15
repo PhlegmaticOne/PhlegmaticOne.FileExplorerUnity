@@ -8,5 +8,7 @@
         {
             IsDiscarded = true;
         }
+
+        public virtual void Release() { }
     }
 }

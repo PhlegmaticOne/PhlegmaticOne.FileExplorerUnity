@@ -9,12 +9,14 @@ namespace PhlegmaticOne.FileExplorer.Configuration
     {
         [SerializeField] private string _rootFolder = string.Empty;
         [SerializeField] private ExplorerIconsConfig _iconsConfig;
+        [SerializeField] private ExplorerExtensionsConfig _extensionsConfig;
 
         [NonSerialized] private string _rootPath;
         
         public string RootPath => _rootPath ??= GetRootPath();
         
         public ExplorerIconsConfig IconsConfig => _iconsConfig;
+        public ExplorerExtensionsConfig ExtensionsConfig => _extensionsConfig;
 
         private string GetRootPath()
         {

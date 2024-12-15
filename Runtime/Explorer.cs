@@ -4,8 +4,10 @@ using PhlegmaticOne.FileExplorer.Core.Explorer.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Explorer.Views;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files;
+using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files.Extensions;
 using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Tab.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.Actions.FileView.Services;
 using PhlegmaticOne.FileExplorer.Features.Actions.Properties.Services;
 using PhlegmaticOne.FileExplorer.Features.Actions.Rename;
 using PhlegmaticOne.FileExplorer.Features.Cancellation;
@@ -35,10 +37,13 @@ namespace PhlegmaticOne.FileExplorer
             container.Register<IExplorerIconsLoader, ExplorerIconsLoader>();
             container.Register<IExplorerIconsProvider, ExplorerIconsProvider>();
             container.Register<IExplorerCancellationProvider, ExplorerCancellationProvider>();
+            container.Register<IFileOperations, FileOperations>();
+            container.Register<IFileExtensions, FileExtensions>();
+            
             container.Register<IFileEntryRenameDataProvider, FileEntryRenameDataProvider>();
             container.Register<IFileEntryPropertiesViewProvider, FileEntryPropertiesViewProvider>();
-            container.Register<IFileOperations, FileOperations>();
-            
+            container.Register<IFileViewProvider, FileViewProvider>();
+
             container.Register<FileEntryActionsFactoryFile>();
             container.Register<FileEntryActionsFactoryDirectory>();
             container.Register<IFileEntryFactory, FileEntryFactory>();

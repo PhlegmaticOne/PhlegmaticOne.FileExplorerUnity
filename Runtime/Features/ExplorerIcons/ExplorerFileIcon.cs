@@ -31,7 +31,8 @@ namespace PhlegmaticOne.FileExplorer.Features.ExplorerIcons
             }
             else
             {
-                var extension = string.IsNullOrEmpty(_viewModel.Extension) ? NoneExtension : _viewModel.Extension;
+                var fileExtension = _viewModel.Extension;
+                var extension = string.IsNullOrEmpty(fileExtension.Extension) ? NoneExtension : fileExtension.Extension;
                 _fileIcon = await _iconsProvider.GetIconAsync(extension, cancellationToken);
             }
         }
@@ -58,7 +59,7 @@ namespace PhlegmaticOne.FileExplorer.Features.ExplorerIcons
 
         private bool IsPreviewImage()
         {
-            return _viewModel.IsImage() && _iconsProvider.IsPreviewImagesInsteadOfIcons;
+            return _viewModel.Extension.IsImage() && _iconsProvider.IsPreviewImagesInsteadOfIcons;
         }
     }
 }
