@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
+using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.Navigation
 {
@@ -16,13 +17,13 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation
         }
         
         public async IAsyncEnumerable<FileEntryViewModel> Navigate(
-            string path, [EnumeratorCancellation] CancellationToken cancellationToken)
+            NavigationViewModel navigationViewModel, [EnumeratorCancellation] CancellationToken cancellationToken)
         {
-            var directory = new DirectoryInfo(path);
+            var directory = new DirectoryInfo(navigationViewModel.Path);
 
             foreach (var fileEntry in directory.EnumerateFileSystemInfos())
             {
-                var viewModel = _fileEntryFactory.CreateEntry(fileEntry);
+                var viewModel = _fileEntryFactory.CreateEntry(fileEntry, navigationViewModel);
                 await viewModel.InitializeAsync(cancellationToken);
                 yield return viewModel;
             }

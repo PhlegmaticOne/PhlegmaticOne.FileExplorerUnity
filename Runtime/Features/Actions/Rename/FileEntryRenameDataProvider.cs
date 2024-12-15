@@ -2,16 +2,17 @@
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories;
+using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files;
 using PhlegmaticOne.FileExplorer.Features.Views.Input;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions.Rename
 {
-    internal sealed class FileRenameDataProvider : IFileEntryRenameDataProvider
+    internal sealed class FileEntryRenameDataProvider : IFileEntryRenameDataProvider
     {
         private readonly IPopupProvider _popupProvider;
 
-        public FileRenameDataProvider(IPopupProvider popupProvider)
+        public FileEntryRenameDataProvider(IPopupProvider popupProvider)
         {
             _popupProvider = popupProvider;
         }
@@ -38,7 +39,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Rename
             return viewModel switch
             {
                 DirectoryViewModel => "Rename directory",
-                Core.FileEntries.ViewModels.Files.FileViewModel => "Rename file",
+                FileViewModel => "Rename file",
                 _ => "Rename"
             };
         }

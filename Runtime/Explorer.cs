@@ -6,13 +6,13 @@ using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files;
 using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Tab.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Actions;
 using PhlegmaticOne.FileExplorer.Features.Actions.Rename;
 using PhlegmaticOne.FileExplorer.Features.Cancellation;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.WebLoading;
 using PhlegmaticOne.FileExplorer.Features.FileOperations;
 using PhlegmaticOne.FileExplorer.Features.Navigation;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer
@@ -25,36 +25,29 @@ namespace PhlegmaticOne.FileExplorer
             var explorerPrefab = Resources.Load<FileExplorerView>("Prefabs/FileExplorer");
             var explorer = Object.Instantiate(explorerPrefab);
 
-            var popupProvider = explorer.PopupProvider;
-            var fileLoader = new WebFileLoader();
-            var iconsLoader = new ExplorerIconsLoader(fileLoader);
-            var cancellationProvider = new ExplorerCancellationProvider();
-            var iconsProvider = new ExplorerIconsProvider(iconsLoader, config);
-            var renameDataProvider = new FileRenameDataProvider(popupProvider);
-            var fileOperations = new FileOperations();
+            IDependencyContainer container = new DependencyContainer();
             
-            var actionsViewModel = new FileEntryActionsViewModel();
-            var tabViewModel = new TabViewModel();
-
-            var fileActionsProvider = new FileEntryActionsProvider(actionsViewModel,
-                new FileEntryActionsFactoryFile(actionsViewModel, renameDataProvider, tabViewModel));
+            container.RegisterInstance(explorer.PopupProvider);
+            container.RegisterInstance(config);
             
-            var directoryActionsProvider = new FileEntryActionsProvider(actionsViewModel,
-                new FileEntryActionsFactoryDirectory(actionsViewModel, renameDataProvider, tabViewModel));
+            container.Register<IWebFileLoader, WebFileLoader>();
+            container.Register<IExplorerIconsLoader, ExplorerIconsLoader>();
+            container.Register<IExplorerIconsProvider, ExplorerIconsProvider>();
+            container.Register<IExplorerCancellationProvider, ExplorerCancellationProvider>();
+            container.Register<IFileEntryRenameDataProvider, FileEntryRenameDataProvider>();
+            container.Register<IFileOperations, FileOperations>();
             
-            var fileEntryFactory = new FileEntryFactory(
-                iconsProvider, fileActionsProvider, directoryActionsProvider, fileOperations);
-            var navigator = new ExplorerNavigator(fileEntryFactory);
+            container.Register<FileEntryActionsFactoryFile>();
+            container.Register<FileEntryActionsFactoryDirectory>();
+            container.Register<IFileEntryFactory, FileEntryFactory>();
+            container.Register<IExplorerNavigator, ExplorerNavigator>();
             
-            var navigationViewModel = new NavigationViewModel(
-                navigator, cancellationProvider, actionsViewModel, config, tabViewModel);
+            container.Register<FileEntryActionsViewModel>();
+            container.Register<TabViewModel>();
+            container.Register<NavigationViewModel>();
+            container.Register<FileExplorerViewModel>();
             
-            var explorerViewModel = new FileExplorerViewModel(
-                cancellationProvider, iconsProvider, navigationViewModel, actionsViewModel, tabViewModel);
-            
-            fileEntryFactory.SetupNavigation(navigationViewModel);
-
-            explorer.Bind(explorerViewModel);
+            explorer.Bind(container.Resolve<FileExplorerViewModel>());
         }
     }
 }

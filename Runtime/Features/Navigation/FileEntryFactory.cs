@@ -1,58 +1,61 @@
 ﻿using System.IO;
+using PhlegmaticOne.FileExplorer.Core.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories;
+using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files;
 using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Actions;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
 using PhlegmaticOne.FileExplorer.Features.FileOperations;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 
 namespace PhlegmaticOne.FileExplorer.Features.Navigation
 {
     internal sealed class FileEntryFactory : IFileEntryFactory
     {
         private readonly IExplorerIconsProvider _iconsProvider;
-        private readonly FileEntryActionsProvider _fileActionsProvider;
-        private readonly FileEntryActionsProvider _directoryActionsProvider;
+        private readonly IDependencyContainer _dependencyContainer;
+        private readonly FileEntryActionsViewModel _actionsViewModel;
         private readonly IFileOperations _fileOperations;
-
-        private NavigationViewModel _navigationViewModel;
 
         public FileEntryFactory(
             IExplorerIconsProvider iconsProvider,
-            FileEntryActionsProvider fileActionsProvider,
-            FileEntryActionsProvider directoryActionsProvider,
+            IDependencyContainer dependencyContainer,
+            FileEntryActionsViewModel actionsViewModel,
             IFileOperations fileOperations)
         {
             _iconsProvider = iconsProvider;
-            _fileActionsProvider = fileActionsProvider;
-            _directoryActionsProvider = directoryActionsProvider;
+            _dependencyContainer = dependencyContainer;
+            _actionsViewModel = actionsViewModel;
             _fileOperations = fileOperations;
         }
-
-        public void SetupNavigation(NavigationViewModel navigationViewModel)
-        {
-            _navigationViewModel = navigationViewModel;
-        }
         
-        public FileEntryViewModel CreateEntry(FileSystemInfo fileEntry)
+        public FileEntryViewModel CreateEntry(FileSystemInfo fileEntry, NavigationViewModel navigationViewModel)
         {
             return File.Exists(fileEntry.FullName) 
                 ? CreateFileEntry(fileEntry) 
-                : CreateDirectoryEntry(fileEntry);
+                : CreateDirectoryEntry(fileEntry, navigationViewModel);
         }
 
         private FileEntryViewModel CreateFileEntry(FileSystemInfo fileInfo)
         {
-            return new Core.FileEntries.ViewModels.Files.FileViewModel(
+            var actionsProvider = new FileEntryActionsProvider(
+                _actionsViewModel, _dependencyContainer.Resolve<FileEntryActionsFactoryFile>());
+            
+            return new FileViewModel(
                 fileInfo.FullName, fileInfo.Name, fileInfo.Extension,
-                _iconsProvider, _fileActionsProvider, _fileOperations);
+                _iconsProvider, actionsProvider, _fileOperations);
         }
 
-        private FileEntryViewModel CreateDirectoryEntry(FileSystemInfo fileInfo)
+        private FileEntryViewModel CreateDirectoryEntry(
+            FileSystemInfo fileInfo, NavigationViewModel navigationViewModel)
         {
+            var actionsProvider = new FileEntryActionsProvider(
+                _actionsViewModel, _dependencyContainer.Resolve<FileEntryActionsFactoryDirectory>());
+            
             return new DirectoryViewModel(
                 fileInfo.FullName, fileInfo.Name,
-                _iconsProvider, _directoryActionsProvider, _navigationViewModel, _fileOperations);
+                _iconsProvider, actionsProvider, navigationViewModel, _fileOperations);
         }
     }
 }

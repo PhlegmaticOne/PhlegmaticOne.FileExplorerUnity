@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
 {
-    public abstract class View : MonoBehaviour
+    internal abstract class View : MonoBehaviour
     {
         public abstract void Release();
         public abstract void Discard();

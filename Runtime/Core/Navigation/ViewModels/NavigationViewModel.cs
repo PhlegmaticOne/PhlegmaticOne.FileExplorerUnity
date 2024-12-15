@@ -71,7 +71,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
         {
             IsLoading.SetValueNotify(true);
 
-            await foreach (var fileEntry in _navigator.Navigate(Path).WithCancellation(_cancellationProvider.Token))
+            await foreach (var fileEntry in _navigator.Navigate(this).WithCancellation(_cancellationProvider.Token))
             {
                 _tabViewModel.Add(fileEntry);
                 await Task.Yield();
