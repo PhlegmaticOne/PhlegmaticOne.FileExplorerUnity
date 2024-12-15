@@ -46,11 +46,15 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
                 yield return ViewFile(fileEntry, FileViewType.Text, Color.yellow);
             }
 
+#if UNITY_EDITOR
+            yield return new FileEntryActionOpenExplorer(fileEntry, _actionsViewModel);
+#endif
+
             yield return Rename(fileEntry);
             yield return Properties(fileEntry);
             yield return Delete(fileEntry);
         }
-
+        
         private FileEntryActionDelete Delete(FileEntryViewModel viewModel)
         {
             return new FileEntryActionDelete(viewModel, _tabViewModel, _actionsViewModel);

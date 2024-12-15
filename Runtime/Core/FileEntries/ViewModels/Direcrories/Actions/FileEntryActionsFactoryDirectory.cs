@@ -29,6 +29,9 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories
         
         protected override IEnumerable<IFileEntryAction> GetActions(DirectoryViewModel fileEntry)
         {
+#if UNITY_EDITOR
+            yield return new FileEntryActionOpenExplorer(fileEntry, _actionsViewModel);
+#endif
             yield return Rename(fileEntry);
             yield return Properties(fileEntry);
             yield return Delete(fileEntry);
