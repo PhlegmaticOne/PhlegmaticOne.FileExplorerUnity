@@ -2,10 +2,10 @@
 using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions;
+using PhlegmaticOne.FileExplorer.Features.Actions.Properties.Files;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
 using PhlegmaticOne.FileExplorer.Features.FileOperations;
-using PhlegmaticOne.FileExplorer.Features.Properties.Files;
 
 namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
 {

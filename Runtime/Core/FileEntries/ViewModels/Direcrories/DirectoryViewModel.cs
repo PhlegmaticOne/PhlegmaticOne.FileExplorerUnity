@@ -3,9 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Actions;
+using PhlegmaticOne.FileExplorer.Features.Actions.Properties.Directories;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
 using PhlegmaticOne.FileExplorer.Features.FileOperations;
-using PhlegmaticOne.FileExplorer.Features.Properties.Directories;
 
 namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories
 {

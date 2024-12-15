@@ -6,13 +6,13 @@ using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files;
 using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Tab.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.Actions.Properties.Services;
 using PhlegmaticOne.FileExplorer.Features.Actions.Rename;
 using PhlegmaticOne.FileExplorer.Features.Cancellation;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.WebLoading;
 using PhlegmaticOne.FileExplorer.Features.FileOperations;
 using PhlegmaticOne.FileExplorer.Features.Navigation;
-using PhlegmaticOne.FileExplorer.Features.Properties.Services;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using UnityEngine;
 

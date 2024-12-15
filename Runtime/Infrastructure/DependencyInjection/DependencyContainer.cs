@@ -26,7 +26,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection
             Register<T, T>();
         }
 
-        public void RegisterInstance<T>(T instance)
+        public void RegisterInstance<T>(T instance) where T : class
         {
             _dependencies.TryAdd(typeof(T), instance);
         }

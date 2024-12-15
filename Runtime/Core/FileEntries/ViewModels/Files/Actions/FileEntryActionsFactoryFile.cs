@@ -3,8 +3,8 @@ using PhlegmaticOne.FileExplorer.Core.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Common;
 using PhlegmaticOne.FileExplorer.Core.Tab.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Actions;
+using PhlegmaticOne.FileExplorer.Features.Actions.Properties.Services;
 using PhlegmaticOne.FileExplorer.Features.Actions.Rename;
-using PhlegmaticOne.FileExplorer.Features.Properties.Services;
 
 namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
 {

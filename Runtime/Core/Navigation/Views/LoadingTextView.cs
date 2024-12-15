@@ -1,4 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.Infrastructure.TextFormatting;
+﻿using PhlegmaticOne.FileExplorer.Core.Navigation.Services;
 using TMPro;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.Views
         [SerializeField] private float _changePointDuration;
         [SerializeField] private TextMeshProUGUI _loadingText;
 
-        private TextFormatter _formatter;
+        private PostfixTextFormatter _formatter;
         
         private float _currentTime;
         private int _previousPoints;
@@ -30,7 +30,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.Views
 
         private void Show()
         {
-            _formatter = new TextFormatter(_loadingTextValue, '.');
+            _formatter = new PostfixTextFormatter(_loadingTextValue, '.');
             enabled = true;
             _currentTime = 0;
             _loadingText.gameObject.SetActive(true);

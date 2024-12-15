@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files;
-using PhlegmaticOne.FileExplorer.Features.Views.Input;
-using PhlegmaticOne.FileExplorer.Infrastructure.Views;
+using PhlegmaticOne.FileExplorer.Features.Actions.Views.Input;
+using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions.Rename
 {
@@ -19,7 +19,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Rename
         
         public async Task<FileEntryRenameDataResult> GetRenameData(FileEntryViewModel viewModel)
         {
-            var inputViewModel = new InputViewModel
+            var inputViewModel = new InputPopupViewModel
             {
                 HeaderText = GetRenameHeader(viewModel),
                 OutputText = string.Empty,
@@ -27,7 +27,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Rename
                 InitialInputText = Path.GetFileNameWithoutExtension(viewModel.Path)
             };
 
-            await _popupProvider.Show<InputPopup, InputViewModel>(inputViewModel);
+            await _popupProvider.Show<InputPopup, InputPopupViewModel>(inputViewModel);
             
             return new FileEntryRenameDataResult(
                 inputViewModel.OutputText, 

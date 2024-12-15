@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Core.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Actions;
-using PhlegmaticOne.FileExplorer.Features.Properties.Services;
+using PhlegmaticOne.FileExplorer.Features.Actions.Properties.Services;
 
 namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Common
 {
