@@ -30,32 +30,32 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation
             _fileOperations = fileOperations;
         }
         
-        public FileEntryViewModel CreateEntry(FileSystemInfo fileEntry, NavigationViewModel navigationViewModel)
+        public FileEntryViewModel CreateEntry(FileSystemInfo fileEntry)
         {
             return File.Exists(fileEntry.FullName) 
                 ? CreateFileEntry(fileEntry) 
-                : CreateDirectoryEntry(fileEntry, navigationViewModel);
+                : CreateDirectoryEntry(fileEntry);
         }
 
         private FileEntryViewModel CreateFileEntry(FileSystemInfo fileInfo)
         {
-            var actionsProvider = new FileEntryActionsProvider(
-                _actionsViewModel, _dependencyContainer.Resolve<FileEntryActionsFactoryFile>());
+            var actions = _dependencyContainer.Resolve<FileEntryActionsFactoryFile>();
+            var actionsProvider = new FileEntryActionsProvider(_actionsViewModel, actions);
             
             return new FileViewModel(
                 fileInfo.FullName, fileInfo.Name, fileInfo.Extension,
                 _iconsProvider, actionsProvider, _fileOperations);
         }
 
-        private FileEntryViewModel CreateDirectoryEntry(
-            FileSystemInfo fileInfo, NavigationViewModel navigationViewModel)
+        private FileEntryViewModel CreateDirectoryEntry(FileSystemInfo fileInfo)
         {
-            var actionsProvider = new FileEntryActionsProvider(
-                _actionsViewModel, _dependencyContainer.Resolve<FileEntryActionsFactoryDirectory>());
+            var actions = _dependencyContainer.Resolve<FileEntryActionsFactoryDirectory>();
+            var navigation = _dependencyContainer.Resolve<NavigationViewModel>();
+            var actionsProvider = new FileEntryActionsProvider(_actionsViewModel, actions);
             
             return new DirectoryViewModel(
                 fileInfo.FullName, fileInfo.Name,
-                _iconsProvider, actionsProvider, navigationViewModel, _fileOperations);
+                _iconsProvider, actionsProvider, navigation, _fileOperations);
         }
     }
 }
