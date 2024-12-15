@@ -47,7 +47,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files.Extension
                 return FileViewType.Image;
             }
 
-            return FileViewType.Image;
+            return FileViewType.None;
         }
     }
 }
