@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.ExplorerIcons
 {
-    internal readonly struct ExplorerIconData
+    internal sealed class ExplorerIconData
     {
-        public ExplorerIconData(Sprite icon)
+        public void SetIcon(Sprite icon)
         {
-            Icon = icon;
+            IconSprite = icon;
         }
 
-        public Sprite Icon { get; }
-        public float Aspect => Icon.CalculateAspect();
+        public Sprite IconSprite { get; private set; }
+        public float Aspect => IconSprite.CalculateAspect();
     }
 }

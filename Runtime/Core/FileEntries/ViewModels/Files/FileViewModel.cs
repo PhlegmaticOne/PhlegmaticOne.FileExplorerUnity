@@ -24,9 +24,10 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
 
         public string Extension { get; }
         
-        public override Task InitializeAsync(CancellationToken cancellationToken)
+        public override async Task InitializeAsync(CancellationToken cancellationToken)
         {
-            return _fileIcon.EnsureLoadedAsync(cancellationToken);
+            await _fileIcon.EnsureLoadedAsync(cancellationToken);
+            Icon.SetIcon(_fileIcon.GetIcon());
         }
 
         public override void Rename(string newName)
@@ -38,11 +39,6 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
         public override void Delete()
         {
             FileOperations.DeleteFile(Path);
-        }
-
-        public override ExplorerIconData GetIcon()
-        {
-            return new ExplorerIconData(_fileIcon.GetIcon());
         }
         
         public override void OnClick()

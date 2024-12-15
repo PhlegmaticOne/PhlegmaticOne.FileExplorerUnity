@@ -78,9 +78,9 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.Views
 
         private void UpdateIcon()
         {
-            var data = _viewModel.GetIcon();
-            _icon.sprite = data.Icon;
-            _aspectRatioFitter.aspectRatio = data.Aspect;
+            var icon = _viewModel.Icon;
+            _icon.sprite = icon.IconSprite;
+            _aspectRatioFitter.aspectRatio = icon.Aspect;
         }
     }
 }
