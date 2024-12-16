@@ -1,5 +1,6 @@
 ﻿using PhlegmaticOne.FileExplorer.Core.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
+using PhlegmaticOne.FileExplorer.Core.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Tab.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Cancellation;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
@@ -15,11 +16,13 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.ViewModels
             IExplorerCancellationProvider cancellationProvider,
             IExplorerIconsProvider iconsProvider,
             NavigationViewModel navigationViewModel,
-            FileEntryActionsViewModel actionsViewModel, 
+            FileEntryActionsViewModel actionsViewModel,
+            SelectionViewModel selectionViewModel,
             TabViewModel tabViewModel)
         {
             NavigationViewModel = navigationViewModel;
             ActionsViewModel = actionsViewModel;
+            SelectionViewModel = selectionViewModel;
             TabViewModel = tabViewModel;
             _cancellationProvider = cancellationProvider;
             _iconsProvider = iconsProvider;
@@ -27,6 +30,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.ViewModels
 
         public NavigationViewModel NavigationViewModel { get; }
         public FileEntryActionsViewModel ActionsViewModel { get; }
+        public SelectionViewModel SelectionViewModel { get; }
         public TabViewModel TabViewModel { get; }
 
         public void NavigateRoot()

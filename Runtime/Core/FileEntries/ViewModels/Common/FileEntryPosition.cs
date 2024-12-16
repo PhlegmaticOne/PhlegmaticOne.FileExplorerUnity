@@ -9,10 +9,10 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries
         public Vector2 Size { get; private set; }
         public float OffsetTop { get; private set; }
         
-        public void Update(Vector2 worldPosition, Vector2 size, float offsetTop)
+        public void Update(Vector2 centerPosition, Vector2 size, float offsetTop)
         {
             Size = size;
-            CenterAnchoredPosition = worldPosition;
+            CenterAnchoredPosition = centerPosition;
             OffsetTop = offsetTop;
         }
 
