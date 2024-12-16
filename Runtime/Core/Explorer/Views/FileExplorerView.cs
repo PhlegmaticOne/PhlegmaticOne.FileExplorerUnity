@@ -14,7 +14,6 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.Views
         [SerializeField] private TabView _tabView;
         [SerializeField] private NavigationView _navigationView;
         [SerializeField] private FileEntryActionsView _actionsView;
-        [SerializeField] private FileExplorerHeaderView _headerView;
         [SerializeField] private Button _closeButton;
         [SerializeField] private PopupProvider _popupProvider;
         
@@ -55,7 +54,6 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.Views
         private void BindViews()
         {
             _actionsView.Bind(_viewModel.ActionsViewModel);
-            _headerView.Bind(_viewModel.ActionsViewModel);
             _tabView.Bind(_viewModel.TabViewModel);
             _navigationView.Bind(_viewModel.NavigationViewModel);
         }

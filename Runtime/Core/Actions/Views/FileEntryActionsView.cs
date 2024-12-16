@@ -56,7 +56,6 @@ namespace PhlegmaticOne.FileExplorer.Core.Actions.Views
 
         private void Rebuild()
         {
-            transform.SetAsLastSibling();
             _actionDropdownView.Rebuild();
             _viewModel.RaiseUpdatePosition(_actionDropdownView.Size);
         }

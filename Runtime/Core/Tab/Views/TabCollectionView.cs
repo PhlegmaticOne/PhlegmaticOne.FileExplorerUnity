@@ -10,6 +10,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Tab.Views
     {
         [SerializeField] private FileEntryView _entryViewPrefab;
         [SerializeField] private GridLayoutGroup _fileContainer;
+        [SerializeField] private RectTransform _headerTransform;
 
         private readonly List<FileEntryView> _fileEntryViews = new();
 
@@ -19,6 +20,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Tab.Views
             {
                 var view = Instantiate(_entryViewPrefab, _fileContainer.transform);
                 view.Bind(fileEntry);
+                view.UpdateHeaderTransform(_headerTransform);
                 _fileEntryViews.Add(view);
             }
         }

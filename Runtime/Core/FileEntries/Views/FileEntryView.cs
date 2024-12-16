@@ -14,6 +14,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.Views
         [SerializeField] private ButtonHoldBehaviour _holdBehaviour;
         
         private FileEntryViewModel _viewModel;
+        private RectTransform _headerTransform;
 
         public void Bind(FileEntryViewModel viewModel)
         {
@@ -21,6 +22,11 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.Views
             UpdateFileName(viewModel.Name);
             UpdateIcon();
             Subscribe();
+        }
+
+        public void UpdateHeaderTransform(RectTransform headerTransform)
+        {
+            _headerTransform = headerTransform;
         }
 
         public bool IsBindTo(FileEntryViewModel file)
@@ -33,6 +39,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.Views
             ReleaseIcon();
             Unsubscribe();
             _viewModel = null;
+            _headerTransform = null;
         }
 
         private void Subscribe()
@@ -68,7 +75,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.Views
         private void UpdateViewModelPosition()
         {
             var t = (transform as RectTransform)!;
-            _viewModel.Position.Update(t.anchoredPosition, t.rect.size);
+            _viewModel.Position.Update(t.anchoredPosition, t.rect.size, _headerTransform.rect.height);
         }
 
         private void UpdateFileName(string value)

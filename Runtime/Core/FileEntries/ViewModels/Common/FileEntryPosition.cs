@@ -1,21 +1,24 @@
-﻿using UnityEngine;
+﻿using PhlegmaticOne.FileExplorer.Core.Actions.ViewModels;
+using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Core.FileEntries
 {
     internal sealed class FileEntryPosition
     {
-        public Vector2 AnchoredPosition { get; private set; }
+        public Vector2 CenterAnchoredPosition { get; private set; }
         public Vector2 Size { get; private set; }
+        public float OffsetTop { get; private set; }
         
-        public void Update(Vector2 worldPosition, Vector2 size)
+        public void Update(Vector2 worldPosition, Vector2 size, float offsetTop)
         {
             Size = size;
-            AnchoredPosition = worldPosition;
+            CenterAnchoredPosition = worldPosition;
+            OffsetTop = offsetTop;
         }
 
-        public static float HalfScreenWidth()
+        public FileActionViewPositionData ToActionViewPositionData(FileActionViewAlignment alignment)
         {
-            return (float)Screen.width / 2;
+            return new FileActionViewPositionData(CenterAnchoredPosition, Size, OffsetTop, alignment);
         }
     }
 }
