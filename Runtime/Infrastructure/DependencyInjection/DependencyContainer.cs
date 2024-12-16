@@ -36,6 +36,11 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection
             return (T)Resolve(typeof(T));
         }
 
+        public T Instantiate<T>() where T : class
+        {
+            return (T)Instantiate(typeof(T));
+        }
+
         private object Resolve(Type type)
         {
             if (_dependencies.TryGetValue(type, out var existing))
@@ -43,12 +48,18 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection
                 return existing;
             }
 
-            var registerType = _registerTypes[type];
-            var parameters = registerType.GetConstructors()[0].GetParameters();
+            var instance = Instantiate(_registerTypes[type]);
+            _dependencies.TryAdd(type, instance);
+            return instance;
+        }
+
+        private object Instantiate(Type type)
+        {
+            var parameters = type.GetConstructors()[0].GetParameters();
             
             var instance = parameters.Length == 0 
-                ? Activator.CreateInstance(registerType) 
-                : Activator.CreateInstance(registerType, ResolveParameters(parameters));
+                ? Activator.CreateInstance(type) 
+                : Activator.CreateInstance(type, ResolveParameters(parameters));
             
             _dependencies.TryAdd(type, instance);
             

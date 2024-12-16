@@ -7,15 +7,12 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Common
 {
     internal sealed class FileEntryActionRename : FileEntryAction
     {
-        private readonly FileEntryViewModel _viewModel;
         private readonly IFileEntryRenameDataProvider _renameDataProvider;
 
         public FileEntryActionRename(
-            FileEntryViewModel viewModel,
             IFileEntryRenameDataProvider renameDataProvider,
             FileEntryActionsViewModel actionsViewModel) : base(actionsViewModel)
         {
-            _viewModel = viewModel;
             _renameDataProvider = renameDataProvider;
         }
 
@@ -25,11 +22,11 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Common
 
         protected override async Task<bool> ExecuteAction()
         {
-            var renameData = await _renameDataProvider.GetRenameData(_viewModel);
+            var renameData = await _renameDataProvider.GetRenameData(FileEntry);
 
             if (renameData.WillRename)
             {
-                _viewModel.Rename(renameData.NewName);
+                FileEntry.Rename(renameData.NewName);
             }
 
             return renameData.WillRename;

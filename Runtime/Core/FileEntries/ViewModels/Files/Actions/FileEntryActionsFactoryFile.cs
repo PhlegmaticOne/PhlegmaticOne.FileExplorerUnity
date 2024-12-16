@@ -1,36 +1,19 @@
 ﻿using System.Collections.Generic;
-using PhlegmaticOne.FileExplorer.Core.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Common;
-using PhlegmaticOne.FileExplorer.Core.Tab.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Actions;
 using PhlegmaticOne.FileExplorer.Features.Actions.FileView.Core;
-using PhlegmaticOne.FileExplorer.Features.Actions.FileView.Services;
-using PhlegmaticOne.FileExplorer.Features.Actions.Properties.Services;
-using PhlegmaticOne.FileExplorer.Features.Actions.Rename;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
 {
     internal sealed class FileEntryActionsFactoryFile : FileEntryActionsFactory<FileViewModel>
     {
-        private readonly FileEntryActionsViewModel _actionsViewModel;
-        private readonly IFileEntryRenameDataProvider _renameDataProvider;
-        private readonly IFileEntryPropertiesViewProvider _propertiesViewProvider;
-        private readonly IFileViewProvider _fileViewProvider;
-        private readonly TabViewModel _tabViewModel;
+        private readonly IDependencyContainer _container;
 
-        public FileEntryActionsFactoryFile(
-            FileEntryActionsViewModel actionsViewModel,
-            IFileEntryRenameDataProvider renameDataProvider,
-            IFileEntryPropertiesViewProvider propertiesViewProvider,
-            IFileViewProvider fileViewProvider,
-            TabViewModel tabViewModel)
+        public FileEntryActionsFactoryFile(IDependencyContainer container)
         {
-            _actionsViewModel = actionsViewModel;
-            _renameDataProvider = renameDataProvider;
-            _propertiesViewProvider = propertiesViewProvider;
-            _fileViewProvider = fileViewProvider;
-            _tabViewModel = tabViewModel;
+            _container = container;
         }
         
         protected override IEnumerable<IFileEntryAction> GetActions(FileViewModel fileEntry)
@@ -47,32 +30,20 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
             }
 
 #if UNITY_EDITOR
-            yield return new FileEntryActionOpenExplorer(fileEntry, _actionsViewModel);
+            yield return _container
+                .Instantiate<FileEntryActionOpenExplorer>()
+                .WithFileEntry(fileEntry);
 #endif
-
-            yield return Rename(fileEntry);
-            yield return Properties(fileEntry);
-            yield return Delete(fileEntry);
-        }
-        
-        private FileEntryActionDelete Delete(FileEntryViewModel viewModel)
-        {
-            return new FileEntryActionDelete(viewModel, _tabViewModel, _actionsViewModel);
+            yield return _container.Instantiate<FileEntryActionRename>().WithFileEntry(fileEntry);
+            yield return _container.Instantiate<FileEntryActionProperties>().WithFileEntry(fileEntry);
+            yield return _container.Instantiate<FileEntryActionDelete>().WithFileEntry(fileEntry);
         }
 
-        private FileEntryActionProperties Properties(FileEntryViewModel viewModel)
+        private FileEntryAction ViewFile(FileEntryViewModel fileEntry, FileViewType viewType, Color color)
         {
-            return new FileEntryActionProperties(viewModel, _propertiesViewProvider, _actionsViewModel);
-        }
-
-        private FileEntryActionRename Rename(FileEntryViewModel viewModel)
-        {
-            return new FileEntryActionRename(viewModel, _renameDataProvider, _actionsViewModel);
-        }
-
-        private FileEntryActionViewFile ViewFile(FileViewModel viewModel, FileViewType viewType, Color color)
-        {
-            return new FileEntryActionViewFile(viewModel, viewType, color, _fileViewProvider, _actionsViewModel);
+            return _container.Instantiate<FileEntryActionViewFile>()
+                .WithData(color, viewType)
+                .WithFileEntry(fileEntry);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Core.Actions.ViewModels;
+using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions
 {
@@ -11,9 +12,18 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions
         {
             _actionsViewModel = actionsViewModel;
         }
+
+        protected FileEntryViewModel FileEntry { get; private set; }
         
         public abstract string Description { get; }
         public abstract FileEntryActionColor Color { get; }
+
+        public FileEntryAction WithFileEntry(FileEntryViewModel fileEntry)
+        {
+            FileEntry = fileEntry;
+            return this;
+        }
+        
         public Task<bool> Execute()
         {
             _actionsViewModel.Deactivate();

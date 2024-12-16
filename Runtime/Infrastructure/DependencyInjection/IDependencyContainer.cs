@@ -6,5 +6,6 @@
         void Register<T>() where T : class;
         void RegisterInstance<T>(T instance) where T : class;
         T Resolve<T>() where T : class;
+        T Instantiate<T>() where T : class;
     }
 }

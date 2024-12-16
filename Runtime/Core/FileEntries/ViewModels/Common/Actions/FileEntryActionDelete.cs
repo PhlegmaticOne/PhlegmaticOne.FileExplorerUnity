@@ -8,16 +8,13 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Common
 {
     internal sealed class FileEntryActionDelete : FileEntryAction
     {
-        private readonly FileEntryViewModel _viewModel;
         private readonly TabViewModel _tabViewModel;
         private readonly IFileOperations _fileOperations;
 
         public FileEntryActionDelete(
-            FileEntryViewModel viewModel,
             TabViewModel tabViewModel,
             FileEntryActionsViewModel actionsViewModel) : base(actionsViewModel)
         {
-            _viewModel = viewModel;
             _tabViewModel = tabViewModel;
         }
 
@@ -28,8 +25,8 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Common
         
         protected override Task<bool> ExecuteAction()
         {
-            _viewModel.Delete();
-            _tabViewModel.Remove(_viewModel);
+            FileEntry.Delete();
+            _tabViewModel.Remove(FileEntry);
             return Task.FromResult(true);
         }
     }

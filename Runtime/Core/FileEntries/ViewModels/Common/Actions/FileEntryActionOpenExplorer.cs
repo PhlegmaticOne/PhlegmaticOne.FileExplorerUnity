@@ -11,13 +11,8 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Common
 {
     internal sealed class FileEntryActionOpenExplorer : FileEntryAction
     {
-        private readonly FileEntryViewModel _viewModel;
-
-        public FileEntryActionOpenExplorer(
-            FileEntryViewModel viewModel,
-            FileEntryActionsViewModel actionsViewModel) : base(actionsViewModel)
+        public FileEntryActionOpenExplorer(FileEntryActionsViewModel actionsViewModel) : base(actionsViewModel)
         {
-            _viewModel = viewModel;
         }
 
         public override string Description => "Open in OS";
@@ -26,7 +21,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Common
         
         protected override Task<bool> ExecuteAction()
         {
-            var path = _viewModel.Path.Replace("/", "\\");
+            var path = FileEntry.Path.Replace("/", "\\");
 #if UNITY_EDITOR_WIN
             Process.Start("explorer.exe", "/select," + path);
 #elif UNITY_EDITOR_OSX
