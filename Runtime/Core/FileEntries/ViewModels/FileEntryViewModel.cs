@@ -15,16 +15,14 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels
         protected readonly IExplorerIconsProvider IconsProvider;
         protected readonly IFileOperations FileOperations;
 
-        private readonly FileEntryActionsProvider _actionsProvider;
+        private readonly IFileEntryActionsProvider _actionsProvider;
 
         protected FileEntryViewModel(
-            string path, string name,
             IExplorerIconsProvider iconsProvider,
-            FileEntryActionsProvider actionsProvider,
+            IFileEntryActionsProvider actionsProvider,
             IFileOperations fileOperations)
         {
-            Path = path;
-            Name = new ReactiveProperty<string>(name);
+            Name = new ReactiveProperty<string>();
             IsSelected = new ReactiveProperty<bool>(false);
             Position = new FileEntryPosition();
             Icon = new ExplorerIconData();
@@ -39,14 +37,20 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels
         public FileEntryPosition Position { get; }
         public ExplorerIconData Icon { get; }
 
+        public FileEntryViewModel Construct(string name, string path)
+        {
+            Name.SetValueWithoutNotify(name);
+            Path = path;
+            return this;
+        }
+
         public abstract Task InitializeAsync(CancellationToken cancellationToken);
         public abstract Dictionary<string, string> GetProperties();
-        
         public abstract void Rename(string newName);
         public abstract void Delete();
         public abstract void OnClick();
         public abstract void Dispose();
-        
+
         public void OnHoldClick()
         {
             _actionsProvider.ShowActions(this);

@@ -15,15 +15,21 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
         private readonly ExplorerFileIcon _fileIcon;
         
         public FileViewModel(
-            string path, string name,
             IExplorerIconsProvider iconsProvider,
-            FileEntryActionsProvider actionsProvider,
+            FileEntryActionsProvider<FileEntryActionsFactoryFile> actionsProvider,
             IFileOperations fileOperations,
-            FileExtension fileExtension) : 
-            base(path, name, iconsProvider, actionsProvider, fileOperations)
+            IFileExtensions fileExtensions) : 
+            base(iconsProvider, actionsProvider, fileOperations)
         {
-            Extension = fileExtension;
+            Extension = new FileExtension(fileExtensions);
             _fileIcon = new ExplorerFileIcon(this, iconsProvider);
+        }
+
+        public FileViewModel Construct(string name, string path, string extension)
+        {
+            Extension.SetExtension(extension);
+            base.Construct(name, path);
+            return this;
         }
 
         public FileExtension Extension { get; }

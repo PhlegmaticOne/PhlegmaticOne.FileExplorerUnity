@@ -3,14 +3,14 @@ using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions
 {
-    internal sealed class FileEntryActionsProvider
+    internal sealed class FileEntryActionsProvider<T> : IFileEntryActionsProvider where T : IFileEntryActionsFactory
     {
         private readonly FileEntryActionsViewModel _viewModel;
-        private readonly IFileEntryActionsFactory _actionsFactory;
+        private readonly T _actionsFactory;
 
         public FileEntryActionsProvider(
             FileEntryActionsViewModel viewModel,
-            IFileEntryActionsFactory actionsFactory)
+            T actionsFactory)
         {
             _viewModel = viewModel;
             _actionsFactory = actionsFactory;
