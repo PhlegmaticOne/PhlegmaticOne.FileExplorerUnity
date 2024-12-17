@@ -41,6 +41,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.ViewModels
         public void OnClosing()
         {
             _cancellationProvider.Cancel();
+            SelectionViewModel.ClearSelection();
             ActionsViewModel.Deactivate();
             TabViewModel.Clear();
             _iconsProvider.Dispose();

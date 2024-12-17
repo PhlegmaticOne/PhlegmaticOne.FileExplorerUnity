@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files.Extensions;
+using PhlegmaticOne.FileExplorer.Core.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Actions;
 using PhlegmaticOne.FileExplorer.Features.Actions.Properties.Files;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons;
@@ -12,15 +13,18 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
 {
     internal sealed class FileViewModel : FileEntryViewModel
     {
+        private readonly FileEntryActionsProvider<FileEntryActionsFactoryFile> _actionsProvider;
         private readonly ExplorerFileIcon _fileIcon;
         
         public FileViewModel(
             IExplorerIconsProvider iconsProvider,
             FileEntryActionsProvider<FileEntryActionsFactoryFile> actionsProvider,
+            SelectionViewModel selectionViewModel,
             IFileOperations fileOperations,
             IFileExtensions fileExtensions) : 
-            base(iconsProvider, actionsProvider, fileOperations)
+            base(iconsProvider, selectionViewModel, fileOperations)
         {
+            _actionsProvider = actionsProvider;
             Extension = new FileExtension(fileExtensions);
             _fileIcon = new ExplorerFileIcon(this, iconsProvider);
         }
@@ -33,7 +37,9 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
         }
 
         public FileExtension Extension { get; }
-        
+
+        public override FileEntryType EntryType => FileEntryType.File;
+
         public override async Task InitializeAsync(CancellationToken cancellationToken)
         {
             await _fileIcon.EnsureLoadedAsync(cancellationToken);
@@ -63,7 +69,14 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
         
         public override void OnClick()
         {
-            
+            if (SelectionViewModel.IsSelectionActive)
+            {
+                SelectionViewModel.UpdateSelection(this);
+            }
+            else
+            {
+                _actionsProvider.ShowActions(this);
+            }
         }
 
         public override void Dispose()

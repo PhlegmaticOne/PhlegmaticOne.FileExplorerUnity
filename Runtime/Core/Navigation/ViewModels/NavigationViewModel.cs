@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Configuration;
-using PhlegmaticOne.FileExplorer.Core.Actions.ViewModels;
+using PhlegmaticOne.FileExplorer.Core.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Tab.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Cancellation;
 using PhlegmaticOne.FileExplorer.Features.Navigation;
@@ -14,18 +14,21 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
     {
         private readonly IExplorerNavigator _navigator;
         private readonly IExplorerCancellationProvider _cancellationProvider;
+        private readonly SelectionViewModel _selectionViewModel;
         private readonly FileExplorerConfig _explorerConfig;
         private readonly TabViewModel _tabViewModel;
 
         public NavigationViewModel(
             IExplorerNavigator navigator, 
             IExplorerCancellationProvider cancellationProvider,
+            SelectionViewModel selectionViewModel,
             FileExplorerConfig explorerConfig,
             TabViewModel tabViewModel)
         {
             _tabViewModel = tabViewModel;
             _navigator = navigator;
             _cancellationProvider = cancellationProvider;
+            _selectionViewModel = selectionViewModel;
             _explorerConfig = explorerConfig;
             Path = new ReactiveProperty<string>();
             IsLoading = new ReactiveProperty<bool>();
@@ -38,6 +41,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
         {
             _cancellationProvider.Cancel();
             _tabViewModel.Clear();
+            _selectionViewModel.ClearSelection();
             Path.SetValueNotify(path);
             LoadEntriesAsync().ForgetUnawareCancellation();
         }

@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Actions;
+using PhlegmaticOne.FileExplorer.Core.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Actions.Properties.Directories;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
 using PhlegmaticOne.FileExplorer.Features.FileOperations;
@@ -17,13 +17,15 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories
 
         public DirectoryViewModel(
             IExplorerIconsProvider iconsProvider, 
-            FileEntryActionsProvider<FileEntryActionsFactoryDirectory> actionsProvider,
+            SelectionViewModel selectionViewModel,
             NavigationViewModel navigationViewModel,
             IFileOperations fileOperations) : 
-            base(iconsProvider, actionsProvider, fileOperations)
+            base(iconsProvider, selectionViewModel, fileOperations)
         {
             _navigationViewModel = navigationViewModel;
         }
+
+        public override FileEntryType EntryType => FileEntryType.Directory;
 
         public override async Task InitializeAsync(CancellationToken cancellationToken)
         {
@@ -36,7 +38,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories
             var properties = new DirectoryProperties(Path);
             var baseProperties = properties.GetBaseProperties();
             baseProperties.Add("Size", properties.Size.BuildUnitView());
-            baseProperties.Add("Entries", properties.EntriesData.BuildView());
+            baseProperties.Add("Entries", properties.BuildEntriesCounterView());
             return baseProperties;
         }
 
@@ -53,7 +55,14 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories
         
         public override void OnClick()
         {
-            _navigationViewModel.Navigate(Path);
+            if (SelectionViewModel.IsSelectionActive)
+            {
+                SelectionViewModel.UpdateSelection(this);
+            }
+            else
+            {
+                _navigationViewModel.Navigate(Path);
+            }
         }
 
         public override void Dispose()

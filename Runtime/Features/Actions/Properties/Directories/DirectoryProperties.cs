@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using PhlegmaticOne.FileExplorer.Core.FileEntries;
 using PhlegmaticOne.FileExplorer.Features.Actions.Properties.Core;
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions.Properties.Directories
@@ -13,10 +14,14 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Properties.Directories
         }
 
         public override string Type => "Directory";
-        
         public FileSize Size => new(GetDirectorySize());
+        public FileEntriesCounter EntriesCounter => CalculateEntries();
 
-        public DirectoryEntriesData EntriesData => CalculateEntries();
+        public string BuildEntriesCounterView()
+        {
+            var entries = EntriesCounter;
+            return $"Files: {entries.FilesCount}, Directories: {entries.DirectoriesCount}";
+        }
 
         private long GetDirectorySize()
         {
@@ -30,7 +35,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Properties.Directories
             return size;
         }
 
-        private DirectoryEntriesData CalculateEntries()
+        private FileEntriesCounter CalculateEntries()
         {
             int filesCount = 0, directoriesCount = 0;
 
@@ -46,7 +51,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Properties.Directories
                 }
             }
 
-            return new DirectoryEntriesData(directoriesCount, filesCount);
+            return new FileEntriesCounter(directoriesCount, filesCount);
         }
     }
 }

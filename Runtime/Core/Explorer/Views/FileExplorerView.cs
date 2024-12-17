@@ -36,7 +36,18 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.Views
 
         private void Update()
         {
-            if (Input.GetKeyUp(KeyCode.Escape) && !_viewModel.NavigationViewModel.NavigateBack())
+            if (!Input.GetKeyUp(KeyCode.Escape))
+            {
+                return;
+            }
+
+            if (_viewModel.SelectionViewModel.IsSelectionActive)
+            {
+                _viewModel.SelectionViewModel.ClearSelection();
+                return;
+            }
+            
+            if(!_viewModel.NavigationViewModel.NavigateBack())
             {
                 CloseExplorer();
             }

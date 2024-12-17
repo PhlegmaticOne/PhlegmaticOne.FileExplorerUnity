@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.Actions;
+using PhlegmaticOne.FileExplorer.Core.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
 using PhlegmaticOne.FileExplorer.Features.FileOperations;
@@ -13,13 +13,12 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels
     internal abstract class FileEntryViewModel : IDisposable
     {
         protected readonly IExplorerIconsProvider IconsProvider;
+        protected readonly SelectionViewModel SelectionViewModel;
         protected readonly IFileOperations FileOperations;
-
-        private readonly IFileEntryActionsProvider _actionsProvider;
 
         protected FileEntryViewModel(
             IExplorerIconsProvider iconsProvider,
-            IFileEntryActionsProvider actionsProvider,
+            SelectionViewModel selectionViewModel,
             IFileOperations fileOperations)
         {
             Name = new ReactiveProperty<string>();
@@ -27,10 +26,11 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels
             Position = new FileEntryPosition();
             Icon = new ExplorerIconData();
             IconsProvider = iconsProvider;
+            SelectionViewModel = selectionViewModel;
             FileOperations = fileOperations;
-            _actionsProvider = actionsProvider;
         }
 
+        public abstract FileEntryType EntryType { get; }
         public ReactiveProperty<string> Name { get; }
         public ReactiveProperty<bool> IsSelected { get; }
         public string Path { get; protected set; }
@@ -53,7 +53,10 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels
 
         public void OnHoldClick()
         {
-            _actionsProvider.ShowActions(this);
+            if (!SelectionViewModel.IsSelectionActive)
+            {
+                SelectionViewModel.UpdateSelection(this);
+            }
         }
     }
 }

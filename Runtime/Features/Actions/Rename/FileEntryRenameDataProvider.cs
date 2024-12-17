@@ -1,8 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
+using PhlegmaticOne.FileExplorer.Core.FileEntries;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
-using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories;
-using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files;
 using PhlegmaticOne.FileExplorer.Features.Actions.Views.Input;
 using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 
@@ -36,10 +35,10 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Rename
 
         private static string GetRenameHeader(FileEntryViewModel viewModel)
         {
-            return viewModel switch
+            return viewModel.EntryType switch
             {
-                DirectoryViewModel => "Rename directory",
-                FileViewModel => "Rename file",
+                FileEntryType.Directory => "Rename directory",
+                FileEntryType.File => "Rename file",
                 _ => "Rename"
             };
         }

@@ -12,6 +12,8 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.Views
         [SerializeField] private AspectRatioFitter _aspectRatioFitter;
         [SerializeField] private TextMeshProUGUI _fileNameText;
         [SerializeField] private ButtonHoldBehaviour _holdBehaviour;
+        [SerializeField] private RectTransform _rectTransform;
+        [SerializeField] private Image _selectionImage;
         
         private FileEntryViewModel _viewModel;
         private RectTransform _headerTransform;
@@ -47,6 +49,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.Views
             _holdBehaviour.OnClicked += HoldBehaviourOnClicked;
             _holdBehaviour.OnHoldClicked += HoldBehaviourOnHoldClicked;
             _viewModel.Name.ValueChanged += UpdateFileName;
+            _viewModel.IsSelected.ValueChanged += UpdateSelectionView;
         }
 
         private void Unsubscribe()
@@ -58,7 +61,11 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.Views
 
         private void HoldBehaviourOnHoldClicked()
         {
-            UpdateViewModelPosition();
+            _viewModel.Position.Update(
+                _rectTransform.anchoredPosition, 
+                _rectTransform.rect.size, 
+                _headerTransform.rect.height);
+            
             _viewModel.OnHoldClick();
         }
 
@@ -72,10 +79,9 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.Views
             _icon.sprite = null;
         }
 
-        private void UpdateViewModelPosition()
+        private void UpdateSelectionView(bool isSelected)
         {
-            var t = (transform as RectTransform)!;
-            _viewModel.Position.Update(t.anchoredPosition, t.rect.size, _headerTransform.rect.height);
+            _selectionImage.gameObject.SetActive(isSelected);
         }
 
         private void UpdateFileName(string value)
