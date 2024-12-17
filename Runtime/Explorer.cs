@@ -39,6 +39,7 @@ namespace PhlegmaticOne.FileExplorer
             container.Register<IExplorerIconsLoader, ExplorerIconsLoader>();
             container.Register<IExplorerIconsProvider, ExplorerIconsProvider>();
             container.Register<IExplorerCancellationProvider, ExplorerCancellationProvider>();
+            container.Register<IFileActionViewPositionCalculator, FileActionViewPositionCalculator>();
             container.Register<IFileOperations, FileOperations>();
             container.Register<IFileExtensions, FileExtensions>();
             
