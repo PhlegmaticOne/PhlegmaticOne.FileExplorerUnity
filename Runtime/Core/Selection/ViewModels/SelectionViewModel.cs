@@ -25,13 +25,15 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.ViewModels
             _actionsProvider = actionsProvider;
             _tabViewModel = tabViewModel;
             _selection = new List<FileEntryViewModel>();
-            
+
+            IsAllSelected = new ReactiveProperty<bool>(false);
             IsSelectionActive = new ReactiveProperty<bool>(false);
             Position = new FileEntryPosition();
             SelectedEntriesCount = new ReactiveProperty<FileEntriesCounter>(FileEntriesCounter.Zero);
         }
 
         public ReactiveProperty<bool> IsSelectionActive { get; }
+        public ReactiveProperty<bool> IsAllSelected { get; }
         public ReactiveProperty<FileEntriesCounter> SelectedEntriesCount { get; }
         public FileEntryPosition Position { get; }
 
@@ -53,11 +55,6 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.ViewModels
             return _selection.Count >= 1;
         }
 
-        public bool IsAllSelected()
-        {
-            return _selection.Count == _tabViewModel.FileEntries.Count;
-        }
-
         public IReadOnlyList<FileEntryViewModel> GetSelection()
         {
             return _selection;
@@ -70,6 +67,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.ViewModels
             UpdateSelectionCollection(viewModel, newIsSelected);
             UpdateSelectionCount(viewModel, newIsSelected, notify: true);
             UpdateIsSelectionActive();
+            UpdateIsAllSelected();
         }
 
         public void SelectAll()
@@ -85,10 +83,11 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.ViewModels
             }
             
             SelectedEntriesCount.Raise();
+            IsAllSelected.SetValueNotify(true);
             IsSelectionActive.SetValueNotify(true);
         }
 
-        public void ClearSelection()
+        public void ClearSelection(bool isDisableSelection = true)
         {
             foreach (var fileEntry in _selection)
             {
@@ -96,7 +95,8 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.ViewModels
             }
             
             _selection.Clear();
-            IsSelectionActive.SetValueNotify(false);
+            IsAllSelected.SetValueNotify(false);
+            IsSelectionActive.SetValueNotify(!isDisableSelection);
             SelectedEntriesCount.SetValueNotify(FileEntriesCounter.Zero);
         }
 
@@ -123,6 +123,11 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.ViewModels
         private void UpdateIsSelectionActive()
         {
             IsSelectionActive.SetValueNotify(_selection.Count >= 1);
+        }
+
+        private void UpdateIsAllSelected()
+        {
+            IsAllSelected.SetValueNotify(_selection.Count == _tabViewModel.FileEntries.Count);
         }
     }
 }

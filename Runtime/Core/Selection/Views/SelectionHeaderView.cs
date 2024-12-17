@@ -10,6 +10,8 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.Views
     {
         [SerializeField] private VerticalLayoutGroup _offsetGroup;
         [SerializeField] private Button _actionsButton;
+        [SerializeField] private Button _clearSelectionButton;
+        [SerializeField] private Toggle _selectDeselectAllToggle;
         [SerializeField] private RectTransform _rectTransform;
         [SerializeField] private GameObject _searchBarContainer;
         [SerializeField] private GameObject _selectionCountContainer;
@@ -26,8 +28,11 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.Views
         private void Subscribe()
         {
             _actionsButton.onClick.AddListener(OpenActionsDropdown);
+            _clearSelectionButton.onClick.AddListener(ClearSelection);
+            _selectDeselectAllToggle.onValueChanged.AddListener(SelectDeselectAll);
             _viewModel.IsSelectionActive.ValueChanged += UpdateSelectionIsActive;
             _viewModel.SelectedEntriesCount.ValueChanged += UpdateSelectionCountView;
+            _viewModel.IsAllSelected.ValueChanged += UpdateIsAllSelected;
         }
 
         private void OpenActionsDropdown()
@@ -40,10 +45,32 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.Views
             _viewModel.OnSelectionActionsClick();
         }
 
+        private void SelectDeselectAll(bool isSelected)
+        {
+            if (_viewModel.IsAllSelected)
+            {
+                _viewModel.ClearSelection(isDisableSelection: false);
+            }
+            else
+            {
+                _viewModel.SelectAll();
+            }
+        }
+
+        private void ClearSelection()
+        {
+            _viewModel.ClearSelection();
+        }
+
         private void UpdateSelectionCountView(FileEntriesCounter counter)
         {
-            var viewText = $"Files: {counter.FilesCount}, Directories: {counter.DirectoriesCount}";
-            _selectionCountText.text = viewText;
+            var description = new SelectionHeaderViewDescription(counter.TotalCount);
+            _selectionCountText.text = description.GetDescription();
+        }
+
+        private void UpdateIsAllSelected(bool isAllSelected)
+        {
+            _selectDeselectAllToggle.SetIsOnWithoutNotify(isAllSelected);
         }
 
         private void UpdateSelectionIsActive(bool isActive)

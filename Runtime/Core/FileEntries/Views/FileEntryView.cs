@@ -61,16 +61,16 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.Views
 
         private void HoldBehaviourOnHoldClicked()
         {
-            _viewModel.Position.Update(
-                _rectTransform.anchoredPosition, 
-                _rectTransform.rect.size, 
-                _headerTransform.rect.height);
-            
             _viewModel.OnHoldClick();
         }
 
         private void HoldBehaviourOnClicked()
         {
+            _viewModel.Position.Update(
+                _rectTransform.anchoredPosition, 
+                _rectTransform.rect.size, 
+                _headerTransform.rect.height);
+            
             _viewModel.OnClick();
         }
 

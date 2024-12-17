@@ -31,7 +31,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.Services
         {
             var result = new List<IFileEntryAction>();
 
-            if (!viewModel.IsAllSelected())
+            if (!viewModel.IsAllSelected)
             {
                 result.Add(_container.Instantiate<FileEntryActionSelectAll>());
             }

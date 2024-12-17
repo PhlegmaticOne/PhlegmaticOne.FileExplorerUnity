@@ -12,6 +12,7 @@
 
         public int DirectoriesCount { get; private set; }
         public int FilesCount { get; private set; }
+        public int TotalCount => DirectoriesCount + FilesCount;
 
         public void AddDelta(int delta, FileEntryType entryType)
         {
