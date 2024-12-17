@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Core.Selection.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.Actions.Properties.Core;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
 using PhlegmaticOne.FileExplorer.Features.FileOperations;
@@ -45,7 +45,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels
         }
 
         public abstract Task InitializeAsync(CancellationToken cancellationToken);
-        public abstract Dictionary<string, string> GetProperties();
+        public abstract FileEntryProperties GetProperties();
         public abstract void Rename(string newName);
         public abstract void Delete();
         public abstract void OnClick();

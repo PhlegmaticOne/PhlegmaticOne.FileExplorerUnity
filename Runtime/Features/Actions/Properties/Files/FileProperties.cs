@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using PhlegmaticOne.FileExplorer.Features.Actions.Properties.Core;
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions.Properties.Files
@@ -13,8 +14,16 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Properties.Files
         }
 
         public override string Type => "File";
-        public FileSize Size => new(_fileInfo.Length);
+        public override FileSize Size => new(_fileInfo.Length);
         public string Directory => _fileInfo.DirectoryName;
         public string Extension => _fileInfo.Extension;
+
+        public override Dictionary<string, string> GetPropertiesView()
+        {
+            var properties = base.GetPropertiesView();
+            properties.Add("Directory", Directory);
+            properties.Add("Extension", Extension);
+            return properties;
+        }
     }
 }

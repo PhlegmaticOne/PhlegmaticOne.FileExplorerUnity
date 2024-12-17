@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using PhlegmaticOne.FileExplorer.Core.FileEntries;
 using PhlegmaticOne.FileExplorer.Features.Actions.Properties.Core;
 
@@ -14,10 +15,17 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Properties.Directories
         }
 
         public override string Type => "Directory";
-        public FileSize Size => new(GetDirectorySize());
+        public override FileSize Size => new(GetDirectorySize());
         public FileEntriesCounter EntriesCounter => CalculateEntries();
 
-        public string BuildEntriesCounterView()
+        public override Dictionary<string, string> GetPropertiesView()
+        {
+            var properties = base.GetPropertiesView();
+            properties.Add("Entries", BuildEntriesCounterView());
+            return properties;
+        }
+
+        private string BuildEntriesCounterView()
         {
             var entries = EntriesCounter;
             return $"Files: {entries.FilesCount}, Directories: {entries.DirectoriesCount}";

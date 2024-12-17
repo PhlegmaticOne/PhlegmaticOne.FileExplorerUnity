@@ -6,6 +6,7 @@ using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files.Extensions;
 using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
+using PhlegmaticOne.FileExplorer.Core.Selection.Services;
 using PhlegmaticOne.FileExplorer.Core.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Tab.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Actions;
@@ -45,6 +46,7 @@ namespace PhlegmaticOne.FileExplorer
             
             container.Register<IFileEntryRenameDataProvider, FileEntryRenameDataProvider>();
             container.Register<IFileEntryPropertiesViewProvider, FileEntryPropertiesViewProvider>();
+            container.Register<ISelectionActionsProvider, SelectionActionsProvider>();
             container.Register<IFileViewProvider, FileViewProvider>();
 
             container.Register<FileEntryActionsFactoryFile>();

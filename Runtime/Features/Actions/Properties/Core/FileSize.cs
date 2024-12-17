@@ -1,10 +1,12 @@
 ﻿namespace PhlegmaticOne.FileExplorer.Features.Actions.Properties.Core
 {
-    internal readonly struct FileSize
+    internal struct FileSize
     {
         private const int Bytes = 1024;
+
+        public static FileSize Zero => new(0);
         
-        public long Size { get; }
+        public long Size { get; private set; }
 
         public FileSize(long size)
         {
@@ -14,6 +16,11 @@
         public string BuildBytesView()
         {
             return FormatSize(Size, "B");
+        }
+
+        public void Merge(FileSize size)
+        {
+            Size += size.Size;
         }
 
         public string BuildUnitView()

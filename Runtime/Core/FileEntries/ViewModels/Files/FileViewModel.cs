@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files.Extensions;
 using PhlegmaticOne.FileExplorer.Core.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Actions;
+using PhlegmaticOne.FileExplorer.Features.Actions.Properties.Core;
 using PhlegmaticOne.FileExplorer.Features.Actions.Properties.Files;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
@@ -46,14 +46,9 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
             Icon.SetIcon(_fileIcon.GetIcon());
         }
 
-        public override Dictionary<string, string> GetProperties()
+        public override FileEntryProperties GetProperties()
         {
-            var properties = new FileProperties(Path);
-            var baseProperties = properties.GetBaseProperties();
-            baseProperties.Add("Directory", properties.Directory);
-            baseProperties.Add("Extension", properties.Extension);
-            baseProperties.Add("Size", properties.Size.BuildUnitView());
-            return baseProperties;
+            return new FileProperties(Path);
         }
 
         public override void Rename(string newName)

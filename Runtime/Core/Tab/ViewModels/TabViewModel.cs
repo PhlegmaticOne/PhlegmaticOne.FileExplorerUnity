@@ -1,4 +1,5 @@
-﻿using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
+﻿using System.Collections.Generic;
+using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Core.Tab.ViewModels
@@ -23,6 +24,16 @@ namespace PhlegmaticOne.FileExplorer.Core.Tab.ViewModels
         public void Remove(FileEntryViewModel file)
         {
             FileEntries.Remove(file);
+            UpdateIsEmpty();
+        }
+        
+        public void RemoveRange(IEnumerable<FileEntryViewModel> files)
+        {
+            foreach (var file in files)
+            {
+                FileEntries.Remove(file);
+            }
+            
             UpdateIsEmpty();
         }
 

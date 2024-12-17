@@ -16,7 +16,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Properties.Services
         
         public Task ViewFileProperties(FileEntryViewModel viewModel)
         {
-            var properties = viewModel.GetProperties();
+            var properties = viewModel.GetProperties().GetPropertiesView();
             var propertiesViewModel = new PropertiesPopupViewModel(properties);
             return _popupProvider.Show<PropertiesPopup, PropertiesPopupViewModel>(propertiesViewModel);
         }

@@ -31,6 +31,11 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels
                 SetValueWithoutNotify(value);
             }
         }
+
+        public void Raise()
+        {
+            OnPropertyChanged();
+        }
         
         public void SetValueNotify(T value)
         {
