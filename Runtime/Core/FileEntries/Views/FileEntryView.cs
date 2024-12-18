@@ -50,6 +50,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.Views
             _holdBehaviour.OnHoldClicked += HoldBehaviourOnHoldClicked;
             _viewModel.Name.ValueChanged += UpdateFileName;
             _viewModel.IsSelected.ValueChanged += UpdateSelectionView;
+            _viewModel.IsActive.ValueChanged += UpdateIsActive;
         }
 
         private void Unsubscribe()
@@ -57,6 +58,8 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.Views
             _holdBehaviour.OnClicked -= HoldBehaviourOnClicked;
             _holdBehaviour.OnHoldClicked -= HoldBehaviourOnHoldClicked;
             _viewModel.Name.ValueChanged -= UpdateFileName;
+            _viewModel.IsSelected.ValueChanged -= UpdateSelectionView;
+            _viewModel.IsActive.ValueChanged -= UpdateIsActive;
         }
 
         private void HoldBehaviourOnHoldClicked()
@@ -94,6 +97,11 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.Views
             var icon = _viewModel.Icon;
             _icon.sprite = icon.IconSprite;
             _aspectRatioFitter.aspectRatio = icon.Aspect;
+        }
+
+        private void UpdateIsActive(bool isActive)
+        {
+            gameObject.SetActive(isActive);
         }
     }
 }

@@ -6,6 +6,9 @@ using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files.Extensions;
 using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
+using PhlegmaticOne.FileExplorer.Core.ScreenMessages.ViewModels;
+using PhlegmaticOne.FileExplorer.Core.Searching.Services;
+using PhlegmaticOne.FileExplorer.Core.Searching.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Selection.Services;
 using PhlegmaticOne.FileExplorer.Core.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Tab.ViewModels;
@@ -43,6 +46,7 @@ namespace PhlegmaticOne.FileExplorer
             container.Register<IFileActionViewPositionCalculator, FileActionViewPositionCalculator>();
             container.Register<IFileOperations, FileOperations>();
             container.Register<IFileExtensions, FileExtensions>();
+            container.Register<IFileEntryFinder, FileEntryFinder>();
             
             container.Register<IFileEntryRenameDataProvider, FileEntryRenameDataProvider>();
             container.Register<IFileEntryPropertiesViewProvider, FileEntryPropertiesViewProvider>();
@@ -60,6 +64,8 @@ namespace PhlegmaticOne.FileExplorer
             container.Register<FileEntryActionsViewModel>();
             container.Register<TabViewModel>();
             container.Register<SelectionViewModel>();
+            container.Register<SearchViewModel>();
+            container.Register<ScreenMessagesViewModel>();
             container.Register<NavigationViewModel>();
             container.Register<FileExplorerViewModel>();
             

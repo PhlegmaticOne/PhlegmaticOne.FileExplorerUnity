@@ -8,7 +8,6 @@ namespace PhlegmaticOne.FileExplorer.Core.Tab.Views
 {
     internal sealed class TabView : MonoBehaviour
     {
-        [SerializeField] private GameObject _emptyDirectoryText;
         [SerializeField] private TabCollectionView _collectionView;
         
         private TabViewModel _viewModel;
@@ -22,12 +21,6 @@ namespace PhlegmaticOne.FileExplorer.Core.Tab.Views
         private void Subscribe()
         {
             _viewModel.FileEntries.CollectionChanged += HandleFileEntriesCollectionChanged;
-            _viewModel.IsEmpty.ValueChanged += UpdateIsDirectoryEmpty;
-        }
-
-        private void UpdateIsDirectoryEmpty(bool isEmpty)
-        {
-            _emptyDirectoryText.SetActive(isEmpty);
         }
 
         private void HandleFileEntriesCollectionChanged(

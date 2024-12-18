@@ -16,6 +16,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.Views
         public void Bind(NavigationViewModel viewModel)
         {
             _viewModel = viewModel;
+            _loadingTextView.Bind(viewModel);
             Subscribe();
         }
 

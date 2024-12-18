@@ -10,8 +10,6 @@ namespace PhlegmaticOne.FileExplorer.Features.ExplorerIcons
 {
     internal sealed class ExplorerFileIcon
     {
-        private const string NoneExtension = "none";
-        
         private readonly FileViewModel _viewModel;
         private readonly IExplorerIconsProvider _iconsProvider;
 
@@ -32,8 +30,7 @@ namespace PhlegmaticOne.FileExplorer.Features.ExplorerIcons
             else
             {
                 var fileExtension = _viewModel.Extension;
-                var extension = string.IsNullOrEmpty(fileExtension.Extension) ? NoneExtension : fileExtension.Extension;
-                _fileIcon = await _iconsProvider.GetIconAsync(extension, cancellationToken);
+                _fileIcon = await _iconsProvider.GetIconAsync(fileExtension.Extension, cancellationToken);
             }
         }
 

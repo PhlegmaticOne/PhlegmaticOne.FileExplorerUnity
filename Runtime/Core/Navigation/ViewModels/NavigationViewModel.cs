@@ -1,12 +1,15 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Configuration;
+using PhlegmaticOne.FileExplorer.Core.ScreenMessages.ViewModels;
+using PhlegmaticOne.FileExplorer.Core.Searching.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Tab.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Cancellation;
 using PhlegmaticOne.FileExplorer.Features.Navigation;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
+using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
 {
@@ -17,15 +20,21 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
         private readonly SelectionViewModel _selectionViewModel;
         private readonly FileExplorerConfig _explorerConfig;
         private readonly TabViewModel _tabViewModel;
+        private readonly ScreenMessagesViewModel _screenMessagesViewModel;
+        private readonly SearchViewModel _searchViewModel;
 
         public NavigationViewModel(
             IExplorerNavigator navigator, 
             IExplorerCancellationProvider cancellationProvider,
             SelectionViewModel selectionViewModel,
             FileExplorerConfig explorerConfig,
-            TabViewModel tabViewModel)
+            TabViewModel tabViewModel,
+            ScreenMessagesViewModel screenMessagesViewModel,
+            SearchViewModel searchViewModel)
         {
             _tabViewModel = tabViewModel;
+            _screenMessagesViewModel = screenMessagesViewModel;
+            _searchViewModel = searchViewModel;
             _navigator = navigator;
             _cancellationProvider = cancellationProvider;
             _selectionViewModel = selectionViewModel;
@@ -42,6 +51,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
             _cancellationProvider.Cancel();
             _tabViewModel.Clear();
             _selectionViewModel.ClearSelection();
+            _searchViewModel.Reset();
             Path.SetValueNotify(path);
             LoadEntriesAsync().ForgetUnawareCancellation();
         }
@@ -67,9 +77,15 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
             return !Path.Value.Equals(_explorerConfig.RootPath);
         }
 
+        public void SetLoadingMessage(string loadingMessage)
+        {
+            _screenMessagesViewModel.HeaderMessage.SetValueNotify(
+                new ScreenMessageData(loadingMessage, Color.green));
+        }
+
         private async Task LoadEntriesAsync()
         {
-            IsLoading.SetValueNotify(true);
+            SetLoadingState(true);
 
             await foreach (var fileEntry in _navigator.Navigate(Path).WithCancellation(_cancellationProvider.Token))
             {
@@ -78,7 +94,13 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
             }
 
             _tabViewModel.UpdateIsEmpty();
-            IsLoading.SetValueNotify(false);
+            SetLoadingState(false);
+        }
+
+        private void SetLoadingState(bool isLoading)
+        {
+            _screenMessagesViewModel.IsHeaderMessageActive.SetValueNotify(isLoading);
+            IsLoading.SetValueNotify(isLoading);
         }
 
         private string GetParentPath()

@@ -23,6 +23,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels
         {
             Name = new ReactiveProperty<string>();
             IsSelected = new ReactiveProperty<bool>(false);
+            IsActive = new ReactiveProperty<bool>(true);
             Position = new FileEntryPosition();
             Icon = new ExplorerIconData();
             IconsProvider = iconsProvider;
@@ -33,6 +34,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels
         public abstract FileEntryType EntryType { get; }
         public ReactiveProperty<string> Name { get; }
         public ReactiveProperty<bool> IsSelected { get; }
+        public ReactiveProperty<bool> IsActive { get; }
         public string Path { get; protected set; }
         public FileEntryPosition Position { get; }
         public ExplorerIconData Icon { get; }

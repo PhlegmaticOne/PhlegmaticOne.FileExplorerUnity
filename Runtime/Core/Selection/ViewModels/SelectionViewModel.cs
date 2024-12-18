@@ -74,7 +74,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.ViewModels
         {
             foreach (var fileEntry in _tabViewModel.FileEntries)
             {
-                if (!fileEntry.IsSelected)
+                if (!fileEntry.IsSelected && fileEntry.IsActive)
                 {
                     fileEntry.IsSelected.SetValueNotify(true);
                     UpdateSelectionCount(fileEntry, newIsSelected: true, notify: false);
@@ -127,7 +127,9 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.ViewModels
 
         private void UpdateIsAllSelected()
         {
-            IsAllSelected.SetValueNotify(_selection.Count == _tabViewModel.FileEntries.Count);
+            var activeCount = _tabViewModel.FileEntries.Count(x => x.IsActive);
+            var isAllSelected = activeCount != 0 && _selection.Count == activeCount;
+            IsAllSelected.SetValueNotify(isAllSelected);
         }
     }
 }
