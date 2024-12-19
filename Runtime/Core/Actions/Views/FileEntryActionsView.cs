@@ -31,7 +31,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Actions.Views
             switch (eventArgs.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    _actionDropdownView.AddActions(eventArgs.NewItems);
+                    _actionDropdownView.AddActions(eventArgs.AffectedItems);
                     break;
                 case NotifyCollectionChangedAction.Reset:
                     _actionDropdownView.Clear();

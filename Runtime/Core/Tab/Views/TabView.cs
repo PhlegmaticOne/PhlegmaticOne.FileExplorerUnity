@@ -29,10 +29,10 @@ namespace PhlegmaticOne.FileExplorer.Core.Tab.Views
             switch (eventArgs.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    _collectionView.AddEntries(eventArgs.NewItems);
+                    _collectionView.AddEntries(eventArgs.AffectedItems);
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    _collectionView.RemoveEntries(eventArgs.OldItems);
+                    _collectionView.RemoveEntries(eventArgs.AffectedItems);
                     break;
                 case NotifyCollectionChangedAction.Reset:
                     _collectionView.Clear();

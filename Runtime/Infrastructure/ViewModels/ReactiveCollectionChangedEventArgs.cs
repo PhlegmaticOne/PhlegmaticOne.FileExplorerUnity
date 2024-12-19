@@ -8,27 +8,38 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels
 {
     internal sealed class ReactiveCollectionChangedEventArgs<T> : EventArgs
     {
-        private readonly NotifyCollectionChangedEventArgs _collectionChangedEventArgs;
-
-        public ReactiveCollectionChangedEventArgs(NotifyCollectionChangedEventArgs collectionChangedEventArgs)
+        public static ReactiveCollectionChangedEventArgs<T> Reset()
         {
-            _collectionChangedEventArgs = collectionChangedEventArgs;
+            return new ReactiveCollectionChangedEventArgs<T>(NotifyCollectionChangedAction.Reset, ArraySegment<T>.Empty);
+        }
+        
+        public static ReactiveCollectionChangedEventArgs<T> Added(T item)
+        {
+            return new ReactiveCollectionChangedEventArgs<T>(NotifyCollectionChangedAction.Add, new [] { item });
+        }
+        
+        public static ReactiveCollectionChangedEventArgs<T> Added(IReadOnlyCollection<T> addedItems)
+        {
+            return new ReactiveCollectionChangedEventArgs<T>(NotifyCollectionChangedAction.Add, addedItems);
         }
 
-        public NotifyCollectionChangedAction Action => _collectionChangedEventArgs.Action;
-        public IEnumerable<T> NewItems => CollectionOrDefault(_collectionChangedEventArgs.NewItems);
-        public int NewStartingIndex => _collectionChangedEventArgs.NewStartingIndex;
-        public IEnumerable<T> OldItems => CollectionOrDefault(_collectionChangedEventArgs.OldItems);
-        public int OldStartingIndex => _collectionChangedEventArgs.OldStartingIndex;
-
-        public override string ToString()
+        public static ReactiveCollectionChangedEventArgs<T> Removed(T item)
         {
-            return _collectionChangedEventArgs.ToString();
+            return new ReactiveCollectionChangedEventArgs<T>(NotifyCollectionChangedAction.Remove, new [] { item });
+        }
+        
+        public static ReactiveCollectionChangedEventArgs<T> Removed(IReadOnlyCollection<T> removedItems)
+        {
+            return new ReactiveCollectionChangedEventArgs<T>(NotifyCollectionChangedAction.Remove, removedItems);
         }
 
-        private static IEnumerable<T> CollectionOrDefault(IList list)
+        private ReactiveCollectionChangedEventArgs(NotifyCollectionChangedAction action, IReadOnlyCollection<T> affectedItems)
         {
-            return list is null || list.Count == 0 ? Enumerable.Empty<T>() : list.OfType<T>();
+            Action = action;
+            AffectedItems = affectedItems;
         }
+
+        public NotifyCollectionChangedAction Action { get; }
+        public IReadOnlyCollection<T> AffectedItems { get; }
     }
 }

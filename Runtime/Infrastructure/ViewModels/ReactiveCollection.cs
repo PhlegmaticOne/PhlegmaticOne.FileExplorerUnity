@@ -1,21 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
+using System.Linq;
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels
 {
     internal sealed class ReactiveCollection<T> : ICollection<T>
     {
-        private readonly ObservableCollection<T> _collection;
+        private readonly List<T> _collection = new();
         
-        public ReactiveCollection()
-        {
-            _collection = new ObservableCollection<T>();
-            _collection.CollectionChanged += OnPrivateCollectionChanged;
-        }
-
         public event Action<ReactiveCollectionChangedEventArgs<T>> CollectionChanged;
 
         public int Count => _collection.Count;
@@ -25,19 +18,25 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels
         public void Add(T item)
         {
             _collection.Add(item);
+            OnCollectionChanged(ReactiveCollectionChangedEventArgs<T>.Added(item));
         }
 
-        public void AddRange(IEnumerable<T> actions)
+        public void AddRange(IEnumerable<T> items)
         {
-            foreach (var action in actions)
+            var enumerated = items.ToArray();
+            
+            foreach (var action in enumerated)
             {
                 _collection.Add(action);
             }
+            
+            OnCollectionChanged(ReactiveCollectionChangedEventArgs<T>.Added(enumerated));
         }
 
         public void Clear()
         {
             _collection.Clear();
+            OnCollectionChanged(ReactiveCollectionChangedEventArgs<T>.Reset());
         }
 
         public bool Contains(T item)
@@ -52,7 +51,29 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels
 
         public bool Remove(T item)
         {
-            return _collection.Remove(item);
+            var isRemoved = _collection.Remove(item);
+
+            if (isRemoved)
+            {
+                OnCollectionChanged(ReactiveCollectionChangedEventArgs<T>.Removed(item));
+            }
+
+            return isRemoved;
+        }
+        
+        public void RemoveRange(IEnumerable<T> items)
+        {
+            var removed = new List<T>();
+            
+            foreach (var item in items)
+            {
+                if (_collection.Remove(item))
+                {
+                    removed.Add(item);
+                }
+            }
+
+            OnCollectionChanged(ReactiveCollectionChangedEventArgs<T>.Removed(removed));
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -70,9 +91,9 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels
             return ((IEnumerable)_collection).GetEnumerator();
         }
 
-        private void OnPrivateCollectionChanged(object _, NotifyCollectionChangedEventArgs eventArgs)
+        private void OnCollectionChanged(ReactiveCollectionChangedEventArgs<T> eventArgs)
         {
-            CollectionChanged?.Invoke(new ReactiveCollectionChangedEventArgs<T>(eventArgs));
+            CollectionChanged?.Invoke(eventArgs);
         }
     }
 }
