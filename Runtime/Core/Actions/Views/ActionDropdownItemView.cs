@@ -12,9 +12,9 @@ namespace PhlegmaticOne.FileExplorer.Core.Actions.Views
         [SerializeField] private Image _background;
         [SerializeField] private Button _button;
         
-        private IFileEntryAction _action;
+        private IExplorerAction _action;
 
-        public void Construct(IFileEntryAction action, FileEntryActionColor color)
+        public void Construct(IExplorerAction action, FileEntryActionColor color)
         {
             _action = action;
             _button.onClick.AddListener(ExecuteAction);

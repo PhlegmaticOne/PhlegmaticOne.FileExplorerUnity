@@ -16,11 +16,12 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories
         private readonly NavigationViewModel _navigationViewModel;
 
         public DirectoryViewModel(
+            string name, string path,
             IExplorerIconsProvider iconsProvider, 
             SelectionViewModel selectionViewModel,
             NavigationViewModel navigationViewModel,
             IFileOperations fileOperations) : 
-            base(iconsProvider, selectionViewModel, fileOperations)
+            base(name, path, iconsProvider, selectionViewModel, fileOperations)
         {
             _navigationViewModel = navigationViewModel;
         }

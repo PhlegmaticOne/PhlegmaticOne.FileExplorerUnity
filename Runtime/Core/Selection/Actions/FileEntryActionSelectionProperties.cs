@@ -9,7 +9,7 @@ using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 
 namespace PhlegmaticOne.FileExplorer.Core.Selection.Actions
 {
-    internal sealed class FileEntryActionSelectionProperties : FileEntryAction
+    internal sealed class FileEntryActionSelectionProperties : ExplorerAction
     {
         private readonly IPopupProvider _popupProvider;
         private readonly SelectionViewModel _selectionViewModel;
@@ -25,7 +25,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.Actions
 
         public override string Description => "Properties";
         
-        public override FileEntryActionColor Color => FileEntryActionColor.Empty;
+        public override FileEntryActionColor Color => FileEntryActionColor.Auto;
         
         protected override async Task<bool> ExecuteAction()
         {

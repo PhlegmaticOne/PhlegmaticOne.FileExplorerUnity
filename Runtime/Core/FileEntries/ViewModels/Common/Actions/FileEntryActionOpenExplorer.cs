@@ -17,7 +17,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Common
 
         public override string Description => "Open in OS";
         
-        public override FileEntryActionColor Color => FileEntryActionColor.Empty;
+        public override FileEntryActionColor Color => FileEntryActionColor.Auto;
         
         protected override Task<bool> ExecuteAction()
         {

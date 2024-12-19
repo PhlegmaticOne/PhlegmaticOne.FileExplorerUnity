@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using PhlegmaticOne.FileExplorer.Core.FileEntries;
+﻿using System;
+using System.Collections.Generic;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
-using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories;
-using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files;
 using PhlegmaticOne.FileExplorer.Core.Searching.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Selection.Actions;
 using PhlegmaticOne.FileExplorer.Core.Selection.ViewModels;
@@ -15,25 +12,22 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.Services
     internal sealed class SelectionActionsProvider : ISelectionActionsProvider
     {
         private readonly IDependencyContainer _container;
-        private readonly FileEntryActionsFactoryFile _fileActionsFactory;
-        private readonly FileEntryActionsFactoryDirectory _directoryActionsFactory;
+        private readonly IFileEntryActionsFactory[] _actionsFactories;
         private readonly SearchViewModel _searchViewModel;
 
         public SelectionActionsProvider(
             IDependencyContainer container,
-            FileEntryActionsFactoryFile fileActionsFactory,
-            FileEntryActionsFactoryDirectory directoryActionsFactory,
+            IFileEntryActionsFactory[] actionsFactories,
             SearchViewModel searchViewModel)
         {
             _container = container;
-            _fileActionsFactory = fileActionsFactory;
-            _directoryActionsFactory = directoryActionsFactory;
+            _actionsFactories = actionsFactories;
             _searchViewModel = searchViewModel;
         }
         
-        public IEnumerable<IFileEntryAction> GetActions(SelectionViewModel viewModel)
+        public IEnumerable<IExplorerAction> GetActions(SelectionViewModel viewModel)
         {
-            var result = new List<IFileEntryAction>();
+            var result = new List<IExplorerAction>();
 
             if (!viewModel.IsAllSelected && _searchViewModel.FoundEntriesCount != 0)
             {
@@ -58,14 +52,10 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.Services
             return result;
         }
 
-        private IEnumerable<IFileEntryAction> GetSingleSelectionActions(FileEntryViewModel fileEntry)
+        private IEnumerable<IExplorerAction> GetSingleSelectionActions(FileEntryViewModel fileEntry)
         {
-            return fileEntry.EntryType switch
-            {
-                FileEntryType.File => _fileActionsFactory.GetActions(fileEntry),
-                FileEntryType.Directory => _directoryActionsFactory.GetActions(fileEntry),
-                _ => Enumerable.Empty<IFileEntryAction>()
-            };
+            var factory = Array.Find(_actionsFactories, x => x.EntryType == fileEntry.EntryType);
+            return factory.GetActions(fileEntry);
         }
     }
 }

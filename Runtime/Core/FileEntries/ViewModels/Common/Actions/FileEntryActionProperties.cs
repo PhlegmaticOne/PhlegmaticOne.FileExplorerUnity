@@ -18,7 +18,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Common
 
         public override string Description => "Properties";
         
-        public override FileEntryActionColor Color => FileEntryActionColor.Empty;
+        public override FileEntryActionColor Color => FileEntryActionColor.Auto;
         
         protected override async Task<bool> ExecuteAction()
         {

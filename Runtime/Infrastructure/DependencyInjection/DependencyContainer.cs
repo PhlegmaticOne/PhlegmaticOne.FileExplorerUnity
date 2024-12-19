@@ -6,74 +6,106 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection
 {
     internal sealed class DependencyContainer : IDependencyContainer
     {
-        private readonly Dictionary<Type, object> _dependencies;
-        private readonly Dictionary<Type, Type> _registerTypes;
+        private readonly Dictionary<Type, object> _resolvedDependencies;
+        private readonly Dictionary<Type, List<Type>> _contractToResolveTypesMap;
         
         public DependencyContainer()
         {
-            _registerTypes = new Dictionary<Type, Type>();
-            _dependencies = new Dictionary<Type, object>();
-            RegisterInstance<IDependencyContainer>(this);
+            _contractToResolveTypesMap = new Dictionary<Type, List<Type>>();
+            _resolvedDependencies = new Dictionary<Type, object>();
+            RegisterInstance(this);
         }
 
-        public void Register<TBase, TImpl>() where TImpl : class, TBase where TBase : class
+        public void Register(Type contractType, Type resolveType)
         {
-            _registerTypes.TryAdd(typeof(TBase), typeof(TImpl));
+            if (_contractToResolveTypesMap.TryGetValue(contractType, out var resolvedTypes))
+            {
+                resolvedTypes.Add(resolveType);
+            }
+            else
+            {
+                _contractToResolveTypesMap.Add(contractType, new List<Type> { resolveType });
+            }
         }
 
-        public void Register<T>() where T : class
+        public void RegisterInstance(object instance)
         {
-            Register<T, T>();
+            var type = instance.GetType();
+            this.RegisterInterfacesAndSelf(type);
+            _resolvedDependencies.Add(type, instance);
         }
 
-        public void RegisterInstance<T>(T instance) where T : class
+        public object Resolve(Type contractType)
         {
-            _dependencies.TryAdd(typeof(T), instance);
+            var resolvedType = _contractToResolveTypesMap[contractType][0];
+            return ResolvePrivate(resolvedType, Array.Empty<object>());
         }
 
-        public T Resolve<T>() where T : class
+        public Array ResolveAll(Type contractType)
         {
-            return (T)Resolve(typeof(T));
+            var types = _contractToResolveTypesMap[contractType];
+            var result = Array.CreateInstance(contractType, types.Count);
+
+            for (var i = 0; i < types.Count; i++)
+            {
+                var resolvedType = types[i];
+                result.SetValue(ResolvePrivate(resolvedType, Array.Empty<object>()), i);
+            }
+
+            return result;
         }
 
-        public T Instantiate<T>() where T : class
+        public object Instantiate(Type type, params object[] parameters)
         {
-            return (T)Instantiate(typeof(T));
+            return InstantiatePrivate(type, parameters);
         }
 
-        private object Resolve(Type type)
+        private object ResolvePrivate(Type type, object[] parameters)
         {
-            if (_dependencies.TryGetValue(type, out var existing))
+            if (_resolvedDependencies.TryGetValue(type, out var existing))
             {
                 return existing;
             }
 
-            var instance = Instantiate(_registerTypes[type]);
-            _dependencies.TryAdd(type, instance);
+            var instance = InstantiatePrivate(type, parameters);
+            _resolvedDependencies.TryAdd(type, instance);
             return instance;
         }
 
-        private object Instantiate(Type type)
+        private object InstantiatePrivate(Type type, object[] parameters)
         {
-            var parameters = type.GetConstructors()[0].GetParameters();
-            
-            var instance = parameters.Length == 0 
-                ? Activator.CreateInstance(type) 
-                : Activator.CreateInstance(type, ResolveParameters(parameters));
-            
-            _dependencies.TryAdd(type, instance);
-            
-            return instance;
-        }
+            var ctorParameters = type.GetConstructors()[0].GetParameters();
 
-        private object[] ResolveParameters(IReadOnlyList<ParameterInfo> parameters)
-        {
-            var result = new object[parameters.Count];
-
-            for (var i = 0; i < parameters.Count; i++)
+            if (ctorParameters.Length == 0)
             {
-                var parameter = parameters[i];
-                result[i] = Resolve(parameter.ParameterType);
+                return Activator.CreateInstance(type);
+            }
+
+            var resolved = ResolveParameters(ctorParameters, parameters);
+            return Activator.CreateInstance(type, resolved);
+        }
+
+        private object[] ResolveParameters(IReadOnlyList<ParameterInfo> ctorParameters, object[] parameters)
+        {
+            var result = new object[ctorParameters.Count];
+            var p = 0;
+
+            for (var i = 0; i < ctorParameters.Count; i++)
+            {
+                var parameter = ctorParameters[i];
+
+                if (parameters.Length > 0 && p < parameters.Length && parameter.ParameterType == parameters[p].GetType())
+                {
+                    result[i] = parameters[p++];
+                }
+                else if(!parameter.ParameterType.IsArray)
+                {
+                    result[i] = Resolve(parameter.ParameterType);
+                }
+                else
+                {
+                    result[i] = ResolveAll(parameter.ParameterType.GetElementType());
+                }
             }
 
             return result;

@@ -26,7 +26,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Actions.Views
             _viewModel.Deactivate();
         }
 
-        private void ActionsOnCollectionChanged(ReactiveCollectionChangedEventArgs<IFileEntryAction> eventArgs)
+        private void ActionsOnCollectionChanged(ReactiveCollectionChangedEventArgs<IExplorerAction> eventArgs)
         {
             switch (eventArgs.Action)
             {

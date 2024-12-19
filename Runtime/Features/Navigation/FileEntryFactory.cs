@@ -17,21 +17,17 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation
         
         public FileEntryViewModel CreateEntry(FileSystemInfo fileEntry)
         {
-            return File.Exists(fileEntry.FullName) 
-                ? CreateFileEntry(fileEntry) 
-                : CreateDirectoryEntry(fileEntry);
+            return File.Exists(fileEntry.FullName) ? CreateFileEntry(fileEntry) : CreateDirectoryEntry(fileEntry);
         }
 
         private FileEntryViewModel CreateFileEntry(FileSystemInfo fileInfo)
         {
-            return _container.Instantiate<FileViewModel>()
-                .Construct(fileInfo.Name, fileInfo.FullName, fileInfo.Extension);
+            return _container.Instantiate<FileViewModel>(fileInfo.Name, fileInfo.FullName, fileInfo.Extension);
         }
 
         private FileEntryViewModel CreateDirectoryEntry(FileSystemInfo fileInfo)
         {
-            return _container.Instantiate<DirectoryViewModel>()
-                .Construct(fileInfo.Name, fileInfo.FullName);
+            return _container.Instantiate<DirectoryViewModel>(fileInfo.Name, fileInfo.FullName);
         }
     }
 }

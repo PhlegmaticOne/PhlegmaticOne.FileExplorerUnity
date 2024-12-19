@@ -17,7 +17,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Actions.Views
         private readonly List<ActionDropdownItemView> _dropdownItemViews = new();
         public Vector2 Size => (transform as RectTransform)!.rect.size;
 
-        public void AddActions(IEnumerable<IFileEntryAction> newActions)
+        public void AddActions(IEnumerable<IExplorerAction> newActions)
         {
             foreach (var action in newActions)
             {
@@ -48,7 +48,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Actions.Views
             _dropdownItemViews.Clear();
         }
 
-        private FileEntryActionColor GetColor(IFileEntryAction action)
+        private FileEntryActionColor GetColor(IExplorerAction action)
         {
             var resultColor = new FileEntryActionColor();
             var actionColor = action.Color;

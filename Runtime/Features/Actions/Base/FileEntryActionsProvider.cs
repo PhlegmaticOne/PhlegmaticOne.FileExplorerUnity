@@ -1,25 +1,27 @@
-﻿using PhlegmaticOne.FileExplorer.Core.Actions.ViewModels;
+﻿using System;
+using PhlegmaticOne.FileExplorer.Core.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions
 {
-    internal sealed class FileEntryActionsProvider<T> : IFileEntryActionsProvider where T : IFileEntryActionsFactory
+    internal sealed class FileEntryActionsProvider : IFileEntryActionsProvider
     {
         private readonly FileEntryActionsViewModel _viewModel;
-        private readonly T _actionsFactory;
+        private readonly IFileEntryActionsFactory[] _actionsFactory;
 
         public FileEntryActionsProvider(
             FileEntryActionsViewModel viewModel,
-            T actionsFactory)
+            IFileEntryActionsFactory[] actionsFactory)
         {
             _viewModel = viewModel;
             _actionsFactory = actionsFactory;
         }
 
-        public void ShowActions(FileEntryViewModel file)
+        public void ShowActions(FileEntryViewModel fileEntry)
         {
-            var actions = _actionsFactory.GetActions(file);
-            var actionPosition = file.Position.ToActionViewPositionData(FileActionViewAlignment.DockToTargetCenter);
+            var factory = Array.Find(_actionsFactory, x => x.EntryType == fileEntry.EntryType);
+            var actions = factory.GetActions(fileEntry);
+            var actionPosition = fileEntry.Position.ToActionViewPositionData(FileActionViewAlignment.DockToTargetCenter);
             _viewModel.ShowActions(actions, actionPosition);
         }
     }

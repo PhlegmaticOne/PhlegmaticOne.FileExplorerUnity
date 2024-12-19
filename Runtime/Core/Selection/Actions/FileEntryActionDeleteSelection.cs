@@ -7,7 +7,7 @@ using PhlegmaticOne.FileExplorer.Features.Actions;
 
 namespace PhlegmaticOne.FileExplorer.Core.Selection.Actions
 {
-    internal sealed class FileEntryActionDeleteSelection : FileEntryAction
+    internal sealed class FileEntryActionDeleteSelection : ExplorerAction
     {
         private readonly SelectionViewModel _selectionViewModel;
         private readonly TabViewModel _tabViewModel;

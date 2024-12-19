@@ -13,27 +13,21 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
 {
     internal sealed class FileViewModel : FileEntryViewModel
     {
-        private readonly FileEntryActionsProvider<FileEntryActionsFactoryFile> _actionsProvider;
+        private readonly IFileEntryActionsProvider _actionsProvider;
         private readonly ExplorerFileIcon _fileIcon;
         
         public FileViewModel(
+            string name, string path, string extension,
             IExplorerIconsProvider iconsProvider,
-            FileEntryActionsProvider<FileEntryActionsFactoryFile> actionsProvider,
+            IFileEntryActionsProvider actionsProvider,
             SelectionViewModel selectionViewModel,
             IFileOperations fileOperations,
             IFileExtensions fileExtensions) : 
-            base(iconsProvider, selectionViewModel, fileOperations)
+            base(name, path, iconsProvider, selectionViewModel, fileOperations)
         {
             _actionsProvider = actionsProvider;
-            Extension = new FileExtension(fileExtensions);
+            Extension = new FileExtension(fileExtensions, extension);
             _fileIcon = new ExplorerFileIcon(this, iconsProvider);
-        }
-
-        public FileViewModel Construct(string name, string path, string extension)
-        {
-            Extension.SetExtension(extension);
-            base.Construct(name, path);
-            return this;
         }
 
         public FileExtension Extension { get; }

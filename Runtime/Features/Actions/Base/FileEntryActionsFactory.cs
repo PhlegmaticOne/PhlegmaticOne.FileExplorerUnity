@@ -1,21 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using PhlegmaticOne.FileExplorer.Core.FileEntries;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions
 {
     internal abstract class FileEntryActionsFactory<T> : IFileEntryActionsFactory where T : FileEntryViewModel
     {
-        public IEnumerable<IFileEntryAction> GetActions(FileEntryViewModel file)
+        public abstract FileEntryType EntryType { get; }
+
+        public IEnumerable<IExplorerAction> GetActions(FileEntryViewModel file)
         {
             if (file is T generic)
             {
                 return GetActions(generic);
             }
             
-            return Enumerable.Empty<IFileEntryAction>();
+            return Enumerable.Empty<IExplorerAction>();
         }
 
-        protected abstract IEnumerable<IFileEntryAction> GetActions(T fileEntry);
+        protected abstract IEnumerable<IExplorerAction> GetActions(T fileEntry);
     }
 }

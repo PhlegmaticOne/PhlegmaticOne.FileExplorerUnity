@@ -1,11 +1,13 @@
-﻿namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection
+﻿using System;
+
+namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection
 {
     internal interface IDependencyContainer
     {
-        void Register<TBase, TImpl>() where TImpl : class, TBase where TBase : class;
-        void Register<T>() where T : class;
-        void RegisterInstance<T>(T instance) where T : class;
-        T Resolve<T>() where T : class;
-        T Instantiate<T>() where T : class;
+        void Register(Type contractType, Type resolveType);
+        void RegisterInstance(object instance);
+        object Resolve(Type contractType);
+        object Instantiate(Type type, params object[] parameters);
+        Array ResolveAll(Type contractType);
     }
 }

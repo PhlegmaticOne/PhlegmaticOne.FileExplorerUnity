@@ -4,7 +4,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions
 {
     internal struct FileEntryActionColor
     {
-        public static FileEntryActionColor Empty => new(Color.clear, Color.clear);
+        public static FileEntryActionColor Auto => new(Color.clear, Color.clear);
 
         public static FileEntryActionColor WithTextColor(Color color)
         {

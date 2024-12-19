@@ -2,7 +2,7 @@
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions
 {
-    internal interface IFileEntryAction
+    internal interface IExplorerAction
     {
         string Description { get; }
         FileEntryActionColor Color { get; }

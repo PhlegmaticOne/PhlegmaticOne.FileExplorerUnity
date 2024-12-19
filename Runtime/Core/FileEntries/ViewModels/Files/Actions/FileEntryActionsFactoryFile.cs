@@ -15,8 +15,10 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
         {
             _container = container;
         }
-        
-        protected override IEnumerable<IFileEntryAction> GetActions(FileViewModel fileEntry)
+
+        public override FileEntryType EntryType => FileEntryType.File;
+
+        protected override IEnumerable<IExplorerAction> GetActions(FileViewModel fileEntry)
         {
             if (fileEntry.Extension.IsViewable(out var viewType))
             {
@@ -30,9 +32,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
             }
 
 #if UNITY_EDITOR
-            yield return _container
-                .Instantiate<FileEntryActionOpenExplorer>()
-                .WithFileEntry(fileEntry);
+            yield return _container.Instantiate<FileEntryActionOpenExplorer>().WithFileEntry(fileEntry);
 #endif
             yield return _container.Instantiate<FileEntryActionRename>().WithFileEntry(fileEntry);
             yield return _container.Instantiate<FileEntryActionProperties>().WithFileEntry(fileEntry);
@@ -41,9 +41,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
 
         private FileEntryAction ViewFile(FileEntryViewModel fileEntry, FileViewType viewType, Color color)
         {
-            return _container.Instantiate<FileEntryActionViewFile>()
-                .WithData(color, viewType)
-                .WithFileEntry(fileEntry);
+            return _container.Instantiate<FileEntryActionViewFile>(viewType, color).WithFileEntry(fileEntry);
         }
     }
 }

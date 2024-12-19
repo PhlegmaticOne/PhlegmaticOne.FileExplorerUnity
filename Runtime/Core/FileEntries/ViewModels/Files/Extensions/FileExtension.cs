@@ -6,18 +6,13 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files.Extension
     {
         private readonly IFileExtensions _fileExtensions;
 
-        public FileExtension(IFileExtensions fileExtensions)
+        public FileExtension(IFileExtensions fileExtensions, string extension)
         {
+            Extension = extension;
             _fileExtensions = fileExtensions;
         }
 
-        public string Extension { get; private set; }
-
-        public FileExtension SetExtension(string extension)
-        {
-            Extension = extension;
-            return this;
-        }
+        public string Extension { get; }
         
         public bool HasValue()
         {

@@ -6,6 +6,6 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.Services
 {
     internal interface ISelectionActionsProvider
     {
-        IEnumerable<IFileEntryAction> GetActions(SelectionViewModel viewModel);
+        IEnumerable<IExplorerAction> GetActions(SelectionViewModel viewModel);
     }
 }

@@ -53,21 +53,19 @@ namespace PhlegmaticOne.FileExplorer
             container.Register<ISelectionActionsProvider, SelectionActionsProvider>();
             container.Register<IFileViewProvider, FileViewProvider>();
 
-            container.Register<FileEntryActionsFactoryFile>();
-            container.Register<FileEntryActionsFactoryDirectory>();
-            container.Register<FileEntryActionsProvider<FileEntryActionsFactoryFile>>();
-            container.Register<FileEntryActionsProvider<FileEntryActionsFactoryDirectory>>();
-            container.Register<FileEntryActionsFactoryDirectory>();
+            container.Register<IFileEntryActionsFactory, FileEntryActionsFactoryFile>();
+            container.Register<IFileEntryActionsFactory, FileEntryActionsFactoryDirectory>();
+            container.Register<IFileEntryActionsProvider, FileEntryActionsProvider>();
             container.Register<IFileEntryFactory, FileEntryFactory>();
             container.Register<IExplorerNavigator, ExplorerNavigator>();
             
-            container.Register<FileEntryActionsViewModel>();
-            container.Register<TabViewModel>();
-            container.Register<SelectionViewModel>();
-            container.Register<SearchViewModel>();
-            container.Register<ScreenMessagesViewModel>();
-            container.Register<NavigationViewModel>();
-            container.Register<FileExplorerViewModel>();
+            container.RegisterSelf<FileEntryActionsViewModel>();
+            container.RegisterSelf<TabViewModel>();
+            container.RegisterSelf<SelectionViewModel>();
+            container.RegisterSelf<SearchViewModel>();
+            container.RegisterSelf<ScreenMessagesViewModel>();
+            container.RegisterSelf<NavigationViewModel>();
+            container.RegisterSelf<FileExplorerViewModel>();
             
             explorer.Bind(container.Resolve<FileExplorerViewModel>());
         }
