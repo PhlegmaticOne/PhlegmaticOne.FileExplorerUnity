@@ -1,6 +1,7 @@
 ﻿using PhlegmaticOne.FileExplorer.Core.Actions.Views;
 using PhlegmaticOne.FileExplorer.Core.Explorer.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Navigation.Views;
+using PhlegmaticOne.FileExplorer.Core.Path.Views;
 using PhlegmaticOne.FileExplorer.Core.ScreenMessages.Views;
 using PhlegmaticOne.FileExplorer.Core.Searching.Views;
 using PhlegmaticOne.FileExplorer.Core.Selection.Views;
@@ -20,6 +21,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.Views
         [SerializeField] private SearchView _searchView;
         [SerializeField] private ScreenMessagesView _screenMessagesView;
         [SerializeField] private SelectionHeaderView _selectionHeaderView;
+        [SerializeField] private PathView _pathView;
         [SerializeField] private Button _closeButton;
         [SerializeField] private PopupProvider _popupProvider;
         
@@ -76,6 +78,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.Views
             _selectionHeaderView.Bind(_viewModel.SelectionViewModel);
             _searchView.Bind(_viewModel.SearchViewModel);
             _screenMessagesView.Bind(_viewModel.ScreenMessagesViewModel);
+            _pathView.Bind(_viewModel.PathViewModel);
         }
 
         private void CloseExplorer()

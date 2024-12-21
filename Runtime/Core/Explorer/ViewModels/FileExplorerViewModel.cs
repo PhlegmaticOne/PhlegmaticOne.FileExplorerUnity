@@ -1,5 +1,6 @@
 ﻿using PhlegmaticOne.FileExplorer.Core.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
+using PhlegmaticOne.FileExplorer.Core.Path.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.ScreenMessages.Services;
 using PhlegmaticOne.FileExplorer.Core.ScreenMessages.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Searching.ViewModels;
@@ -24,7 +25,8 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.ViewModels
             FileEntryActionsViewModel actionsViewModel,
             SearchViewModel searchViewModel,
             SelectionViewModel selectionViewModel,
-            TabViewModel tabViewModel)
+            TabViewModel tabViewModel,
+            PathViewModel pathViewModel)
         {
             ScreenMessagesViewModel = screenMessagesViewModel;
             NavigationViewModel = navigationViewModel;
@@ -32,6 +34,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.ViewModels
             SearchViewModel = searchViewModel;
             SelectionViewModel = selectionViewModel;
             TabViewModel = tabViewModel;
+            PathViewModel = pathViewModel;
             _cancellationProvider = cancellationProvider;
             _iconsProvider = iconsProvider;
             _textChangeListener = new ScreenMessageTextChangeListener(
@@ -44,6 +47,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.ViewModels
         public SearchViewModel SearchViewModel { get; }
         public SelectionViewModel SelectionViewModel { get; }
         public TabViewModel TabViewModel { get; }
+        public PathViewModel PathViewModel { get; }
 
         public void NavigateRoot()
         {
@@ -57,6 +61,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.ViewModels
             TabViewModel.Clear();
             SelectionViewModel.ClearSelection();
             SearchViewModel.Reset();
+            PathViewModel.Clear();
             _textChangeListener.Release();
             _iconsProvider.Dispose();
         }

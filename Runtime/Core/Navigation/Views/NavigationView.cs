@@ -1,5 +1,4 @@
 ﻿using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +6,6 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.Views
 {
     internal sealed class NavigationView : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI _tabPathText;
         [SerializeField] private Button _backButton;
         [SerializeField] private LoadingTextView _loadingTextView;
         
@@ -23,11 +21,6 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.Views
         private void UpdateLoadingState(bool isLoading)
         {
             _loadingTextView.SetActive(isLoading);
-        }
-
-        private void UpdatePath(string path)
-        {
-            _tabPathText.text = path;
             _backButton.interactable = _viewModel.CanMoveBack();
         }
 
@@ -39,7 +32,6 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.Views
         private void Subscribe()
         {
             _backButton.onClick.AddListener(NavigateBack);
-            _viewModel.Path.ValueChanged += UpdatePath;
             _viewModel.IsLoading.ValueChanged += UpdateLoadingState;
         }
     }

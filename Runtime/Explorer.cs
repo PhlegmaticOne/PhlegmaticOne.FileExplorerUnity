@@ -6,6 +6,8 @@ using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files.Extensions;
 using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
+using PhlegmaticOne.FileExplorer.Core.Path.Services;
+using PhlegmaticOne.FileExplorer.Core.Path.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.ScreenMessages.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Searching.Services;
 using PhlegmaticOne.FileExplorer.Core.Searching.ViewModels;
@@ -48,6 +50,10 @@ namespace PhlegmaticOne.FileExplorer
             container.Register<IFileExtensions, FileExtensions>();
             container.Register<IFileEntryFinder, FileEntryFinder>();
             
+            container.Register<IPathPartFactory, PathPartFactory>();
+            container.Register<IPathParser, PathParser>();
+            container.Register<IPathBuilder, PathBuilder>();
+            
             container.Register<IFileEntryRenameDataProvider, FileEntryRenameDataProvider>();
             container.Register<IFileEntryPropertiesViewProvider, FileEntryPropertiesViewProvider>();
             container.Register<ISelectionActionsProvider, SelectionActionsProvider>();
@@ -65,6 +71,7 @@ namespace PhlegmaticOne.FileExplorer
             container.RegisterSelf<SearchViewModel>();
             container.RegisterSelf<ScreenMessagesViewModel>();
             container.RegisterSelf<NavigationViewModel>();
+            container.RegisterSelf<PathViewModel>();
             container.RegisterSelf<FileExplorerViewModel>();
             
             explorer.Bind(container.Resolve<FileExplorerViewModel>());

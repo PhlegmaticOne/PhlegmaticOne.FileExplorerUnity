@@ -1,6 +1,5 @@
-﻿using System.IO;
-using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Configuration;
+﻿using System.Threading.Tasks;
+using PhlegmaticOne.FileExplorer.Core.Path.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.ScreenMessages.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Searching.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Selection.ViewModels;
@@ -18,33 +17,31 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
         private readonly IExplorerNavigator _navigator;
         private readonly IExplorerCancellationProvider _cancellationProvider;
         private readonly SelectionViewModel _selectionViewModel;
-        private readonly FileExplorerConfig _explorerConfig;
         private readonly TabViewModel _tabViewModel;
         private readonly ScreenMessagesViewModel _screenMessagesViewModel;
         private readonly SearchViewModel _searchViewModel;
+        private readonly PathViewModel _pathViewModel;
 
         public NavigationViewModel(
             IExplorerNavigator navigator, 
             IExplorerCancellationProvider cancellationProvider,
             SelectionViewModel selectionViewModel,
-            FileExplorerConfig explorerConfig,
             TabViewModel tabViewModel,
             ScreenMessagesViewModel screenMessagesViewModel,
-            SearchViewModel searchViewModel)
+            SearchViewModel searchViewModel,
+            PathViewModel pathViewModel)
         {
             _tabViewModel = tabViewModel;
             _screenMessagesViewModel = screenMessagesViewModel;
             _searchViewModel = searchViewModel;
+            _pathViewModel = pathViewModel;
             _navigator = navigator;
             _cancellationProvider = cancellationProvider;
             _selectionViewModel = selectionViewModel;
-            _explorerConfig = explorerConfig;
-            Path = new ReactiveProperty<string>();
             IsLoading = new ReactiveProperty<bool>();
         }
 
         public ReactiveProperty<bool> IsLoading { get; }
-        public ReactiveProperty<string> Path { get; }
 
         public void Navigate(string path)
         {
@@ -52,13 +49,13 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
             _tabViewModel.Clear();
             _selectionViewModel.ClearSelection();
             _searchViewModel.Reset();
-            Path.SetValueNotify(path);
+            _pathViewModel.UpdatePath(path);
             LoadEntriesAsync().ForgetUnawareCancellation();
         }
 
         public void NavigateRoot()
         {
-            Navigate(_explorerConfig.RootPath);
+            Navigate(_pathViewModel.GetRootPath());
         }
 
         public bool NavigateBack()
@@ -68,13 +65,13 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
                 return false;
             }
             
-            Navigate(GetParentPath());
+            Navigate(_pathViewModel.GetParentPath());
             return true;
         }
 
         public bool CanMoveBack()
         {
-            return !Path.Value.Equals(_explorerConfig.RootPath);
+            return !_pathViewModel.CurrentPathIsRoot();
         }
 
         public void SetLoadingMessage(string loadingMessage)
@@ -87,7 +84,8 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
         {
             SetLoadingState(true);
 
-            await foreach (var fileEntry in _navigator.Navigate(Path).WithCancellation(_cancellationProvider.Token))
+            await foreach (var fileEntry in _navigator.Navigate(_pathViewModel.Path)
+                               .WithCancellation(_cancellationProvider.Token))
             {
                 _tabViewModel.Add(fileEntry);
                 await Task.Yield();
@@ -101,11 +99,6 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
         {
             _screenMessagesViewModel.IsHeaderMessageActive.SetValueNotify(isLoading);
             IsLoading.SetValueNotify(isLoading);
-        }
-
-        private string GetParentPath()
-        {
-            return !CanMoveBack() ? Path : Directory.GetParent(Path)!.FullName.PathSlash();
         }
     }
 }

@@ -11,9 +11,16 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels
         
         public event Action<ReactiveCollectionChangedEventArgs<T>> CollectionChanged;
 
+        public T this[int index] => _collection[index];
+        
         public int Count => _collection.Count;
 
         public bool IsReadOnly => false;
+
+        public int IndexOf(T item)
+        {
+            return _collection.IndexOf(item);
+        }
 
         public void Add(T item)
         {
