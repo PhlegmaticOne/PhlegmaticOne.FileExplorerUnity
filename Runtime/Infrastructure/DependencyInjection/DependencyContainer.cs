@@ -58,15 +58,15 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection
 
         public void Inject()
         {
-            foreach (var (type, value) in _resolvedDependencies.ToArray())
+            foreach (var (resolveType, instance) in _resolvedDependencies.ToArray().AsSpan())
             {
-                if (!_objectResolver.IsPrefab(type))
+                if (!_objectResolver.IsPrefab(resolveType))
                 {
                     continue;
                 }
                 
-                var resolver = _objectResolver.GetResolver(type);
-                var injectParameters = resolver.GetInjectParameters(type);
+                var resolver = _objectResolver.GetResolver(resolveType);
+                var injectParameters = resolver.GetInjectParameters(resolveType);
 
                 if (injectParameters.Length == 0)
                 {
@@ -74,7 +74,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection
                 }
                 
                 var parameters = ResolveParameters(injectParameters, Array.Empty<object>());
-                resolver.Inject(value, parameters);
+                resolver.Inject(instance, parameters);
             }
         }
 

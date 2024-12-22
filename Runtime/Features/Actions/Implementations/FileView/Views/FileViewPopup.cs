@@ -38,7 +38,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.V
         {
             _activeView = GetActiveView(viewModel);
 
-            if (_activeView.Setup(viewModel, _errorText))
+            if (_activeView.Setup(viewModel, out var errorMessage))
             {
                 _activeView.gameObject.SetActive(true);
                 _scrollRect.content = _activeView.transform as RectTransform;
@@ -46,6 +46,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.V
             }
             else
             {
+                _errorText.text = errorMessage;
                 _errorText.gameObject.SetActive(true);
                 _slider.gameObject.SetActive(false);
             }

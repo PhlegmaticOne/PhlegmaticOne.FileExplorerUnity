@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.ViewModels
 {
-    internal readonly struct ScreenMessageData
+    internal readonly struct ScreenMessageData : IEquatable<ScreenMessageData>
     {
         public ScreenMessageData(string text, Color color)
         {
@@ -12,5 +13,20 @@ namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.ViewModels
 
         public string Text { get; }
         public Color Color { get; }
+
+        public bool Equals(ScreenMessageData other)
+        {
+            return Text == other.Text && Color.Equals(other.Color);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is ScreenMessageData other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Text, Color);
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.V
         public float InitialSliderValue => _initialSliderValue;
         
         public abstract FileViewType ViewType { get; }
-        public abstract bool Setup(FileViewViewModel viewModel, TextMeshProUGUI errorText);
+        public abstract bool Setup(FileViewViewModel viewModel, out string errorMessage);
         public abstract void Resize(float size);
         public abstract void Release();
     }

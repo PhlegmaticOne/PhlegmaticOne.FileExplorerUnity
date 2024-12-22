@@ -22,7 +22,7 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore.Services.Views
 
         public void Unbind()
         {
-            foreach (var viewComponent in _viewComponents)
+            foreach (var viewComponent in _viewComponents.AsSpan())
             {
                 viewComponent.Unbind();
             }

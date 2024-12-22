@@ -2,7 +2,7 @@
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels
 {
-    internal sealed class ReactiveProperty<T>
+    internal sealed class ReactiveProperty<T> where T : IEquatable<T>
     {
         public event Action<T> ValueChanged;
 
@@ -39,6 +39,11 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels
         
         public void SetValueNotify(T value)
         {
+            if (Value.Equals(value))
+            {
+                return;
+            }
+            
             Value = value;
             OnPropertyChanged();
         }

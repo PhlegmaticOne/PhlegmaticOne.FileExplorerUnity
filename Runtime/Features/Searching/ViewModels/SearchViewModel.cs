@@ -42,7 +42,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.ViewModels
             SearchText.SetValueNotify(string.Empty);
             SetAllFileEntriesActive();
             FoundEntriesCount = -1;
-            IsActive.SmartSetValueNotify(false);
+            IsActive.SetValueNotify(false);
         }
 
         private int SearchEntries(string text)
@@ -64,7 +64,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.ViewModels
             foreach (var fileEntry in _tabViewModel.FileEntries)
             {
                 var isFound = _fileEntryFinder.Find(fileEntry, searchText);
-                fileEntry.IsActive.SmartSetValueNotify(isFound);
+                fileEntry.IsActive.SetValueNotify(isFound);
                 count += isFound ? 1 : 0;
             }
 

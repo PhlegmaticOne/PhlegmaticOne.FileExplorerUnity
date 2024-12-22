@@ -19,7 +19,6 @@ namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Services
             _screenMessagesViewModel = screenMessagesViewModel;
             _searchViewModel = searchViewModel;
             _tabViewModel = tabViewModel;
-            StartListen();
         }
 
         public void StartListen()

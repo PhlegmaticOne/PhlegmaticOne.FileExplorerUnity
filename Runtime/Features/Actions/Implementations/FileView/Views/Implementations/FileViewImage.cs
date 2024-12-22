@@ -14,19 +14,20 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.V
         
         public override FileViewType ViewType => FileViewType.Image;
 
-        public override bool Setup(FileViewViewModel viewModel, TextMeshProUGUI errorText)
+        public override bool Setup(FileViewViewModel viewModel, out string errorMessage)
         {
             var content = viewModel.GetSprite();
 
             if (content.HasError)
             {
-                errorText.text = content.ErrorMessage;
+                errorMessage = content.ErrorMessage;
                 return false;
             }
 
             _image.sprite = content.Content;
             _image.SetNativeSize();
             _imageSize = _image.sprite.rect.size;
+            errorMessage = null;
             return true;
         }
 

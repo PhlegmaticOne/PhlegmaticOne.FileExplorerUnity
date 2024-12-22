@@ -27,9 +27,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Rename.Ser
 
             await _popupProvider.Show<RenameInputPopup, RenameInputPopupViewModel>(inputViewModel);
             
-            return new FileEntryRenameDataResult(
-                inputViewModel.OutputText, 
-                !inputViewModel.IsDiscarded);
+            return new FileEntryRenameDataResult(inputViewModel.OutputText, !inputViewModel.IsDiscarded);
         }
 
         private static string GetRenameHeader(FileEntryViewModel viewModel)

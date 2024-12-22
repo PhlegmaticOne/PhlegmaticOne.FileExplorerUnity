@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection
 {
@@ -39,7 +38,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection
         
         public static void RegisterInterfaces(this IDependencyContainer container, Type type)
         {
-            foreach (var interfaceType in type.GetInterfaces())
+            foreach (var interfaceType in type.GetInterfaces().AsSpan())
             {
                 if (interfaceType.Namespace!.StartsWith("UnityEngine"))
                 {
@@ -57,7 +56,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection
         
         public static T[] ResolveAll<T>(this IDependencyContainer container) where T : class
         {
-            return container.ResolveAll(typeof(T)).OfType<T>().ToArray();
+            return (T[])container.ResolveAll(typeof(T));
         }
 
         public static T Instantiate<T>(this IDependencyContainer container, params object[] parameters) where T : class

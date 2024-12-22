@@ -11,17 +11,18 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.V
 
         public override FileViewType ViewType => FileViewType.Text;
 
-        public override bool Setup(FileViewViewModel viewModel, TextMeshProUGUI errorText)
+        public override bool Setup(FileViewViewModel viewModel, out string errorMessage)
         {
             var content = viewModel.GetText();
 
             if (content.HasError)
             {
-                errorText.text = content.ErrorMessage;
+                errorMessage = content.ErrorMessage;
                 return false;
             }
             
             _text.text = content.Content;
+            errorMessage = null;
             return true;
         }
 
