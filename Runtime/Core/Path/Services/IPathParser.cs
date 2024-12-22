@@ -5,6 +5,6 @@ namespace PhlegmaticOne.FileExplorer.Core.Path.Services
 {
     internal interface IPathParser
     {
-        IEnumerable<PathPartViewModel> Parse(string path);
+        IReadOnlyCollection<PathPartViewModel> Parse(string path);
     }
 }

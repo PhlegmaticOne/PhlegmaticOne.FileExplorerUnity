@@ -33,9 +33,9 @@ namespace PhlegmaticOne.FileExplorer.Core.Path.ViewModels
             _navigationViewModel.Navigate(path);
         }
 
-        public void SetCurrent()
+        public void SetCurrent(bool isCurrent)
         {
-            IsCurrent.SetValueNotify(true);
+            IsCurrent.SetValueNotify(isCurrent);
         }
     }
 }

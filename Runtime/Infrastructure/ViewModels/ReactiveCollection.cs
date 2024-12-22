@@ -67,6 +67,21 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels
 
             return isRemoved;
         }
+
+        public void RemoveRangeFromLast(int count)
+        {
+            var start = _collection.Count - 1;
+            var end = start - count;
+            var removedItems = new List<T>();
+            
+            for (var i = start; i > end; i--)
+            {
+                removedItems.Add(_collection[i]);
+                _collection.RemoveAt(i);
+            }
+            
+            OnCollectionChanged(ReactiveCollectionChangedEventArgs<T>.Removed(removedItems));
+        }
         
         public void RemoveRange(IEnumerable<T> items)
         {

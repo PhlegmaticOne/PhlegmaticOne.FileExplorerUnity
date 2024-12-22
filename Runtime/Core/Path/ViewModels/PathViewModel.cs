@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using PhlegmaticOne.FileExplorer.Configuration;
 using PhlegmaticOne.FileExplorer.Core.Path.Services;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
@@ -22,12 +24,10 @@ namespace PhlegmaticOne.FileExplorer.Core.Path.ViewModels
         public ReactiveProperty<string> Path { get; }
         public ReactiveCollection<PathPartViewModel> PathParts { get; }
 
-        public void UpdatePath(string path)
+        public void UpdatePathParts(string path)
         {
-            Path.SetValueNotify(path); 
-            PathParts.Clear();
-            PathParts.AddRange(_pathParser.Parse(path));
-            PathParts[^1].SetCurrent();
+            Path.SetValueNotify(path);
+            UpdatePathPartsPrivate(path);
         }
 
         public string GetRootPath()
@@ -42,12 +42,49 @@ namespace PhlegmaticOne.FileExplorer.Core.Path.ViewModels
 
         public string GetParentPath()
         {
-            return !CurrentPathIsRoot() ? Path : Directory.GetParent(Path)!.FullName.PathSlash();
+            return Directory.GetParent(Path)!.FullName.PathSlash();
         }
 
         public void Clear()
         {
             PathParts.Clear();
+        }
+
+        private void UpdatePathPartsPrivate(string path)
+        {
+            var parseResult = _pathParser.Parse(path);
+
+            if (parseResult.Count == PathParts.Count)
+            {
+                return;
+            }
+
+            if (parseResult.Count > PathParts.Count)
+            {
+                AddPathPartsEntered(parseResult);
+            }
+            else
+            {
+                RemovePathPartsExited(parseResult);
+            }
+        }
+
+        private void AddPathPartsEntered(IEnumerable<PathPartViewModel> parseResult)
+        {
+            if (PathParts.Count > 0)
+            {
+                PathParts[^1].SetCurrent(false);
+            }
+                
+            PathParts.AddRange(parseResult.Skip(PathParts.Count));
+            PathParts[^1].SetCurrent(true);
+        }
+
+        private void RemovePathPartsExited(IReadOnlyCollection<PathPartViewModel> parseResult)
+        {
+            var removeCount = PathParts.Count - parseResult.Count;
+            PathParts.RemoveRangeFromLast(removeCount);
+            PathParts[^1].SetCurrent(true);
         }
     }
 }

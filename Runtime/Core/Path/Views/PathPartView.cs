@@ -27,6 +27,11 @@ namespace PhlegmaticOne.FileExplorer.Core.Path.Views
             _button.onClick.RemoveListener(Navigate);
         }
 
+        public bool IsBindTo(PathPartViewModel pathPart)
+        {
+            return _viewModel == pathPart;
+        }
+
         private void Subscribe()
         {
             _viewModel.Part.ValueChanged += UpdatePart;
@@ -44,9 +49,9 @@ namespace PhlegmaticOne.FileExplorer.Core.Path.Views
             _partText.text = part;
         }
 
-        private void UpdateNextMarkActive(bool isActive)
+        private void UpdateNextMarkActive(bool isCurrent)
         {
-            _nextMark.SetActive(isActive);
+            _nextMark.SetActive(!isCurrent);
         }
     }
 }

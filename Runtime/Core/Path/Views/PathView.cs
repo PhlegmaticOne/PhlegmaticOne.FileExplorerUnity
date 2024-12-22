@@ -34,6 +34,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Path.Views
                     AddPartViews(eventArgs.AffectedItems);
                     break;
                 case NotifyCollectionChangedAction.Remove:
+                    RemovePartViews(eventArgs.AffectedItems);
                     break;
                 case NotifyCollectionChangedAction.Reset:
                     ClearPartViews();
@@ -48,6 +49,17 @@ namespace PhlegmaticOne.FileExplorer.Core.Path.Views
                 var view = Instantiate(_pathPartViewPrefab, _pathPartsParent);
                 view.Bind(pathPart);
                 _pathPartViews.Add(view);
+            }
+        }
+        
+        private void RemovePartViews(IEnumerable<PathPartViewModel> pathParts)
+        {
+            foreach (var pathPart in pathParts)
+            {
+                var view = _pathPartViews.Find(x => x.IsBindTo(pathPart));
+                view.Release();
+                Destroy(view.gameObject);
+                _pathPartViews.Remove(view);
             }
         }
 

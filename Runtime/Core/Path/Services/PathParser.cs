@@ -18,15 +18,23 @@ namespace PhlegmaticOne.FileExplorer.Core.Path.Services
             _config = config;
         }
         
-        public IEnumerable<PathPartViewModel> Parse(string path)
+        public IReadOnlyCollection<PathPartViewModel> Parse(string path)
         {
-            yield return _pathPartFactory.CreatePathPart(RootPathPartName);
-
-            if (path.Equals(_config.RootPath, StringComparison.Ordinal))
+            var result = new List<PathPartViewModel>
             {
-                yield break;
+                FromMemory(RootPathPartName.AsMemory())
+            };
+
+            if (!path.Equals(_config.RootPath, StringComparison.Ordinal))
+            {
+                FillPathPartsNextFromRootPath(path, result);
             }
             
+            return result;
+        }
+
+        private void FillPathPartsNextFromRootPath(string path, List<PathPartViewModel> result)
+        {
             var memory = path.AsMemory(_config.RootPath.Length + 1);
     
             while (true)
@@ -35,18 +43,21 @@ namespace PhlegmaticOne.FileExplorer.Core.Path.Services
 
                 if (index is 0 or -1)
                 {
-                    if (memory.Length > 0)
-                    {
-                        yield return _pathPartFactory.CreatePathPart(memory.ToString());
-                    }
-                    
                     break;
                 }
 
-                var pathPart = memory[..index].ToString();
-                yield return _pathPartFactory.CreatePathPart(pathPart);
-                memory = memory[(index + 1)..];
+                result.Add(FromMemory(memory[..index]));
             }
+            
+            if (memory.Length > 0)
+            {
+                result.Add(FromMemory(memory));
+            }
+        }
+
+        private PathPartViewModel FromMemory(ReadOnlyMemory<char> partMemory)
+        {
+            return _pathPartFactory.CreatePathPart(partMemory.ToString());
         }
     }
 }

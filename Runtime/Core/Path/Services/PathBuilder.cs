@@ -1,4 +1,5 @@
 ﻿using PhlegmaticOne.FileExplorer.Core.Path.ViewModels;
+using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 
 namespace PhlegmaticOne.FileExplorer.Core.Path.Services
 {
@@ -19,7 +20,12 @@ namespace PhlegmaticOne.FileExplorer.Core.Path.Services
             {
                 return _pathViewModel.GetRootPath();
             }
-            
+
+            return CombinePathUntilIndex(index);
+        }
+
+        private string CombinePathUntilIndex(int index)
+        {
             var pathParts = new string[index + 1];
             pathParts[0] = _pathViewModel.GetRootPath();
 
@@ -28,7 +34,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Path.Services
                 pathParts[i] = _pathViewModel.PathParts[i].Part;
             }
 
-            return System.IO.Path.Combine(pathParts);
+            return System.IO.Path.Combine(pathParts).PathSlash();
         }
     }
 }
