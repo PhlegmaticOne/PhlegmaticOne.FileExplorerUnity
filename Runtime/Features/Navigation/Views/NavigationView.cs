@@ -17,7 +17,6 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.Views
         public void Construct(NavigationViewModel viewModel)
         {
             _viewModel = viewModel;
-            _loadingTextView.Construct(viewModel);
         }
         
         public void Bind()

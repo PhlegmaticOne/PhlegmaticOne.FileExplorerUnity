@@ -30,9 +30,11 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installe
         
         public void OnUpdate()
         {
+            var deltaTime = Time.deltaTime;
+            
             foreach (var updateListener in _updateListeners.AsSpan())
             {
-                updateListener.OnUpdate(Time.deltaTime);
+                updateListener.OnUpdate(deltaTime);
             }
         }
     }

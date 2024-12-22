@@ -435,6 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _navigationView: {fileID: 4745819851757159974}
+  _loadingTextView: {fileID: 842761354908160703}
 --- !u!1 &955552491969214489
 GameObject:
   m_ObjectHideFlags: 0
