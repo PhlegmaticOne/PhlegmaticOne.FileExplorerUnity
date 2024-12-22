@@ -17,7 +17,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.Actions
         public FileEntryActionSelectionProperties(
             IPopupProvider popupProvider,
             SelectionViewModel selectionViewModel,
-            FileEntryActionsViewModel actionsViewModel) : base(actionsViewModel)
+            ActionsViewModel actionsViewModel) : base(actionsViewModel)
         {
             _popupProvider = popupProvider;
             _selectionViewModel = selectionViewModel;

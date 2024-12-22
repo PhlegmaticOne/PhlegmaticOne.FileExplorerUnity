@@ -9,17 +9,17 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
 {
     internal sealed class FileEntryActionViewFile : FileEntryAction
     {
-        private readonly IFileViewProvider _fileViewProvider;
+        private readonly IFileViewContentProvider _fileViewContentProvider;
         private readonly FileViewType _viewType;
         private readonly Color _textColor;
 
         public FileEntryActionViewFile(
-            IFileViewProvider fileViewProvider,
-            FileEntryActionsViewModel actionsViewModel,
+            IFileViewContentProvider fileViewContentProvider,
+            ActionsViewModel actionsViewModel,
             FileViewType viewType,
             Color textColor) : base(actionsViewModel)
         {
-            _fileViewProvider = fileViewProvider;
+            _fileViewContentProvider = fileViewContentProvider;
             _viewType = viewType;
             _textColor = textColor;
         }
@@ -30,7 +30,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Files
         
         protected override async Task<bool> ExecuteAction()
         {
-            await _fileViewProvider.ViewFileAsync((FileViewModel)FileEntry, _viewType);
+            await _fileViewContentProvider.ViewFileAsync((FileViewModel)FileEntry, _viewType);
             return true;
         }
     }

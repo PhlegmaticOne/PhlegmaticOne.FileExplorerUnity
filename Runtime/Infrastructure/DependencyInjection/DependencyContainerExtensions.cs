@@ -41,6 +41,11 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection
         {
             foreach (var interfaceType in type.GetInterfaces())
             {
+                if (interfaceType.Namespace!.StartsWith("UnityEngine"))
+                {
+                    continue;
+                }
+                
                 container.Register(interfaceType, type);
             }
         }

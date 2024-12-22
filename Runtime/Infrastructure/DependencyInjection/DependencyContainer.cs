@@ -1,31 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Policies;
+using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection
 {
     internal sealed class DependencyContainer : IDependencyContainer
     {
         private readonly Dictionary<Type, object> _resolvedDependencies;
-        private readonly Dictionary<Type, List<Type>> _contractToResolveTypesMap;
+        private readonly ObjectResolver _objectResolver;
         
         public DependencyContainer()
         {
-            _contractToResolveTypesMap = new Dictionary<Type, List<Type>>();
             _resolvedDependencies = new Dictionary<Type, object>();
+            _objectResolver = new ObjectResolver();
             RegisterInstance(this);
         }
 
         public void Register(Type contractType, Type resolveType)
         {
-            if (_contractToResolveTypesMap.TryGetValue(contractType, out var resolvedTypes))
-            {
-                resolvedTypes.Add(resolveType);
-            }
-            else
-            {
-                _contractToResolveTypesMap.Add(contractType, new List<Type> { resolveType });
-            }
+            _objectResolver.RegisterClass(contractType, resolveType);
+        }
+
+        public void RegisterPrefab(MonoBehaviour prefab)
+        {
+            _objectResolver.RegisterPrefab(prefab);
         }
 
         public void RegisterInstance(object instance)
@@ -37,13 +38,13 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection
 
         public object Resolve(Type contractType)
         {
-            var resolvedType = _contractToResolveTypesMap[contractType][0];
+            var resolvedType = _objectResolver.GetResolvedTypes(contractType)[0];
             return ResolvePrivate(resolvedType, Array.Empty<object>());
         }
 
         public Array ResolveAll(Type contractType)
         {
-            var types = _contractToResolveTypesMap[contractType];
+            var types = _objectResolver.GetResolvedTypes(contractType);
             var result = Array.CreateInstance(contractType, types.Count);
 
             for (var i = 0; i < types.Count; i++)
@@ -55,12 +56,34 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection
             return result;
         }
 
+        public void Inject()
+        {
+            foreach (var (type, value) in _resolvedDependencies.ToArray())
+            {
+                if (!_objectResolver.IsPrefab(type))
+                {
+                    continue;
+                }
+                
+                var resolver = _objectResolver.GetResolver(type);
+                var injectParameters = resolver.GetInjectParameters(type);
+
+                if (injectParameters.Length == 0)
+                {
+                    continue;
+                }
+                
+                var parameters = ResolveParameters(injectParameters, Array.Empty<object>());
+                resolver.Inject(value, parameters);
+            }
+        }
+
         public object Instantiate(Type type, params object[] parameters)
         {
             return InstantiatePrivate(type, parameters);
         }
 
-        private object ResolvePrivate(Type type, object[] parameters)
+        private object ResolvePrivate(Type type, IReadOnlyList<object> parameters)
         {
             if (_resolvedDependencies.TryGetValue(type, out var existing))
             {
@@ -72,29 +95,31 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection
             return instance;
         }
 
-        private object InstantiatePrivate(Type type, object[] parameters)
+        private object InstantiatePrivate(Type type, IReadOnlyList<object> parameters)
         {
-            var ctorParameters = type.GetConstructors()[0].GetParameters();
+            var resolvePolicy = _objectResolver.GetResolver(type);
+            var injectParameters = resolvePolicy.GetInjectParameters(type);
 
-            if (ctorParameters.Length == 0)
+            if (injectParameters.Length == 0)
             {
-                return Activator.CreateInstance(type);
+                return resolvePolicy.CreateInstance(type);
             }
 
-            var resolved = ResolveParameters(ctorParameters, parameters);
-            return Activator.CreateInstance(type, resolved);
+            var resolved = ResolveParameters(injectParameters, parameters);
+            return resolvePolicy.CreateInstance(type, resolved);
         }
 
-        private object[] ResolveParameters(IReadOnlyList<ParameterInfo> ctorParameters, object[] parameters)
+        private object[] ResolveParameters(
+            IReadOnlyList<ParameterInfo> injectParameters, IReadOnlyList<object> parameters)
         {
-            var result = new object[ctorParameters.Count];
+            var result = new object[injectParameters.Count];
             var p = 0;
 
-            for (var i = 0; i < ctorParameters.Count; i++)
+            for (var i = 0; i < injectParameters.Count; i++)
             {
-                var parameter = ctorParameters[i];
+                var parameter = injectParameters[i];
 
-                if (parameters.Length > 0 && p < parameters.Length && parameter.ParameterType == parameters[p].GetType())
+                if (parameters.Count > 0 && p < parameters.Count && parameter.ParameterType == parameters[p].GetType())
                 {
                     result[i] = parameters[p++];
                 }

@@ -1,12 +1,14 @@
 ﻿using PhlegmaticOne.FileExplorer.Core.FileEntries;
 using PhlegmaticOne.FileExplorer.Core.Selection.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.Views;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Core.Selection.Views
 {
-    internal sealed class SelectionHeaderView : MonoBehaviour
+    internal sealed class SelectionHeaderView : MonoBehaviour, IExplorerViewComponent
     {
         [SerializeField] private VerticalLayoutGroup _offsetGroup;
         [SerializeField] private Button _actionsButton;
@@ -19,13 +21,13 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.Views
         
         private SelectionViewModel _viewModel;
 
-        public void Bind(SelectionViewModel viewModel)
+        [ViewInject]
+        public void Construct(SelectionViewModel viewModel)
         {
             _viewModel = viewModel;
-            Subscribe();
         }
-
-        private void Subscribe()
+        
+        public void Bind()
         {
             _actionsButton.onClick.AddListener(OpenActionsDropdown);
             _clearSelectionButton.onClick.AddListener(ClearSelection);
@@ -35,6 +37,16 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.Views
             _viewModel.IsAllSelected.ValueChanged += UpdateIsAllSelected;
         }
 
+        public void Unbind()
+        {
+            _actionsButton.onClick.RemoveListener(OpenActionsDropdown);
+            _clearSelectionButton.onClick.RemoveListener(ClearSelection);
+            _selectDeselectAllToggle.onValueChanged.RemoveListener(SelectDeselectAll);
+            _viewModel.IsSelectionActive.ValueChanged -= UpdateSelectionIsActive;
+            _viewModel.SelectedEntriesCount.ValueChanged -= UpdateSelectionCountView;
+            _viewModel.IsAllSelected.ValueChanged -= UpdateIsAllSelected;
+        }
+        
         private void OpenActionsDropdown()
         {
             _viewModel.Position.Update(
@@ -49,7 +61,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.Views
         {
             if (_viewModel.IsAllSelected)
             {
-                _viewModel.ClearSelection(isDisableSelection: false);
+                _viewModel.Clear(isDisableSelection: false);
             }
             else
             {
@@ -59,7 +71,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.Views
 
         private void ClearSelection()
         {
-            _viewModel.ClearSelection();
+            _viewModel.Clear();
         }
 
         private void UpdateSelectionCountView(FileEntriesCounter counter)

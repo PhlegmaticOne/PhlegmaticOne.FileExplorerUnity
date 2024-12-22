@@ -1,26 +1,33 @@
 ﻿using System.Collections.Specialized;
 using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Tab.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.Views;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Core.Tab.Views
 {
-    internal sealed class TabView : MonoBehaviour
+    internal sealed class TabView : MonoBehaviour, IExplorerViewComponent
     {
         [SerializeField] private TabCollectionView _collectionView;
         
         private TabViewModel _viewModel;
 
-        public void Bind(TabViewModel viewModel)
+        [ViewInject]
+        public void Construct(TabViewModel viewModel)
         {
             _viewModel = viewModel;
-            Subscribe();
         }
-
-        private void Subscribe()
+        
+        public void Bind()
         {
             _viewModel.FileEntries.CollectionChanged += HandleFileEntriesCollectionChanged;
+        }
+
+        public void Unbind()
+        {
+            _viewModel.FileEntries.CollectionChanged -= HandleFileEntriesCollectionChanged;
         }
 
         private void HandleFileEntriesCollectionChanged(

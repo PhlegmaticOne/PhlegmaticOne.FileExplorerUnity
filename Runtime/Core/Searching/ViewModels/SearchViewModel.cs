@@ -37,7 +37,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Searching.ViewModels
             IsActive.SetValueNotify(FoundEntriesCount != -1);
         }
 
-        public void Reset()
+        public void Clear()
         {
             SearchText.SetValueNotify(string.Empty);
             SetAllFileEntriesActive();

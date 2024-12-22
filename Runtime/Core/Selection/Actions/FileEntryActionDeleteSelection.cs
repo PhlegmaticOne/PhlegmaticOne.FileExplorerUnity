@@ -16,7 +16,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.Actions
         public FileEntryActionDeleteSelection(
             SelectionViewModel selectionViewModel,
             TabViewModel tabViewModel,
-            FileEntryActionsViewModel actionsViewModel,
+            ActionsViewModel actionsViewModel,
             SearchViewModel searchViewModel) : base(actionsViewModel)
         {
             _selectionViewModel = selectionViewModel;
@@ -38,7 +38,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.Actions
             }
             
             _tabViewModel.RemoveRange(selection);
-            _selectionViewModel.ClearSelection();
+            _selectionViewModel.Clear();
             _searchViewModel.Research();
             return Task.FromResult(true);
         }

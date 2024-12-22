@@ -16,9 +16,9 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries
             OffsetTop = offsetTop;
         }
 
-        public FileActionViewPositionData ToActionViewPositionData(FileActionViewAlignment alignment)
+        public ActionViewPositionData ToActionViewPositionData(ActionViewAlignment alignment)
         {
-            return new FileActionViewPositionData(CenterAnchoredPosition, Size, OffsetTop, alignment);
+            return new ActionViewPositionData(CenterAnchoredPosition, Size, OffsetTop, alignment);
         }
     }
 }

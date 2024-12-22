@@ -7,11 +7,11 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Common
 {
     internal sealed class FileEntryActionProperties : FileEntryAction
     {
-        private readonly IFileEntryPropertiesViewProvider _propertiesViewProvider;
+        private readonly IFilePropertiesViewProvider _propertiesViewProvider;
 
         public FileEntryActionProperties(
-            IFileEntryPropertiesViewProvider propertiesViewProvider,
-            FileEntryActionsViewModel actionsViewModel) : base(actionsViewModel)
+            IFilePropertiesViewProvider propertiesViewProvider,
+            ActionsViewModel actionsViewModel) : base(actionsViewModel)
         {
             _propertiesViewProvider = propertiesViewProvider;
         }

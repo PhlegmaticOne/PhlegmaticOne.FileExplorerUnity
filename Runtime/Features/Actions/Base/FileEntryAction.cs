@@ -5,7 +5,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions
 {
     internal abstract class FileEntryAction : ExplorerAction
     {
-        protected FileEntryAction(FileEntryActionsViewModel actionsViewModel) : base(actionsViewModel) { }
+        protected FileEntryAction(ActionsViewModel actionsViewModel) : base(actionsViewModel) { }
 
         protected FileEntryViewModel FileEntry { get; private set; }
         

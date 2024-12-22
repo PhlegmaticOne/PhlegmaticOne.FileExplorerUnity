@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Core.ScreenMessages.Services
 {
-    internal sealed class ScreenMessageTextChangeListener
+    internal sealed class ScreenMessageTextChangeListener : IScreenMessageTextChangeListener
     {
         private readonly ScreenMessagesViewModel _screenMessagesViewModel;
         private readonly SearchViewModel _searchViewModel;
@@ -19,16 +19,16 @@ namespace PhlegmaticOne.FileExplorer.Core.ScreenMessages.Services
             _screenMessagesViewModel = screenMessagesViewModel;
             _searchViewModel = searchViewModel;
             _tabViewModel = tabViewModel;
-            Subscribe();
+            StartListen();
         }
 
-        private void Subscribe()
+        public void StartListen()
         {
             _searchViewModel.IsActive.ValueChanged += UpdateMessageOnSearchActiveChanged;
             _tabViewModel.IsEmpty.ValueChanged += UpdateMessageOnTabEmptyChanged;
         }
 
-        public void Release()
+        public void StopListen()
         {
             _searchViewModel.IsActive.ValueChanged -= UpdateMessageOnSearchActiveChanged;
             _tabViewModel.IsEmpty.ValueChanged -= UpdateMessageOnTabEmptyChanged;

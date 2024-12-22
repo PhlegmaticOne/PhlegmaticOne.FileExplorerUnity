@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Core.Actions.ViewModels;
+using PhlegmaticOne.FileExplorer.Core.FileEntries.Services;
 using PhlegmaticOne.FileExplorer.Core.Searching.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Tab.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Actions;
-using PhlegmaticOne.FileExplorer.Features.FileOperations;
 
 namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Common
 {
@@ -17,7 +17,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Common
 
         public FileEntryActionDelete(
             TabViewModel tabViewModel,
-            FileEntryActionsViewModel actionsViewModel,
+            ActionsViewModel actionsViewModel,
             SelectionViewModel selectionViewModel,
             SearchViewModel searchViewModel) : base(actionsViewModel)
         {

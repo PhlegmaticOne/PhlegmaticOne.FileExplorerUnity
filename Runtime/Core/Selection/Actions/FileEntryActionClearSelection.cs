@@ -11,7 +11,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.Actions
 
         public FileEntryActionClearSelection(
             SelectionViewModel selectionViewModel,
-            FileEntryActionsViewModel actionsViewModel) : base(actionsViewModel)
+            ActionsViewModel actionsViewModel) : base(actionsViewModel)
         {
             _selectionViewModel = selectionViewModel;
         }
@@ -22,7 +22,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.Actions
         
         protected override Task<bool> ExecuteAction()
         {
-            _selectionViewModel.ClearSelection();
+            _selectionViewModel.Clear();
             return Task.FromResult(true);
         }
     }

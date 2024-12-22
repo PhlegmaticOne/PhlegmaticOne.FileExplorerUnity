@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using PhlegmaticOne.FileExplorer.Core.Path.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.Views;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Core.Path.Views
 {
-    internal sealed class PathView : MonoBehaviour
+    internal sealed class PathView : MonoBehaviour, IExplorerViewComponent
     {
         [SerializeField] private RectTransform _pathPartsParent;
         [SerializeField] private PathPartView _pathPartViewPrefab;
@@ -15,15 +17,20 @@ namespace PhlegmaticOne.FileExplorer.Core.Path.Views
         
         private PathViewModel _viewModel;
 
-        public void Bind(PathViewModel viewModel)
+        [ViewInject]
+        public void Construct(PathViewModel viewModel)
         {
             _viewModel = viewModel;
-            Subscribe();
         }
-
-        private void Subscribe()
+        
+        public void Bind()
         {
             _viewModel.PathParts.CollectionChanged += UpdatePathParts;
+        }
+
+        public void Unbind()
+        {
+            _viewModel.PathParts.CollectionChanged -= UpdatePathParts;
         }
 
         private void UpdatePathParts(ReactiveCollectionChangedEventArgs<PathPartViewModel> eventArgs)

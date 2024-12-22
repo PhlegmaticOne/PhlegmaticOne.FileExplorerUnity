@@ -7,11 +7,11 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Common
 {
     internal sealed class FileEntryActionRename : FileEntryAction
     {
-        private readonly IFileEntryRenameDataProvider _renameDataProvider;
+        private readonly IFileRenameDataProvider _renameDataProvider;
 
         public FileEntryActionRename(
-            IFileEntryRenameDataProvider renameDataProvider,
-            FileEntryActionsViewModel actionsViewModel) : base(actionsViewModel)
+            IFileRenameDataProvider renameDataProvider,
+            ActionsViewModel actionsViewModel) : base(actionsViewModel)
         {
             _renameDataProvider = renameDataProvider;
         }

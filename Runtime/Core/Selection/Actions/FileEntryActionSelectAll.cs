@@ -11,7 +11,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.Actions
 
         public FileEntryActionSelectAll(
             SelectionViewModel selectionViewModel,
-            FileEntryActionsViewModel actionsViewModel) : base(actionsViewModel)
+            ActionsViewModel actionsViewModel) : base(actionsViewModel)
         {
             _selectionViewModel = selectionViewModel;
         }

@@ -1,11 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using PhlegmaticOne.FileExplorer.Core.FileEntries.Services;
 using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Actions.Properties.Core;
 using PhlegmaticOne.FileExplorer.Features.Actions.Properties.Directories;
 using PhlegmaticOne.FileExplorer.Features.ExplorerIcons.Services;
-using PhlegmaticOne.FileExplorer.Features.FileOperations;
 
 namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Directories
 {

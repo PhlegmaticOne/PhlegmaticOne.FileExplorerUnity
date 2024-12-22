@@ -11,13 +11,13 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.ViewModels
 {
     internal sealed class SelectionViewModel
     {
-        private readonly FileEntryActionsViewModel _actionsViewModel;
+        private readonly ActionsViewModel _actionsViewModel;
         private readonly ISelectionActionsProvider _actionsProvider;
         private readonly TabViewModel _tabViewModel;
         private readonly List<FileEntryViewModel> _selection;
 
         public SelectionViewModel(
-            FileEntryActionsViewModel actionsViewModel, 
+            ActionsViewModel actionsViewModel, 
             ISelectionActionsProvider actionsProvider,
             TabViewModel tabViewModel)
         {
@@ -39,7 +39,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.ViewModels
 
         public void OnSelectionActionsClick()
         {
-            var position = Position.ToActionViewPositionData(FileActionViewAlignment.DockToTargetBottom);
+            var position = Position.ToActionViewPositionData(ActionViewAlignment.DockToTargetBottom);
             var actions = _actionsProvider.GetActions(this);
             _actionsViewModel.ShowActions(actions, position);
         }
@@ -87,7 +87,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Selection.ViewModels
             IsSelectionActive.SetValueNotify(true);
         }
 
-        public void ClearSelection(bool isDisableSelection = true)
+        public void Clear(bool isDisableSelection = true)
         {
             foreach (var fileEntry in _selection)
             {

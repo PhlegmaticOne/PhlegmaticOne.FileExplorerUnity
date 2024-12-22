@@ -5,9 +5,9 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions
 {
     internal abstract class ExplorerAction : IExplorerAction
     {
-        private readonly FileEntryActionsViewModel _actionsViewModel;
+        private readonly ActionsViewModel _actionsViewModel;
 
-        protected ExplorerAction(FileEntryActionsViewModel actionsViewModel)
+        protected ExplorerAction(ActionsViewModel actionsViewModel)
         {
             _actionsViewModel = actionsViewModel;
         }

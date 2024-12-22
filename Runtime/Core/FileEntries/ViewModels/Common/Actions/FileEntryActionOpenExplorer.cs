@@ -11,7 +11,7 @@ namespace PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels.Common
 {
     internal sealed class FileEntryActionOpenExplorer : FileEntryAction
     {
-        public FileEntryActionOpenExplorer(FileEntryActionsViewModel actionsViewModel) : base(actionsViewModel)
+        public FileEntryActionOpenExplorer(ActionsViewModel actionsViewModel) : base(actionsViewModel)
         {
         }
 

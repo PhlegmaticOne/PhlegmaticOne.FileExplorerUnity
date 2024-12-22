@@ -6,11 +6,11 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions
 {
     internal sealed class FileEntryActionsProvider : IFileEntryActionsProvider
     {
-        private readonly FileEntryActionsViewModel _viewModel;
+        private readonly ActionsViewModel _viewModel;
         private readonly IFileEntryActionsFactory[] _actionsFactory;
 
         public FileEntryActionsProvider(
-            FileEntryActionsViewModel viewModel,
+            ActionsViewModel viewModel,
             IFileEntryActionsFactory[] actionsFactory)
         {
             _viewModel = viewModel;
@@ -21,7 +21,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions
         {
             var factory = Array.Find(_actionsFactory, x => x.EntryType == fileEntry.EntryType);
             var actions = factory.GetActions(fileEntry);
-            var actionPosition = fileEntry.Position.ToActionViewPositionData(FileActionViewAlignment.DockToTargetCenter);
+            var actionPosition = fileEntry.Position.ToActionViewPositionData(ActionViewAlignment.DockToTargetCenter);
             _viewModel.ShowActions(actions, actionPosition);
         }
     }

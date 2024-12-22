@@ -1,10 +1,12 @@
 ﻿using PhlegmaticOne.FileExplorer.Core.ScreenMessages.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.Views;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using TMPro;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Core.ScreenMessages.Views
 {
-    internal sealed class ScreenMessagesView : MonoBehaviour
+    internal sealed class ScreenMessagesView : MonoBehaviour, IExplorerViewComponent
     {
         [SerializeField] private GameObject _headerTextContainer;
         [SerializeField] private TextMeshProUGUI _headerText;
@@ -14,15 +16,28 @@ namespace PhlegmaticOne.FileExplorer.Core.ScreenMessages.Views
         
         private ScreenMessagesViewModel _viewModel;
 
-        public void Bind(ScreenMessagesViewModel viewModel)
+        [ViewInject]
+        public void Construct(ScreenMessagesViewModel viewModel)
         {
             _viewModel = viewModel;
-            
+        }
+        
+        public void Bind()
+        {
             _viewModel.IsHeaderMessageActive.ValueChanged += UpdateHeaderMessageIsActive;
             _viewModel.HeaderMessage.ValueChanged += UpdateHeaderText;
             
             _viewModel.IsTabCenterMessageActive.ValueChanged += UpdateTabCenterMessageIsActive;
             _viewModel.TabCenterMessage.ValueChanged += UpdateTabCenterText;
+        }
+
+        public void Unbind()
+        {
+            _viewModel.IsHeaderMessageActive.ValueChanged -= UpdateHeaderMessageIsActive;
+            _viewModel.HeaderMessage.ValueChanged -= UpdateHeaderText;
+            
+            _viewModel.IsTabCenterMessageActive.ValueChanged -= UpdateTabCenterMessageIsActive;
+            _viewModel.TabCenterMessage.ValueChanged -= UpdateTabCenterText;
         }
 
         private void UpdateHeaderMessageIsActive(bool isActive)

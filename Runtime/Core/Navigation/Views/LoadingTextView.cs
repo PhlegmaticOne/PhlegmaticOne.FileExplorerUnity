@@ -16,7 +16,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.Views
         private float _currentTime;
         private int _previousPoints;
 
-        public void Bind(NavigationViewModel viewModel)
+        public void Construct(NavigationViewModel viewModel)
         {
             _viewModel = viewModel;
         }

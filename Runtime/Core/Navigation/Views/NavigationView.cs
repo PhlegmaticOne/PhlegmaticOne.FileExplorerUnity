@@ -1,21 +1,35 @@
 ﻿using PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.Views;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Core.Navigation.Views
 {
-    internal sealed class NavigationView : MonoBehaviour
+    internal sealed class NavigationView : MonoBehaviour, IExplorerViewComponent
     {
         [SerializeField] private Button _backButton;
         [SerializeField] private LoadingTextView _loadingTextView;
         
         private NavigationViewModel _viewModel;
 
-        public void Bind(NavigationViewModel viewModel)
+        [ViewInject]
+        public void Construct(NavigationViewModel viewModel)
         {
             _viewModel = viewModel;
-            _loadingTextView.Bind(viewModel);
-            Subscribe();
+            _loadingTextView.Construct(viewModel);
+        }
+        
+        public void Bind()
+        {
+            _backButton.onClick.AddListener(NavigateBack);
+            _viewModel.IsLoading.ValueChanged += UpdateLoadingState;
+        }
+
+        public void Unbind()
+        {
+            _backButton.onClick.RemoveListener(NavigateBack);
+            _viewModel.IsLoading.ValueChanged -= UpdateLoadingState;
         }
 
         private void UpdateLoadingState(bool isLoading)
@@ -27,12 +41,6 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.Views
         private void NavigateBack()
         {
             _viewModel.NavigateBack();
-        }
-        
-        private void Subscribe()
-        {
-            _backButton.onClick.AddListener(NavigateBack);
-            _viewModel.IsLoading.ValueChanged += UpdateLoadingState;
         }
     }
 }

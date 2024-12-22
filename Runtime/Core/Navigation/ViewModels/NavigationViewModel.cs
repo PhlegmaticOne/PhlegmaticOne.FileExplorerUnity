@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
+using PhlegmaticOne.FileExplorer.Core.Navigation.Services;
 using PhlegmaticOne.FileExplorer.Core.Path.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.ScreenMessages.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Searching.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Tab.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Cancellation;
-using PhlegmaticOne.FileExplorer.Features.Navigation;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using UnityEngine;
@@ -47,8 +47,8 @@ namespace PhlegmaticOne.FileExplorer.Core.Navigation.ViewModels
         {
             _cancellationProvider.Cancel();
             _tabViewModel.Clear();
-            _selectionViewModel.ClearSelection();
-            _searchViewModel.Reset();
+            _selectionViewModel.Clear();
+            _searchViewModel.Clear();
             _pathViewModel.UpdatePathParts(path.PathSlash());
             LoadEntriesAsync().ForgetUnawareCancellation();
         }

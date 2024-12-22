@@ -1,0 +1,24 @@
+﻿using System.Threading.Tasks;
+using PhlegmaticOne.FileExplorer.Core.FileEntries.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.Actions.Properties.Views;
+using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
+
+namespace PhlegmaticOne.FileExplorer.Features.Actions.Properties.Services
+{
+    internal sealed class FilePropertiesViewProvider : IFilePropertiesViewProvider
+    {
+        private readonly IPopupProvider _popupProvider;
+
+        public FilePropertiesViewProvider(IPopupProvider popupProvider)
+        {
+            _popupProvider = popupProvider;
+        }
+        
+        public Task ViewFileProperties(FileEntryViewModel viewModel)
+        {
+            var properties = viewModel.GetProperties().GetPropertiesView();
+            var propertiesViewModel = new PropertiesPopupViewModel(properties);
+            return _popupProvider.Show<PropertiesPopup, PropertiesPopupViewModel>(propertiesViewModel);
+        }
+    }
+}
