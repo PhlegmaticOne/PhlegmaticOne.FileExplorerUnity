@@ -1,6 +1,6 @@
-﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
-using PhlegmaticOne.FileExplorer.Infrastructure.SafeArea;
-using PhlegmaticOne.FileExplorer.States;
+﻿using PhlegmaticOne.FileExplorer.ExplorerCore.States;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
+using PhlegmaticOne.FileExplorer.Infrastructure.SafeArea.Models;
 using UnityEngine;
 using UnityEngine.UI;
 

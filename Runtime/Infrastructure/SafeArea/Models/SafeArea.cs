@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Infrastructure.SafeArea
+namespace PhlegmaticOne.FileExplorer.Infrastructure.SafeArea.Models
 {
     internal sealed class SafeArea
     {

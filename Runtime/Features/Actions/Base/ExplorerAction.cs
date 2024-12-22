@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Core.Actions.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 
-namespace PhlegmaticOne.FileExplorer.Features.Actions
+namespace PhlegmaticOne.FileExplorer.Features.Actions.Base
 {
     internal abstract class ExplorerAction : IExplorerAction
     {
@@ -13,7 +13,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions
         }
 
         public abstract string Description { get; }
-        public abstract FileEntryActionColor Color { get; }
+        public abstract ExplorerActionColor Color { get; }
         
         public Task<bool> Execute()
         {

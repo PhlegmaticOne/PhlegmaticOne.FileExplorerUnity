@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using PhlegmaticOne.FileExplorer.Infrastructure.SafeArea.Models;
+using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.SafeArea.Components
 {
@@ -6,7 +7,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.SafeArea.Components
     {
         private void OnEnable()
         {
-            ApplySafeArea(SafeArea.GetData());
+            ApplySafeArea(Models.SafeArea.GetData());
         }
 
         protected abstract void ApplySafeArea(ISafeAreaData safeAreaData);

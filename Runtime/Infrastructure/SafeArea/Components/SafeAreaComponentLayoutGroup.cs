@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using PhlegmaticOne.FileExplorer.Infrastructure.SafeArea.Models;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.SafeArea.Components

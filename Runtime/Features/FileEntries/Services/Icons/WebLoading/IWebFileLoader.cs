@@ -1,0 +1,10 @@
+﻿using System.Threading;
+using System.Threading.Tasks;
+
+namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.WebLoading
+{
+    internal interface IWebFileLoader
+    {
+        Task<WebLoadResult<byte[]>> LoadAsync(string url, CancellationToken cancellationToken);
+    }
+}

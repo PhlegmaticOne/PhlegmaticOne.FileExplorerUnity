@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 
-namespace PhlegmaticOne.FileExplorer.Features.Actions
+namespace PhlegmaticOne.FileExplorer.Features.Actions.Base
 {
     internal interface IExplorerAction
     {
         string Description { get; }
-        FileEntryActionColor Color { get; }
+        ExplorerActionColor Color { get; }
         Task<bool> Execute();
     }
 }
