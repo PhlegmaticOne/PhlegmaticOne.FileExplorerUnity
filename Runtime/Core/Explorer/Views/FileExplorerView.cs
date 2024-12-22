@@ -1,4 +1,5 @@
-﻿using PhlegmaticOne.FileExplorer.Core.Actions.Views;
+﻿using System;
+using PhlegmaticOne.FileExplorer.Core.Actions.Views;
 using PhlegmaticOne.FileExplorer.Core.Explorer.ViewModels;
 using PhlegmaticOne.FileExplorer.Core.Navigation.Views;
 using PhlegmaticOne.FileExplorer.Core.Path.Views;
@@ -7,6 +8,7 @@ using PhlegmaticOne.FileExplorer.Core.Searching.Views;
 using PhlegmaticOne.FileExplorer.Core.Selection.Views;
 using PhlegmaticOne.FileExplorer.Core.Tab.Views;
 using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
+using PhlegmaticOne.FileExplorer.Infrastructure.SafeArea;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +17,7 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.Views
     internal sealed class FileExplorerView : MonoBehaviour
     {
         [SerializeField] private Canvas _canvas;
+        [SerializeField] private CanvasScaler _canvasScaler;
         [SerializeField] private TabView _tabView;
         [SerializeField] private NavigationView _navigationView;
         [SerializeField] private FileEntryActionsView _actionsView;
@@ -38,6 +41,11 @@ namespace PhlegmaticOne.FileExplorer.Core.Explorer.Views
             BindViews();
             
             _viewModel.NavigateRoot();
+        }
+
+        private void Awake()
+        {
+            SafeArea.Initialize(_canvasScaler.referenceResolution.x, _canvasScaler.referenceResolution.y);
         }
 
         private void Update()
