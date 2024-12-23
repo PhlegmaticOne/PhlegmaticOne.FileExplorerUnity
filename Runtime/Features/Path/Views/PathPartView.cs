@@ -1,11 +1,13 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Path.ViewModels;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Features.Path.Views
 {
-    internal sealed class PathPartView : MonoBehaviour
+    internal sealed class PathPartView : View
     {
         [SerializeField] private TextMeshProUGUI _partText;
         [SerializeField] private GameObject _nextMark;
@@ -13,23 +15,24 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Views
         
         private PathPartViewModel _viewModel;
 
-        public void Bind(PathPartViewModel viewModel)
+        [ViewInject]
+        public void Construct(PathPartViewModel viewModel)
         {
             _viewModel = viewModel;
-            UpdatePart(viewModel.Part);
+            ViewModel = viewModel;
+        }
+
+        public override void Initialize()
+        {
+            UpdatePart(_viewModel.Part);
             Subscribe();
         }
 
-        public void Release()
+        public override void Release()
         {
             _viewModel.Part.ValueChanged -= UpdatePart;
             _viewModel.IsCurrent.ValueChanged -= UpdateNextMarkActive;
             _button.onClick.RemoveListener(Navigate);
-        }
-
-        public bool IsBindTo(PathPartViewModel pathPart)
-        {
-            return _viewModel == pathPart;
         }
 
         private void Subscribe()

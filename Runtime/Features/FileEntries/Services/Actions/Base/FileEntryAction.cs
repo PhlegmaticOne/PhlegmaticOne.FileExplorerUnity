@@ -1,10 +1,9 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Actions.Base;
-using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
+﻿using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions
 {
-    internal abstract class FileEntryAction : ExplorerAction
+    internal abstract class FileEntryAction : ActionViewModel
     {
         protected FileEntryAction(ActionsViewModel actionsViewModel) : base(actionsViewModel) { }
 

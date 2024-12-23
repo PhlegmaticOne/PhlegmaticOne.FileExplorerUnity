@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using PhlegmaticOne.FileExplorer.Features.Actions.Base;
 using PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions.ViewModels
 {
-    internal sealed class ActionsViewModel
+    internal sealed class ActionsViewModel : ViewModel
     {
         private readonly IActionViewPositionCalculator _positionCalculator;
         
@@ -17,15 +16,15 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.ViewModels
             _positionCalculator = positionCalculator;
             
             IsActive = new ReactiveProperty<bool>();
-            Actions = new ReactiveCollection<IExplorerAction>();
+            Actions = new ReactiveCollection<ActionViewModel>();
             Position = new ReactiveProperty<Vector3>();
         }
         
         public ReactiveProperty<bool> IsActive { get; }
         public ReactiveProperty<Vector3> Position { get; }
-        public ReactiveCollection<IExplorerAction> Actions { get; }
+        public ReactiveCollection<ActionViewModel> Actions { get; }
 
-        public void ShowActions(IEnumerable<IExplorerAction> actions, ActionViewPositionData position)
+        public void ShowActions(IEnumerable<ActionViewModel> actions, ActionViewPositionData position)
         {
             _position = position;
             Actions.Clear();

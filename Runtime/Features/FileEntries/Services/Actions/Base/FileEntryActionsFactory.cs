@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using PhlegmaticOne.FileExplorer.Features.Actions.Base;
+using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions
@@ -9,16 +9,16 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions
     {
         public abstract FileEntryType EntryType { get; }
 
-        public IEnumerable<IExplorerAction> GetActions(FileEntryViewModel file)
+        public IEnumerable<ActionViewModel> GetActions(FileEntryViewModel file)
         {
             if (file is T generic)
             {
                 return GetActions(generic);
             }
             
-            return Enumerable.Empty<IExplorerAction>();
+            return Enumerable.Empty<ActionViewModel>();
         }
 
-        protected abstract IEnumerable<IExplorerAction> GetActions(T fileEntry);
+        protected abstract IEnumerable<ActionViewModel> GetActions(T fileEntry);
     }
 }

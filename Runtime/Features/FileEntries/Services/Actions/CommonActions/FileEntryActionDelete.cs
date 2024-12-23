@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.Actions.Base;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Operations;
@@ -29,8 +28,8 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Acti
 
         public override string Description => "Delete";
         
-        public override ExplorerActionColor Color => 
-            ExplorerActionColor.WithTextColor(UnityEngine.Color.red);
+        public override ActionColor Color => 
+            ActionColor.WithTextColor(UnityEngine.Color.red);
         
         protected override Task<bool> ExecuteAction()
         {

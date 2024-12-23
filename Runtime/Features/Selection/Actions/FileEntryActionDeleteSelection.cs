@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.Actions.Base;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Searching.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
@@ -7,7 +6,7 @@ using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
 {
-    internal sealed class FileEntryActionDeleteSelection : ExplorerAction
+    internal sealed class FileEntryActionDeleteSelection : ActionViewModel
     {
         private readonly SelectionViewModel _selectionViewModel;
         private readonly TabViewModel _tabViewModel;
@@ -26,7 +25,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
 
         public override string Description => "Delete all";
         
-        public override ExplorerActionColor Color => ExplorerActionColor.WithTextColor(UnityEngine.Color.red);
+        public override ActionColor Color => ActionColor.WithTextColor(UnityEngine.Color.red);
         
         protected override Task<bool> ExecuteAction()
         {

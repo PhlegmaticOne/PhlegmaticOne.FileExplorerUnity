@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using PhlegmaticOne.FileExplorer.Features.Actions.Base;
+using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Searching.ViewModels;
@@ -26,9 +26,9 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Services
             _searchViewModel = searchViewModel;
         }
         
-        public IEnumerable<IExplorerAction> GetActions(SelectionViewModel viewModel)
+        public IEnumerable<ActionViewModel> GetActions(SelectionViewModel viewModel)
         {
-            var result = new List<IExplorerAction>();
+            var result = new List<ActionViewModel>();
 
             if (!viewModel.IsAllSelected && _searchViewModel.FoundEntriesCount != 0)
             {
@@ -53,7 +53,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Services
             return result;
         }
 
-        private IEnumerable<IExplorerAction> GetSingleSelectionActions(FileEntryViewModel fileEntry)
+        private IEnumerable<ActionViewModel> GetSingleSelectionActions(FileEntryViewModel fileEntry)
         {
             var factory = Array.Find(_actionsFactories, x => x.EntryType == fileEntry.EntryType);
             return factory.GetActions(fileEntry);

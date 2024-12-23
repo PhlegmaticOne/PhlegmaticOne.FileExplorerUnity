@@ -11,7 +11,7 @@ using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels
 {
-    internal abstract class FileEntryViewModel : IDisposable
+    internal abstract class FileEntryViewModel : ViewModel, IDisposable
     {
         protected readonly IExplorerIconsProvider IconsProvider;
         protected readonly SelectionViewModel SelectionViewModel;

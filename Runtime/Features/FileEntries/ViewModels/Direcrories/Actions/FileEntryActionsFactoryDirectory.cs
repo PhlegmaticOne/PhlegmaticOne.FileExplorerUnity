@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using PhlegmaticOne.FileExplorer.Features.Actions.Base;
+using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Actions;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
@@ -17,7 +17,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Direcrories
 
         public override FileEntryType EntryType => FileEntryType.Directory;
 
-        protected override IEnumerable<IExplorerAction> GetActions(DirectoryViewModel fileEntry)
+        protected override IEnumerable<ActionViewModel> GetActions(DirectoryViewModel fileEntry)
         {
 #if UNITY_EDITOR
             yield return _container.Instantiate<FileEntryActionOpenExplorer>().WithFileEntry(fileEntry);

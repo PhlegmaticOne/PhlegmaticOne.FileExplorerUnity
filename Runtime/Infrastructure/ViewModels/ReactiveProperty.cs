@@ -39,7 +39,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels
         
         public void SetValueNotify(T value)
         {
-            if (Value.Equals(value))
+            if (Value is not null && Value.Equals(value))
             {
                 return;
             }

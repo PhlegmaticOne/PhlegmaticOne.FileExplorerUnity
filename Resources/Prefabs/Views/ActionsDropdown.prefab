@@ -99,7 +99,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1d94523e24541a2b088b47c5c9b68aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemPrefab: {fileID: 5241389021587564014, guid: bcc7ecb5b45e2cb46a82b5e1557adf84, type: 3}
+  _viewsParent: {fileID: 2769595795357315762}
+  _colorSelector:
+    _backgroundColors:
+    - {r: 0.10980393, g: 0.10980393, b: 0.10980393, a: 1}
+    - {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+    _textColor: {r: 0.70980394, g: 0.7176471, b: 0.7254902, a: 1}
   _backgroundColors:
   - {r: 0.10980393, g: 0.10980393, b: 0.10980393, a: 1}
   - {r: 0.0754717, g: 0.0754717, b: 0.0754717, a: 1}

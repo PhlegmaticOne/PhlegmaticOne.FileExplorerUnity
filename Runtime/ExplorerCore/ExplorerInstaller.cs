@@ -8,6 +8,7 @@ using PhlegmaticOne.FileExplorer.ExplorerCore.States.Commands;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
 using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.ExplorerCore
@@ -31,6 +32,8 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore
             container.Register<IExplorerViewModelDisposer, ExplorerViewModelDisposer>();
             container.Register<IExplorerStateProvider, ExplorerStateProvider>();
             container.RegisterInstance(new ExplorerRootObjectProvider(_rootObject));
+            
+            container.Register<IViewProvider, ViewProvider>();
         }
     }
 }

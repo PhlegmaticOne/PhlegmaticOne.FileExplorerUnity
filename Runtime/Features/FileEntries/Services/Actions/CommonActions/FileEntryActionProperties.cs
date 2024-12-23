@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.Actions.Base;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties.Services;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
@@ -19,7 +18,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Acti
 
         public override string Description => "Properties";
         
-        public override ExplorerActionColor Color => ExplorerActionColor.Auto;
+        public override ActionColor Color => ActionColor.Auto;
         
         protected override async Task<bool> ExecuteAction()
         {

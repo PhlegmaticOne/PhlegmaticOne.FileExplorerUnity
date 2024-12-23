@@ -13,10 +13,14 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions
     internal sealed class ActionsInstaller : MonoInstaller
     {
         [SerializeField] private ActionsView _actionsView;
+        [SerializeField] private ActionDropdownView _actionDropdown;
+        [SerializeField] private ActionDropdownItemView _itemViewPrefab;
         
         public override void Install(IDependencyContainer container)
         {
             container.RegisterInstance(_actionsView);
+            container.RegisterInstance(_actionDropdown);
+            container.RegisterPrefab(_itemViewPrefab);
             container.Register<IActionViewPositionCalculator, ActionViewPositionCalculator>();
             container.Register<IFileViewContentProvider, FileViewContentProvider>();
             container.Register<IFilePropertiesViewProvider, FilePropertiesViewProvider>();

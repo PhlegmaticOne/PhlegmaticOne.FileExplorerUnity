@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.Actions.Base;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
 {
-    internal sealed class FileEntryActionSelectAll : ExplorerAction
+    internal sealed class FileEntryActionSelectAll : ActionViewModel
     {
         private readonly SelectionViewModel _selectionViewModel;
 
@@ -18,7 +17,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
 
         public override string Description => "Select all";
         
-        public override ExplorerActionColor Color => ExplorerActionColor.Auto;
+        public override ActionColor Color => ActionColor.Auto;
 
         protected override Task<bool> ExecuteAction()
         {

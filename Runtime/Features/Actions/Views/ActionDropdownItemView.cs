@@ -1,28 +1,38 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Actions.Base;
+﻿using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions.Views
 {
-    internal sealed class ActionDropdownItemView : MonoBehaviour
+    internal sealed class ActionDropdownItemView : View
     {
         [SerializeField] private TextMeshProUGUI _description;
         [SerializeField] private Image _background;
         [SerializeField] private Button _button;
         
-        private IExplorerAction _action;
+        private ActionViewModel _action;
+        private ActionColor _color;
 
-        public void Construct(IExplorerAction action, ExplorerActionColor color)
+        [ViewInject]
+        public void Construct(ActionViewModel action, ActionColor color)
         {
+            _color = color;
             _action = action;
-            _button.onClick.AddListener(ExecuteAction);
-            UpdateDescription(action.Description);
-            UpdateColors(color);
+            ViewModel = action;
         }
 
-        public void Release()
+        public override void Initialize()
+        {
+            _button.onClick.AddListener(ExecuteAction);
+            UpdateDescription(_action.Description);
+            UpdateColors(_color);
+        }
+
+        public override void Release()
         {
             _button.onClick.RemoveListener(ExecuteAction);
             _action = null;
@@ -38,7 +48,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Views
             _description.text = description;
         }
 
-        private void UpdateColors(ExplorerActionColor color)
+        private void UpdateColors(ActionColor color)
         {
             _description.color = color.TextColor;
             _background.color = color.BackgroundColor;

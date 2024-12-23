@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using PhlegmaticOne.FileExplorer.Features.Actions.Base;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Core;
+using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Actions;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
@@ -19,7 +19,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Actio
 
         public override FileEntryType EntryType => FileEntryType.File;
 
-        protected override IEnumerable<IExplorerAction> GetActions(FileViewModel fileEntry)
+        protected override IEnumerable<ActionViewModel> GetActions(FileViewModel fileEntry)
         {
             if (fileEntry.Extension.IsViewable(out var viewType))
             {

@@ -1,9 +1,6 @@
-﻿using System.Collections.Specialized;
-using PhlegmaticOne.FileExplorer.ExplorerCore.ViewBase;
-using PhlegmaticOne.FileExplorer.Features.Actions.Base;
+﻿using PhlegmaticOne.FileExplorer.ExplorerCore.ViewBase;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
-using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -25,32 +22,19 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Views
         {
             _viewModel.IsActive.ValueChanged += IsActiveOnValueChanged;
             _viewModel.Position.ValueChanged += PositionOnValueChanged;
-            _viewModel.Actions.CollectionChanged += ActionsOnCollectionChanged;
+            _viewModel.Actions.CollectionChanged += _actionDropdownView.UpdateView;
         }
 
         public void Unbind()
         {
             _viewModel.IsActive.ValueChanged -= IsActiveOnValueChanged;
             _viewModel.Position.ValueChanged -= PositionOnValueChanged;
-            _viewModel.Actions.CollectionChanged -= ActionsOnCollectionChanged;
+            _viewModel.Actions.CollectionChanged -= _actionDropdownView.UpdateView;
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
             _viewModel.Deactivate();
-        }
-
-        private void ActionsOnCollectionChanged(ReactiveCollectionChangedEventArgs<IExplorerAction> eventArgs)
-        {
-            switch (eventArgs.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    _actionDropdownView.AddActions(eventArgs.AffectedItems);
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    _actionDropdownView.Clear();
-                    break;
-            }
         }
 
         private void PositionOnValueChanged(Vector3 position)

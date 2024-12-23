@@ -1,9 +1,6 @@
-﻿using System.Collections.Specialized;
-using PhlegmaticOne.FileExplorer.ExplorerCore.ViewBase;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
+﻿using PhlegmaticOne.FileExplorer.ExplorerCore.ViewBase;
 using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
-using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.Tab.Views
@@ -22,29 +19,12 @@ namespace PhlegmaticOne.FileExplorer.Features.Tab.Views
         
         public void Bind()
         {
-            _viewModel.FileEntries.CollectionChanged += HandleFileEntriesCollectionChanged;
+            _viewModel.FileEntries.CollectionChanged += _collectionView.UpdateView;
         }
 
         public void Unbind()
         {
-            _viewModel.FileEntries.CollectionChanged -= HandleFileEntriesCollectionChanged;
-        }
-
-        private void HandleFileEntriesCollectionChanged(
-            ReactiveCollectionChangedEventArgs<FileEntryViewModel> eventArgs)
-        {
-            switch (eventArgs.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    _collectionView.AddEntries(eventArgs.AffectedItems);
-                    break;
-                case NotifyCollectionChangedAction.Remove:
-                    _collectionView.RemoveEntries(eventArgs.AffectedItems);
-                    break;
-                case NotifyCollectionChangedAction.Reset:
-                    _collectionView.Clear();
-                    break;
-            }
+            _viewModel.FileEntries.CollectionChanged -= _collectionView.UpdateView;
         }
     }
 }

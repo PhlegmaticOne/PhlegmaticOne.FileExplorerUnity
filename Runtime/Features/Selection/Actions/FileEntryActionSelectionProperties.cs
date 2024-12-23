@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.Actions.Base;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties.Core;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties.Views;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
@@ -9,7 +8,7 @@ using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
 {
-    internal sealed class FileEntryActionSelectionProperties : ExplorerAction
+    internal sealed class FileEntryActionSelectionProperties : ActionViewModel
     {
         private readonly IPopupProvider _popupProvider;
         private readonly SelectionViewModel _selectionViewModel;
@@ -25,7 +24,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
 
         public override string Description => "Properties";
         
-        public override ExplorerActionColor Color => ExplorerActionColor.Auto;
+        public override ActionColor Color => ActionColor.Auto;
         
         protected override async Task<bool> ExecuteAction()
         {

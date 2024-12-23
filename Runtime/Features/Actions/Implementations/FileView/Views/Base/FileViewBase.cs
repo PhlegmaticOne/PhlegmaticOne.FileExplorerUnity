@@ -1,6 +1,5 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Core;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.ViewModels;
-using TMPro;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Views

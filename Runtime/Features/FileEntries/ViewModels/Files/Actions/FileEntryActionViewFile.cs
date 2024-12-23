@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.Actions.Base;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Core;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Services;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
@@ -27,7 +26,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Actio
 
         public override string Description => $"View as {_viewType}";
         
-        public override ExplorerActionColor Color => ExplorerActionColor.WithTextColor(_textColor);
+        public override ActionColor Color => ActionColor.WithTextColor(_textColor);
         
         protected override async Task<bool> ExecuteAction()
         {

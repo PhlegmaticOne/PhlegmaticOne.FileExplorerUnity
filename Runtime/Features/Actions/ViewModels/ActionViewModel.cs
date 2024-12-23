@@ -1,19 +1,19 @@
 ﻿using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
-namespace PhlegmaticOne.FileExplorer.Features.Actions.Base
+namespace PhlegmaticOne.FileExplorer.Features.Actions.ViewModels
 {
-    internal abstract class ExplorerAction : IExplorerAction
+    internal abstract class ActionViewModel : ViewModel
     {
         private readonly ActionsViewModel _actionsViewModel;
 
-        protected ExplorerAction(ActionsViewModel actionsViewModel)
+        protected ActionViewModel(ActionsViewModel actionsViewModel)
         {
             _actionsViewModel = actionsViewModel;
         }
 
         public abstract string Description { get; }
-        public abstract ExplorerActionColor Color { get; }
+        public abstract ActionColor Color { get; }
         
         public Task<bool> Execute()
         {

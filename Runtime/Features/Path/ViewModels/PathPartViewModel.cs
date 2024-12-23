@@ -4,7 +4,7 @@ using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.Path.ViewModels
 {
-    internal sealed class PathPartViewModel
+    internal sealed class PathPartViewModel : ViewModel
     {
         private readonly NavigationViewModel _navigationViewModel;
         private readonly IPathBuilder _pathBuilder;

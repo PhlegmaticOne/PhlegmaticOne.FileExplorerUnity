@@ -1,12 +1,14 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.Behaviours;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Views
 {
-    internal class FileEntryView : MonoBehaviour
+    internal class FileEntryView : View
     {
         [SerializeField] private Image _icon;
         [SerializeField] private AspectRatioFitter _aspectRatioFitter;
@@ -18,25 +20,22 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Views
         private FileEntryViewModel _viewModel;
         private RectTransform _headerTransform;
 
-        public void Bind(FileEntryViewModel viewModel)
+        [ViewInject]
+        public void Construct(FileEntryViewModel viewModel, RectTransform headerTransform)
         {
+            ViewModel = viewModel;
             _viewModel = viewModel;
-            UpdateFileName(viewModel.Name);
+            _headerTransform = headerTransform;
+        }
+        
+        public override void Initialize()
+        {
+            UpdateFileName(_viewModel.Name);
             UpdateIcon();
             Subscribe();
         }
 
-        public void UpdateHeaderTransform(RectTransform headerTransform)
-        {
-            _headerTransform = headerTransform;
-        }
-
-        public bool IsBindTo(FileEntryViewModel file)
-        {
-            return ReferenceEquals(_viewModel, file);
-        }
-
-        public void Release()
+        public override void Release()
         {
             ReleaseIcon();
             Unsubscribe();
