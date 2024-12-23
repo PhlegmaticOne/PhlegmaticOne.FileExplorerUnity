@@ -2,6 +2,7 @@
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Rename.Services;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions.Handlers;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Actions
 {
@@ -10,8 +11,12 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Acti
         private readonly IFileRenameDataProvider _renameDataProvider;
 
         public FileEntryActionRename(
-            IFileRenameDataProvider renameDataProvider,
-            ActionsViewModel actionsViewModel) : base(actionsViewModel)
+            FileEntryViewModel fileEntry, 
+            ActionsViewModel actionsViewModel,
+            IFileEntryActionStartHandler actionStartHandler,
+            IFileEntryActionErrorHandler actionErrorHandler,
+            IFileRenameDataProvider renameDataProvider) : 
+            base(fileEntry, actionsViewModel, actionStartHandler, actionErrorHandler)
         {
             _renameDataProvider = renameDataProvider;
         }
@@ -19,14 +24,14 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Acti
         public override string Description => "Rename";
 
         public override ActionColor Color => ActionColor.Auto;
-
-        protected override async Task<bool> ExecuteAction()
+        
+        protected override async Task<bool> ExecuteAction(FileEntryViewModel fileEntry)
         {
-            var renameData = await _renameDataProvider.GetRenameData(FileEntry);
+            var renameData = await _renameDataProvider.GetRenameData(fileEntry);
 
             if (renameData.WillRename)
             {
-                FileEntry.Rename(renameData.NewName);
+                fileEntry.Rename(renameData.NewName);
             }
 
             return renameData.WillRename;

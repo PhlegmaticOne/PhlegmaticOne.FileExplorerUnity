@@ -4,7 +4,7 @@ using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.Tab.ViewModels
 {
-    internal sealed class TabViewModel
+    internal sealed class TabViewModel : ViewModel
     {
         public TabViewModel()
         {

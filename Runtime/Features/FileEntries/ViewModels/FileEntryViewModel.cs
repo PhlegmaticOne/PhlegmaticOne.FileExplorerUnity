@@ -46,6 +46,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels
         public abstract FileEntryProperties GetProperties();
         public abstract void Rename(string newName);
         public abstract void Delete();
+        public abstract bool Exists();
         public abstract void OnClick();
         public abstract void Dispose();
 

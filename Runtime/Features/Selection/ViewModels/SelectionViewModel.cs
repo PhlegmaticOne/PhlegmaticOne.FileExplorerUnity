@@ -10,7 +10,7 @@ using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.ViewModels
 {
-    internal sealed class SelectionViewModel
+    internal sealed class SelectionViewModel : ViewModel
     {
         private readonly ActionsViewModel _actionsViewModel;
         private readonly ISelectionActionsProvider _actionsProvider;

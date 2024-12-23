@@ -6,5 +6,7 @@
         void DeleteDirectory(string path);
         string RenameFile(string path, string newName);
         string RenameDirectory(string path, string newName);
+        bool DirectoryExists(string path);
+        bool FileExists(string path);
     }
 }

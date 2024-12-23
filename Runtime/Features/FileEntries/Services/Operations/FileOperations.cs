@@ -39,5 +39,15 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Operations
             Directory.Move(path, newPath);
             return newPath;
         }
+
+        public bool DirectoryExists(string path)
+        {
+            return Directory.Exists(path);
+        }
+
+        public bool FileExists(string path)
+        {
+            return File.Exists(path);
+        }
     }
 }

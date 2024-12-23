@@ -4,7 +4,7 @@ using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.Searching.ViewModels
 {
-    internal sealed class SearchViewModel
+    internal sealed class SearchViewModel : ViewModel
     {
         private const int MinSearchLength = 1;
         

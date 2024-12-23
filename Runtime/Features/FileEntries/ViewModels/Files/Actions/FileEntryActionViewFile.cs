@@ -3,6 +3,7 @@ using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Core;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Services;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions.Handlers;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Actions
@@ -14,10 +15,13 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Actio
         private readonly Color _textColor;
 
         public FileEntryActionViewFile(
-            IFileViewContentProvider fileViewContentProvider,
+            FileEntryViewModel fileEntry, 
             ActionsViewModel actionsViewModel,
+            IFileEntryActionStartHandler actionStartHandler,
+            IFileEntryActionErrorHandler actionErrorHandler,
+            IFileViewContentProvider fileViewContentProvider,
             FileViewType viewType,
-            Color textColor) : base(actionsViewModel)
+            Color textColor) : base(fileEntry, actionsViewModel, actionStartHandler, actionErrorHandler)
         {
             _fileViewContentProvider = fileViewContentProvider;
             _viewType = viewType;
@@ -28,9 +32,9 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Actio
         
         public override ActionColor Color => ActionColor.WithTextColor(_textColor);
         
-        protected override async Task<bool> ExecuteAction()
+        protected override async Task<bool> ExecuteAction(FileEntryViewModel fileEntry)
         {
-            await _fileViewContentProvider.ViewFileAsync((FileViewModel)FileEntry, _viewType);
+            await _fileViewContentProvider.ViewFileAsync((FileViewModel)fileEntry, _viewType);
             return true;
         }
     }

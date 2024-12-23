@@ -33,16 +33,16 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Actio
             }
 
 #if UNITY_EDITOR
-            yield return _container.Instantiate<FileEntryActionOpenExplorer>().WithFileEntry(fileEntry);
+            yield return _container.Instantiate<FileEntryActionOpenExplorer>(fileEntry);
 #endif
-            yield return _container.Instantiate<FileEntryActionRename>().WithFileEntry(fileEntry);
-            yield return _container.Instantiate<FileEntryActionProperties>().WithFileEntry(fileEntry);
-            yield return _container.Instantiate<FileEntryActionDelete>().WithFileEntry(fileEntry);
+            yield return _container.Instantiate<FileEntryActionRename>(fileEntry);
+            yield return _container.Instantiate<FileEntryActionProperties>(fileEntry);
+            yield return _container.Instantiate<FileEntryActionDelete>(fileEntry);
         }
 
         private FileEntryAction ViewFile(FileEntryViewModel fileEntry, FileViewType viewType, Color color)
         {
-            return _container.Instantiate<FileEntryActionViewFile>(viewType, color).WithFileEntry(fileEntry);
+            return _container.Instantiate<FileEntryActionViewFile>(fileEntry, viewType, color);
         }
     }
 }

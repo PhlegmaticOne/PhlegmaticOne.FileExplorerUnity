@@ -2,6 +2,7 @@
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties.Services;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions.Handlers;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Actions
 {
@@ -10,8 +11,12 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Acti
         private readonly IFilePropertiesViewProvider _propertiesViewProvider;
 
         public FileEntryActionProperties(
-            IFilePropertiesViewProvider propertiesViewProvider,
-            ActionsViewModel actionsViewModel) : base(actionsViewModel)
+            FileEntryViewModel fileEntry, 
+            ActionsViewModel actionsViewModel,
+            IFileEntryActionStartHandler actionStartHandler,
+            IFileEntryActionErrorHandler actionErrorHandler,
+            IFilePropertiesViewProvider propertiesViewProvider) : 
+            base(fileEntry, actionsViewModel, actionStartHandler, actionErrorHandler)
         {
             _propertiesViewProvider = propertiesViewProvider;
         }
@@ -20,9 +25,9 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Acti
         
         public override ActionColor Color => ActionColor.Auto;
         
-        protected override async Task<bool> ExecuteAction()
+        protected override async Task<bool> ExecuteAction(FileEntryViewModel fileEntry)
         {
-            await _propertiesViewProvider.ViewFileProperties(FileEntry);
+            await _propertiesViewProvider.ViewFileProperties(fileEntry);
             return true;
         }
     }

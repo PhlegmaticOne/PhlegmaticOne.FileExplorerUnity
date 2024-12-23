@@ -20,11 +20,11 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Direcrories
         protected override IEnumerable<ActionViewModel> GetActions(DirectoryViewModel fileEntry)
         {
 #if UNITY_EDITOR
-            yield return _container.Instantiate<FileEntryActionOpenExplorer>().WithFileEntry(fileEntry);
+            yield return _container.Instantiate<FileEntryActionOpenExplorer>(fileEntry);
 #endif
-            yield return _container.Instantiate<FileEntryActionRename>().WithFileEntry(fileEntry);
-            yield return _container.Instantiate<FileEntryActionProperties>().WithFileEntry(fileEntry);
-            yield return _container.Instantiate<FileEntryActionDelete>().WithFileEntry(fileEntry);
+            yield return _container.Instantiate<FileEntryActionRename>(fileEntry);
+            yield return _container.Instantiate<FileEntryActionProperties>(fileEntry);
+            yield return _container.Instantiate<FileEntryActionDelete>(fileEntry);
         }
     }
 }

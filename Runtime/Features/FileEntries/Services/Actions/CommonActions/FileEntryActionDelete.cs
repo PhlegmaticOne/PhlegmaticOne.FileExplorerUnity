@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions.Handlers;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Operations;
 using PhlegmaticOne.FileExplorer.Features.Searching.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
@@ -16,10 +17,13 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Acti
         private readonly IFileOperations _fileOperations;
 
         public FileEntryActionDelete(
-            TabViewModel tabViewModel,
+            FileEntryViewModel fileEntry, 
             ActionsViewModel actionsViewModel,
+            IFileEntryActionStartHandler actionStartHandler,
+            IFileEntryActionErrorHandler actionErrorHandler,
+            TabViewModel tabViewModel,
             SelectionViewModel selectionViewModel,
-            SearchViewModel searchViewModel) : base(actionsViewModel)
+            SearchViewModel searchViewModel) : base(fileEntry, actionsViewModel, actionStartHandler, actionErrorHandler)
         {
             _tabViewModel = tabViewModel;
             _selectionViewModel = selectionViewModel;
@@ -31,11 +35,11 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Acti
         public override ActionColor Color => 
             ActionColor.WithTextColor(UnityEngine.Color.red);
         
-        protected override Task<bool> ExecuteAction()
+        protected override Task<bool> ExecuteAction(FileEntryViewModel fileEntry)
         {
-            FileEntry.Delete();
-            _tabViewModel.Remove(FileEntry);
-            _selectionViewModel.UpdateSelection(FileEntry);
+            fileEntry.Delete();
+            _tabViewModel.Remove(fileEntry);
+            _selectionViewModel.UpdateSelection(fileEntry);
             _searchViewModel.Research();
             return Task.FromResult(true);
         }

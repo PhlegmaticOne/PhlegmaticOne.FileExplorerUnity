@@ -50,7 +50,12 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Direcrories
         {
             FileOperations.DeleteDirectory(Path);
         }
-        
+
+        public override bool Exists()
+        {
+            return FileOperations.DirectoryExists(Path);
+        }
+
         public override void OnClick()
         {
             if (SelectionViewModel.IsSelectionActive)
@@ -59,7 +64,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Direcrories
             }
             else
             {
-                _navigationViewModel.Navigate(Path);
+                _navigationViewModel.Navigate(this);
             }
         }
 

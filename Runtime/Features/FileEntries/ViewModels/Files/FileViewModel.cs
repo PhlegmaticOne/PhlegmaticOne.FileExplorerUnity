@@ -56,7 +56,12 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files
         {
             FileOperations.DeleteFile(Path);
         }
-        
+
+        public override bool Exists()
+        {
+            return FileOperations.FileExists(Path);
+        }
+
         public override void OnClick()
         {
             if (SelectionViewModel.IsSelectionActive)

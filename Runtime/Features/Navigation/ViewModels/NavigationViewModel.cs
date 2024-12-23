@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Cancellation;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Direcrories;
 using PhlegmaticOne.FileExplorer.Features.Navigation.Services;
 using PhlegmaticOne.FileExplorer.Features.Path.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.ScreenMessages.ViewModels;
@@ -12,7 +13,7 @@ using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.Navigation.ViewModels
 {
-    internal sealed class NavigationViewModel
+    internal sealed class NavigationViewModel : ViewModel
     {
         private readonly IExplorerNavigator _navigator;
         private readonly IExplorerCancellationProvider _cancellationProvider;
@@ -51,6 +52,18 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.ViewModels
             _searchViewModel.Clear();
             _pathViewModel.UpdatePathParts(path.PathSlash());
             LoadEntriesAsync().ForgetUnawareCancellation();
+        }
+
+        public void Navigate(DirectoryViewModel directory)
+        {
+            if (!directory.Exists())
+            {
+                _tabViewModel.Remove(directory);
+            }
+            else
+            {
+                Navigate(directory.Path);
+            }
         }
 
         public void NavigateRoot()

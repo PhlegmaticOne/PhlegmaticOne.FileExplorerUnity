@@ -2,7 +2,7 @@
 
 namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.ViewModels
 {
-    internal sealed class ScreenMessagesViewModel
+    internal sealed class ScreenMessagesViewModel : ViewModel
     {
         public ScreenMessagesViewModel()
         {

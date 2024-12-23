@@ -8,7 +8,7 @@ using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.Path.ViewModels
 {
-    internal sealed class PathViewModel
+    internal sealed class PathViewModel : ViewModel
     {
         private readonly FileExplorerConfig _config;
         private readonly IPathParser _pathParser;

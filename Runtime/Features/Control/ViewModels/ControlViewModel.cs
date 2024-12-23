@@ -1,8 +1,9 @@
 ﻿using PhlegmaticOne.FileExplorer.ExplorerCore.States;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.Control.ViewModels
 {
-    internal sealed class ControlViewModel
+    internal sealed class ControlViewModel : ViewModel
     {
         private readonly IExplorerStateProvider _stateProvider;
 
