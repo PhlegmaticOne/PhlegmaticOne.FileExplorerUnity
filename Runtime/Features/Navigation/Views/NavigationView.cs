@@ -9,7 +9,6 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.Views
     internal sealed class NavigationView : MonoBehaviour, IExplorerViewComponent
     {
         [SerializeField] private Button _backButton;
-        [SerializeField] private LoadingTextView _loadingTextView;
         
         private NavigationViewModel _viewModel;
 
@@ -33,7 +32,6 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.Views
 
         private void UpdateLoadingState(bool isLoading)
         {
-            _loadingTextView.SetActive(isLoading);
             _backButton.interactable = _viewModel.CanMoveBack();
         }
 
