@@ -10,9 +10,9 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Services
         private const string RootPathPartName = "Root";
         
         private readonly IPathPartFactory _pathPartFactory;
-        private readonly FileExplorerConfig _config;
+        private readonly ExplorerOpenConfig _config;
 
-        public PathParser(IPathPartFactory pathPartFactory, FileExplorerConfig config)
+        public PathParser(IPathPartFactory pathPartFactory, ExplorerOpenConfig config)
         {
             _pathPartFactory = pathPartFactory;
             _config = config;
@@ -25,7 +25,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Services
                 FromMemory(RootPathPartName.AsMemory())
             };
 
-            if (!path.Equals(_config.RootPath, StringComparison.Ordinal))
+            if (!path.Equals(_config.StartupLocation, StringComparison.Ordinal))
             {
                 FillPathPartsNextFromRootPath(path, result);
             }
@@ -35,7 +35,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Services
 
         private void FillPathPartsNextFromRootPath(string path, List<PathPartViewModel> result)
         {
-            var memory = path.AsMemory(_config.RootPath.Length + 1);
+            var memory = path.AsMemory(_config.StartupLocation.Length + 1);
     
             while (true)
             {

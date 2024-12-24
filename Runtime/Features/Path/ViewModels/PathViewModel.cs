@@ -10,10 +10,10 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.ViewModels
 {
     internal sealed class PathViewModel : ViewModel
     {
-        private readonly FileExplorerConfig _config;
+        private readonly ExplorerOpenConfig _config;
         private readonly IPathParser _pathParser;
 
-        public PathViewModel(FileExplorerConfig config, IPathParser pathParser)
+        public PathViewModel(ExplorerOpenConfig config, IPathParser pathParser)
         {
             _config = config;
             _pathParser = pathParser;
@@ -32,7 +32,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.ViewModels
 
         public string GetRootPath()
         {
-            return _config.RootPath;
+            return _config.StartupLocation;
         }
 
         public bool CurrentPathIsRoot()

@@ -13,16 +13,21 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Service
         
         private readonly IExplorerIconsLoader _iconsLoader;
         private readonly FileExplorerConfig _config;
+        private readonly ExplorerOpenConfig _explorerOpenConfig;
         private readonly Dictionary<string, Sprite> _explorerIcons;
 
-        public ExplorerIconsProvider(IExplorerIconsLoader iconsLoader, FileExplorerConfig config)
+        public ExplorerIconsProvider(
+            IExplorerIconsLoader iconsLoader, 
+            FileExplorerConfig config, 
+            ExplorerOpenConfig explorerOpenConfig)
         {
             _iconsLoader = iconsLoader;
             _config = config;
+            _explorerOpenConfig = explorerOpenConfig;
             _explorerIcons = new Dictionary<string, Sprite>();
         }
 
-        public bool IsPreviewImagesInsteadOfIcons => _config.IconsConfig.IsPreviewImagesInsteadOfIcons;
+        public bool IsPreviewImagesInsteadOfIcons => _explorerOpenConfig.IsPreviewImagesInsteadOfIcons;
 
         public async Task<Sprite> GetIconAsync(string fileExtension, CancellationToken cancellationToken)
         {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using PhlegmaticOne.FileExplorer.Configuration;
+using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer
 {
@@ -6,9 +7,14 @@ namespace PhlegmaticOne.FileExplorer
     {
         public static void Open()
         {
+            Open(new ExplorerOpenConfig());
+        }
+
+        public static void Open(ExplorerOpenConfig openConfig)
+        {
             var context = Resources.Load<ExplorerContext>("Prefabs/FileExplorer");
             var explorerInstance = Object.Instantiate(context);
-            explorerInstance.ConstructAndShow();
+            explorerInstance.ConstructAndShow(openConfig);
         }
     }
 }

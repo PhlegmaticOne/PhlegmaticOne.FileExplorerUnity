@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using PhlegmaticOne.FileExplorer.Configuration;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.ExploreSample
@@ -14,7 +15,7 @@ namespace PhlegmaticOne.FileExplorer.ExploreSample
 
         private void ExploreFiles()
         {
-            Explorer.Open();
+            Explorer.Open(new ExplorerOpenConfig(@"C:\Users\Phlegmatic\Downloads", true));
         }
     }
 }

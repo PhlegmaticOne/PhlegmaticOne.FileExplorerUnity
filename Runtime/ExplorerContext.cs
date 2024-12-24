@@ -1,4 +1,5 @@
-﻿using PhlegmaticOne.FileExplorer.ExplorerCore.States;
+﻿using PhlegmaticOne.FileExplorer.Configuration;
+using PhlegmaticOne.FileExplorer.ExplorerCore.States;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
 using PhlegmaticOne.FileExplorer.Infrastructure.SafeArea.Models;
 using UnityEngine;
@@ -18,9 +19,13 @@ namespace PhlegmaticOne.FileExplorer
             SetupSafeArea();
         }
 
-        public void ConstructAndShow()
+        public void ConstructAndShow(ExplorerOpenConfig config)
         {
-            _context.Install();
+            _context.Install(container =>
+            {
+                container.RegisterInstance(config);
+            });
+            
             _context.Resolve<IExplorerStateProvider>().Show();
         }
 
