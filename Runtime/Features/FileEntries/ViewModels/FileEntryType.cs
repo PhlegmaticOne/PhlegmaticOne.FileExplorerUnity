@@ -1,4 +1,4 @@
-﻿namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions
+﻿namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels
 {
     internal enum FileEntryType
     {

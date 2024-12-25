@@ -19,11 +19,10 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Acti
         public FileEntryActionDelete(
             FileEntryViewModel fileEntry, 
             ActionsViewModel actionsViewModel,
-            IFileEntryActionStartHandler actionStartHandler,
-            IFileEntryActionErrorHandler actionErrorHandler,
+            IFileEntryActionExecuteHandler executeHandler,
             TabViewModel tabViewModel,
             SelectionViewModel selectionViewModel,
-            SearchViewModel searchViewModel) : base(fileEntry, actionsViewModel, actionStartHandler, actionErrorHandler)
+            SearchViewModel searchViewModel) : base(fileEntry, actionsViewModel, executeHandler)
         {
             _tabViewModel = tabViewModel;
             _selectionViewModel = selectionViewModel;

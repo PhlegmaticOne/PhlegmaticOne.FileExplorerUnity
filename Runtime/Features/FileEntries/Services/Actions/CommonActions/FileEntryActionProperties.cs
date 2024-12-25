@@ -13,10 +13,9 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Acti
         public FileEntryActionProperties(
             FileEntryViewModel fileEntry, 
             ActionsViewModel actionsViewModel,
-            IFileEntryActionStartHandler actionStartHandler,
-            IFileEntryActionErrorHandler actionErrorHandler,
+            IFileEntryActionExecuteHandler executeHandler,
             IFilePropertiesViewProvider propertiesViewProvider) : 
-            base(fileEntry, actionsViewModel, actionStartHandler, actionErrorHandler)
+            base(fileEntry, actionsViewModel, executeHandler)
         {
             _propertiesViewProvider = propertiesViewProvider;
         }

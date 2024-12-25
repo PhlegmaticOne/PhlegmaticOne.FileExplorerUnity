@@ -9,23 +9,20 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions
     internal abstract class FileEntryAction : ActionViewModel
     {
         private readonly FileEntryViewModel _fileEntry;
-        private readonly IFileEntryActionStartHandler _actionStartHandler;
-        private readonly IFileEntryActionErrorHandler _actionErrorHandler;
+        private readonly IFileEntryActionExecuteHandler _executeHandler;
 
         protected FileEntryAction(
             FileEntryViewModel fileEntry, 
             ActionsViewModel actionsViewModel,
-            IFileEntryActionStartHandler actionStartHandler,
-            IFileEntryActionErrorHandler actionErrorHandler) : base(actionsViewModel)
+            IFileEntryActionExecuteHandler executeHandler) : base(actionsViewModel)
         {
             _fileEntry = fileEntry;
-            _actionStartHandler = actionStartHandler;
-            _actionErrorHandler = actionErrorHandler;
+            _executeHandler = executeHandler;
         }
 
         protected sealed override async Task<bool> ExecuteAction()
         {
-            if (!_actionStartHandler.ProcessCanStartAction(_fileEntry))
+            if (!_executeHandler.ProcessCanStartAction(_fileEntry))
             {
                 return false;
             }
@@ -36,7 +33,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions
             }
             catch (Exception exception)
             {
-                await _actionErrorHandler.HandleException(_fileEntry, exception);
+                await _executeHandler.HandleException(_fileEntry, exception);
                 return false;
             }
         }

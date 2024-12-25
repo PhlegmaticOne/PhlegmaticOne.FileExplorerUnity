@@ -15,9 +15,8 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Acti
         public FileEntryActionOpenExplorer(
             FileEntryViewModel fileEntry, 
             ActionsViewModel actionsViewModel,
-            IFileEntryActionStartHandler actionStartHandler,
-            IFileEntryActionErrorHandler actionErrorHandler) : 
-            base(fileEntry, actionsViewModel, actionStartHandler, actionErrorHandler) { }
+            IFileEntryActionExecuteHandler executeHandler) : 
+            base(fileEntry, actionsViewModel, executeHandler) { }
 
         public override string Description => "Open in OS";
         

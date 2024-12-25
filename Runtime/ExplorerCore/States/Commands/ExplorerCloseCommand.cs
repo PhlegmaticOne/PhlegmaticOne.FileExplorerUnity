@@ -1,30 +1,29 @@
 ﻿using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Cancellation;
+using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Destroying;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Disposing;
-using PhlegmaticOne.FileExplorer.ExplorerCore.Services.RootObject;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Views;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Services;
 using PhlegmaticOne.FileExplorer.Features.ScreenMessages.Services;
-using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.ExplorerCore.States.Commands
 {
     internal sealed class ExplorerCloseCommand : IExplorerCloseCommand
     {
-        private readonly IExplorerRootObjectProvider _rootObjectProvider;
+        private readonly IExplorerDestroyer _destroyer;
         private readonly IExplorerViewsProvider _viewsProvider;
         private readonly IExplorerCancellationProvider _cancellationProvider;
         private readonly IExplorerViewModelDisposer _explorerViewModelDisposer;
         private readonly IScreenMessageTextChangeListener _textChangeListener;
         private readonly IExplorerIconsProvider _iconsProvider;
 
-        public ExplorerCloseCommand(IExplorerRootObjectProvider rootObjectProvider,
+        public ExplorerCloseCommand(IExplorerDestroyer destroyer,
             IExplorerViewsProvider viewsProvider,
             IExplorerCancellationProvider cancellationProvider,
             IExplorerViewModelDisposer explorerViewModelDisposer,
             IScreenMessageTextChangeListener textChangeListener,
             IExplorerIconsProvider iconsProvider)
         {
-            _rootObjectProvider = rootObjectProvider;
+            _destroyer = destroyer;
             _viewsProvider = viewsProvider;
             _cancellationProvider = cancellationProvider;
             _explorerViewModelDisposer = explorerViewModelDisposer;
@@ -39,7 +38,7 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore.States.Commands
             _iconsProvider.Dispose();
             _viewsProvider.Unbind();
             _explorerViewModelDisposer.DisposeViewModels();
-            Object.Destroy(_rootObjectProvider.RootObject);
+            _destroyer.Destroy();
         }
     }
 }

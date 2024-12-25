@@ -1,4 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Core;
+﻿using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Extensions.Services;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Extensions

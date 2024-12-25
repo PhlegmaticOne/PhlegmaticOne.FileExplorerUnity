@@ -13,10 +13,9 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Acti
         public FileEntryActionRename(
             FileEntryViewModel fileEntry, 
             ActionsViewModel actionsViewModel,
-            IFileEntryActionStartHandler actionStartHandler,
-            IFileEntryActionErrorHandler actionErrorHandler,
+            IFileEntryActionExecuteHandler executeHandler,
             IFileRenameDataProvider renameDataProvider) : 
-            base(fileEntry, actionsViewModel, actionStartHandler, actionErrorHandler)
+            base(fileEntry, actionsViewModel, executeHandler)
         {
             _renameDataProvider = renameDataProvider;
         }

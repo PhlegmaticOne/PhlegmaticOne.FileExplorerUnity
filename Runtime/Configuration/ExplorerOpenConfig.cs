@@ -10,7 +10,7 @@ namespace PhlegmaticOne.FileExplorer.Configuration
         [SerializeField] private bool _isPreviewImagesInsteadIcons;
         [SerializeField] private string _startupLocation;
 
-        public ExplorerOpenConfig() : this(Application.persistentDataPath, false) { }
+        public ExplorerOpenConfig() : this(Application.persistentDataPath) { }
 
         public ExplorerOpenConfig(string startupLocation, bool isPreviewImagesInsteadIcons = false)
         {

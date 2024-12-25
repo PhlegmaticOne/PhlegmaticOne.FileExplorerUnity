@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties.Core;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties.Views;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;

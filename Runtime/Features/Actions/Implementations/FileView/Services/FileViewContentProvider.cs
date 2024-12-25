@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Core;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Views;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files;

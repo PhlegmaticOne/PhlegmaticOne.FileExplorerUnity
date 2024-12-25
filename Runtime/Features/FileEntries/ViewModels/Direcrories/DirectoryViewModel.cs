@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties.Core;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Services;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Operations;
 using PhlegmaticOne.FileExplorer.Features.Navigation.ViewModels;

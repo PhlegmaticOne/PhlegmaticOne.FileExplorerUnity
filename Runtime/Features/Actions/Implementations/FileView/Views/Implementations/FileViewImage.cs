@@ -1,9 +1,8 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Core;
-using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.ViewModels;
+﻿using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.ViewModels;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Views.Types
+namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Views
 {
     internal sealed class FileViewImage : FileViewBase
     {

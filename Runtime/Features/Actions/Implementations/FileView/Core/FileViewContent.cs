@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.ViewModels
+namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView
 {
     internal readonly struct FileViewContent<T>
     {

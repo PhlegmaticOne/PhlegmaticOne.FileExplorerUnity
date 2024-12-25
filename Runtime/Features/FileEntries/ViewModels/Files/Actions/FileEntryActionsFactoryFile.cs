@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Core;
+using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Actions;

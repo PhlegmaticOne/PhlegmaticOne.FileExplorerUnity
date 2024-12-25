@@ -1,4 +1,4 @@
-﻿namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Core
+﻿namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView
 {
     public enum FileViewType
     {

@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Core;
+using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Services;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
@@ -17,11 +17,10 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Actio
         public FileEntryActionViewFile(
             FileEntryViewModel fileEntry, 
             ActionsViewModel actionsViewModel,
-            IFileEntryActionStartHandler actionStartHandler,
-            IFileEntryActionErrorHandler actionErrorHandler,
+            IFileEntryActionExecuteHandler executeHandler,
             IFileViewContentProvider fileViewContentProvider,
             FileViewType viewType,
-            Color textColor) : base(fileEntry, actionsViewModel, actionStartHandler, actionErrorHandler)
+            Color textColor) : base(fileEntry, actionsViewModel, executeHandler)
         {
             _fileViewContentProvider = fileViewContentProvider;
             _viewType = viewType;

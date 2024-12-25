@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Core;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 using PhlegmaticOne.FileExplorer.Infrastructure.Popups;

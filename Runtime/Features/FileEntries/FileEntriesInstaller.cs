@@ -31,6 +31,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries
             
             container.Register<IFileEntryActionErrorHandler, FileEntryActionErrorHandler>();
             container.Register<IFileEntryActionStartHandler, FileEntryActionStartHandler>();
+            container.Register<IFileEntryActionExecuteHandler, FileEntryActionExecuteHandler>();
             container.Register<IFileEntryActionErrorViewProvider, FileEntryActionErrorViewProvider>();
         }
     }

@@ -1,7 +1,7 @@
 ﻿using PhlegmaticOne.FileExplorer.Configuration;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Cancellation;
+using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Destroying;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Disposing;
-using PhlegmaticOne.FileExplorer.ExplorerCore.Services.RootObject;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Views;
 using PhlegmaticOne.FileExplorer.ExplorerCore.States;
 using PhlegmaticOne.FileExplorer.ExplorerCore.States.Commands;
@@ -31,7 +31,7 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore
             container.Register<IExplorerShowCommand, ExplorerShowCommand>();
             container.Register<IExplorerViewModelDisposer, ExplorerViewModelDisposer>();
             container.Register<IExplorerStateProvider, ExplorerStateProvider>();
-            container.RegisterInstance(new ExplorerRootObjectProvider(_rootObject));
+            container.RegisterInstance(new ExplorerDestroyer(_rootObject));
             
             container.Register<IViewProvider, ViewProvider>();
         }

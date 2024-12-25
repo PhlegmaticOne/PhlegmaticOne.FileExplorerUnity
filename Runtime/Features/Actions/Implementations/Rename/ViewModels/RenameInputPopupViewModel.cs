@@ -1,6 +1,6 @@
 ﻿using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 
-namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Rename.Views
+namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Rename
 {
     internal sealed class RenameInputPopupViewModel : PopupViewModel
     {
