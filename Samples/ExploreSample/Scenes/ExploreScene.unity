@@ -220,6 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _exploreButton: {fileID: 2136160139}
+  _configScriptable: {fileID: 11400000, guid: abc34cc5c4dfcaf478b26ea9e05e03bb, type: 2}
 --- !u!4 &581971852
 Transform:
   m_ObjectHideFlags: 0

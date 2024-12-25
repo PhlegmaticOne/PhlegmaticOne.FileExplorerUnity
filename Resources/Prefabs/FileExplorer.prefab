@@ -1036,9 +1036,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e014a93e2b42d0a74c6f3de61136e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fileExplorerConfig: {fileID: 11400000, guid: 8648a3aec25f6e94bb673c0e7b65e74b, type: 2}
   _popupProvider: {fileID: 8372610578587478571}
   _rootObject: {fileID: 3656310467629247418}
+  _canvas: {fileID: 7108996452861892047}
 --- !u!1 &7672201589423393636
 GameObject:
   m_ObjectHideFlags: 0
@@ -1565,6 +1565,18 @@ PrefabInstance:
       propertyPath: _headerTransform
       value: 
       objectReference: {fileID: 607888867421897871}
+    - target: {fileID: 3182225597970385124, guid: 221ddf8385ce1be4cb99f8742a72dbd2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3182225597970385124, guid: 221ddf8385ce1be4cb99f8742a72dbd2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3182225597970385124, guid: 221ddf8385ce1be4cb99f8742a72dbd2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3911536743798692879, guid: 221ddf8385ce1be4cb99f8742a72dbd2, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0

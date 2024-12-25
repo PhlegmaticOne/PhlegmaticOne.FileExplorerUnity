@@ -12,22 +12,20 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Service
         private const string NoneExtension = "none";
         
         private readonly IExplorerIconsLoader _iconsLoader;
-        private readonly FileExplorerConfig _config;
-        private readonly ExplorerOpenConfig _explorerOpenConfig;
+        private readonly ExplorerConfig _explorerConfig;
+        private readonly ExplorerConfigScriptable _configScriptable;
         private readonly Dictionary<string, Sprite> _explorerIcons;
 
         public ExplorerIconsProvider(
             IExplorerIconsLoader iconsLoader, 
-            FileExplorerConfig config, 
-            ExplorerOpenConfig explorerOpenConfig)
+            ExplorerConfig explorerConfig)
         {
             _iconsLoader = iconsLoader;
-            _config = config;
-            _explorerOpenConfig = explorerOpenConfig;
+            _explorerConfig = explorerConfig;
             _explorerIcons = new Dictionary<string, Sprite>();
         }
 
-        public bool IsPreviewImagesInsteadOfIcons => _explorerOpenConfig.IsPreviewImagesInsteadOfIcons;
+        public bool IsPreviewImagesInsteadOfIcons => _explorerConfig.Icons.IsPreviewImagesInsteadOfIcons;
 
         public async Task<Sprite> GetIconAsync(string fileExtension, CancellationToken cancellationToken)
         {
@@ -53,7 +51,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Service
                 return fileIcon;
             }
             
-            fileIcon = await _iconsLoader.LoadIconAsync(fileExtension, _config.IconsConfig, cancellationToken);
+            fileIcon = await _iconsLoader.LoadIconAsync(fileExtension, _explorerConfig.Icons, cancellationToken);
             _explorerIcons.TryAdd(fileExtension, fileIcon);
             return fileIcon;
         }

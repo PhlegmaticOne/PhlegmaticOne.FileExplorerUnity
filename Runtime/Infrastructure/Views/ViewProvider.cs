@@ -6,16 +6,18 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
     internal sealed class ViewProvider : IViewProvider
     {
         private readonly IDependencyContainer _container;
+        private readonly IViewProviderSettings _settings;
 
-        public ViewProvider(IDependencyContainer container)
+        public ViewProvider(IDependencyContainer container, IViewProviderSettings settings)
         {
             _container = container;
+            _settings = settings;
         }
         
         public ViewContainer<T> GetView<T>(params object[] parameters) where T : View
         {
             var view = _container.Instantiate<T>(parameters);
-            view.Initialize();
+            view.Initialize(_settings.FontAsset);
             return new ViewContainer<T>(view, this);
         }
 

@@ -10,9 +10,9 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Services
         private const string RootPathPartName = "Root";
         
         private readonly IPathPartFactory _pathPartFactory;
-        private readonly ExplorerOpenConfig _config;
+        private readonly ExplorerConfig _config;
 
-        public PathParser(IPathPartFactory pathPartFactory, ExplorerOpenConfig config)
+        public PathParser(IPathPartFactory pathPartFactory, ExplorerConfig config)
         {
             _pathPartFactory = pathPartFactory;
             _config = config;

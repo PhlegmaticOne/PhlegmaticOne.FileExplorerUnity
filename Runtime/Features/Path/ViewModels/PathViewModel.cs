@@ -10,10 +10,10 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.ViewModels
 {
     internal sealed class PathViewModel : ViewModel
     {
-        private readonly ExplorerOpenConfig _config;
+        private readonly ExplorerConfig _config;
         private readonly IPathParser _pathParser;
 
-        public PathViewModel(ExplorerOpenConfig config, IPathParser pathParser)
+        public PathViewModel(ExplorerConfig config, IPathParser pathParser)
         {
             _config = config;
             _pathParser = pathParser;

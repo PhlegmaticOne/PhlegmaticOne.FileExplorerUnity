@@ -9,21 +9,20 @@ namespace PhlegmaticOne.FileExplorer
 {
     internal sealed class ExplorerContext : MonoBehaviour
     {
-        [SerializeField] private Canvas _canvas;
         [SerializeField] private CanvasScaler _canvasScaler;
         [SerializeField] private MonoContext _context;
 
         private void Awake()
         {
-            SetupCanvas();
-            SetupSafeArea();
+            var resolution = _canvasScaler.referenceResolution;
+            SafeArea.Initialize(resolution.x, resolution.y);
         }
 
-        public void ConstructAndShow(ExplorerOpenConfig config)
+        public void ConstructAndShow(IExplorerConfig config)
         {
             _context.Install(container =>
             {
-                container.RegisterInstance(config);
+                container.RegisterInstance(config.Value);
             });
             
             _context.Resolve<IExplorerStateProvider>().Show();
@@ -32,18 +31,6 @@ namespace PhlegmaticOne.FileExplorer
         private void Update()
         {
             _context.OnUpdate();
-        }
-
-        private void SetupCanvas()
-        {
-            _canvas.worldCamera = Camera.main;
-            _canvas.sortingOrder = 999;
-        }
-
-        private void SetupSafeArea()
-        {
-            var resolution = _canvasScaler.referenceResolution;
-            SafeArea.Initialize(resolution.x, resolution.y);
         }
     }
 }

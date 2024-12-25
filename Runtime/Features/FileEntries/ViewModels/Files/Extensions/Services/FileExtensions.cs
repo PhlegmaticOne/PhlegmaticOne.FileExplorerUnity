@@ -5,21 +5,21 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Exten
 {
     internal sealed class FileExtensions : IFileExtensions
     {
-        private readonly FileExplorerConfig _config;
+        private readonly ExplorerConfig _explorerConfig;
 
-        public FileExtensions(FileExplorerConfig config)
+        public FileExtensions(ExplorerConfig explorerConfig)
         {
-            _config = config;
+            _explorerConfig = explorerConfig;
         }
         
         public bool IsText(string extension)
         {
-            return _config.ExtensionsConfig.TextExtensions.Contains(extension);
+            return _explorerConfig.Extensions.TextExtensions.Contains(extension);
         }
 
         public bool IsImage(string extension)
         {
-            return _config.ExtensionsConfig.ImageExtensions.Contains(extension);
+            return _explorerConfig.Extensions.ImageExtensions.Contains(extension);
         }
     }
 }
