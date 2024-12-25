@@ -14,20 +14,8 @@ using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.ExplorerCore
 {
-    internal sealed class ExplorerInstaller : MonoInstaller
+    internal sealed class ExplorerCoreInstaller : MonoInstaller
     {
-        private class ViewProviderSettings : IViewProviderSettings
-        {
-            private readonly ExplorerConfig _explorerConfig;
-
-            public ViewProviderSettings(ExplorerConfig explorerConfig)
-            {
-                _explorerConfig = explorerConfig;
-            }
-
-            public TMP_FontAsset FontAsset => _explorerConfig.View.FontAsset;
-        }
-        
         [SerializeField] private GameObject _rootObject;
         [SerializeField] private Canvas _canvas;
         
@@ -38,15 +26,12 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore
             container.Register<IExplorerCancellationProvider, ExplorerCancellationProvider>();
             container.Register<IExplorerViewsProvider, ExplorerViewsProvider>();
             container.Register<IExplorerStaticView, ExplorerStaticView>();
-            
+            container.RegisterInstance(new ExplorerDestroyer(_rootObject));
+
             container.Register<IExplorerCloseCommand, ExplorerCloseCommand>();
             container.Register<IExplorerShowCommand, ExplorerShowCommand>();
             container.Register<IExplorerViewModelDisposer, ExplorerViewModelDisposer>();
             container.Register<IExplorerStateProvider, ExplorerStateProvider>();
-            container.RegisterInstance(new ExplorerDestroyer(_rootObject));
-            
-            container.Register<IViewProvider, ViewProvider>();
-            container.Register<IViewProviderSettings, ViewProviderSettings>();
         }
     }
 }

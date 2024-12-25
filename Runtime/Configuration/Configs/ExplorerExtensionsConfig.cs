@@ -19,7 +19,6 @@ namespace PhlegmaticOne.FileExplorer.Configuration
         public IReadOnlyList<string> TextExtensions => _textExtensions;
         public IReadOnlyList<string> ImageExtensions => _imageExtensions;
         
-
         public void AddTextExtension(string extension)
         {
             _textExtensions.Add(extension);
