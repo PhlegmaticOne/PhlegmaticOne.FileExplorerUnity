@@ -30,7 +30,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons
             else
             {
                 var fileExtension = _viewModel.Extension;
-                _fileIcon = await _iconsProvider.GetIconAsync(fileExtension.Extension, cancellationToken);
+                _fileIcon = await _iconsProvider.GetIconAsync(fileExtension.Value, cancellationToken);
             }
         }
 

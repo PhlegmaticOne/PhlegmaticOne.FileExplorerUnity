@@ -1,10 +1,9 @@
-﻿using UnityEngine;
+﻿using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
 {
-    internal abstract class PopupView : MonoBehaviour
+    internal abstract class PopupView : View
     {
-        public abstract void Release();
         public abstract void Discard();
     }
 }

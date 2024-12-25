@@ -54,7 +54,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
 
         protected abstract ViewContainer<TView> CreateView(IViewProvider viewProvider, TViewModel viewModel);
         
-        private void AddViews(IEnumerable<TViewModel> viewModels)
+        public void AddViews(IEnumerable<TViewModel> viewModels)
         {
             foreach (var viewModel in viewModels)
             {
@@ -64,7 +64,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
             }
         }
 
-        private void RemoveViews(IEnumerable<TViewModel> viewModels)
+        public void RemoveViews(IEnumerable<TViewModel> viewModels)
         {
             foreach (var viewModel in viewModels)
             {
@@ -74,7 +74,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
             }
         }
 
-        private void ClearViews()
+        public void ClearViews()
         {
             foreach (var view in _views)
             {

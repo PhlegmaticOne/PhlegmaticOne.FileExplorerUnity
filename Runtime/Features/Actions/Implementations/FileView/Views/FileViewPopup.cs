@@ -18,10 +18,14 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.V
         [SerializeField] private FileViewBase[] _fileViews;
 
         private FileViewBase _activeView;
-        
-        protected override void OnShowing(FileViewViewModel viewModel)
+
+        protected override void OnInitializing(TMP_FontAsset font)
         {
             _closeButton.onClick.AddListener(Close);
+        }
+
+        protected override void OnShowing(FileViewViewModel viewModel)
+        {
             _nameText.text = viewModel.Name;
             SetupActiveFileView(viewModel);
         }

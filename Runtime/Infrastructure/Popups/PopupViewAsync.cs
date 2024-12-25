@@ -5,12 +5,13 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
     internal abstract class PopupViewAsync<T> : PopupView where T : PopupViewModel
     {
         private TaskCompletionSource<bool> _viewResult;
-        
-        protected T ViewModel;
 
+        protected T PopupViewModel;
+        
         public Task Show(T viewModel)
         {
             ViewModel = viewModel;
+            PopupViewModel = viewModel;
             _viewResult = new TaskCompletionSource<bool>();
             OnShowing(viewModel);
             return _viewResult.Task;
@@ -20,14 +21,14 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
 
         public sealed override void Discard()
         {
-            ViewModel.Discard();
+            PopupViewModel.Discard();
             Close();
         }
 
         protected void Close()
         {
             _viewResult.TrySetResult(true);
-            ViewModel.Release();
+            PopupViewModel.Release();
             ViewModel = null;
             _viewResult = null;
         }

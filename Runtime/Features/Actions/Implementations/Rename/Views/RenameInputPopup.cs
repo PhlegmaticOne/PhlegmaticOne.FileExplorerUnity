@@ -13,12 +13,16 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Rename.Vie
         [SerializeField] private Button _acceptButton;
         [SerializeField] private Button _discardButton;
 
-        protected override void OnShowing(RenameInputPopupViewModel popupViewModel)
+        protected override void OnInitializing(TMP_FontAsset font)
         {
+            _inputField.fontAsset = font;
             _inputField.onValueChanged.AddListener(UpdateOutputText);
             _discardButton.onClick.AddListener(Discard);
             _acceptButton.onClick.AddListener(Close);
-            
+        }
+
+        protected override void OnShowing(RenameInputPopupViewModel popupViewModel)
+        {
             _inputField.text = popupViewModel.InitialInputText;
             _headerText.text = popupViewModel.HeaderText;
             _acceptButtonText.text = popupViewModel.AcceptButtonText;
@@ -33,7 +37,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Rename.Vie
 
         private void UpdateOutputText(string text)
         {
-            ViewModel.OutputText = text;
+            PopupViewModel.OutputText = text;
         }
     }
 }

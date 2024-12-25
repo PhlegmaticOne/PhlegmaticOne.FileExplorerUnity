@@ -1,6 +1,8 @@
-﻿namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
+﻿using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
+
+namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
 {
-    internal abstract class PopupViewModel
+    internal abstract class PopupViewModel : ViewModel
     {
         public bool IsDiscarded { get; private set; }
 

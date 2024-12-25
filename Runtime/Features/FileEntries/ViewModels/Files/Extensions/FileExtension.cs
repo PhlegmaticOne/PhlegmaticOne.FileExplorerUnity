@@ -7,17 +7,17 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Exten
     {
         private readonly IFileExtensions _fileExtensions;
 
-        public FileExtension(IFileExtensions fileExtensions, string extension)
+        public FileExtension(IFileExtensions fileExtensions, string value)
         {
-            Extension = extension;
+            Value = value;
             _fileExtensions = fileExtensions;
         }
 
-        public string Extension { get; }
+        public string Value { get; }
         
         public bool HasValue()
         {
-            return !string.IsNullOrEmpty(Extension);
+            return !string.IsNullOrEmpty(Value);
         }
         
         public bool IsViewable(out FileViewType viewType)
@@ -28,12 +28,12 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Exten
 
         public bool IsText()
         {
-            return _fileExtensions.IsText(Extension);
+            return _fileExtensions.IsText(Value);
         }
 
         public bool IsImage()
         {
-            return _fileExtensions.IsImage(Extension);
+            return _fileExtensions.IsImage(Value);
         }
 
         private FileViewType GetFileViewType()

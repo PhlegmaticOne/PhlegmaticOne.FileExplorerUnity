@@ -12,9 +12,13 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions.Handl
         [SerializeField] private TextMeshProUGUI _errorDescriptionText;
         [SerializeField] private Button _closeButton;
 
-        protected override void OnShowing(FileEntryActionErrorPopupViewModel viewModel)
+        protected override void OnInitializing(TMP_FontAsset font)
         {
             _closeButton.onClick.AddListener(Close);
+        }
+
+        protected override void OnShowing(FileEntryActionErrorPopupViewModel viewModel)
+        {
             _fileDescriptionText.text = viewModel.GetFileDescription();
             _errorNameText.text = viewModel.GetErrorName();
             _errorDescriptionText.text = viewModel.GetErrorMessage();

@@ -25,9 +25,8 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Views
             ViewModel = action;
         }
 
-        public override void Initialize(TMP_FontAsset font)
+        protected override void OnInitializing(TMP_FontAsset font)
         {
-            _description.font = font;
             _button.onClick.AddListener(ExecuteAction);
             UpdateDescription(_action.Description);
             UpdateColors(_color);

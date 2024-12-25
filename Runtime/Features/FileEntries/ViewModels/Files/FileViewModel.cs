@@ -49,7 +49,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files
         public override void Rename(string newName)
         {
             Path = FileOperations.RenameFile(Path, newName);
-            Name.SetValueNotify(newName + Extension);
+            Name.SetValueNotify(newName + Extension.Value);
         }
 
         public override void Delete()

@@ -8,7 +8,6 @@ using PhlegmaticOne.FileExplorer.ExplorerCore.States;
 using PhlegmaticOne.FileExplorer.ExplorerCore.States.Commands;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
-using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 using TMPro;
 using UnityEngine;
@@ -29,13 +28,11 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore
             public TMP_FontAsset FontAsset => _explorerConfig.View.FontAsset;
         }
         
-        [SerializeField] private PopupProvider _popupProvider;
         [SerializeField] private GameObject _rootObject;
         [SerializeField] private Canvas _canvas;
         
         public override void Install(IDependencyContainer container)
         {
-            container.RegisterInstance(_popupProvider);
             container.RegisterInstance(_canvas);
             
             container.Register<IExplorerCancellationProvider, ExplorerCancellationProvider>();

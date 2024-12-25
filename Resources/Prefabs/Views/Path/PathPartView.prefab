@@ -306,6 +306,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96cb75444757423a8d3fff6429846241, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textComponents:
+  - {fileID: 2668682211214617038}
   _partText: {fileID: 2668682211214617038}
   _nextMark: {fileID: 1834414984648757891}
   _button: {fileID: 7483722494526439310}

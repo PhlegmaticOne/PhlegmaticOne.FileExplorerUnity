@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties
@@ -7,9 +8,9 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties
     {
         public PropertiesPopupViewModel(Dictionary<string, string> properties)
         {
-            Properties = properties;
+            Properties = properties.Select(x => new PropertyViewModel(x.Key, x.Value)).ToArray();
         }
 
-        public Dictionary<string, string> Properties { get; }
+        public PropertyViewModel[] Properties { get; }
     }
 }

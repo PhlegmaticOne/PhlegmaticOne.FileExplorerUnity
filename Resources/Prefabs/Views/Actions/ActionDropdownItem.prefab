@@ -53,6 +53,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93c47310e0854ed89b641620da4a580f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textComponents:
+  - {fileID: 9131608856119645873}
   _description: {fileID: 9131608856119645873}
   _background: {fileID: 2412975896052556948}
   _button: {fileID: 1193821840842594690}

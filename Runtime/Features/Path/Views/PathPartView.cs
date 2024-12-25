@@ -22,9 +22,8 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Views
             ViewModel = viewModel;
         }
 
-        public override void Initialize(TMP_FontAsset font)
+        protected override void OnInitializing(TMP_FontAsset font)
         {
-            _partText.font = font;
             UpdatePart(_viewModel.Part);
             Subscribe();
         }
