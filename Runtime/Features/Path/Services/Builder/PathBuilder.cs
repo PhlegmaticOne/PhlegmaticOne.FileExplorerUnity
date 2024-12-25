@@ -29,7 +29,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Services
             var pathParts = new string[index + 1];
             pathParts[0] = _pathViewModel.GetRootPath();
 
-            for (var i = 1; i < index; i++)
+            for (var i = 1; i <= index; i++)
             {
                 pathParts[i] = _pathViewModel.PathParts[i].Part;
             }

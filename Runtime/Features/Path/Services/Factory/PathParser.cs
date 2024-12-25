@@ -47,6 +47,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Services
                 }
 
                 result.Add(FromMemory(memory[..index]));
+                memory = memory[(index + 1)..];
             }
             
             if (memory.Length > 0)
