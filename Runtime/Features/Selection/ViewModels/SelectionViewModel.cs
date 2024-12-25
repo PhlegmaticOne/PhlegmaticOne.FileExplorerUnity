@@ -26,6 +26,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.ViewModels
             _actionsProvider = actionsProvider;
             _tabViewModel = tabViewModel;
             _selection = new List<FileEntryViewModel>();
+            _tabViewModel.FileEntries.CollectionChanged += DynamicSetIsAllActiveFalseIfEntriesWereAdded;
 
             IsAllSelected = new ReactiveProperty<bool>(false);
             IsSelectionActive = new ReactiveProperty<bool>(false);
@@ -99,6 +100,17 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.ViewModels
             IsAllSelected.SetValueNotify(false);
             IsSelectionActive.SetValueNotify(!isDisableSelection);
             SelectedEntriesCount.SetValueNotify(FileEntriesCounter.Zero);
+        }
+
+        private void DynamicSetIsAllActiveFalseIfEntriesWereAdded(
+            ReactiveCollectionChangedEventArgs<FileEntryViewModel> eventArgs)
+        {
+            if (eventArgs.Action != ReactiveCollectionChangedAction.Add)
+            {
+                return;
+            }
+
+            IsAllSelected.SetValueNotify(false);
         }
 
         private void UpdateSelectionCount(FileEntryViewModel viewModel, bool newIsSelected, bool notify)

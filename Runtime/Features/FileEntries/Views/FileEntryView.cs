@@ -33,6 +33,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Views
         {
             UpdateFileName(_viewModel.Name);
             UpdateIcon();
+            UpdateIsActive(_viewModel.IsActive);
             Subscribe();
         }
 

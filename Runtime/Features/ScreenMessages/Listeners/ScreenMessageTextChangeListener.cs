@@ -48,7 +48,11 @@ namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Services
 
         private void UpdateFoundEntriesCount(int foundEntriesCount)
         {
-            SetHeaderMessage($"Found entries: {_searchViewModel.FoundEntriesCount}");
+            if (foundEntriesCount != -1)
+            {
+                SetHeaderMessage($"Found entries: {foundEntriesCount}");
+            }
+            
             UpdateTabCenterMessage();
         }
 

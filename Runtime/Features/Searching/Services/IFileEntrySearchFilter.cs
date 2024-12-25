@@ -2,8 +2,8 @@
 
 namespace PhlegmaticOne.FileExplorer.Features.Searching.Services
 {
-    internal interface IFileEntryFinder
+    internal interface IFileEntrySearchFilter
     {
-        bool Find(FileEntryViewModel fileEntry, string searchText);
+        bool IsFit(FileEntryViewModel fileEntry, string searchText);
     }
 }
