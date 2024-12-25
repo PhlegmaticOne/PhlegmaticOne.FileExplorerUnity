@@ -1384,7 +1384,7 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: -1
-  m_PreferredHeight: 40
+  m_PreferredHeight: 60
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
@@ -1400,6 +1400,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationView
       objectReference: {fileID: 0}
+    - target: {fileID: 4351489522597157520, guid: 9d93b4911d25b5b49803ce419b953f6f, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 8018387606700887621, guid: 9d93b4911d25b5b49803ce419b953f6f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1589,6 +1593,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2910737525186580256, guid: 0cb262a80873d9a43a0979448a4a45df, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 7839594907404353363, guid: 0cb262a80873d9a43a0979448a4a45df, type: 3}
       propertyPath: m_Name
       value: CloseControlView
@@ -1622,6 +1630,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 386227313054361228}
     m_Modifications:
+    - target: {fileID: 1452340533495095653, guid: a157e5ff972e87a4db2dcac4619edf72, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 6009915738706188088, guid: a157e5ff972e87a4db2dcac4619edf72, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2155,6 +2167,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5640760871464907195}
     m_Modifications:
+    - target: {fileID: 1381560099620682486, guid: 2443111a002172942a45ff43e3f349a6, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 3123051047968414246, guid: 2443111a002172942a45ff43e3f349a6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2292,6 +2308,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5640760871464907195}
     m_Modifications:
+    - target: {fileID: 2702575111915003093, guid: 19018563b6991564e8cd4ee99aaac2ae, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 3226679665208834706, guid: 19018563b6991564e8cd4ee99aaac2ae, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2372,10 +2392,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4395617963806328425, guid: 19018563b6991564e8cd4ee99aaac2ae, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 5840848632655476142, guid: 19018563b6991564e8cd4ee99aaac2ae, type: 3}
       propertyPath: m_Name
       value: SearchingView
       objectReference: {fileID: 0}
+    - target: {fileID: 8645504431817956972, guid: 19018563b6991564e8cd4ee99aaac2ae, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

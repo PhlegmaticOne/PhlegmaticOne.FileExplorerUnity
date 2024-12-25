@@ -44,6 +44,11 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels
                 return;
             }
             
+            OverwriteForce(value);
+        }
+
+        public void OverwriteForce(T value)
+        {
             Value = value;
             OnPropertyChanged();
         }

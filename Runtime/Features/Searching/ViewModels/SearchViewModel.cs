@@ -6,7 +6,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.ViewModels
 {
     internal sealed class SearchViewModel : ViewModel
     {
-        private const int MinSearchLength = 1;
+        private const int MinSearchLength = 2;
         
         private readonly TabViewModel _tabViewModel;
         private readonly IFileEntryFinder _fileEntryFinder;
@@ -18,12 +18,12 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.ViewModels
             
             SearchText = new ReactiveProperty<string>(string.Empty);
             IsActive = new ReactiveProperty<bool>(false);
-            FoundEntriesCount = -1;
+            FoundEntriesCount = new ReactiveProperty<int>(-1);
         }
         
         public ReactiveProperty<bool> IsActive { get; }
         public ReactiveProperty<string> SearchText { get; }
-        public int FoundEntriesCount { get; private set; }
+        public ReactiveProperty<int> FoundEntriesCount { get; }
 
         public void Research()
         {
@@ -33,15 +33,16 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.ViewModels
         public void Search(string text)
         {
             SearchText.SetValueWithoutNotify(text);
-            FoundEntriesCount = SearchEntries(text);
-            IsActive.SetValueNotify(FoundEntriesCount != -1);
+            var foundEntriesCount = SearchEntries(text);
+            FoundEntriesCount.OverwriteForce(foundEntriesCount);
+            IsActive.SetValueNotify(foundEntriesCount != -1);
         }
 
         public void Clear()
         {
             SearchText.SetValueNotify(string.Empty);
             SetAllFileEntriesActive();
-            FoundEntriesCount = -1;
+            FoundEntriesCount.SetValueWithoutNotify(-1);
             IsActive.SetValueNotify(false);
         }
 
@@ -49,21 +50,20 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.ViewModels
         {
             if (text.Length >= MinSearchLength)
             {
-                return SearchFileEntries();
+                return SearchFileEntries(text);
             }
 
             SetAllFileEntriesActive();
             return -1;
         }
 
-        private int SearchFileEntries()
+        private int SearchFileEntries(string text)
         {
-            var searchText = SearchText.Value;
             var count = 0;
             
             foreach (var fileEntry in _tabViewModel.FileEntries)
             {
-                var isFound = _fileEntryFinder.Find(fileEntry, searchText);
+                var isFound = _fileEntryFinder.Find(fileEntry, text);
                 fileEntry.IsActive.SetValueNotify(isFound);
                 count += isFound ? 1 : 0;
             }
@@ -75,10 +75,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.ViewModels
         {
             foreach (var fileEntry in _tabViewModel.FileEntries)
             {
-                if (!fileEntry.IsActive)
-                {
-                    fileEntry.IsActive.SetValueNotify(true);
-                }
+                fileEntry.IsActive.SetValueNotify(true);
             }
         }
     }

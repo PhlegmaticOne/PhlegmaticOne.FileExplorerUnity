@@ -23,53 +23,50 @@ namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Services
 
         public void StartListen()
         {
-            _searchViewModel.IsActive.ValueChanged += UpdateMessageOnSearchActiveChanged;
+            _searchViewModel.FoundEntriesCount.ValueChanged += UpdateFoundEntriesCount;
+            _searchViewModel.IsActive.ValueChanged += UpdateSearchHeaderTextActive;
             _tabViewModel.IsEmpty.ValueChanged += UpdateMessageOnTabEmptyChanged;
         }
 
         public void StopListen()
         {
-            _searchViewModel.IsActive.ValueChanged -= UpdateMessageOnSearchActiveChanged;
+            _searchViewModel.FoundEntriesCount.ValueChanged -= UpdateFoundEntriesCount;
+            _searchViewModel.IsActive.ValueChanged -= UpdateSearchHeaderTextActive;
             _tabViewModel.IsEmpty.ValueChanged -= UpdateMessageOnTabEmptyChanged;
         }
 
-        private void UpdateMessageOnTabEmptyChanged(bool isEmpty)
+        private void UpdateMessageOnTabEmptyChanged(bool _)
         {
-            UpdateMessage(isEmpty, _searchViewModel.IsActive);
+            UpdateTabCenterMessage();
         }
 
-        private void UpdateMessageOnSearchActiveChanged(bool isActive)
+        private void UpdateSearchHeaderTextActive(bool isActive)
         {
-            UpdateFoundEntriesCountText(isActive);
-            UpdateMessage(_tabViewModel.IsEmpty, isActive);
+            _screenMessagesViewModel.IsHeaderMessageActive.SetValueNotify(isActive);
+            UpdateTabCenterMessage();
         }
 
-        private void UpdateMessage(bool isTabEmpty, bool isSearchActive)
+        private void UpdateFoundEntriesCount(int foundEntriesCount)
         {
-            if (isSearchActive && _searchViewModel.FoundEntriesCount == 0)
+            SetHeaderMessage($"Found entries: {_searchViewModel.FoundEntriesCount}");
+            UpdateTabCenterMessage();
+        }
+
+        private void UpdateTabCenterMessage()
+        {
+            if (_searchViewModel.IsActive && _searchViewModel.FoundEntriesCount == 0)
             {
-                SetTabMessage("Search result is empty!");
+                SetTabMessage($"There are no entries containing \"{_searchViewModel.SearchText}\"");
                 return;
             }
 
-            if (isTabEmpty)
+            if (_tabViewModel.IsEmpty)
             {
                 SetTabMessage("Directory is empty!");
                 return;
             }
             
             _screenMessagesViewModel.IsTabCenterMessageActive.SetValueNotify(false);
-        }
-
-        private void UpdateFoundEntriesCountText(bool isActive)
-        {
-            _screenMessagesViewModel.IsHeaderMessageActive.SetValueNotify(isActive);
-
-            if (isActive)
-            {
-                var found = _searchViewModel.FoundEntriesCount;
-                SetHeaderMessage($"Found entries: {found}");
-            }
         }
 
         private void SetHeaderMessage(string message)
