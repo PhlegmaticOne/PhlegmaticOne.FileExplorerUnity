@@ -1,5 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.Configuration;
-using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Cancellation;
+﻿using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Cancellation;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Destroying;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Disposing;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.StaticView;
@@ -8,8 +7,6 @@ using PhlegmaticOne.FileExplorer.ExplorerCore.States;
 using PhlegmaticOne.FileExplorer.ExplorerCore.States.Commands;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
-using PhlegmaticOne.FileExplorer.Infrastructure.Views;
-using TMPro;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.ExplorerCore

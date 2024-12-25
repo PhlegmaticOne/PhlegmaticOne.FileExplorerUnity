@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.ScreenMessages.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Searching.Services;
 using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
+using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.Searching.ViewModels
 {
@@ -11,11 +13,16 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.ViewModels
         private const int MinSearchLength = 2;
         
         private readonly TabViewModel _tabViewModel;
+        private readonly ScreenMessagesViewModel _screenMessagesViewModel;
         private readonly IFileEntrySearchFilter _fileEntrySearchFilter;
 
-        public SearchViewModel(TabViewModel tabViewModel, IFileEntrySearchFilter fileEntrySearchFilter)
+        public SearchViewModel(
+            TabViewModel tabViewModel, 
+            ScreenMessagesViewModel screenMessagesViewModel,
+            IFileEntrySearchFilter fileEntrySearchFilter)
         {
             _tabViewModel = tabViewModel;
+            _screenMessagesViewModel = screenMessagesViewModel;
             _fileEntrySearchFilter = fileEntrySearchFilter;
             _tabViewModel.FileEntries.CollectionChanged += DynamicHandleFileEntriesSearchFilter;
             
@@ -39,6 +46,12 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.ViewModels
             var foundEntriesCount = SearchEntries(text, _tabViewModel.FileEntries);
             FoundEntriesCount.OverwriteForce(foundEntriesCount);
             IsActive.SetValueNotify(foundEntriesCount != -1);
+
+            if (IsActive)
+            {
+                _screenMessagesViewModel.IsHeaderMessageActive.SetValueNotify(true);
+                UpdateHeaderMessage();
+            }
         }
 
         public void Clear()
@@ -47,6 +60,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.ViewModels
             SetAllFileEntriesActive();
             FoundEntriesCount.SetValueWithoutNotify(-1);
             IsActive.SetValueNotify(false);
+            _screenMessagesViewModel.IsHeaderMessageActive.SetValueNotify(false);
         }
         
         private void DynamicHandleFileEntriesSearchFilter(
@@ -64,6 +78,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.ViewModels
             {
                 var newFoundCount = FoundEntriesCount + foundEntriesCount;
                 FoundEntriesCount.OverwriteForce(newFoundCount);
+                UpdateHeaderMessage();
             }
         }
 
@@ -98,6 +113,13 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.ViewModels
             {
                 fileEntry.IsActive.SetValueNotify(true);
             }
+        }
+        
+        private void UpdateHeaderMessage()
+        {
+            var message = $"Found entries: {FoundEntriesCount.Value}";
+            var data = new ScreenMessageData(message, Color.white);
+            _screenMessagesViewModel.HeaderMessage.SetValueNotify(data);
         }
     }
 }

@@ -46,13 +46,8 @@ namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Services
             UpdateTabCenterMessage();
         }
 
-        private void UpdateFoundEntriesCount(int foundEntriesCount)
+        private void UpdateFoundEntriesCount(int _)
         {
-            if (foundEntriesCount != -1)
-            {
-                SetHeaderMessage($"Found entries: {foundEntriesCount}");
-            }
-            
             UpdateTabCenterMessage();
         }
 
@@ -71,12 +66,6 @@ namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Services
             }
             
             _screenMessagesViewModel.IsTabCenterMessageActive.SetValueNotify(false);
-        }
-
-        private void SetHeaderMessage(string message)
-        {
-            var data = new ScreenMessageData(message, Color.white);
-            _screenMessagesViewModel.HeaderMessage.SetValueNotify(data);
         }
 
         private void SetTabMessage(string message)
