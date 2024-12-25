@@ -21,8 +21,9 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Views
         private RectTransform _headerTransform;
 
         [ViewInject]
-        public void Construct(FileEntryViewModel viewModel, RectTransform headerTransform)
+        public void Construct(FileEntryViewModel viewModel, RectTransform headerTransform, ScrollRect scrollRect)
         {
+            _holdBehaviour.Construct(scrollRect);
             ViewModel = viewModel;
             _viewModel = viewModel;
             _headerTransform = headerTransform;

@@ -1,75 +1,103 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.Behaviours
 {
-    internal sealed class ButtonHoldBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+    internal sealed class ButtonHoldBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
-        [SerializeField] private float _holdDuration;
-
+        [SerializeField] private float _holdDuration = 0.5f;
+        
         public event Action OnClicked;
         public event Action OnHoldClicked;
 
-        private bool _isHoldingButton;
-        private float _elapsedTime;
+        private ScrollRect _scrollRect;
+        private bool _isPointerDown;
+        private float _holdTime;
+        private bool _isLongPressInvoked;
+        private bool _isDragging;
 
-        public void OnPointerDown(PointerEventData eventData)
+        public void Construct(ScrollRect scrollRect)
         {
-            ToggleHoldingButton(true);
+            _scrollRect = scrollRect;
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            if (_scrollRect != null)
+            {
+                _scrollRect.OnDrag(eventData);
+            }
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            if (_scrollRect != null)
+            {
+                _scrollRect.OnBeginDrag(eventData);
+            }
+            
+            _isDragging = true;
         }
 
         private void Update()
         {
-            ManageButtonInteraction();
+            if (!_isPointerDown)
+            {
+                return;
+            }
+            
+            _holdTime += Time.deltaTime;
+
+            if (_holdTime < _holdDuration || _isDragging)
+            {
+                return;
+            }
+            
+            OnHoldClicked?.Invoke();
+            _isLongPressInvoked = true;
+            ResetState();
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            if (_scrollRect != null)
+            {
+                _scrollRect.OnEndDrag(eventData);
+            }
+            
+            _isDragging = false;
+            ResetState();
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            _isPointerDown = true;
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            ManageButtonInteraction(true);
-            ToggleHoldingButton(false);
-        }
-
-        private void ToggleHoldingButton(bool isPointerDown)
-        {
-            _isHoldingButton = isPointerDown;
-
-            if (isPointerDown)
+            if (_isLongPressInvoked)
             {
-                _elapsedTime = 0;
+                _isLongPressInvoked = false;
+                _isPointerDown = false;
+                return;
             }
-        }
 
-        private void ManageButtonInteraction(bool isPointerUp = false)
-        {
-            if (!_isHoldingButton)
+            if(_isDragging)
             {
                 return;
             }
 
-            if (isPointerUp)
-            {
-                Click();
-                return;
-            }
-
-            _elapsedTime += Time.deltaTime;
-
-            if (_elapsedTime > _holdDuration)
-            {
-                HoldClick();
-            }
-        }
-
-        private void Click()
-        {
             OnClicked?.Invoke();
+            ResetState();
         }
 
-        private void HoldClick()
+        private void ResetState()
         {
-            ToggleHoldingButton(false);
-            OnHoldClicked?.Invoke();
+            _isPointerDown = false;
+            _holdTime = 0;
         }
     }
 }
