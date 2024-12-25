@@ -23,9 +23,9 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore.Services.StaticView
         
         private void SetupCanvas()
         {
+            _canvas.worldCamera = Camera.main;
             _canvas.sortingLayerName = _explorerConfig.View.SortingLayerName;
             _canvas.sortingOrder = _explorerConfig.View.SortingOrder;
-            _canvas.worldCamera = Camera.main;
         }
 
         private void SetupStaticTextFont()
