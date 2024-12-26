@@ -1,4 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.ExplorerCore.Listeners.TabText;
+﻿using PhlegmaticOne.FileExplorer.ExplorerCore.Listeners;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.StaticView;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Views;
 using PhlegmaticOne.FileExplorer.Features.Navigation.ViewModels;
@@ -9,18 +9,18 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore.States.Commands
     {
         private readonly IExplorerViewsProvider _viewsProvider;
         private readonly NavigationViewModel _navigationViewModel;
-        private readonly ITabCenterTextChangeListener _textChangeListener;
+        private readonly IExplorerActionListener[] _listeners;
         private readonly IExplorerStaticView _staticView;
 
         public ExplorerShowCommand(
             IExplorerViewsProvider viewsProvider,
             NavigationViewModel navigationViewModel,
-            ITabCenterTextChangeListener textChangeListener,
+            IExplorerActionListener[] listeners,
             IExplorerStaticView staticView)
         {
             _viewsProvider = viewsProvider;
             _navigationViewModel = navigationViewModel;
-            _textChangeListener = textChangeListener;
+            _listeners = listeners;
             _staticView = staticView;
         }
         
@@ -28,8 +28,16 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore.States.Commands
         {
             _staticView.Setup();
             _viewsProvider.Bind();
-            _textChangeListener.StartListen();
+            StartListen();
             _navigationViewModel.NavigateRoot();
+        }
+
+        private void StartListen()
+        {
+            foreach (var listener in _listeners)
+            {
+                listener.StartListen();
+            }
         }
     }
 }

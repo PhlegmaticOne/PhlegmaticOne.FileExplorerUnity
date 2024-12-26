@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.ExplorerCore.Listeners.TabText
 {
-    internal sealed class TabCenterTextChangeListener : ITabCenterTextChangeListener
+    internal sealed class TabCenterTextChangeListener : IExplorerActionListener
     {
         private readonly ScreenMessagesViewModel _screenMessagesViewModel;
         private readonly SearchViewModel _searchViewModel;

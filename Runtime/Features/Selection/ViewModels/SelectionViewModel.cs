@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using PhlegmaticOne.FileExplorer.ExplorerCore.Listeners.TabItems;
 using PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
@@ -10,7 +11,7 @@ using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.ViewModels
 {
-    internal sealed class SelectionViewModel : ViewModel
+    internal sealed class SelectionViewModel : ViewModel, ITabEntriesAddedHandler
     {
         private readonly ActionsViewModel _actionsViewModel;
         private readonly ISelectionActionsProvider _actionsProvider;
@@ -26,7 +27,6 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.ViewModels
             _actionsProvider = actionsProvider;
             _tabViewModel = tabViewModel;
             _selection = new List<FileEntryViewModel>();
-            _tabViewModel.FileEntries.CollectionChanged += DynamicSetIsAllActiveFalseIfEntriesWereAdded;
 
             IsAllSelected = new ReactiveProperty<bool>(false);
             IsSelectionActive = new ReactiveProperty<bool>(false);
@@ -102,14 +102,8 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.ViewModels
             SelectedEntriesCount.SetValueNotify(FileEntriesCounter.Zero);
         }
 
-        private void DynamicSetIsAllActiveFalseIfEntriesWereAdded(
-            ReactiveCollectionChangedEventArgs<FileEntryViewModel> eventArgs)
+        public void HandleEntriesAdded(IEnumerable<FileEntryViewModel> fileEntries)
         {
-            if (eventArgs.Action != ReactiveCollectionChangedAction.Add)
-            {
-                return;
-            }
-
             IsAllSelected.SetValueNotify(false);
         }
 

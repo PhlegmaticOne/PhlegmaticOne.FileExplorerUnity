@@ -1,4 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.ExplorerCore.Listeners.TabText;
+﻿using PhlegmaticOne.FileExplorer.ExplorerCore.Listeners;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Cancellation;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Destroying;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Disposing;
@@ -13,32 +13,40 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore.States.Commands
         private readonly IExplorerViewsProvider _viewsProvider;
         private readonly IExplorerCancellationProvider _cancellationProvider;
         private readonly IExplorerViewModelDisposer _explorerViewModelDisposer;
-        private readonly ITabCenterTextChangeListener _textChangeListener;
+        private readonly IExplorerActionListener[] _listeners;
         private readonly IExplorerIconsProvider _iconsProvider;
 
         public ExplorerCloseCommand(IExplorerDestroyer destroyer,
             IExplorerViewsProvider viewsProvider,
             IExplorerCancellationProvider cancellationProvider,
             IExplorerViewModelDisposer explorerViewModelDisposer,
-            ITabCenterTextChangeListener textChangeListener,
+            IExplorerActionListener[] listeners,
             IExplorerIconsProvider iconsProvider)
         {
             _destroyer = destroyer;
             _viewsProvider = viewsProvider;
             _cancellationProvider = cancellationProvider;
             _explorerViewModelDisposer = explorerViewModelDisposer;
-            _textChangeListener = textChangeListener;
+            _listeners = listeners;
             _iconsProvider = iconsProvider;
         }
         
         public void Close()
         {
             _cancellationProvider.Cancel();
-            _textChangeListener.StopListen();
+            StopListen();
             _iconsProvider.Dispose();
             _viewsProvider.Unbind();
             _explorerViewModelDisposer.DisposeViewModels();
             _destroyer.Destroy();
+        }
+
+        private void StopListen()
+        {
+            foreach (var listener in _listeners)
+            {
+                listener.StopListen();
+            }
         }
     }
 }

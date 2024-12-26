@@ -15,7 +15,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching
         {
             container.RegisterInstance(_searchView);
             container.Register<IFileEntrySearchFilter, FileEntrySearchFilter>();
-            container.RegisterSelf<SearchViewModel>();
+            container.RegisterInterfacesAndSelf<SearchViewModel>();
         }
     }
 }

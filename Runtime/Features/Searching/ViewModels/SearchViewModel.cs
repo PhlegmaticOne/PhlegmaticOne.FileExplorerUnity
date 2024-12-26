@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using PhlegmaticOne.FileExplorer.ExplorerCore.Listeners.TabItems;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Searching.Services;
 using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
@@ -6,7 +7,7 @@ using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.Searching.ViewModels
 {
-    internal sealed class SearchViewModel : ViewModel
+    internal sealed class SearchViewModel : ViewModel, ITabEntriesAddedHandler
     {
         private const int MinSearchLength = 2;
         
@@ -19,7 +20,6 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.ViewModels
         {
             _tabViewModel = tabViewModel;
             _fileEntrySearchFilter = fileEntrySearchFilter;
-            _tabViewModel.FileEntries.CollectionChanged += DynamicHandleFileEntriesSearchFilter;
             
             SearchText = new ReactiveProperty<string>(string.Empty);
             IsActive = new ReactiveProperty<bool>(false);
@@ -39,34 +39,32 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.ViewModels
         {
             SearchText.SetValueWithoutNotify(text);
             var foundEntriesCount = SearchEntries(text, _tabViewModel.FileEntries);
-            FoundEntriesCount.OverwriteForce(foundEntriesCount);
             IsActive.SetValueNotify(foundEntriesCount != -1);
+            FoundEntriesCount.OverwriteForce(foundEntriesCount);
         }
 
-        public void Clear()
+        public void HandleEntriesAdded(IEnumerable<FileEntryViewModel> fileEntries)
         {
-            SearchText.SetValueNotify(string.Empty);
-            SetAllFileEntriesActive();
-            FoundEntriesCount.SetValueWithoutNotify(-1);
-            IsActive.SetValueNotify(false);
-        }
-        
-        private void DynamicHandleFileEntriesSearchFilter(
-            ReactiveCollectionChangedEventArgs<FileEntryViewModel> eventArgs)
-        {
-            if (eventArgs.Action != ReactiveCollectionChangedAction.Add ||
-                (!IsActive && string.IsNullOrEmpty(SearchText)))
+            if (!IsActive && string.IsNullOrEmpty(SearchText))
             {
                 return;
             }
             
-            var foundEntriesCount = SearchEntries(SearchText, eventArgs.AffectedItems);
+            var foundEntriesCount = SearchEntries(SearchText, fileEntries);
 
             if (foundEntriesCount > 0)
             {
                 var newFoundCount = FoundEntriesCount + foundEntriesCount;
                 FoundEntriesCount.OverwriteForce(newFoundCount);
             }
+        }
+
+        public void Clear()
+        {
+            SearchText.SetValueNotify(string.Empty);
+            SetAllFileEntriesActive();
+            IsActive.SetValueNotify(false);
+            FoundEntriesCount.SetValueWithoutNotify(-1);
         }
 
         private int SearchEntries(string text, IEnumerable<FileEntryViewModel> fileEntries)

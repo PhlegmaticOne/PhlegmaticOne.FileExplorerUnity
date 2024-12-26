@@ -1,4 +1,5 @@
 ﻿using PhlegmaticOne.FileExplorer.ExplorerCore.Listeners.Navigation;
+using PhlegmaticOne.FileExplorer.ExplorerCore.Listeners.TabItems;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Listeners.TabText;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Cancellation;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Destroying;
@@ -32,8 +33,9 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore
             container.Register<IExplorerViewModelDisposer, ExplorerViewModelDisposer>();
             container.Register<IExplorerStateProvider, ExplorerStateProvider>();
             
-            container.Register<ITabCenterTextChangeListener, TabCenterTextChangeListener>();
             container.RegisterInterfaces<NavigationBackRequestListener>();
+            container.RegisterInterfaces<TabCenterTextChangeListener>();
+            container.RegisterInterfaces<TabEntriesAddedListener>();
         }
     }
 }
