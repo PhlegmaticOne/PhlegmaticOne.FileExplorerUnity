@@ -4,15 +4,11 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning
 {
     internal sealed class ActionViewPositionCalculator : IActionViewPositionCalculator
     {
-        private const float AddOffsetX = 3;
-        
-        private readonly ActionViewScrollRect _scrollRect;
+        private readonly ActionViewContainersData _containersData;
 
-        private float ScrollY => _scrollRect.ScrollRect.anchoredPosition.y;
-        
-        public ActionViewPositionCalculator(ActionViewScrollRect scrollRect)
+        public ActionViewPositionCalculator(ActionViewContainersData containersData)
         {
-            _scrollRect = scrollRect;
+            _containersData = containersData;
         }
         
         // Target pivot is center-center
@@ -24,21 +20,32 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning
                 CalculateViewY(targetPosition, viewSize));
         }
         
-        private static float CalculateViewX(ActionViewPositionData position, Vector2 size)
+        private float CalculateViewX(ActionViewPositionData position, Vector2 size)
         {
             var targetCenter = position.TargetCenterAnchoredPosition;
             var targetSize = position.TargetSize;
+            var width = _containersData.Parent.rect.width;
+            var borderX = _containersData.BorderOffset.x;
 
-            return targetCenter.x <= Screen.width / 2f
-                ? targetCenter.x + (targetSize.x / 2 + AddOffsetX)
-                : targetCenter.x - (size.x + targetSize.x / 2 + AddOffsetX);
+            var dockedTargetCenterX = targetCenter.x <= width / 2f
+                ? targetCenter.x + (targetSize.x / 2 + _containersData.AddOffsetX)
+                : targetCenter.x - (size.x + targetSize.x / 2 + _containersData.AddOffsetX);
+
+            var clampedTargetCenterX = Mathf.Clamp(
+                dockedTargetCenterX, borderX, width - targetSize.x - borderX);
+
+            return clampedTargetCenterX;
         }
 
         private float CalculateViewY(ActionViewPositionData position, Vector2 size)
         {
             var targetCenter = position.TargetCenterAnchoredPosition;
             var targetSize = position.TargetSize;
-            var targetCenterY = position.TargetOffsetFromTop + Mathf.Abs(targetCenter.y) - ScrollY;
+            var topOffset = position.TargetOffsetFromTop;
+            var scrollY = _containersData.ScrollRect.anchoredPosition.y;
+            var targetCenterY = topOffset + Mathf.Abs(targetCenter.y) - scrollY;
+            var height = _containersData.Parent.rect.height;
+            var borderY = _containersData.BorderOffset.y;
             
             var dockedTargetCenterY = position.Alignment switch
             {
@@ -49,7 +56,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning
             };
 
             var clampedTargetCenterY = Mathf.Clamp(
-                dockedTargetCenterY, position.TargetOffsetFromTop, Screen.height - targetSize.y);
+                dockedTargetCenterY, topOffset + borderY, height - targetSize.y - borderY);
             
             return clampedTargetCenterY * -1f;
         }

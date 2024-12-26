@@ -744,7 +744,11 @@ MonoBehaviour:
   _actionsView: {fileID: 675560232467073269}
   _actionDropdown: {fileID: 3353050645667897723}
   _itemViewPrefab: {fileID: 5241389021587564014, guid: bcc7ecb5b45e2cb46a82b5e1557adf84, type: 3}
-  _scrollRect: {fileID: 7440136432558536691}
+  _containersData:
+    _scrollRect: {fileID: 7440136432558536691}
+    _parent: {fileID: 7848643897183268857}
+    _addOffsetX: 15
+    _borderOffset: {x: 20, y: 15}
 --- !u!1 &4568121788996877341
 GameObject:
   m_ObjectHideFlags: 0

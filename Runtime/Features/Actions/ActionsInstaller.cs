@@ -15,14 +15,14 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions
         [SerializeField] private ActionsView _actionsView;
         [SerializeField] private ActionDropdownView _actionDropdown;
         [SerializeField] private ActionDropdownItemView _itemViewPrefab;
-        [SerializeField] private RectTransform _scrollRect;
+        [SerializeField] private ActionViewContainersData _containersData;
         
         public override void Install(IDependencyContainer container)
         {
             container.RegisterInstance(_actionsView);
             container.RegisterInstance(_actionDropdown);
             container.RegisterPrefab(_itemViewPrefab);
-            container.RegisterInstance(new ActionViewScrollRect(_scrollRect));
+            container.RegisterInstance(_containersData);
             container.Register<IActionViewPositionCalculator, ActionViewPositionCalculator>();
             container.Register<IFileViewContentProvider, FileViewContentProvider>();
             container.Register<IFilePropertiesViewProvider, FilePropertiesViewProvider>();

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.ViewModels
         private readonly IActionViewPositionCalculator _positionCalculator;
         
         private ActionViewPositionData _position;
+        private FileEntryViewModel _fileEntry;
         
         public ActionsViewModel(IActionViewPositionCalculator positionCalculator)
         {
@@ -32,6 +34,12 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.ViewModels
             IsActive.SetValueNotify(true);
         }
 
+        public void SetActiveEntry(FileEntryViewModel fileEntry)
+        {
+            _fileEntry = fileEntry;
+            _fileEntry.IsSelected.SetValueNotify(true);
+        }
+
         public void RaiseUpdatePosition(Vector2 viewSize)
         {
             var dropdownPosition = _positionCalculator.Calculate(_position, viewSize);
@@ -42,7 +50,9 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.ViewModels
         {
             Actions.Clear();
             IsActive.SetValueNotify(false);
+            _fileEntry?.IsSelected.SetValueNotify(false);
             _position = null;
+            _fileEntry = null;
         }
     }
 }

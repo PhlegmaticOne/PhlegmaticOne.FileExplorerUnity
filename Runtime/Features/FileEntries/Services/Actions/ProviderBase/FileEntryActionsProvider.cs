@@ -24,6 +24,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions
             var actions = factory.GetActions(fileEntry);
             var actionPosition = fileEntry.Position.ToActionViewPositionData(ActionViewAlignment.DockToTargetCenter);
             _viewModel.ShowActions(actions, actionPosition);
+            _viewModel.SetActiveEntry(fileEntry);
         }
     }
 }
