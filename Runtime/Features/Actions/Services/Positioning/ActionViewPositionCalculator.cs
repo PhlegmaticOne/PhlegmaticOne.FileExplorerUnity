@@ -6,6 +6,15 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning
     {
         private const float AddOffsetX = 3;
         
+        private readonly ActionViewScrollRect _scrollRect;
+
+        private float ScrollY => _scrollRect.ScrollRect.anchoredPosition.y;
+        
+        public ActionViewPositionCalculator(ActionViewScrollRect scrollRect)
+        {
+            _scrollRect = scrollRect;
+        }
+        
         // Target pivot is center-center
         // Dropdown pivot is left-up corner
         public Vector2 Calculate(ActionViewPositionData targetPosition, Vector2 viewSize)
@@ -25,21 +34,24 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning
                 : targetCenter.x - (size.x + targetSize.x / 2 + AddOffsetX);
         }
 
-        private static float CalculateViewY(ActionViewPositionData position, Vector2 size)
+        private float CalculateViewY(ActionViewPositionData position, Vector2 size)
         {
             var targetCenter = position.TargetCenterAnchoredPosition;
             var targetSize = position.TargetSize;
-            var targetCenterY = position.TargetOffsetFromTop + Mathf.Abs(targetCenter.y);
+            var targetCenterY = position.TargetOffsetFromTop + Mathf.Abs(targetCenter.y) - ScrollY;
             
-            var resultY = position.Alignment switch
+            var dockedTargetCenterY = position.Alignment switch
             {
                 ActionViewAlignment.DockToTargetTop => targetCenterY - targetSize.y / 2,
                 ActionViewAlignment.DockToTargetCenter => targetCenterY - size.y / 2,
                 ActionViewAlignment.DockToTargetBottom => targetCenterY + targetSize.y / 2,
-                _ => targetCenterY
+                _ => targetCenterY - size.y / 2
             };
 
-            return resultY * -1f;
+            var clampedTargetCenterY = Mathf.Clamp(
+                dockedTargetCenterY, position.TargetOffsetFromTop, Screen.height - targetSize.y);
+            
+            return clampedTargetCenterY * -1f;
         }
     }
 }

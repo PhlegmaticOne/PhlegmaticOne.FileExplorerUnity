@@ -744,6 +744,7 @@ MonoBehaviour:
   _actionsView: {fileID: 675560232467073269}
   _actionDropdown: {fileID: 3353050645667897723}
   _itemViewPrefab: {fileID: 5241389021587564014, guid: bcc7ecb5b45e2cb46a82b5e1557adf84, type: 3}
+  _scrollRect: {fileID: 7440136432558536691}
 --- !u!1 &4568121788996877341
 GameObject:
   m_ObjectHideFlags: 0
@@ -2055,6 +2056,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 271d040819c8426d99458195d08a9c23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &7440136432558536691 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3911536743798692879, guid: 221ddf8385ce1be4cb99f8742a72dbd2, type: 3}
+  m_PrefabInstance: {fileID: 5838984381344361468}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7281714766337821688
 PrefabInstance:
   m_ObjectHideFlags: 0
