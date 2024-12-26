@@ -26,8 +26,9 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.ViewModels
 
         public void UpdatePathParts(string path)
         {
-            Path.SetValueNotify(path);
-            UpdatePathPartsPrivate(path);
+            var resultPath = path.PathSlash();
+            Path.SetValueNotify(resultPath);
+            UpdatePathPartsPrivate(resultPath);
         }
 
         public string GetRootPath()

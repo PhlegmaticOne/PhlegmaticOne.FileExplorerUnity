@@ -11,6 +11,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.Views
     {
         [SerializeField] private TMP_InputField _searchInput;
         [SerializeField] private Button _resetButton;
+        [SerializeField] private TextMeshProUGUI _searchCountText;
         
         private SearchViewModel _viewModel;
 
@@ -23,6 +24,8 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.Views
         public void Bind()
         {
             _viewModel.SearchText.ValueChanged += UpdateSearchInput;
+            _viewModel.FoundEntriesCount.ValueChanged += UpdateFoundEntriesCount;
+            _viewModel.IsActive.ValueChanged += UpdateIsActive;
             _searchInput.onValueChanged.AddListener(SearchFileEntries);
             _resetButton.onClick.AddListener(ResetSearch);
         }
@@ -30,10 +33,25 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.Views
         public void Unbind()
         {
             _viewModel.SearchText.ValueChanged -= UpdateSearchInput;
+            _viewModel.FoundEntriesCount.ValueChanged -= UpdateFoundEntriesCount;
+            _viewModel.IsActive.ValueChanged -= UpdateIsActive;
             _searchInput.onValueChanged.RemoveListener(SearchFileEntries);
             _resetButton.onClick.RemoveListener(ResetSearch);
         }
-        
+
+        private void UpdateIsActive(bool isActive)
+        {
+            _searchCountText.gameObject.SetActive(isActive);
+        }
+
+        private void UpdateFoundEntriesCount(int count)
+        {
+            if (count != -1)
+            {
+                _searchCountText.text = $"Found entries: {count}";
+            }
+        }
+
         private void SearchFileEntries(string searchText)
         {
             _viewModel.Search(searchText);

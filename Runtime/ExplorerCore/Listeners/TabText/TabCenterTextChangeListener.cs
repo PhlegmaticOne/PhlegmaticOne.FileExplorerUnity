@@ -3,15 +3,15 @@ using PhlegmaticOne.FileExplorer.Features.Searching.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
 using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Services
+namespace PhlegmaticOne.FileExplorer.ExplorerCore.Listeners.TabText
 {
-    internal sealed class ScreenMessageTextChangeListener : IScreenMessageTextChangeListener
+    internal sealed class TabCenterTextChangeListener : ITabCenterTextChangeListener
     {
         private readonly ScreenMessagesViewModel _screenMessagesViewModel;
         private readonly SearchViewModel _searchViewModel;
         private readonly TabViewModel _tabViewModel;
 
-        public ScreenMessageTextChangeListener(
+        public TabCenterTextChangeListener(
             ScreenMessagesViewModel screenMessagesViewModel,
             SearchViewModel searchViewModel,
             TabViewModel tabViewModel)
@@ -24,25 +24,17 @@ namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Services
         public void StartListen()
         {
             _searchViewModel.FoundEntriesCount.ValueChanged += UpdateFoundEntriesCount;
-            _searchViewModel.IsActive.ValueChanged += UpdateSearchHeaderTextActive;
             _tabViewModel.IsEmpty.ValueChanged += UpdateMessageOnTabEmptyChanged;
         }
 
         public void StopListen()
         {
             _searchViewModel.FoundEntriesCount.ValueChanged -= UpdateFoundEntriesCount;
-            _searchViewModel.IsActive.ValueChanged -= UpdateSearchHeaderTextActive;
             _tabViewModel.IsEmpty.ValueChanged -= UpdateMessageOnTabEmptyChanged;
         }
 
         private void UpdateMessageOnTabEmptyChanged(bool _)
         {
-            UpdateTabCenterMessage();
-        }
-
-        private void UpdateSearchHeaderTextActive(bool isActive)
-        {
-            _screenMessagesViewModel.IsHeaderMessageActive.SetValueNotify(isActive);
             UpdateTabCenterMessage();
         }
 

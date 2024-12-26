@@ -49,7 +49,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.ViewModels
             _tabViewModel.Clear();
             _selectionViewModel.Clear();
             _searchViewModel.Clear();
-            _pathViewModel.UpdatePathParts(path.PathSlash());
+            _pathViewModel.UpdatePathParts(path);
             LoadEntriesAsync().ForgetUnawareCancellation();
         }
 

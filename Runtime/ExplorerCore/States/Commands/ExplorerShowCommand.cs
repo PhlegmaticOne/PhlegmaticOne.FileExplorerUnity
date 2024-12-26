@@ -1,7 +1,7 @@
-﻿using PhlegmaticOne.FileExplorer.ExplorerCore.Services.StaticView;
+﻿using PhlegmaticOne.FileExplorer.ExplorerCore.Listeners.TabText;
+using PhlegmaticOne.FileExplorer.ExplorerCore.Services.StaticView;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Views;
 using PhlegmaticOne.FileExplorer.Features.Navigation.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.ScreenMessages.Services;
 
 namespace PhlegmaticOne.FileExplorer.ExplorerCore.States.Commands
 {
@@ -9,13 +9,13 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore.States.Commands
     {
         private readonly IExplorerViewsProvider _viewsProvider;
         private readonly NavigationViewModel _navigationViewModel;
-        private readonly IScreenMessageTextChangeListener _textChangeListener;
+        private readonly ITabCenterTextChangeListener _textChangeListener;
         private readonly IExplorerStaticView _staticView;
 
         public ExplorerShowCommand(
             IExplorerViewsProvider viewsProvider,
             NavigationViewModel navigationViewModel,
-            IScreenMessageTextChangeListener textChangeListener,
+            ITabCenterTextChangeListener textChangeListener,
             IExplorerStaticView staticView)
         {
             _viewsProvider = viewsProvider;

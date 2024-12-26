@@ -1,9 +1,9 @@
-﻿using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Cancellation;
+﻿using PhlegmaticOne.FileExplorer.ExplorerCore.Listeners.TabText;
+using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Cancellation;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Destroying;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Disposing;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Views;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Services;
-using PhlegmaticOne.FileExplorer.Features.ScreenMessages.Services;
 
 namespace PhlegmaticOne.FileExplorer.ExplorerCore.States.Commands
 {
@@ -13,14 +13,14 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore.States.Commands
         private readonly IExplorerViewsProvider _viewsProvider;
         private readonly IExplorerCancellationProvider _cancellationProvider;
         private readonly IExplorerViewModelDisposer _explorerViewModelDisposer;
-        private readonly IScreenMessageTextChangeListener _textChangeListener;
+        private readonly ITabCenterTextChangeListener _textChangeListener;
         private readonly IExplorerIconsProvider _iconsProvider;
 
         public ExplorerCloseCommand(IExplorerDestroyer destroyer,
             IExplorerViewsProvider viewsProvider,
             IExplorerCancellationProvider cancellationProvider,
             IExplorerViewModelDisposer explorerViewModelDisposer,
-            IScreenMessageTextChangeListener textChangeListener,
+            ITabCenterTextChangeListener textChangeListener,
             IExplorerIconsProvider iconsProvider)
         {
             _destroyer = destroyer;

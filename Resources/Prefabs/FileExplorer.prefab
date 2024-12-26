@@ -395,8 +395,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcacb2ef2d7c434ea588f797156d97d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _headerTextContainer: {fileID: 4568121788996877341}
-  _headerText: {fileID: 66193318475739686}
   _tabCenterTextContainer: {fileID: 6027484385534697943}
   _tabCenterText: {fileID: 4502586256720851978}
 --- !u!1 &2742241265093692565
@@ -821,7 +819,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4288400441
-  m_fontColor: {r: 0.22352943, g: 0.8000001, b: 0.60784316, a: 1}
+  m_fontColor: {r: 0.8078432, g: 0.81568635, b: 0.83921576, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2462,6 +2460,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5640760871464907195}
     m_Modifications:
+    - target: {fileID: 1501976584845502911, guid: 19018563b6991564e8cd4ee99aaac2ae, type: 3}
+      propertyPath: _searchCountText
+      value: 
+      objectReference: {fileID: 66193318475739686}
     - target: {fileID: 2702575111915003093, guid: 19018563b6991564e8cd4ee99aaac2ae, type: 3}
       propertyPath: m_fontAsset
       value: 

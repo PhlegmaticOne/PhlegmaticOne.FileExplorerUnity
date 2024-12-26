@@ -4,15 +4,15 @@ using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Contracts;
 using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Features.Control.Listeners
+namespace PhlegmaticOne.FileExplorer.ExplorerCore.Listeners.Navigation
 {
-    internal sealed class BackPressedListener : IUpdateListener
+    internal sealed class NavigationBackRequestListener : IUpdateListener
     {
         private readonly SelectionViewModel _selectionViewModel;
         private readonly NavigationViewModel _navigationViewModel;
         private readonly IExplorerStateProvider _explorerStateProvider;
 
-        public BackPressedListener(
+        public NavigationBackRequestListener(
             SelectionViewModel selectionViewModel,
             NavigationViewModel navigationViewModel,
             IExplorerStateProvider explorerStateProvider)

@@ -13,8 +13,6 @@ namespace PhlegmaticOne.FileExplorer.Configuration
         [SerializeField] private ExplorerExtensionsConfig _extensions;
         [SerializeField] private ExplorerViewConfig _view;
 
-        private string _startupLocationRuntime;
-        
         public static ExplorerConfig Create(TMP_FontAsset fontAsset)
         {
             return new ExplorerConfig(
@@ -33,7 +31,6 @@ namespace PhlegmaticOne.FileExplorer.Configuration
             _icons = icons;
             _extensions = extensions;
             _view = view;
-            _startupLocationRuntime = startupLocation.PathSlash();
         }
 
         public ExplorerConfig Value => this;
@@ -43,18 +40,10 @@ namespace PhlegmaticOne.FileExplorer.Configuration
 
         public string StartupLocation
         {
-            get
-            {
-                if (string.IsNullOrEmpty(_startupLocationRuntime))
-                {
-                    _startupLocationRuntime = string.IsNullOrEmpty(_startupLocation)
-                        ? Application.persistentDataPath.PathSlash()
-                        : _startupLocation.PathSlash();
-                }
-
-                return _startupLocationRuntime;
-            }
-            set => _startupLocationRuntime = value.PathSlash();
+            get => string.IsNullOrEmpty(_startupLocation)
+                    ? Application.persistentDataPath.PathSlash()
+                    : _startupLocation.PathSlash();
+            set => _startupLocation = value.PathSlash();
         }
     }
 }

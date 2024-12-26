@@ -8,9 +8,6 @@ namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Views
 {
     internal sealed class ScreenMessagesView : MonoBehaviour, IExplorerViewComponent
     {
-        [SerializeField] private GameObject _headerTextContainer;
-        [SerializeField] private TextMeshProUGUI _headerText;
-
         [SerializeField] private GameObject _tabCenterTextContainer;
         [SerializeField] private TextMeshProUGUI _tabCenterText;
         
@@ -24,31 +21,14 @@ namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Views
         
         public void Bind()
         {
-            _viewModel.IsHeaderMessageActive.ValueChanged += UpdateHeaderMessageIsActive;
-            _viewModel.HeaderMessage.ValueChanged += UpdateHeaderText;
-            
             _viewModel.IsTabCenterMessageActive.ValueChanged += UpdateTabCenterMessageIsActive;
             _viewModel.TabCenterMessage.ValueChanged += UpdateTabCenterText;
         }
 
         public void Unbind()
         {
-            _viewModel.IsHeaderMessageActive.ValueChanged -= UpdateHeaderMessageIsActive;
-            _viewModel.HeaderMessage.ValueChanged -= UpdateHeaderText;
-            
             _viewModel.IsTabCenterMessageActive.ValueChanged -= UpdateTabCenterMessageIsActive;
             _viewModel.TabCenterMessage.ValueChanged -= UpdateTabCenterText;
-        }
-
-        private void UpdateHeaderMessageIsActive(bool isActive)
-        {
-            _headerTextContainer.SetActive(isActive);
-        }
-
-        private void UpdateHeaderText(ScreenMessageData messageData)
-        {
-            _headerText.text = messageData.Text;
-            _headerText.color = messageData.Color;
         }
         
         private void UpdateTabCenterMessageIsActive(bool isActive)

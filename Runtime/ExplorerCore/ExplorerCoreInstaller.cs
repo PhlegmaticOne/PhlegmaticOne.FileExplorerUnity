@@ -1,4 +1,6 @@
-﻿using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Cancellation;
+﻿using PhlegmaticOne.FileExplorer.ExplorerCore.Listeners.Navigation;
+using PhlegmaticOne.FileExplorer.ExplorerCore.Listeners.TabText;
+using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Cancellation;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Destroying;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Disposing;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.StaticView;
@@ -29,6 +31,9 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore
             container.Register<IExplorerShowCommand, ExplorerShowCommand>();
             container.Register<IExplorerViewModelDisposer, ExplorerViewModelDisposer>();
             container.Register<IExplorerStateProvider, ExplorerStateProvider>();
+            
+            container.Register<ITabCenterTextChangeListener, TabCenterTextChangeListener>();
+            container.RegisterInterfaces<NavigationBackRequestListener>();
         }
     }
 }

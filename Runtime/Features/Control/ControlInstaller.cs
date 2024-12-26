@@ -1,5 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Control.Listeners;
-using PhlegmaticOne.FileExplorer.Features.Control.ViewModels;
+﻿using PhlegmaticOne.FileExplorer.Features.Control.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Control.Views;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
@@ -14,7 +13,6 @@ namespace PhlegmaticOne.FileExplorer.Features.Control
         public override void Install(IDependencyContainer container)
         {
             container.RegisterInstance(_controlView);
-            container.RegisterInterfaces<BackPressedListener>();
             container.RegisterSelf<ControlViewModel>();
         }
     }
