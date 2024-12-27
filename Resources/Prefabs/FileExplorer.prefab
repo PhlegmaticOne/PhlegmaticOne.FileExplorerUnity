@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3948030032477620485}
   - component: {fileID: 8273361740391273386}
+  - component: {fileID: 2284755996795613584}
   m_Layer: 5
   m_Name: '[Context]'
   m_TagString: Untagged
@@ -64,6 +65,19 @@ MonoBehaviour:
   - {fileID: 8720751880991535057}
   - {fileID: 4227548207789700426}
   - {fileID: 3151566560325812732}
+--- !u!114 &2284755996795613584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199223690150148998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3da810e5725481d80d1b29130c62dcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvasScaler: {fileID: 591563754740125327}
 --- !u!1 &765456861407832724
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,7 +517,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bf706e0462e405385766c622811a4d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvasScaler: {fileID: 591563754740125327}
   _context: {fileID: 8273361740391273386}
 --- !u!223 &7108996452861892047
 Canvas:
