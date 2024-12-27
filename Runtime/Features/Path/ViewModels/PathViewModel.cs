@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using PhlegmaticOne.FileExplorer.Configuration;
 using PhlegmaticOne.FileExplorer.Features.Path.Services;
+using PhlegmaticOne.FileExplorer.Features.Path.Services.Root;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
@@ -12,11 +13,13 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.ViewModels
     {
         private readonly ExplorerConfig _config;
         private readonly IPathParser _pathParser;
+        private readonly IRootPathProvider _rootPathProvider;
 
-        public PathViewModel(ExplorerConfig config, IPathParser pathParser)
+        public PathViewModel(ExplorerConfig config, IPathParser pathParser, IRootPathProvider rootPathProvider)
         {
             _config = config;
             _pathParser = pathParser;
+            _rootPathProvider = rootPathProvider;
             PathParts = new ReactiveCollection<PathPartViewModel>();
             Path = new ReactiveProperty<string>();
         }
@@ -33,7 +36,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.ViewModels
 
         public string GetRootPath()
         {
-            return _config.StartupLocation;
+            return _rootPathProvider.RootPath;
         }
 
         public bool CurrentPathIsRoot()

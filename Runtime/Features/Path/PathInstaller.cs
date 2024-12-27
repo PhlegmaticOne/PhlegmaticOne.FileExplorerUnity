@@ -1,4 +1,5 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Path.Services;
+using PhlegmaticOne.FileExplorer.Features.Path.Services.Root;
 using PhlegmaticOne.FileExplorer.Features.Path.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Path.Views;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
@@ -21,6 +22,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Path
             container.Register<IPathPartFactory, PathPartFactory>();
             container.Register<IPathParser, PathParser>();
             container.Register<IPathBuilder, PathBuilder>();
+            container.Register<IRootPathProvider, RootPathProvider>();
             container.RegisterSelf<PathViewModel>();
         }
     }

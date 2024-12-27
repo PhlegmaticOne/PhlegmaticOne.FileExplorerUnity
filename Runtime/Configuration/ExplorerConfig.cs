@@ -1,5 +1,4 @@
 ﻿using System;
-using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 using TMPro;
 using UnityEngine;
 
@@ -40,10 +39,8 @@ namespace PhlegmaticOne.FileExplorer.Configuration
 
         public string StartupLocation
         {
-            get => string.IsNullOrEmpty(_startupLocation)
-                    ? Application.persistentDataPath.PathSlash()
-                    : _startupLocation.PathSlash();
-            set => _startupLocation = value.PathSlash();
+            get => _startupLocation;
+            set => _startupLocation = value;
         }
     }
 }
