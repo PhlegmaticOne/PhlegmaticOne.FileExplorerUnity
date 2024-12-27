@@ -17,7 +17,8 @@ namespace PhlegmaticOne.FileExplorer.ExploreSample
 
         private void ExploreFiles()
         {
-            Explorer.Open(_configScriptable);
+            var explorer = new Explorer();
+            explorer.Open(_configScriptable);
         }
     }
 }

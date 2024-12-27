@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer
 {
-    public class Explorer
+    public class Explorer : IExplorer
     {
-        public static void Open(IExplorerConfig config)
+        public void Open(IExplorerConfig config)
         {
             var context = Resources.Load<ExplorerContext>("Prefabs/FileExplorer");
             var explorerInstance = Object.Instantiate(context);
