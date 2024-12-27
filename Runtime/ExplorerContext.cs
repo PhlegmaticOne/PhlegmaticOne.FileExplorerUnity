@@ -25,7 +25,7 @@ namespace PhlegmaticOne.FileExplorer
                 container.RegisterInstance(config.Value);
             });
             
-            _context.Resolve<IExplorerStateProvider>().Show();
+            _context.Resolve<ExplorerEntryPoint>().Start();
         }
 
         private void Update()

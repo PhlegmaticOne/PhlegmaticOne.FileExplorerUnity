@@ -36,6 +36,8 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore
             container.RegisterInterfaces<NavigationBackRequestListener>();
             container.RegisterInterfaces<TabCenterTextChangeListener>();
             container.RegisterInterfaces<TabEntriesAddedListener>();
+            
+            container.RegisterSelf<ExplorerEntryPoint>();
         }
     }
 }
