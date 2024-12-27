@@ -1,6 +1,7 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.Behaviours;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 using TMPro;
 using UnityEngine;
@@ -24,7 +25,6 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Views
         public void Construct(FileEntryViewModel viewModel, RectTransform headerTransform, ScrollRect scrollRect)
         {
             _holdBehaviour.Construct(scrollRect);
-            ViewModel = viewModel;
             _viewModel = viewModel;
             _headerTransform = headerTransform;
         }
@@ -43,6 +43,11 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Views
             Unsubscribe();
             _viewModel = null;
             _headerTransform = null;
+        }
+
+        protected override ViewModel GetViewModel()
+        {
+            return _viewModel;
         }
 
         private void Subscribe()

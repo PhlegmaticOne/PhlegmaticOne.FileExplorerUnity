@@ -47,7 +47,7 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore.Listeners.TabText
         {
             if (_searchViewModel.IsActive && _searchViewModel.FoundEntriesCount == 0)
             {
-                SetTabMessage($"There are no entries containing \"{_searchViewModel.SearchText}\"");
+                SetTabMessage($"Tab has no entries containing \"{_searchViewModel.SearchText}\"");
                 return;
             }
 

@@ -2,7 +2,7 @@
 
 namespace PhlegmaticOne.FileExplorer
 {
-    internal interface IExplorer
+    public interface IExplorer
     {
         void Open(IExplorerConfig config);
     }

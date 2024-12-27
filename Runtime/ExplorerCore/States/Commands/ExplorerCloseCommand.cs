@@ -13,14 +13,14 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore.States.Commands
         private readonly IExplorerViewsProvider _viewsProvider;
         private readonly IExplorerCancellationProvider _cancellationProvider;
         private readonly IExplorerViewModelDisposer _explorerViewModelDisposer;
-        private readonly IExplorerActionListener[] _listeners;
+        private readonly ExplorerActionListeners _listeners;
         private readonly IExplorerIconsProvider _iconsProvider;
 
         public ExplorerCloseCommand(IExplorerDestroyer destroyer,
             IExplorerViewsProvider viewsProvider,
             IExplorerCancellationProvider cancellationProvider,
             IExplorerViewModelDisposer explorerViewModelDisposer,
-            IExplorerActionListener[] listeners,
+            ExplorerActionListeners listeners,
             IExplorerIconsProvider iconsProvider)
         {
             _destroyer = destroyer;
@@ -34,19 +34,11 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore.States.Commands
         public void Close()
         {
             _cancellationProvider.Cancel();
-            StopListen();
+            _listeners.StopListen();
             _iconsProvider.Dispose();
             _viewsProvider.Unbind();
             _explorerViewModelDisposer.DisposeViewModels();
             _destroyer.Destroy();
-        }
-
-        private void StopListen()
-        {
-            foreach (var listener in _listeners)
-            {
-                listener.StopListen();
-            }
         }
     }
 }

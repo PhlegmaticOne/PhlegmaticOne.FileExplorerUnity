@@ -1,5 +1,4 @@
 ﻿using System;
-using PhlegmaticOne.FileExplorer.ExplorerCore.ViewBase;
 
 namespace PhlegmaticOne.FileExplorer.ExplorerCore.Services.Views
 {

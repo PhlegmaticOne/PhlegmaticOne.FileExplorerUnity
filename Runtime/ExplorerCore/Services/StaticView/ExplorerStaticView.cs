@@ -1,43 +1,53 @@
 ﻿using PhlegmaticOne.FileExplorer.Configuration;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using TMPro;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.ExplorerCore.Services.StaticView
 {
-    internal sealed class ExplorerStaticView : IExplorerStaticView
+    internal sealed class ExplorerStaticView : MonoBehaviour, IExplorerStaticView
     {
-        private readonly Canvas _canvas;
-        private readonly ExplorerConfig _explorerConfig;
+        [SerializeField] private Canvas _canvas;
+        [SerializeField] private TextMeshProUGUI[] _staticTexts;
+        [SerializeField] private TMP_InputField[] _inputFields;
+        
+        private ExplorerConfig _explorerConfig;
+        private Camera _viewCamera;
 
-        public ExplorerStaticView(Canvas canvas, ExplorerConfig explorerConfig)
+        [ViewInject]
+        public void Construct(ExplorerConfig explorerConfig, Camera viewCamera)
         {
-            _canvas = canvas;
+            _viewCamera = viewCamera;
             _explorerConfig = explorerConfig;
         }
         
         public void Setup()
         {
             SetupCanvas();
-            SetupStaticTextFont();
+            SetFontToTexts();
+            SetFontToInputs();
         }
         
         private void SetupCanvas()
         {
-            _canvas.worldCamera = Camera.main;
+            _canvas.worldCamera = _viewCamera;
             _canvas.sortingLayerName = _explorerConfig.View.SortingLayerName;
             _canvas.sortingOrder = _explorerConfig.View.SortingOrder;
         }
 
-        private void SetupStaticTextFont()
+        private void SetFontToInputs()
         {
-            foreach (var textMeshPro in Object.FindObjectsByType<TextMeshProUGUI>(FindObjectsInactive.Include, FindObjectsSortMode.None))
-            {
-                textMeshPro.font = _explorerConfig.View.FontAsset;
-            }
-
-            foreach (var inputField in Object.FindObjectsByType<TMP_InputField>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            foreach (var inputField in _inputFields)
             {
                 inputField.fontAsset = _explorerConfig.View.FontAsset;
+            }
+        }
+
+        private void SetFontToTexts()
+        {
+            foreach (var textMeshPro in _staticTexts)
+            {
+                textMeshPro.font = _explorerConfig.View.FontAsset;
             }
         }
     }

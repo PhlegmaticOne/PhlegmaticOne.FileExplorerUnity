@@ -8,8 +8,6 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
     {
         [SerializeField] private TextMeshProUGUI[] _textComponents;
         
-        protected ViewModel ViewModel;
-
         public void Initialize(TMP_FontAsset font)
         {
             foreach (var textComponent in _textComponents)
@@ -25,7 +23,9 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
 
         public bool IsBindTo(ViewModel viewModel)
         {
-            return ReferenceEquals(ViewModel, viewModel);
+            return ReferenceEquals(GetViewModel(), viewModel);
         }
+
+        protected abstract ViewModel GetViewModel();
     }
 }

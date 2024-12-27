@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
 {
@@ -10,7 +11,6 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
         
         public Task Show(T viewModel)
         {
-            ViewModel = viewModel;
             PopupViewModel = viewModel;
             _viewResult = new TaskCompletionSource<bool>();
             OnShowing(viewModel);
@@ -25,11 +25,16 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
             Close();
         }
 
+        protected override ViewModel GetViewModel()
+        {
+            return PopupViewModel;
+        }
+
         protected void Close()
         {
             _viewResult.TrySetResult(true);
             PopupViewModel.Release();
-            ViewModel = null;
+            PopupViewModel = null;
             _viewResult = null;
         }
     }

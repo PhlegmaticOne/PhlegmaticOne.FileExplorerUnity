@@ -1,4 +1,4 @@
-﻿namespace PhlegmaticOne.FileExplorer.ExplorerCore.ViewBase
+﻿namespace PhlegmaticOne.FileExplorer.ExplorerCore.Services.Views
 {
     internal interface IExplorerViewComponent
     {

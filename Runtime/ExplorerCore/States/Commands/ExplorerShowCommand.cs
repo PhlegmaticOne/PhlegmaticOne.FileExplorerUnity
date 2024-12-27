@@ -9,13 +9,13 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore.States.Commands
     {
         private readonly IExplorerViewsProvider _viewsProvider;
         private readonly NavigationViewModel _navigationViewModel;
-        private readonly IExplorerActionListener[] _listeners;
+        private readonly ExplorerActionListeners _listeners;
         private readonly IExplorerStaticView _staticView;
 
         public ExplorerShowCommand(
             IExplorerViewsProvider viewsProvider,
             NavigationViewModel navigationViewModel,
-            IExplorerActionListener[] listeners,
+            ExplorerActionListeners listeners,
             IExplorerStaticView staticView)
         {
             _viewsProvider = viewsProvider;
@@ -28,16 +28,8 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore.States.Commands
         {
             _staticView.Setup();
             _viewsProvider.Bind();
-            StartListen();
+            _listeners.StartListen();
             _navigationViewModel.NavigateRoot();
-        }
-
-        private void StartListen()
-        {
-            foreach (var listener in _listeners)
-            {
-                listener.StartListen();
-            }
         }
     }
 }

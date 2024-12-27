@@ -1,4 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.ExplorerCore.ViewBase;
+﻿using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Views;
 using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using UnityEngine;

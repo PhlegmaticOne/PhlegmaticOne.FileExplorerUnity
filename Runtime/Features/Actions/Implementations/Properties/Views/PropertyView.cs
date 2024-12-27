@@ -1,4 +1,5 @@
 ﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 using TMPro;
 using UnityEngine;
@@ -27,6 +28,11 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties
         public override void Release()
         {
             _viewModel = null;
+        }
+
+        protected override ViewModel GetViewModel()
+        {
+            return _viewModel;
         }
     }
 }

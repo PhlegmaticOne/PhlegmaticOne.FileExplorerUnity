@@ -29,6 +29,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
             popup.transform.SetParent(_parent, false);
             _currentPopup = popup;
             _graphic.enabled = true;
+            
             await popup.Show(viewModel);
             
             _viewProvider.ReleaseView(_currentPopup);

@@ -1,4 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.ExplorerCore.ViewBase;
+﻿using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Views;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
 using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Selection.Views.Data;

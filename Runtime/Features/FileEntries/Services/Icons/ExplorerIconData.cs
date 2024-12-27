@@ -1,5 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons
 {
@@ -11,6 +10,12 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons
         }
 
         public Sprite IconSprite { get; private set; }
-        public float Aspect => IconSprite.CalculateAspect();
+        public float Aspect => CalculateAspect();
+
+        private float CalculateAspect()
+        {
+            var texture = IconSprite.texture;
+            return (float)texture.width / texture.height;
+        }
     }
 }

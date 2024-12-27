@@ -14,13 +14,26 @@ namespace PhlegmaticOne.FileExplorer.ExplorerCore
         
         public override void Install(IDependencyContainer container)
         {
-            container.RegisterInstance(_popupProvider);
+            BindProvider(container);
+            BindPopupPrefabs(container);
+            BindPopupPrefabViews(container);
+        }
 
+        private void BindProvider(IDependencyContainer container)
+        {
+            container.RegisterInstance(_popupProvider);
+        }
+
+        private void BindPopupPrefabs(IDependencyContainer container)
+        {
             foreach (var popupView in _popupViews)
             {
                 container.RegisterPrefab(popupView);
             }
+        }
 
+        private void BindPopupPrefabViews(IDependencyContainer container)
+        {
             foreach (var viewPrefab in _viewPrefabs)
             {
                 container.RegisterPrefab(viewPrefab);

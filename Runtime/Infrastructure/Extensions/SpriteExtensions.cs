@@ -13,12 +13,6 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Extensions
             texture.wrapMode = TextureWrapMode.Clamp;
             return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Pivot);    
         }
-
-        public static float CalculateAspect(this Sprite sprite)
-        {
-            var texture = sprite.texture;
-            return (float)texture.width / texture.height;
-        }
         
         public static void Dispose(this Sprite sprite)
         {
