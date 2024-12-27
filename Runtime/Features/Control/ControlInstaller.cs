@@ -13,6 +13,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Control
         public override void Install(IDependencyContainer container)
         {
             container.RegisterInstance(_controlView);
+            
             container.RegisterSelf<ControlViewModel>();
         }
     }

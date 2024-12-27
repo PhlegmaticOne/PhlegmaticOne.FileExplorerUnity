@@ -13,6 +13,7 @@ namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages
         public override void Install(IDependencyContainer container)
         {
             container.RegisterInstance(_screenMessagesView);
+            
             container.RegisterSelf<ScreenMessagesViewModel>();
         }
     }

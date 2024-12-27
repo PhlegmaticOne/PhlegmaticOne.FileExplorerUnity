@@ -20,13 +20,17 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions
         public override void Install(IDependencyContainer container)
         {
             container.RegisterInstance(_actionsView);
-            container.RegisterInstance(_actionDropdown);
-            container.RegisterPrefab(_itemViewPrefab);
+            
             container.RegisterInstance(_containersData);
+            container.RegisterInstance(_actionDropdown);
+            
+            container.RegisterPrefab(_itemViewPrefab);
+            
             container.Register<IActionViewPositionCalculator, ActionViewPositionCalculator>();
             container.Register<IFileViewContentProvider, FileViewContentProvider>();
             container.Register<IFilePropertiesViewProvider, FilePropertiesViewProvider>();
             container.Register<IFileRenameDataProvider, FileRenameDataProvider>();
+            
             container.RegisterSelf<ActionsViewModel>();
         }
     }

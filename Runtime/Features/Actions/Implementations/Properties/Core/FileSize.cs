@@ -1,7 +1,18 @@
-﻿namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties.Core
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties.Core
 {
     internal struct FileSize
     {
+        private static readonly Dictionary<int, string> AvailableBytesPowMap = new()
+        {
+            { 1, "B" },
+            { 2, "KB" },
+            { 3, "MB" },
+            { 4, "GB" }
+        };
+        
         private const int Bytes = 1024;
 
         public static FileSize Zero => new(0);
@@ -25,22 +36,18 @@
 
         public string BuildUnitView()
         {
-            if (Size < Bytes)
+            if (Size > 0)
             {
-                return BuildBytesView();
+                foreach (var mapValue in AvailableBytesPowMap)
+                {
+                    if (Size < Mathf.Pow(Bytes, mapValue.Key))
+                    {
+                        return FormatSize(Size / Mathf.Pow(Bytes, mapValue.Key - 1), mapValue.Value);
+                    }
+                }
             }
 
-            if (Size < Bytes * Bytes)
-            {
-                return FormatSize((float)Size / Bytes, "KB");
-            }
-
-            if (Size < Bytes * Bytes * Bytes)
-            {
-                return FormatSize((float)Size / (Bytes * Bytes), "MB");
-            }
-
-            return FormatSize((float)Size / (Bytes * Bytes * Bytes), "GB");
+            return BuildBytesView();
         }
 
         private static string FormatSize(float size, string point)

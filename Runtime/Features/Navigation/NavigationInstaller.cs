@@ -14,8 +14,10 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation
         public override void Install(IDependencyContainer container)
         {
             container.RegisterInstance(_navigationView);
+            
             container.Register<IExplorerNavigator, ExplorerNavigator>();
             container.Register<INavigationProgressSetter, NavigationProgressSetter>();
+            
             container.RegisterSelf<NavigationViewModel>();
         }
     }

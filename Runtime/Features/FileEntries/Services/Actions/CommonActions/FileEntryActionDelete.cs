@@ -31,8 +31,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Acti
 
         public override string Description => "Delete";
         
-        public override ActionColor Color => 
-            ActionColor.WithTextColor(UnityEngine.Color.red);
+        public override ActionColor Color => ActionColor.WithTextColor(UnityEngine.Color.red);
         
         protected override Task<bool> ExecuteAction(FileEntryViewModel fileEntry)
         {

@@ -1,4 +1,4 @@
-﻿namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Rename.Core
+﻿namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Rename
 {
     internal readonly struct FileEntryRenameDataResult
     {

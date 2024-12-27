@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Searching.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
@@ -36,10 +38,22 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
                 fileEntry.Delete();
             }
             
-            _tabViewModel.RemoveRange(selection);
+            RemoveFilesFromTab(selection);
             _selectionViewModel.Clear();
             _searchViewModel.Research();
             return Task.FromResult(true);
+        }
+
+        private void RemoveFilesFromTab(IEnumerable<FileEntryViewModel> selection)
+        {
+            if (_selectionViewModel.IsAllSelected)
+            {
+                _tabViewModel.Clear();
+            }
+            else
+            {
+                _tabViewModel.RemoveRange(selection);
+            }
         }
     }
 }

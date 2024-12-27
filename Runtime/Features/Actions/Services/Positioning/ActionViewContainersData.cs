@@ -10,6 +10,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning
         [SerializeField] private RectTransform _parent;
         [SerializeField] private float _addOffsetX;
         [SerializeField] private Vector2 _borderOffset;
+        
         public RectTransform ScrollRect => _scrollRect;
         public RectTransform Parent => _parent;
         public float AddOffsetX => _addOffsetX;

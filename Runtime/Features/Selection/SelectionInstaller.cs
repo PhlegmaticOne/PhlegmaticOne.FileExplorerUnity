@@ -14,7 +14,9 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection
         public override void Install(IDependencyContainer container)
         {
             container.RegisterInstance(_selectionHeaderView);
+            
             container.Register<ISelectionActionsProvider, SelectionActionsProvider>();
+            
             container.RegisterInterfacesAndSelf<SelectionViewModel>();
         }
     }

@@ -14,7 +14,9 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching
         public override void Install(IDependencyContainer container)
         {
             container.RegisterInstance(_searchView);
+            
             container.Register<IFileEntrySearchFilter, FileEntrySearchFilter>();
+            
             container.RegisterInterfacesAndSelf<SearchViewModel>();
         }
     }

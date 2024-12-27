@@ -19,10 +19,12 @@ namespace PhlegmaticOne.FileExplorer.Features.Path
             container.RegisterInstance(_pathView);
             container.RegisterInstance(_viewCollection);
             container.RegisterPrefab(_pathPartViewPrefab);
+            
             container.Register<IPathPartFactory, PathPartFactory>();
             container.Register<IPathParser, PathParser>();
             container.Register<IPathBuilder, PathBuilder>();
             container.Register<IRootPathProvider, RootPathProvider>();
+            
             container.RegisterSelf<PathViewModel>();
         }
     }

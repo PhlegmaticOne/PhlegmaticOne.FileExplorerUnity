@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using PhlegmaticOne.FileExplorer.Configuration;
 using PhlegmaticOne.FileExplorer.Features.Path.Services;
 using PhlegmaticOne.FileExplorer.Features.Path.Services.Root;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
@@ -11,13 +10,11 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.ViewModels
 {
     internal sealed class PathViewModel : ViewModel
     {
-        private readonly ExplorerConfig _config;
         private readonly IPathParser _pathParser;
         private readonly IRootPathProvider _rootPathProvider;
 
-        public PathViewModel(ExplorerConfig config, IPathParser pathParser, IRootPathProvider rootPathProvider)
+        public PathViewModel(IPathParser pathParser, IRootPathProvider rootPathProvider)
         {
-            _config = config;
             _pathParser = pathParser;
             _rootPathProvider = rootPathProvider;
             PathParts = new ReactiveCollection<PathPartViewModel>();
@@ -71,6 +68,8 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.ViewModels
             {
                 RemovePathPartsExited(parseResult);
             }
+            
+            PathParts[^1].SetCurrent(true);
         }
 
         private void AddPathPartsEntered(IEnumerable<PathPartViewModel> parseResult)
@@ -81,14 +80,12 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.ViewModels
             }
                 
             PathParts.AddRange(parseResult.Skip(PathParts.Count));
-            PathParts[^1].SetCurrent(true);
         }
 
         private void RemovePathPartsExited(IReadOnlyCollection<PathPartViewModel> parseResult)
         {
             var removeCount = PathParts.Count - parseResult.Count;
             PathParts.RemoveRangeFromLast(removeCount);
-            PathParts[^1].SetCurrent(true);
         }
     }
 }
