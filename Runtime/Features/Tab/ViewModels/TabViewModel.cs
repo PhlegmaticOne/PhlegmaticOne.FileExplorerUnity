@@ -15,21 +15,27 @@ namespace PhlegmaticOne.FileExplorer.Features.Tab.ViewModels
         public ReactiveCollection<FileEntryViewModel> FileEntries { get; }
         public ReactiveProperty<bool> IsEmpty { get; }
 
-        public void Add(FileEntryViewModel file)
+        public void Add(FileEntryViewModel fileEntry)
         {
-            FileEntries.Add(file);
+            FileEntries.Add(fileEntry);
             UpdateIsEmpty();
         }
 
-        public void Remove(FileEntryViewModel file)
+        public void AddRange(IEnumerable<FileEntryViewModel> fileEntries)
         {
-            FileEntries.Remove(file);
+            FileEntries.AddRange(fileEntries);
+            UpdateIsEmpty();
+        }
+
+        public void Remove(FileEntryViewModel fileEntry)
+        {
+            FileEntries.Remove(fileEntry);
             UpdateIsEmpty();
         }
         
-        public void RemoveRange(IEnumerable<FileEntryViewModel> files)
+        public void RemoveRange(IEnumerable<FileEntryViewModel> fileEntry)
         {
-            foreach (var file in files)
+            foreach (var file in fileEntry)
             {
                 FileEntries.Remove(file);
             }

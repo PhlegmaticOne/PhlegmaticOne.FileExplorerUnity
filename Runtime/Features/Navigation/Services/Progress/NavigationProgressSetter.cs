@@ -14,9 +14,9 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.Services
             _progressViewModel = progressViewModel;
         }
         
-        public void AddDeltaProgress()
+        public void AddDeltaProgress(int delta)
         {
-            _currentCount = Mathf.Clamp(_currentCount + 1, 0, int.MaxValue);
+            _currentCount = Mathf.Clamp(_currentCount + delta, 0, int.MaxValue);
             UpdateProgress();
         }
 

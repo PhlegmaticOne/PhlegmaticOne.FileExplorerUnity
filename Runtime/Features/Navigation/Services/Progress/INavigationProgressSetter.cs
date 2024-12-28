@@ -2,7 +2,7 @@
 {
     internal interface INavigationProgressSetter
     {
-        void AddDeltaProgress();
+        void AddDeltaProgress(int delta);
         void Complete();
         void SetActive(bool isActive);
     }

@@ -27,13 +27,20 @@ namespace PhlegmaticOne.FileExplorer.Editor.Configs
             
             if (GUILayout.Button("Select startup location"))
             {
-                _target.Value.StartupLocation = EditorUtility.OpenFolderPanel("Select startup folder", location, "");
+                ApplyPathAndSave(EditorUtility.OpenFolderPanel("Select startup folder", location, ""));
             }
 
             if (GUILayout.Button("Reset location"))
             {
-                _target.Value.StartupLocation = string.Empty;
+                ApplyPathAndSave(string.Empty);
             }
+        }
+
+        private void ApplyPathAndSave(string path)
+        {
+            _target.Value.StartupLocation = path;
+            EditorUtility.SetDirty(_target);
+            AssetDatabase.SaveAssetIfDirty(_target);
         }
 
         private string GetStartupLocation()

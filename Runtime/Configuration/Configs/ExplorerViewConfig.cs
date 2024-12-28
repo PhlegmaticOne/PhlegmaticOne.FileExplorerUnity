@@ -7,6 +7,7 @@ namespace PhlegmaticOne.FileExplorer.Configuration
     [Serializable]
     public sealed class ExplorerViewConfig
     {
+        [SerializeField, Range(1, 1000)] private int _addFileEntriesBatchCount;
         [SerializeField] private string _sortingLayerName;
         [SerializeField] private int _sortingOrder;
         [SerializeField] private TMP_FontAsset _fontAsset;
@@ -15,9 +16,16 @@ namespace PhlegmaticOne.FileExplorer.Configuration
         {
             _sortingLayerName = "Default",
             _sortingOrder = 999,
-            _fontAsset = fontAsset
+            _fontAsset = fontAsset,
+            _addFileEntriesBatchCount = 10
         };
-        
+
+        public int AddFileEntriesBatchCount
+        {
+            get => _addFileEntriesBatchCount;
+            set => _addFileEntriesBatchCount = value;
+        }
+
         public string SortingLayerName
         {
             get => _sortingLayerName;

@@ -1,5 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using PhlegmaticOne.FileExplorer.Configuration;
 using PhlegmaticOne.FileExplorer.ExplorerCore.Services.Cancellation;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Direcrories;
 using PhlegmaticOne.FileExplorer.Features.Navigation.Services;
 using PhlegmaticOne.FileExplorer.Features.Path.ViewModels;
@@ -20,6 +23,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.ViewModels
         private readonly SearchViewModel _searchViewModel;
         private readonly PathViewModel _pathViewModel;
         private readonly INavigationProgressSetter _progressSetter;
+        private readonly ExplorerConfig _config;
 
         public NavigationViewModel(
             IExplorerNavigator navigator, 
@@ -28,12 +32,14 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.ViewModels
             TabViewModel tabViewModel,
             SearchViewModel searchViewModel,
             PathViewModel pathViewModel,
-            INavigationProgressSetter progressSetter)
+            INavigationProgressSetter progressSetter,
+            ExplorerConfig config)
         {
             _tabViewModel = tabViewModel;
             _searchViewModel = searchViewModel;
             _pathViewModel = pathViewModel;
             _progressSetter = progressSetter;
+            _config = config;
             _navigator = navigator;
             _cancellationProvider = cancellationProvider;
             _selectionViewModel = selectionViewModel;
@@ -50,7 +56,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.ViewModels
             _selectionViewModel.Clear();
             _searchViewModel.Clear();
             _pathViewModel.UpdatePathParts(path);
-            LoadEntriesAsync().ForgetUnawareCancellation();
+            LoadTabAsync(_pathViewModel.Path).ForgetUnawareCancellation();
         }
 
         public void Navigate(DirectoryViewModel directory)
@@ -86,25 +92,53 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.ViewModels
             return !_pathViewModel.CurrentPathIsRoot();
         }
 
-        private async Task LoadEntriesAsync()
+        private async Task LoadTabAsync(string path)
         {
             IsLoading.SetValueNotify(true);
             _progressSetter.SetActive(true);
 
-            await foreach (var fileEntry in _navigator.Navigate(_pathViewModel.Path)
-                               .WithCancellation(_cancellationProvider.Token))
-            {
-                _tabViewModel.Add(fileEntry);
-                _progressSetter.AddDeltaProgress();
-                await Task.Yield();
-            }
-
+            await LoadFileEntriesAsync(path);
+            
             _progressSetter.Complete();
             _tabViewModel.UpdateIsEmpty();
             IsLoading.SetValueNotify(false);
 
             await Task.Delay(100, _cancellationProvider.Token);
             _progressSetter.SetActive(false);
+        }
+
+        private async Task LoadFileEntriesAsync(string path)
+        {
+            var batchCount = _config.View.AddFileEntriesBatchCount;
+            var batch = new List<FileEntryViewModel>(batchCount);
+            var token = _cancellationProvider.Token;
+            
+            await foreach (var fileEntry in _navigator.Navigate(path).WithCancellation(token))
+            {
+                batch.Add(fileEntry);
+
+                if (batch.Count == batchCount)
+                {
+                    AddBatchToTab();
+                }
+                
+                await Task.Yield();
+            }
+
+            if (batch.Count > 0)
+            {
+                AddBatchToTab();
+                await Task.Yield();
+            }
+
+            return;
+
+            void AddBatchToTab()
+            {
+                _tabViewModel.AddRange(batch);
+                _progressSetter.AddDeltaProgress(batch.Count);
+                batch.Clear();
+            }
         }
     }
 }
