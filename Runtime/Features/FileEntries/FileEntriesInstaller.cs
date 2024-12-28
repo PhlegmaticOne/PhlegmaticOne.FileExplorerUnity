@@ -7,6 +7,7 @@ using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.WebLoading;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Operations;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Direcrories.Actions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Actions;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Commands;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Extensions.Services;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
@@ -33,6 +34,8 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries
             container.Register<IFileEntryActionStartHandler, FileEntryActionStartHandler>();
             container.Register<IFileEntryActionExecuteHandler, FileEntryActionExecuteHandler>();
             container.Register<IFileEntryActionErrorViewProvider, FileEntryActionErrorViewProvider>();
+            
+            container.Register<IFileViewModelClickCommand, FileViewModelClickCommand>();
         }
     }
 }

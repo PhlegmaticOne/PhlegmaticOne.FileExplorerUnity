@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties.Core;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Services;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Operations;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Commands;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Extensions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Extensions.Services;
 using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
@@ -14,19 +14,19 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files
 {
     internal sealed class FileViewModel : FileEntryViewModel
     {
-        private readonly IFileEntryActionsProvider _actionsProvider;
+        private readonly IFileViewModelClickCommand _clickCommand;
         private readonly ExplorerFileIcon _fileIcon;
         
         public FileViewModel(
             string name, string path, string extension,
             IExplorerIconsProvider iconsProvider,
-            IFileEntryActionsProvider actionsProvider,
+            IFileViewModelClickCommand clickCommand,
             SelectionViewModel selectionViewModel,
             IFileOperations fileOperations,
             IFileExtensions fileExtensions) : 
             base(name, path, iconsProvider, selectionViewModel, fileOperations)
         {
-            _actionsProvider = actionsProvider;
+            _clickCommand = clickCommand;
             Extension = new FileExtension(fileExtensions, extension);
             _fileIcon = new ExplorerFileIcon(this, iconsProvider);
         }
@@ -64,14 +64,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files
 
         public override void OnClick()
         {
-            if (SelectionViewModel.IsSelectionActive)
-            {
-                SelectionViewModel.UpdateSelection(this);
-            }
-            else
-            {
-                _actionsProvider.ShowActions(this);
-            }
+            _clickCommand.OnClick(this);
         }
 
         public override void Dispose()
