@@ -1,6 +1,6 @@
 {
-    "name": "PhlegmatiOne.FileExplorer.Editor",
-    "rootNamespace": "PhlegmatiOne.FileExplorer.Editor",
+    "name": "PhlegmaticOne.FileExplorer.Editor",
+    "rootNamespace": "PhlegmaticOne.FileExplorer.Editor",
     "references": [
         "GUID:bd4781c4aa4fb7540a825affef640d5e"
     ],
