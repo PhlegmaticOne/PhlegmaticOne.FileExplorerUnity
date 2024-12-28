@@ -1,0 +1,18 @@
+{
+    "name": "PhlegmatiOne.FileExplorer.Editor",
+    "rootNamespace": "PhlegmatiOne.FileExplorer.Editor",
+    "references": [
+        "GUID:bd4781c4aa4fb7540a825affef640d5e"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
