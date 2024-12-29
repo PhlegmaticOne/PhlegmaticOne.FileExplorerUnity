@@ -37,7 +37,12 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Acti
         {
             fileEntry.Delete();
             _tabViewModel.Remove(fileEntry);
-            _selectionViewModel.UpdateSelection(fileEntry);
+
+            if (fileEntry.IsSelected)
+            {
+                _selectionViewModel.UpdateSelection(fileEntry);
+            }
+            
             _searchViewModel.Research();
             return Task.FromResult(true);
         }

@@ -9,8 +9,8 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Services.Root
         public RootPathProvider(ExplorerConfig config)
         {
             RootPath = string.IsNullOrEmpty(config.StartupLocation)
-                ? Application.persistentDataPath.PathSlash()
-                : config.StartupLocation.PathSlash();
+                ? Application.persistentDataPath.ToForwardSlash()
+                : config.StartupLocation.ToForwardSlash();
         }
 
         public string RootPath { get; }

@@ -1,7 +1,6 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
-using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 using TMPro;
 using UnityEngine;
@@ -36,11 +35,6 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Views
         {
             _button.onClick.RemoveListener(ExecuteAction);
             _action = null;
-        }
-
-        protected override ViewModel GetViewModel()
-        {
-            return _action;
         }
 
         private void ExecuteAction()

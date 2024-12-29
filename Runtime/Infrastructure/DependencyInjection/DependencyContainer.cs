@@ -60,7 +60,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection
         {
             foreach (var (resolveType, instance) in _resolvedDependencies.ToArray().AsSpan())
             {
-                if (!_objectResolver.IsPrefab(resolveType))
+                if (!_objectResolver.IsMono(resolveType))
                 {
                     continue;
                 }

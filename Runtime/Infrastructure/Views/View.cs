@@ -1,5 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
@@ -20,12 +19,5 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
 
         protected abstract void OnInitializing(TMP_FontAsset font);
         public abstract void Release();
-
-        public bool IsBindTo(ViewModel viewModel)
-        {
-            return ReferenceEquals(GetViewModel(), viewModel);
-        }
-
-        protected abstract ViewModel GetViewModel();
     }
 }

@@ -26,7 +26,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.ViewModels
 
         public void UpdatePathParts(string path)
         {
-            var resultPath = path.PathSlash();
+            var resultPath = path.ToForwardSlash();
             Path.SetValueNotify(resultPath);
             UpdatePathPartsPrivate(resultPath);
         }
@@ -43,7 +43,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.ViewModels
 
         public string GetParentPath()
         {
-            return Directory.GetParent(Path)!.FullName.PathSlash();
+            return Directory.GetParent(Path)!.FullName.ToForwardSlash();
         }
 
         public void Clear()

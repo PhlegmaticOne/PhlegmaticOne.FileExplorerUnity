@@ -12,7 +12,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
     {
         [SerializeField] private RectTransform _viewsParent;
 
-        private readonly List<ViewContainer<TView>> _views = new();
+        private readonly Dictionary<TViewModel, ViewContainer<TView>> _views = new();
         
         private IViewProvider _viewProvider;
         
@@ -60,7 +60,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
             {
                 var view = CreateView(_viewProvider, viewModel);
                 view.View.transform.SetParent(_viewsParent, false);
-                _views.Add(view);
+                _views.Add(viewModel, view);
             }
         }
 
@@ -68,9 +68,9 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
         {
             foreach (var viewModel in viewModels)
             {
-                var view = _views.Find(x => x.View.IsBindTo(viewModel));
+                var view = _views[viewModel];
                 view.Release();
-                _views.Remove(view);
+                _views.Remove(viewModel);
             }
         }
 
@@ -78,7 +78,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
         {
             foreach (var view in _views)
             {
-                view.Release();
+                view.Value.Release();
             }
             
             _views.Clear();

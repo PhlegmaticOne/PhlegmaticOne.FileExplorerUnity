@@ -23,10 +23,10 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Policies
 
         public IResolvePolicy GetResolver(Type type)
         {
-            return IsPrefab(type) ? _resolvePolicyPrefab : _resolvePolicyDefaultClass;
+            return IsMono(type) ? _resolvePolicyPrefab : _resolvePolicyDefaultClass;
         }
 
-        public bool IsPrefab(Type type)
+        public bool IsMono(Type type)
         {
             return type.IsSubclassOf(typeof(MonoBehaviour));
         }

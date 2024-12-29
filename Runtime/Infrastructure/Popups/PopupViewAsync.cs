@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
 {
@@ -23,11 +22,6 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
         {
             PopupViewModel.Discard();
             Close();
-        }
-
-        protected override ViewModel GetViewModel()
-        {
-            return PopupViewModel;
         }
 
         protected void Close()

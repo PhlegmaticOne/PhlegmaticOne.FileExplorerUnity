@@ -1,6 +1,5 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Path.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
-using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 using TMPro;
 using UnityEngine;
@@ -33,11 +32,6 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Views
             _viewModel.Part.ValueChanged -= UpdatePart;
             _viewModel.IsCurrent.ValueChanged -= UpdateNextMarkActive;
             _button.onClick.RemoveListener(Navigate);
-        }
-
-        protected override ViewModel GetViewModel()
-        {
-            return _viewModel;
         }
 
         private void Subscribe()

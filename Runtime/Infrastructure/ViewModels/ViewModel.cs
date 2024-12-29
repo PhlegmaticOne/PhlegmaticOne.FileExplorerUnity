@@ -1,7 +1,4 @@
 ﻿namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels
 {
-    internal abstract class ViewModel
-    {
-        
-    }
+    internal abstract class ViewModel { }
 }

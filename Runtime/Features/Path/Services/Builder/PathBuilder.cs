@@ -34,7 +34,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Services
                 pathParts[i] = _pathViewModel.PathParts[i].Part;
             }
 
-            return System.IO.Path.Combine(pathParts).PathSlash();
+            return System.IO.Path.Combine(pathParts).ToForwardSlash();
         }
     }
 }
