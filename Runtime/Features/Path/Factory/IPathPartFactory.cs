@@ -1,6 +1,6 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Path.ViewModels;
 
-namespace PhlegmaticOne.FileExplorer.Features.Path.Services
+namespace PhlegmaticOne.FileExplorer.Features.Path.Factory
 {
     internal interface IPathPartFactory
     {

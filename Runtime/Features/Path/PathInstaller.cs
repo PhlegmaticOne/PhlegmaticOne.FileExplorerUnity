@@ -1,4 +1,5 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Path.Services;
+﻿using PhlegmaticOne.FileExplorer.Features.Path.Factory;
+using PhlegmaticOne.FileExplorer.Features.Path.Services;
 using PhlegmaticOne.FileExplorer.Features.Path.Services.Root;
 using PhlegmaticOne.FileExplorer.Features.Path.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Path.Views;
@@ -18,6 +19,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Path
         {
             container.RegisterInstance(_pathView);
             container.RegisterInstance(_viewCollection);
+            
             container.RegisterPrefab(_pathPartViewPrefab);
             
             container.Register<IPathPartFactory, PathPartFactory>();

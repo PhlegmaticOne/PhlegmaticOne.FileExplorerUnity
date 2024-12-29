@@ -8,13 +8,13 @@ using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
 {
-    internal sealed class FileEntryActionDeleteSelection : ActionViewModel
+    internal sealed class ActionDeleteSelection : ActionViewModel
     {
         private readonly SelectionViewModel _selectionViewModel;
         private readonly TabViewModel _tabViewModel;
         private readonly SearchViewModel _searchViewModel;
 
-        public FileEntryActionDeleteSelection(
+        public ActionDeleteSelection(
             SelectionViewModel selectionViewModel,
             TabViewModel tabViewModel,
             ActionsViewModel actionsViewModel,
@@ -32,19 +32,14 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
         protected override Task<bool> ExecuteAction()
         {
             var selection = _selectionViewModel.GetSelection();
-            
-            foreach (var fileEntry in selection)
-            {
-                fileEntry.Delete();
-            }
-            
-            RemoveFilesFromTab(selection);
+            DeleteSelectedEntries(selection);
+            RemoveEntriesFromTab(selection);
             _selectionViewModel.Clear();
             _searchViewModel.Research();
             return Task.FromResult(true);
         }
 
-        private void RemoveFilesFromTab(IEnumerable<FileEntryViewModel> selection)
+        private void RemoveEntriesFromTab(IEnumerable<FileEntryViewModel> selection)
         {
             if (_selectionViewModel.IsAllSelected)
             {
@@ -53,6 +48,14 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
             else
             {
                 _tabViewModel.RemoveRange(selection);
+            }
+        }
+
+        private static void DeleteSelectedEntries(IEnumerable<FileEntryViewModel> selection)
+        {
+            foreach (var fileEntry in selection)
+            {
+                fileEntry.Delete();
             }
         }
     }

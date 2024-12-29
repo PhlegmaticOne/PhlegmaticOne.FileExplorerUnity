@@ -20,7 +20,6 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions
         public override void Install(IDependencyContainer container)
         {
             container.RegisterInstance(_actionsView);
-            
             container.RegisterInstance(_containersData);
             container.RegisterInstance(_actionDropdown);
             

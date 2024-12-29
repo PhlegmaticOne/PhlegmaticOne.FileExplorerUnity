@@ -1,7 +1,7 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Path.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 
-namespace PhlegmaticOne.FileExplorer.Features.Path.Services
+namespace PhlegmaticOne.FileExplorer.Features.Path.Factory
 {
     internal sealed class PathPartFactory : IPathPartFactory
     {

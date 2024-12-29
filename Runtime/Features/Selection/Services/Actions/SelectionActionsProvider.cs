@@ -32,12 +32,12 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Services
 
             if (!viewModel.IsAllSelected && _searchViewModel.FoundEntriesCount != 0)
             {
-                result.Add(_container.Instantiate<FileEntryActionSelectAll>());
+                result.Add(_container.Instantiate<ActionSelectAll>());
             }
 
             if (viewModel.IsAnySelected())
             {
-                result.Add(_container.Instantiate<FileEntryActionClearSelection>());
+                result.Add(_container.Instantiate<ActionClearSelection>());
             }
 
             if (viewModel.TryGetSingleSelection(out var fileEntry))
@@ -46,8 +46,8 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Services
             }
             else if(viewModel.IsAnySelected())
             {
-                result.Add(_container.Instantiate<FileEntryActionSelectionProperties>());
-                result.Add(_container.Instantiate<FileEntryActionDeleteSelection>());
+                result.Add(_container.Instantiate<ActionSelectionProperties>());
+                result.Add(_container.Instantiate<ActionDeleteSelection>());
             }
 
             return result;

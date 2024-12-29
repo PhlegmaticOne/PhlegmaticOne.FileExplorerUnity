@@ -1,26 +1,26 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties;
-using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties.Core;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties.Views;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
+using PhlegmaticOne.FileExplorer.Features.Selection.Services;
 using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
 {
-    internal sealed class FileEntryActionSelectionProperties : ActionViewModel
+    internal sealed class ActionSelectionProperties : ActionViewModel
     {
         private readonly IPopupProvider _popupProvider;
-        private readonly SelectionViewModel _selectionViewModel;
+        private readonly ISelectionPropertiesProvider _selectionPropertiesProvider;
 
-        public FileEntryActionSelectionProperties(
+        public ActionSelectionProperties(
             IPopupProvider popupProvider,
-            SelectionViewModel selectionViewModel,
+            ISelectionPropertiesProvider selectionPropertiesProvider,
             ActionsViewModel actionsViewModel) : base(actionsViewModel)
         {
             _popupProvider = popupProvider;
-            _selectionViewModel = selectionViewModel;
+            _selectionPropertiesProvider = selectionPropertiesProvider;
         }
 
         public override string Description => "Properties";
@@ -29,10 +29,12 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
         
         protected override async Task<bool> ExecuteAction()
         {
+            var selectionProperties = _selectionPropertiesProvider.GetSelectionProperties();
+            
             var properties = new Dictionary<string, string>
             {
-                { "Selection", GetSelectionView() },
-                { "Size", GetMergedSizeView() }
+                { "Selection", GetSelectionView(selectionProperties.EntriesCounter) },
+                { "Size", selectionProperties.SelectionSize.BuildUnitView() }
             };
             
             var propertiesViewModel = new PropertiesPopupViewModel(properties);
@@ -40,22 +42,8 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
             return true;
         }
 
-        private string GetMergedSizeView()
+        private string GetSelectionView(FileEntriesCounter count)
         {
-            var size = FileSize.Zero;
-
-            foreach (var fileEntry in _selectionViewModel.GetSelection())
-            {
-                var properties = fileEntry.GetProperties();
-                size.Merge(properties.Size);
-            }
-
-            return size.BuildUnitView();
-        }
-
-        private string GetSelectionView()
-        {
-            var count = _selectionViewModel.SelectedEntriesCount.Value;
             return $"Files: {count.FilesCount}, Directories: {count.DirectoriesCount}";
         }
     }

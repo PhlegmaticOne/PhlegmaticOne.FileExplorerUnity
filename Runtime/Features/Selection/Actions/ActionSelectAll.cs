@@ -4,11 +4,11 @@ using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
 {
-    internal sealed class FileEntryActionSelectAll : ActionViewModel
+    internal sealed class ActionSelectAll : ActionViewModel
     {
         private readonly SelectionViewModel _selectionViewModel;
 
-        public FileEntryActionSelectAll(
+        public ActionSelectAll(
             SelectionViewModel selectionViewModel,
             ActionsViewModel actionsViewModel) : base(actionsViewModel)
         {

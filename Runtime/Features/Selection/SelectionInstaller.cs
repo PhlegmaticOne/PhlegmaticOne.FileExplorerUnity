@@ -16,6 +16,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection
             container.RegisterInstance(_selectionHeaderView);
             
             container.Register<ISelectionActionsProvider, SelectionActionsProvider>();
+            container.Register<ISelectionPropertiesProvider, SelectionPropertiesProvider>();
             
             container.RegisterInterfacesAndSelf<SelectionViewModel>();
         }
