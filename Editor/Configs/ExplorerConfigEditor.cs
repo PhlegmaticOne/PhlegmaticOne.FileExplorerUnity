@@ -6,7 +6,7 @@ using Application = UnityEngine.Device.Application;
 namespace PhlegmaticOne.FileExplorer.Editor.Configs
 {
     [CustomEditor(typeof(ExplorerConfigScriptable))]
-    internal sealed class ExplorerConfigPathPropertyDrawer : UnityEditor.Editor
+    internal sealed class ExplorerConfigEditor : UnityEditor.Editor
     {
         private ExplorerConfigScriptable _target;
         
