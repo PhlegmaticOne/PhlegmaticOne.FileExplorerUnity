@@ -1,19 +1,19 @@
-﻿using PhlegmaticOne.FileExplorer.ExplorerCore.States;
+﻿using PhlegmaticOne.FileExplorer.States;
 
 namespace PhlegmaticOne.FileExplorer
 {
     internal sealed class ExplorerEntryPoint
     {
-        private readonly IExplorerStateProvider _stateProvider;
+        private readonly IExplorerStates _states;
 
-        public ExplorerEntryPoint(IExplorerStateProvider stateProvider)
+        public ExplorerEntryPoint(IExplorerStates states)
         {
-            _stateProvider = stateProvider;
+            _states = states;
         }
 
         public void Start()
         {
-            _stateProvider.Show();
+            _states.Open();
         }
     }
 }
