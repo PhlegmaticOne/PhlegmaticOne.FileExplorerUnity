@@ -1,5 +1,4 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.Views.Texts

@@ -1,7 +1,6 @@
 ﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 

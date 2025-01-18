@@ -1,5 +1,5 @@
 ﻿using PhlegmaticOne.FileExplorer.Configuration;
-using TMPro;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Texts;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Services.StaticView
@@ -20,8 +20,7 @@ namespace PhlegmaticOne.FileExplorer.Services.StaticView
         public void Setup()
         {
             SetupCanvas();
-            SetFontToTexts();
-            SetFontToInputs();
+            SetupFont();
         }
         
         private void SetupCanvas()
@@ -31,25 +30,12 @@ namespace PhlegmaticOne.FileExplorer.Services.StaticView
             _canvas.sortingOrder = _explorerConfig.View.SortingOrder;
         }
 
-        private void SetFontToInputs()
+        private void SetupFont()
         {
-            foreach (var inputField in Objects<TMP_InputField>())
+            foreach (var textComponent in FindTexts.Find())
             {
-                inputField.fontAsset = _explorerConfig.View.FontAsset;
+                textComponent.SetFont(_explorerConfig.View.FontAsset);
             }
-        }
-
-        private void SetFontToTexts()
-        {
-            foreach (var textMeshPro in Objects<TextMeshProUGUI>())
-            {
-                textMeshPro.font = _explorerConfig.View.FontAsset;
-            }
-        }
-
-        private T[] Objects<T>() where T : Object
-        {
-            return Object.FindObjectsByType<T>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         }
     }
 }
