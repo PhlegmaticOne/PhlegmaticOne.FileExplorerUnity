@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6043522942531791419}
   - component: {fileID: 2321368177841893611}
   - component: {fileID: 4015480884388025108}
+  - component: {fileID: 3772622754531098935}
   m_Layer: 5
   m_Name: Description
   m_TagString: Untagged
@@ -134,6 +135,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3772622754531098935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688884680188341611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44916e375de74217959535bf2c2f9982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 4015480884388025108}
 --- !u!1 &2965027574367943026
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,6 +279,7 @@ GameObject:
   - component: {fileID: 4834327858868155643}
   - component: {fileID: 6797455500314432913}
   - component: {fileID: 886281812561620057}
+  - component: {fileID: 3458749371087527142}
   m_Layer: 5
   m_Name: ErrorName
   m_TagString: Untagged
@@ -388,6 +403,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3458749371087527142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6009434619890381433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44916e375de74217959535bf2c2f9982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 886281812561620057}
 --- !u!1 &7276218314367990201
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,6 +484,7 @@ GameObject:
   - component: {fileID: 8957778274103941445}
   - component: {fileID: 7881197508875091347}
   - component: {fileID: 2231334407207555363}
+  - component: {fileID: 1004598701690779742}
   m_Layer: 5
   m_Name: ErrorMessage
   m_TagString: Untagged
@@ -579,6 +608,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1004598701690779742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7524446430008318872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44916e375de74217959535bf2c2f9982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 2231334407207555363}
 --- !u!1 &7804478579096244329
 GameObject:
   m_ObjectHideFlags: 0

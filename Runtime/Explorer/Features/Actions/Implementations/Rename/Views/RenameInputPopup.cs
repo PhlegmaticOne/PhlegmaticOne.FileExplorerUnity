@@ -13,9 +13,8 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Rename.Vie
         [SerializeField] private Button _acceptButton;
         [SerializeField] private Button _discardButton;
 
-        protected override void OnInitializing(TMP_FontAsset font)
+        protected override void OnInitializing()
         {
-            _inputField.fontAsset = font;
             _inputField.onValueChanged.AddListener(UpdateOutputText);
             _discardButton.onClick.AddListener(Discard);
             _acceptButton.onClick.AddListener(Close);

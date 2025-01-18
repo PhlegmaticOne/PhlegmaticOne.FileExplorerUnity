@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2107790943453919890}
   - component: {fileID: 8031144106257506294}
   - component: {fileID: 3156039374755218272}
+  - component: {fileID: 1270082358423135498}
   m_Layer: 5
   m_Name: CenterScreenMessageText
   m_TagString: Untagged
@@ -155,6 +156,19 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1270082358423135498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193039361637861931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44916e375de74217959535bf2c2f9982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 8031144106257506294}
 --- !u!1 &196121785733671849
 GameObject:
   m_ObjectHideFlags: 0

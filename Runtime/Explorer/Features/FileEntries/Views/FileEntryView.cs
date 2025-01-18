@@ -28,7 +28,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Views
             _headerTransform = headerTransform;
         }
         
-        protected override void OnInitializing(TMP_FontAsset font)
+        protected override void OnInitializing()
         {
             UpdateFileName(_viewModel.Name);
             UpdateIcon();

@@ -12,7 +12,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions.Handl
         [SerializeField] private TextMeshProUGUI _errorDescriptionText;
         [SerializeField] private Button _closeButton;
 
-        protected override void OnInitializing(TMP_FontAsset font)
+        protected override void OnInitializing()
         {
             _closeButton.onClick.AddListener(Close);
         }

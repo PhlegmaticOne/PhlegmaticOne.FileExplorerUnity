@@ -18,7 +18,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties
             _viewModel = viewModel;
         }
 
-        protected override void OnInitializing(TMP_FontAsset font)
+        protected override void OnInitializing()
         {
             _propertyKeyText.text = _viewModel.Name;
             _propertyValueText.text = _viewModel.Value;

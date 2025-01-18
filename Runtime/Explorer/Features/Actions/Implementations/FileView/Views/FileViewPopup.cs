@@ -19,7 +19,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.V
 
         private FileViewBase _activeView;
 
-        protected override void OnInitializing(TMP_FontAsset font)
+        protected override void OnInitializing()
         {
             _closeButton.onClick.AddListener(Close);
         }
