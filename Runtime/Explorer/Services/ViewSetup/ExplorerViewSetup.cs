@@ -1,23 +1,19 @@
 ﻿using PhlegmaticOne.FileExplorer.Configuration;
-using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using TMPro;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Services.StaticView
 {
-    internal sealed class ExplorerStaticView : MonoBehaviour, IExplorerStaticView
+    internal sealed class ExplorerViewSetup : IExplorerViewSetup
     {
-        [SerializeField] private Canvas _canvas;
-        [SerializeField] private TextMeshProUGUI[] _staticTexts;
-        [SerializeField] private TMP_InputField[] _inputFields;
-        
-        private ExplorerConfig _explorerConfig;
-        private Camera _viewCamera;
+        private readonly ExplorerConfig _explorerConfig;
+        private readonly Camera _viewCamera;
+        private readonly Canvas _canvas;
 
-        [ViewInject]
-        public void Construct(ExplorerConfig explorerConfig, Camera viewCamera)
+        public ExplorerViewSetup(ExplorerConfig explorerConfig, Camera viewCamera, Canvas canvas)
         {
             _viewCamera = viewCamera;
+            _canvas = canvas;
             _explorerConfig = explorerConfig;
         }
         
@@ -37,7 +33,7 @@ namespace PhlegmaticOne.FileExplorer.Services.StaticView
 
         private void SetFontToInputs()
         {
-            foreach (var inputField in _inputFields)
+            foreach (var inputField in Objects<TMP_InputField>())
             {
                 inputField.fontAsset = _explorerConfig.View.FontAsset;
             }
@@ -45,10 +41,15 @@ namespace PhlegmaticOne.FileExplorer.Services.StaticView
 
         private void SetFontToTexts()
         {
-            foreach (var textMeshPro in _staticTexts)
+            foreach (var textMeshPro in Objects<TextMeshProUGUI>())
             {
                 textMeshPro.font = _explorerConfig.View.FontAsset;
             }
+        }
+
+        private T[] Objects<T>() where T : Object
+        {
+            return Object.FindObjectsByType<T>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace PhlegmaticOne.FileExplorer.Services.StaticView
 {
-    internal interface IExplorerStaticView
+    internal interface IExplorerViewSetup
     {
         void Setup();
     }

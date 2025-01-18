@@ -10,23 +10,23 @@ namespace PhlegmaticOne.FileExplorer.States.Commands
         private readonly IExplorerViewsProvider _viewsProvider;
         private readonly NavigationViewModel _navigationViewModel;
         private readonly ExplorerActionListeners _listeners;
-        private readonly IExplorerStaticView _staticView;
+        private readonly IExplorerViewSetup _viewSetup;
 
         public ExplorerShowCommand(
             IExplorerViewsProvider viewsProvider,
             NavigationViewModel navigationViewModel,
             ExplorerActionListeners listeners,
-            IExplorerStaticView staticView)
+            IExplorerViewSetup viewSetup)
         {
             _viewsProvider = viewsProvider;
             _navigationViewModel = navigationViewModel;
             _listeners = listeners;
-            _staticView = staticView;
+            _viewSetup = viewSetup;
         }
         
         public void Show()
         {
-            _staticView.Setup();
+            _viewSetup.Setup();
             _viewsProvider.Bind();
             _listeners.StartListen();
             _navigationViewModel.NavigateRoot();
