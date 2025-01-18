@@ -4,10 +4,16 @@ using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 using TMPro;
 
-namespace PhlegmaticOne.FileExplorer
+namespace PhlegmaticOne.FileExplorer.Infrastructure
 {
-    internal sealed class ViewProviderInstaller : MonoInstaller
+    internal sealed class ViewProviderInstaller : IInstaller
     {
+        public void Install(IDependencyContainer container)
+        {
+            container.Register<IViewProvider, ViewProvider>();
+            container.Register<IViewProviderSettings, ViewProviderSettings>();
+        }
+
         private class ViewProviderSettings : IViewProviderSettings
         {
             private readonly ExplorerConfig _explorerConfig;
@@ -18,12 +24,6 @@ namespace PhlegmaticOne.FileExplorer
             }
 
             public TMP_FontAsset FontAsset => _explorerConfig.View.FontAsset;
-        }
-        
-        public override void Install(IDependencyContainer container)
-        {
-            container.Register<IViewProvider, ViewProvider>();
-            container.Register<IViewProviderSettings, ViewProviderSettings>();
         }
     }
 }

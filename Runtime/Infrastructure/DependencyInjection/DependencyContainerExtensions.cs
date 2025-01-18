@@ -1,4 +1,5 @@
 ﻿using System;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection
 {
@@ -62,6 +63,12 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection
         public static T Instantiate<T>(this IDependencyContainer container, params object[] parameters) where T : class
         {
             return (T)container.Instantiate(typeof(T), parameters);
+        }
+
+        public static void InstallFrom<T>(this IDependencyContainer container) where T : IInstaller, new()
+        {
+            var installer = new T();
+            installer.Install(container);
         }
     }
 }

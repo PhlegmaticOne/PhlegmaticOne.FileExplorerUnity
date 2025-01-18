@@ -4,7 +4,7 @@ using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer
+namespace PhlegmaticOne.FileExplorer.Infrastructure
 {
     internal sealed class PopupProviderInstaller : MonoInstaller
     {
