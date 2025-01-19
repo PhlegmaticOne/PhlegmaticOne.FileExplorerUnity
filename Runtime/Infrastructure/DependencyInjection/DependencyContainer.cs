@@ -120,8 +120,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection
                 var parameter = injectParameters[i];
 
                 if (parameters.Count > 0 && p < parameters.Count &&
-                    (parameters[p].GetType() == parameter.ParameterType || 
-                     parameters[p].GetType().IsSubclassOf(parameter.ParameterType)))
+                    parameter.ParameterType.IsInstanceOfType(parameters[p]))
                 {
                     result[i] = parameters[p++];
                 }
