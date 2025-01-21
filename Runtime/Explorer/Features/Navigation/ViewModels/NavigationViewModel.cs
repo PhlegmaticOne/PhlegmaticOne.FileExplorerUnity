@@ -120,7 +120,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.ViewModels
                 
                 batch.Add(fileEntry);
                 
-                if (batch.Count == batchCount) AddBatchToTab();
+                if (batch.Count == batchCount) AddBatchToTab(batch);
                 
                 await Task.Yield();
 
@@ -129,18 +129,18 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.ViewModels
 
             if (batch.Count > 0 && !token.IsCancellationRequested)
             {
-                AddBatchToTab();
+                AddBatchToTab(batch);
                 await Task.Yield();
             }
 
             return !token.IsCancellationRequested;
+        }
 
-            void AddBatchToTab()
-            {
-                _tabViewModel.AddRange(batch);
-                _progressSetter.AddDeltaProgress(batch.Count);
-                batch.Clear();
-            }
+        private void AddBatchToTab(ICollection<FileEntryViewModel> batch)
+        {
+            _tabViewModel.AddRange(batch);
+            _progressSetter.AddDeltaProgress(batch.Count);
+            batch.Clear();
         }
     }
 }
