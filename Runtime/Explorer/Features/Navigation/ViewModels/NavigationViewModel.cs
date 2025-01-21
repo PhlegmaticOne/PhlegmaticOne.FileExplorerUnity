@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Configuration;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
@@ -94,44 +95,45 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.ViewModels
 
         private async Task LoadTabAsync(string path)
         {
+            var token = _cancellationProvider.Token;
             IsLoading.SetValueNotify(true);
             _progressSetter.SetActive(true);
 
-            await LoadFileEntriesAsync(path);
-            
-            _progressSetter.Complete();
-            _tabViewModel.UpdateIsEmpty();
-            IsLoading.SetValueNotify(false);
-
-            await Task.Delay(100, _cancellationProvider.Token);
-            _progressSetter.SetActive(false);
+            if (await LoadFileEntriesAsync(path, token))
+            {
+                _progressSetter.Complete();
+                _tabViewModel.UpdateIsEmpty();
+                IsLoading.SetValueNotify(false);
+                await Task.Delay(100, token);
+                _progressSetter.SetActive(false);
+            }
         }
 
-        private async Task LoadFileEntriesAsync(string path)
+        private async Task<bool> LoadFileEntriesAsync(string path, CancellationToken token)
         {
             var batchCount = _config.View.AddFileEntriesBatchCount;
             var batch = new List<FileEntryViewModel>(batchCount);
-            var token = _cancellationProvider.Token;
             
-            await foreach (var fileEntry in _navigator.Navigate(path).WithCancellation(token))
+            await foreach (var fileEntry in _navigator.Navigate(path, token))
             {
+                if (token.IsCancellationRequested) break;
+                
                 batch.Add(fileEntry);
-
-                if (batch.Count == batchCount)
-                {
-                    AddBatchToTab();
-                }
+                
+                if (batch.Count == batchCount) AddBatchToTab();
                 
                 await Task.Yield();
+
+                if (token.IsCancellationRequested) break;
             }
 
-            if (batch.Count > 0)
+            if (batch.Count > 0 && !token.IsCancellationRequested)
             {
                 AddBatchToTab();
                 await Task.Yield();
             }
 
-            return;
+            return !token.IsCancellationRequested;
 
             void AddBatchToTab()
             {

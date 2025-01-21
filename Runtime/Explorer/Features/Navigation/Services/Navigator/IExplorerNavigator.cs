@@ -6,7 +6,6 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.Services
 {
     internal interface IExplorerNavigator
     {
-        IAsyncEnumerable<FileEntryViewModel> Navigate(
-            string path, CancellationToken cancellationToken = default);
+        IAsyncEnumerable<FileEntryViewModel> Navigate(string path, CancellationToken cancellationToken);
     }
 }
