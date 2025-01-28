@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
+using Debug = UnityEngine.Debug;
+using Object = UnityEngine.Object;
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.Extensions
 {
@@ -24,11 +27,15 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Extensions
             }
         }
         
-        public static async Task<byte[]> LoadContentAsync(this UnityWebRequest request, CancellationToken cancellationToken)
+        public static async Task<byte[]> LoadContentAsync(
+            this UnityWebRequest request, float timeout, CancellationToken cancellationToken)
         {
+            var timeoutTimer = Stopwatch.StartNew();
+            var timeoutSpan = TimeSpan.FromSeconds(timeout);
+            
             request.SendWebRequest();
             
-            while (!request.isDone)
+            while (!request.isDone && timeoutTimer.Elapsed < timeoutSpan)
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 await Task.Yield();
@@ -39,8 +46,23 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Extensions
                 : Array.Empty<byte>();
             
             request.Dispose();
+            timeoutTimer.Stop();
 
             return result;
+        }
+
+        public static async Task<T> LoadFromResourcesAsync<T>(
+            string path, CancellationToken cancellationToken) where T : Object
+        {
+            var operation = Resources.LoadAsync<T>(path);
+
+            while (!operation.isDone)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                await Task.Yield();
+            }
+
+            return (T)operation.asset;
         }
     }
 }

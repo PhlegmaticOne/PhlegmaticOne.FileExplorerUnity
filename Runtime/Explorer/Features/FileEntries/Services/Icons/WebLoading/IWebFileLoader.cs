@@ -5,6 +5,6 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.WebLoad
 {
     internal interface IWebFileLoader
     {
-        Task<WebLoadResult<byte[]>> LoadAsync(string url, CancellationToken cancellationToken);
+        Task<WebLoadResult<byte[]>> LoadAsync(string url, float timeout, CancellationToken cancellationToken);
     }
 }

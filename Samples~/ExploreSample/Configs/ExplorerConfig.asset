@@ -15,8 +15,12 @@ MonoBehaviour:
   _value:
     _startupLocation: 
     _icons:
+      _iconsLoadType: 3
       _iconsWebDirectoryUrl: https://static.openmygame.com/word_spells/test/krotov_test/Icons/
-      _isPreviewImagesInsteadOfIcons: 0
+      _webLoadTimeout: 1
+      _inBuildData:
+        _directoryIconPath: Sprites/directory
+        _fileIconPath: Sprites/none
     _extensions:
       _textExtensions:
       - .txt

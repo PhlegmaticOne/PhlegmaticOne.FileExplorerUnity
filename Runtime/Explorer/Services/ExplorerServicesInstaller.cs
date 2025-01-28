@@ -1,5 +1,6 @@
 ﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
+using PhlegmaticOne.FileExplorer.Infrastructure.Internet;
 using PhlegmaticOne.FileExplorer.Services.Cancellation;
 using PhlegmaticOne.FileExplorer.Services.Destroying;
 using PhlegmaticOne.FileExplorer.Services.Disposing;
@@ -22,6 +23,7 @@ namespace PhlegmaticOne.FileExplorer.Services
             container.Register<IExplorerViewsProvider, ExplorerViewsProvider>();
             container.Register<IExplorerViewModelDisposer, ExplorerViewModelDisposer>();
             container.Register<IExplorerViewSetup, ExplorerViewSetup>();
+            container.Register<IInternetProvider, InternetProvider>();
             container.RegisterInstance(new ExplorerDestroyer(_rootObject));
         }
     }

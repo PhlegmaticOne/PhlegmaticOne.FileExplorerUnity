@@ -25,7 +25,8 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Service
             _explorerIcons = new Dictionary<string, Sprite>();
         }
 
-        public bool IsPreviewImagesInsteadOfIcons => _explorerConfig.Icons.IsPreviewImagesInsteadOfIcons;
+        public bool IsPreviewImagesInsteadOfIcons => 
+            _explorerConfig.Icons.IconsLoadType == ExplorerIconsLoadType.PreviewImagesInsteadOnIcons;
 
         public async Task<Sprite> GetIconAsync(string fileExtension, CancellationToken cancellationToken)
         {

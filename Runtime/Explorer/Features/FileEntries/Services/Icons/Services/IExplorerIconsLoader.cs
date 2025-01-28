@@ -7,6 +7,6 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Service
 {
     internal interface IExplorerIconsLoader
     {
-        Task<Sprite> LoadIconAsync(string fileExtension, ExplorerIconsConfig config, CancellationToken cancellationToken);
+        Task<Sprite> LoadIconAsync(string extension, ExplorerIconsConfig config, CancellationToken cancellationToken);
     }
 }

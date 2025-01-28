@@ -8,19 +8,30 @@ namespace PhlegmaticOne.FileExplorer.Configuration
     {
         private const string DefaultUrl = "https://static.openmygame.com/word_spells/test/krotov_test/Icons/";
         
+        [SerializeField] 
+        private ExplorerIconsLoadType _iconsLoadType;
+        
+        [Header("Settings for loading file icons from server")]
         [SerializeField] private string _iconsWebDirectoryUrl;
-        [SerializeField] private bool _isPreviewImagesInsteadOfIcons;
+        [SerializeField, Range(0, 10)] private float _webLoadTimeout;
+        
+        [SerializeField, HideInInspector] 
+        private ExplorerIconsInBuildData _inBuildData;
 
         internal static ExplorerIconsConfig Default => new()
         {
             _iconsWebDirectoryUrl = DefaultUrl,
-            _isPreviewImagesInsteadOfIcons = false
+            _iconsLoadType = ExplorerIconsLoadType.UseInBuildIconsAlways,
+            _webLoadTimeout = 1,
+            _inBuildData = new ExplorerIconsInBuildData(
+                directoryIconPath: "Sprites/directory",
+                fileIconPath: "Sprites/none")
         };
 
-        public bool IsPreviewImagesInsteadOfIcons
+        public ExplorerIconsLoadType IconsLoadType
         {
-            get => _isPreviewImagesInsteadOfIcons;
-            set => _isPreviewImagesInsteadOfIcons = value;
+            get => _iconsLoadType;
+            set => _iconsLoadType = value;
         }
 
         public string IconsWebDirectoryUrl
@@ -28,5 +39,40 @@ namespace PhlegmaticOne.FileExplorer.Configuration
             get => _iconsWebDirectoryUrl;
             set => _iconsWebDirectoryUrl = value;
         }
+
+        public float WebLoadTimeout
+        {
+            get => _webLoadTimeout;
+            set => _webLoadTimeout = value;
+        }
+
+        public ExplorerIconsInBuildData InBuildData
+        {
+            get => _inBuildData;
+            set => _inBuildData = value;
+        }
+    }
+
+    public enum ExplorerIconsLoadType
+    {
+        UseInBuildIconsAlways = 1,
+        PreviewImagesInsteadOnIcons = 2,
+        LoadFromServerWithLocalIconsFallback = 3
+    }
+
+    [Serializable]
+    public sealed class ExplorerIconsInBuildData
+    {
+        [SerializeField] private string _directoryIconPath;
+        [SerializeField] private string _fileIconPath;
+
+        public ExplorerIconsInBuildData(string directoryIconPath, string fileIconPath)
+        {
+            _directoryIconPath = directoryIconPath;
+            _fileIconPath = fileIconPath;
+        }
+
+        public string DirectoryIconPath => _directoryIconPath;
+        public string FileIconPath => _fileIconPath;
     }
 }
