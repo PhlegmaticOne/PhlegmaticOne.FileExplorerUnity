@@ -1,9 +1,9 @@
 ﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
-using PhlegmaticOne.FileExplorer.Infrastructure.Internet;
 using PhlegmaticOne.FileExplorer.Services.Cancellation;
 using PhlegmaticOne.FileExplorer.Services.Destroying;
 using PhlegmaticOne.FileExplorer.Services.Disposing;
+using PhlegmaticOne.FileExplorer.Services.Internet;
 using PhlegmaticOne.FileExplorer.Services.StaticView;
 using PhlegmaticOne.FileExplorer.Services.Views;
 using UnityEngine;

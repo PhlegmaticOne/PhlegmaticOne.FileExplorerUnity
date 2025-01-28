@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Configuration;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.WebLoading;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
-using PhlegmaticOne.FileExplorer.Infrastructure.Internet;
+using PhlegmaticOne.FileExplorer.Services.Internet;
 using UnityEngine;
 using TaskExtensions = PhlegmaticOne.FileExplorer.Infrastructure.Extensions.TaskExtensions;
 

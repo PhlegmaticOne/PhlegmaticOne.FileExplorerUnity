@@ -1,4 +1,4 @@
-﻿namespace PhlegmaticOne.FileExplorer.Infrastructure.Internet
+﻿namespace PhlegmaticOne.FileExplorer.Services.Internet
 {
     internal interface IInternetProvider
     {

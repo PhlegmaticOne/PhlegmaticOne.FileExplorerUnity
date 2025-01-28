@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Infrastructure.Internet
+namespace PhlegmaticOne.FileExplorer.Services.Internet
 {
     internal sealed class InternetProvider : IInternetProvider
     {
