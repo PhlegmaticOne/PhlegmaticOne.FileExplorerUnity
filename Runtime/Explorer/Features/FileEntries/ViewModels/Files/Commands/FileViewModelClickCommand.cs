@@ -1,9 +1,7 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Actions;
 using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
-using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
-using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Commands
 {
@@ -11,16 +9,16 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Comma
     {
         private readonly SelectionViewModel _selectionViewModel;
         private readonly IFileEntryActionsProvider _actionsProvider;
-        private readonly IDependencyContainer _container;
+        private readonly IFileConfidentActionProvider _confidentActionProvider;
 
         public FileViewModelClickCommand(
             SelectionViewModel selectionViewModel,
             IFileEntryActionsProvider actionsProvider,
-            IDependencyContainer container)
+            IFileConfidentActionProvider confidentActionProvider)
         {
             _selectionViewModel = selectionViewModel;
             _actionsProvider = actionsProvider;
-            _container = container;
+            _confidentActionProvider = confidentActionProvider;
         }
         
         public void OnClick(FileViewModel fileViewModel)
@@ -31,12 +29,9 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Comma
                 return;
             }
 
-            if (fileViewModel.Extension.IsViewable(out var viewType))
+            if (_confidentActionProvider.TryGetConfidentAction(fileViewModel, out var action))
             {
-                _container
-                    .Instantiate<FileEntryActionViewFile>(fileViewModel, viewType, Color.clear)
-                    .Execute()
-                    .ForgetUnawareCancellation();
+                action.Execute().ForgetUnawareCancellation();
                 return;
             }
             

@@ -58,7 +58,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.V
 
         private void SetupSlider(FileViewBase fileView)
         {
-            _slider.gameObject.SetActive(true);
+            _slider.gameObject.SetActive(fileView.HasResizeSlider);
             _slider.minValue = fileView.MinSliderValue;
             _slider.maxValue = fileView.MaxSliderValue;
             _slider.wholeNumbers = fileView.UseIntegerSliderValues;

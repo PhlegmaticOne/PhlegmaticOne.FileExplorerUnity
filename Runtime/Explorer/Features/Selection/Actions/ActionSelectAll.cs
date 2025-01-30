@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
+using PhlegmaticOne.FileExplorer.Services.Cancellation;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
 {
@@ -10,7 +12,8 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
 
         public ActionSelectAll(
             SelectionViewModel selectionViewModel,
-            ActionsViewModel actionsViewModel) : base(actionsViewModel)
+            IExplorerCancellationProvider cancellationProvider,
+            ActionsViewModel actionsViewModel) : base(actionsViewModel, cancellationProvider)
         {
             _selectionViewModel = selectionViewModel;
         }
@@ -19,10 +22,10 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
         
         public override ActionColor Color => ActionColor.Auto;
 
-        protected override Task<bool> ExecuteAction()
+        protected override Task ExecuteAction(CancellationToken token)
         {
             _selectionViewModel.SelectAll();
-            return Task.FromResult(true);
+            return Task.CompletedTask;
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using PhlegmaticOne.FileExplorer.Configuration;
+﻿using PhlegmaticOne.FileExplorer.Configuration;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Extensions.Services
 {
@@ -14,12 +13,17 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Exten
         
         public bool IsText(string extension)
         {
-            return _explorerConfig.Extensions.TextExtensions.Contains(extension);
+            return _explorerConfig.Extensions.IsText(extension);
         }
 
         public bool IsImage(string extension)
         {
-            return _explorerConfig.Extensions.ImageExtensions.Contains(extension);
+            return _explorerConfig.Extensions.IsImage(extension);
+        }
+
+        public bool IsAudio(string extension)
+        {
+            return _explorerConfig.Extensions.IsAudio(extension);
         }
     }
 }

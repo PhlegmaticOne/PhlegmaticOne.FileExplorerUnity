@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties.Views;
@@ -6,6 +7,7 @@ using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
 using PhlegmaticOne.FileExplorer.Features.Selection.Services;
 using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
+using PhlegmaticOne.FileExplorer.Services.Cancellation;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
 {
@@ -17,7 +19,8 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
         public ActionSelectionProperties(
             IPopupProvider popupProvider,
             ISelectionPropertiesProvider selectionPropertiesProvider,
-            ActionsViewModel actionsViewModel) : base(actionsViewModel)
+            IExplorerCancellationProvider cancellationProvider,
+            ActionsViewModel actionsViewModel) : base(actionsViewModel, cancellationProvider)
         {
             _popupProvider = popupProvider;
             _selectionPropertiesProvider = selectionPropertiesProvider;
@@ -27,7 +30,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
         
         public override ActionColor Color => ActionColor.Auto;
         
-        protected override async Task<bool> ExecuteAction()
+        protected override async Task ExecuteAction(CancellationToken token)
         {
             var selectionProperties = _selectionPropertiesProvider.GetSelectionProperties();
             
@@ -39,7 +42,6 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
             
             var propertiesViewModel = new PropertiesPopupViewModel(properties);
             await _popupProvider.Show<PropertiesPopup, PropertiesPopupViewModel>(propertiesViewModel);
-            return true;
         }
 
         private string GetSelectionView(FileEntriesCounter count)

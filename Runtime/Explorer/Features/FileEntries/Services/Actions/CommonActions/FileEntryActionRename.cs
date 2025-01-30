@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Rename.Services;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions.Handlers;
+using PhlegmaticOne.FileExplorer.Services.Cancellation;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Actions
 {
@@ -13,9 +15,10 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Acti
         public FileEntryActionRename(
             FileEntryViewModel fileEntry, 
             ActionsViewModel actionsViewModel,
+            IExplorerCancellationProvider cancellationProvider,
             IFileEntryActionExecuteHandler executeHandler,
             IFileRenameDataProvider renameDataProvider) : 
-            base(fileEntry, actionsViewModel, executeHandler)
+            base(fileEntry, actionsViewModel, cancellationProvider, executeHandler)
         {
             _renameDataProvider = renameDataProvider;
         }
@@ -24,7 +27,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Acti
 
         public override ActionColor Color => ActionColor.Auto;
         
-        protected override async Task<bool> ExecuteAction(FileEntryViewModel fileEntry)
+        protected override async Task ExecuteAction(FileEntryViewModel fileEntry, CancellationToken token)
         {
             var renameData = await _renameDataProvider.GetRenameData(fileEntry);
 
@@ -32,8 +35,6 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Acti
             {
                 fileEntry.Rename(renameData.NewName);
             }
-
-            return renameData.WillRename;
         }
     }
 }

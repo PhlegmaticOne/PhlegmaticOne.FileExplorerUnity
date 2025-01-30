@@ -9,16 +9,19 @@ namespace PhlegmaticOne.FileExplorer.Configuration
     {
         [SerializeField] private List<string> _textExtensions;
         [SerializeField] private List<string> _imageExtensions;
+        [SerializeField] private List<ExplorerAudioExtensionData> _audioExtensions;
 
         public static ExplorerExtensionsConfig Default => new()
         {
             _textExtensions = new List<string> { ".txt", ".json", ".xml" },
-            _imageExtensions = new List<string> { ".jpg", ".png" }
+            _imageExtensions = new List<string> { ".jpg", ".png" },
+            _audioExtensions = new List<ExplorerAudioExtensionData>
+            {
+                new(".ogg", AudioType.OGGVORBIS),
+                new(".wav", AudioType.WAV)
+            }
         };
 
-        public IReadOnlyList<string> TextExtensions => _textExtensions;
-        public IReadOnlyList<string> ImageExtensions => _imageExtensions;
-        
         public void AddTextExtension(string extension)
         {
             _textExtensions.Add(extension);
@@ -28,5 +31,36 @@ namespace PhlegmaticOne.FileExplorer.Configuration
         {
             _imageExtensions.Add(extension);
         }
+
+        public bool IsImage(string extension)
+        {
+            return _imageExtensions.Contains(extension);
+        }
+
+        public bool IsText(string extension)
+        {
+            return _textExtensions.Contains(extension);
+        }
+        
+        public bool IsAudio(string extension)
+        {
+            return _audioExtensions.Exists(x => x.Extension.Equals(extension, StringComparison.OrdinalIgnoreCase));
+        }
+    }
+
+    [Serializable]
+    public class ExplorerAudioExtensionData
+    {
+        [SerializeField] private string _extension;
+        [SerializeField] private AudioType _audioType;
+
+        public ExplorerAudioExtensionData(string extension, AudioType audioType)
+        {
+            _extension = extension;
+            _audioType = audioType;
+        }
+
+        public string Extension => _extension;
+        public AudioType AudioType => _audioType;
     }
 }

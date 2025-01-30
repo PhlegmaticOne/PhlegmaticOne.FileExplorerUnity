@@ -36,6 +36,11 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Exten
             return _fileExtensions.IsImage(Value);
         }
 
+        public bool IsAudio()
+        {
+            return _fileExtensions.IsAudio(Value);
+        }
+
         private FileViewType GetFileViewType()
         {
             if (IsText())
@@ -46,6 +51,11 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Exten
             if (IsImage())
             {
                 return FileViewType.Image;
+            }
+
+            if (IsAudio())
+            {
+                return FileViewType.Audio;
             }
 
             return FileViewType.None;

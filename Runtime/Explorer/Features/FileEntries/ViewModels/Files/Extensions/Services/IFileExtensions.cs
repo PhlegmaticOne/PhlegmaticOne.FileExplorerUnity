@@ -4,5 +4,6 @@
     {
         bool IsText(string extension);
         bool IsImage(string extension);
+        bool IsAudio(string extension);
     }
 }

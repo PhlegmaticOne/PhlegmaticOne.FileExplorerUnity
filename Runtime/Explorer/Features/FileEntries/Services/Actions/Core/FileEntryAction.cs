@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions.Handlers;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
+using PhlegmaticOne.FileExplorer.Services.Cancellation;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions
 {
@@ -14,30 +16,30 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions
         protected FileEntryAction(
             FileEntryViewModel fileEntry, 
             ActionsViewModel actionsViewModel,
-            IFileEntryActionExecuteHandler executeHandler) : base(actionsViewModel)
+            IExplorerCancellationProvider cancellationProvider,
+            IFileEntryActionExecuteHandler executeHandler) : base(actionsViewModel, cancellationProvider)
         {
             _fileEntry = fileEntry;
             _executeHandler = executeHandler;
         }
 
-        protected sealed override async Task<bool> ExecuteAction()
+        protected sealed override async Task ExecuteAction(CancellationToken token)
         {
             if (!_executeHandler.ProcessCanStartAction(_fileEntry))
             {
-                return false;
+                return;
             }
             
             try
             {
-                return await ExecuteAction(_fileEntry);
+                await ExecuteAction(_fileEntry, token);
             }
             catch (Exception exception)
             {
                 await _executeHandler.HandleException(_fileEntry, exception);
-                return false;
             }
         }
 
-        protected abstract Task<bool> ExecuteAction(FileEntryViewModel fileEntry);
+        protected abstract Task ExecuteAction(FileEntryViewModel fileEntry, CancellationToken token);
     }
 }

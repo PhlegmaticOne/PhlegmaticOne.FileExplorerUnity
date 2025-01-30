@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Searching.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
+using PhlegmaticOne.FileExplorer.Services.Cancellation;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
 {
@@ -18,7 +20,8 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
             SelectionViewModel selectionViewModel,
             TabViewModel tabViewModel,
             ActionsViewModel actionsViewModel,
-            SearchViewModel searchViewModel) : base(actionsViewModel)
+            IExplorerCancellationProvider cancellationProvider,
+            SearchViewModel searchViewModel) : base(actionsViewModel, cancellationProvider)
         {
             _selectionViewModel = selectionViewModel;
             _tabViewModel = tabViewModel;
@@ -29,14 +32,14 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
         
         public override ActionColor Color => ActionColor.WithTextColor(UnityEngine.Color.red);
         
-        protected override Task<bool> ExecuteAction()
+        protected override Task ExecuteAction(CancellationToken token)
         {
             var selection = _selectionViewModel.GetSelection();
             DeleteSelectedEntries(selection);
             RemoveEntriesFromTab(selection);
             _selectionViewModel.Clear();
             _searchViewModel.Research();
-            return Task.FromResult(true);
+            return Task.CompletedTask;
         }
 
         private void RemoveEntriesFromTab(IEnumerable<FileEntryViewModel> selection)

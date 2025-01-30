@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions.Handlers;
@@ -6,6 +7,7 @@ using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Operations;
 using PhlegmaticOne.FileExplorer.Features.Searching.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
+using PhlegmaticOne.FileExplorer.Services.Cancellation;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Actions
 {
@@ -19,10 +21,11 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Acti
         public FileEntryActionDelete(
             FileEntryViewModel fileEntry, 
             ActionsViewModel actionsViewModel,
+            IExplorerCancellationProvider cancellationProvider,
             IFileEntryActionExecuteHandler executeHandler,
             TabViewModel tabViewModel,
             SelectionViewModel selectionViewModel,
-            SearchViewModel searchViewModel) : base(fileEntry, actionsViewModel, executeHandler)
+            SearchViewModel searchViewModel) : base(fileEntry, actionsViewModel, cancellationProvider, executeHandler)
         {
             _tabViewModel = tabViewModel;
             _selectionViewModel = selectionViewModel;
@@ -33,7 +36,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Acti
         
         public override ActionColor Color => ActionColor.WithTextColor(UnityEngine.Color.red);
         
-        protected override Task<bool> ExecuteAction(FileEntryViewModel fileEntry)
+        protected override Task ExecuteAction(FileEntryViewModel fileEntry, CancellationToken token)
         {
             fileEntry.Delete();
             _tabViewModel.Remove(fileEntry);
@@ -44,7 +47,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Acti
             }
             
             _searchViewModel.Research();
-            return Task.FromResult(true);
+            return Task.CompletedTask;
         }
     }
 }

@@ -28,6 +28,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries
             container.Register<IFileEntryActionsFactory, FileEntryActionsFactoryFile>();
             container.Register<IFileEntryActionsFactory, FileEntryActionsFactoryDirectory>();
             container.Register<IFileEntryActionsProvider, FileEntryActionsProvider>();
+            container.Register<IFileConfidentActionProvider, FileConfidentActionProvider>();
             container.Register<IFileEntryFactory, FileEntryFactory>();
             
             container.Register<IFileEntryActionErrorHandler, FileEntryActionErrorHandler>();

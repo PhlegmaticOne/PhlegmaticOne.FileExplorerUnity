@@ -2,18 +2,30 @@
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView
 {
-    internal readonly struct FileViewContent<T>
+    internal abstract class FileViewContent
     {
-        public static FileViewContent<T> FromError(Exception exception) => new(default, exception.Message);
-        public static FileViewContent<T> FromContent(T content) => new(content, string.Empty);
+        protected FileViewContent(string name)
+        {
+            Name = name;
+        }
+
+        public string Name { get; }
+    }
+    
+    internal class FileViewContent<T> : FileViewContent
+    {
+        public static FileViewContent<T> FromError(Exception exception) => new(default, null, exception.Message);
+        public static FileViewContent<T> FromContent(T content, string name) => new(content, name, string.Empty);
         
-        private FileViewContent(T content, string error)
+        private FileViewContent(T content, string name, string error) : base(name)
         {
             Content = content;
+            Name = name;
             ErrorMessage = error;
         }
 
         public T Content { get; }
+        public string Name { get; }
         public string ErrorMessage { get; }
         public bool HasError => !string.IsNullOrEmpty(ErrorMessage);
     }
