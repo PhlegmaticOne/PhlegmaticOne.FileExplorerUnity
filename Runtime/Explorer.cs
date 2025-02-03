@@ -5,11 +5,18 @@ namespace PhlegmaticOne.FileExplorer
 {
     public class Explorer : IExplorer
     {
-        public void Open(IExplorerConfig config)
+        private readonly IExplorerConfig _config;
+
+        public Explorer(IExplorerConfig config)
+        {
+            _config = config;
+        }
+        
+        public void Open()
         {
             var context = Resources.Load<ExplorerContext>("Prefabs/FileExplorer");
             var explorerInstance = Object.Instantiate(context);
-            explorerInstance.ConstructAndShow(config);
+            explorerInstance.ConstructAndShow(_config);
         }
     }
 }

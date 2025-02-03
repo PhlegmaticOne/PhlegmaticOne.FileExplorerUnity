@@ -1,9 +1,7 @@
-﻿using PhlegmaticOne.FileExplorer.Configuration;
-
-namespace PhlegmaticOne.FileExplorer
+﻿namespace PhlegmaticOne.FileExplorer
 {
     public interface IExplorer
     {
-        void Open(IExplorerConfig config);
+        void Open();
     }
 }
