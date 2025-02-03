@@ -509,7 +509,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 7600184789796819616}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999743
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1497,7 +1497,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0002377179, y: -0.00003007321}
+  m_AnchoredPosition: {x: 0.0002377179, y: 0.00035584782}
   m_SizeDelta: {x: 0, y: 60.22}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8662086320917583163
@@ -1619,7 +1619,7 @@ MonoBehaviour:
   _scrollRect: {fileID: 3069811516987061374}
   _slider: {fileID: 6753991336434831423}
   _fileViews:
-  - {fileID: 301401405406300204}
+  - {fileID: 6208262817601700656}
   - {fileID: 8662086320917583163}
   - {fileID: 6061989088678401170}
 --- !u!222 &7573821726033357636
@@ -1709,7 +1709,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5899709786863282065}
-  - component: {fileID: 301401405406300204}
+  - component: {fileID: 6208262817601700656}
   - component: {fileID: 4439796924964883801}
   - component: {fileID: 6473418431642355945}
   m_Layer: 5
@@ -1739,7 +1739,7 @@ RectTransform:
   m_AnchoredPosition: {x: 531.4999, y: -1119.9999}
   m_SizeDelta: {x: 128, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &301401405406300204
+--- !u!114 &6208262817601700656
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1748,12 +1748,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7914316238765583177}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90b8ead654484cb9b6a0eec4e4c9a708, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d58054692b8481c8e06d2e6b48490cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _minSliderValue: 0
-  _maxSliderValue: 3
-  _initialSliderValue: 1
+  _maxSliderValue: 0
+  _initialSliderValue: 0
   _useIntegerSliderValues: 0
   _image: {fileID: 2007896819094638816}
 --- !u!114 &4439796924964883801

@@ -23,7 +23,19 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Extensions
             }
             catch (Exception e)
             {
-                Debug.LogException(e);
+                Debug.LogError(e);
+            }
+        }
+        
+        public static async void Forget(this Task task)
+        {
+            try
+            {
+                await task;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
             }
         }
         

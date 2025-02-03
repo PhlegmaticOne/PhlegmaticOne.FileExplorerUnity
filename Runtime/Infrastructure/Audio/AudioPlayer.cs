@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System;
+using PhlegmaticOne.FileExplorer.Infrastructure.Audio.Views;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,8 +11,8 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Audio
         [SerializeField] private AudioSource _audioSource;
         [SerializeField] private Slider _timelineSlider;
         [SerializeField] private Slider _volumeSlider;
-        [SerializeField] private Toggle _playPauseToggle;
-        [SerializeField] private Toggle _soundToggle;
+        [SerializeField] private ToggleOnOff _playPauseToggle;
+        [SerializeField] private ToggleOnOff _soundToggle;
         [SerializeField] private TextMeshProUGUI _timeText;
         [SerializeField] private TextMeshProUGUI _fileNameText;
 
@@ -27,9 +29,12 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Audio
 
         private void Update()
         {
-            if (_audioPlayerController is not null && _audioPlayerController.IsPlaying)
+            if (_audioPlayerController is not null)
             {
                 var time = _audioPlayerController.GetTime();
+                var timeText = TimeSpan.FromSeconds(time).ToString("mm\\:ss") + "/" + 
+                               TimeSpan.FromSeconds(_audioPlayerController.GetClipDuration()).ToString("mm\\:ss");
+                _timeText.text = timeText;
                 _timelineSlider.SetValueWithoutNotify(time);
             }
         }
@@ -43,9 +48,9 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Audio
 
         private void SetupView()
         {
-            _soundToggle.isOn = !_audioPlayerController.IsMuted();
+            _soundToggle.SetIsOnNotify(!_audioPlayerController.IsMuted());
 
-            _playPauseToggle.isOn = true;
+            _playPauseToggle.SetIsOnNotify(true);
 
             _timelineSlider.minValue = 0;
             _timelineSlider.maxValue = _audioPlayerController.GetClipDuration();
@@ -57,16 +62,16 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Audio
 
         private void Subscribe()
         {
-            _soundToggle.onValueChanged.AddListener(HandleSoundToggleChanged);
-            _playPauseToggle.onValueChanged.AddListener(HandlePlayPauseChanged);
+            _soundToggle.AddListener(HandleSoundToggleChanged);
+            _playPauseToggle.AddListener(HandlePlayPauseChanged);
             _timelineSlider.onValueChanged.AddListener(RewindClip);
             _volumeSlider.onValueChanged.AddListener(SetVolume);
         }
 
         private void Unsubscribe()
         {
-            _soundToggle.onValueChanged.RemoveListener(HandleSoundToggleChanged);
-            _playPauseToggle.onValueChanged.RemoveListener(HandlePlayPauseChanged);
+            _soundToggle.RemoveListener(HandleSoundToggleChanged);
+            _playPauseToggle.RemoveListener(HandlePlayPauseChanged);
             _timelineSlider.onValueChanged.RemoveListener(RewindClip);
             _volumeSlider.onValueChanged.RemoveListener(SetVolume);
         }
@@ -79,6 +84,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Audio
         private void SetVolume(float volume)
         {
             _audioPlayerController.SetVolume(volume);
+            _soundToggle.SetIsOnWithoutNotify(!_audioPlayerController.IsMuted());
         }
 
         private void HandlePlayPauseChanged(bool isPlay)
@@ -97,11 +103,13 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Audio
         {
             if (isActive)
             {
-                _audioPlayerController.Unmute();
+                _volumeSlider.SetValueWithoutNotify(_audioPlayerController.GetVolume());
+                _soundToggle.SetIsOnWithoutNotify(!_audioPlayerController.IsMuted());
             }
             else
             {
-                _audioPlayerController.Mute();
+                _volumeSlider.SetValueWithoutNotify(0);
+                _soundToggle.SetIsOnWithoutNotify(!_audioPlayerController.IsMuted());
             }
         }
     }

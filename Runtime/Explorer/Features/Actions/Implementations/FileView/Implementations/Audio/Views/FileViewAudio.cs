@@ -1,6 +1,9 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.ViewModels;
+﻿using System.Collections;
+using System.Threading.Tasks;
+using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Views;
 using PhlegmaticOne.FileExplorer.Infrastructure.Audio;
+using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Implementations
@@ -21,8 +24,8 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.I
                 errorMessage = content.ErrorMessage;
                 return false;
             }
-            
-            _audioPlayer.StartPlay(content.Content, content.Name);
+
+            PlayAudio(content).Forget();
             errorMessage = null;
             return true;
         }
@@ -30,6 +33,12 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.I
         public override void Release()
         {
             _audioPlayer.ReleaseAudio();
+        }
+
+        private async Task PlayAudio(FileViewContent<AudioClip> content)
+        {
+            await Task.Delay(20);
+            _audioPlayer.StartPlay(content.Content, content.Name);
         }
     }
 }

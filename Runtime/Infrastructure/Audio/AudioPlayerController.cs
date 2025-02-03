@@ -29,17 +29,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Audio
 
         public bool IsMuted()
         {
-            return _audioSource.mute;
-        }
-        
-        public void Mute()
-        {
-            _audioSource.mute = true;
-        }
-        
-        public void Unmute()
-        {
-            _audioSource.mute = false;
+            return Mathf.Approximately(0, _audioSource.volume);
         }
 
         public void Pause()

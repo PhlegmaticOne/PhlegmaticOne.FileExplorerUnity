@@ -20,12 +20,10 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView
         private FileViewContent(T content, string name, string error) : base(name)
         {
             Content = content;
-            Name = name;
             ErrorMessage = error;
         }
 
         public T Content { get; }
-        public string Name { get; }
         public string ErrorMessage { get; }
         public bool HasError => !string.IsNullOrEmpty(ErrorMessage);
     }

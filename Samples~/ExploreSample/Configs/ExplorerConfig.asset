@@ -29,6 +29,11 @@ MonoBehaviour:
       _imageExtensions:
       - .jpg
       - .png
+      _audioExtensions:
+      - _extension: .ogg
+        _audioType: 14
+      - _extension: .wav
+        _audioType: 20
     _view:
       _addFileEntriesBatchCount: 10
       _sortingLayerName: Default
