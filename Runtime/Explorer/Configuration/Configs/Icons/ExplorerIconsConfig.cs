@@ -52,27 +52,4 @@ namespace PhlegmaticOne.FileExplorer.Configuration
             set => _inBuildData = value;
         }
     }
-
-    public enum ExplorerIconsLoadType
-    {
-        UseInBuildIconsAlways = 1,
-        PreviewImagesInsteadOnIcons = 2,
-        LoadFromServerWithLocalIconsFallback = 3
-    }
-
-    [Serializable]
-    public sealed class ExplorerIconsInBuildData
-    {
-        [SerializeField] private string _directoryIconPath;
-        [SerializeField] private string _fileIconPath;
-
-        public ExplorerIconsInBuildData(string directoryIconPath, string fileIconPath)
-        {
-            _directoryIconPath = directoryIconPath;
-            _fileIconPath = fileIconPath;
-        }
-
-        public string DirectoryIconPath => _directoryIconPath;
-        public string FileIconPath => _fileIconPath;
-    }
 }

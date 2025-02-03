@@ -18,7 +18,9 @@ namespace PhlegmaticOne.FileExplorer.Configuration
             _audioExtensions = new List<ExplorerAudioExtensionData>
             {
                 new(".ogg", AudioType.OGGVORBIS),
-                new(".wav", AudioType.WAV)
+                new(".wav", AudioType.WAV),
+                new(".aiff", AudioType.AIFF),
+                new(".mp3", AudioType.MPEG)
             }
         };
 
@@ -46,21 +48,5 @@ namespace PhlegmaticOne.FileExplorer.Configuration
         {
             return _audioExtensions.Exists(x => x.Extension.Equals(extension, StringComparison.OrdinalIgnoreCase));
         }
-    }
-
-    [Serializable]
-    public class ExplorerAudioExtensionData
-    {
-        [SerializeField] private string _extension;
-        [SerializeField] private AudioType _audioType;
-
-        public ExplorerAudioExtensionData(string extension, AudioType audioType)
-        {
-            _extension = extension;
-            _audioType = audioType;
-        }
-
-        public string Extension => _extension;
-        public AudioType AudioType => _audioType;
     }
 }
