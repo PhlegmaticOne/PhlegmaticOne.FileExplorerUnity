@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: -1
-  m_PreferredHeight: 60
+  m_PreferredHeight: 80
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 8690533853336315877}
   - component: {fileID: 6753991336434831423}
   m_Layer: 5
-  m_Name: SliderSize
+  m_Name: SliderContentSize
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1158,7 +1158,7 @@ GameObject:
   - component: {fileID: 7694364818458631841}
   - component: {fileID: 3069811516987061374}
   m_Layer: 5
-  m_Name: ScrollView
+  m_Name: ContentScrollView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1497,7 +1497,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0002377179, y: 0.00035584782}
+  m_AnchoredPosition: {x: 0.0002377179, y: 0.0005497782}
   m_SizeDelta: {x: 0, y: 60.22}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8662086320917583163
@@ -1675,7 +1675,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
+    m_Top: 15
     m_Bottom: 0
   m_ChildAlignment: 0
   m_Spacing: 0
@@ -1809,7 +1809,7 @@ GameObject:
   - component: {fileID: 4882248533654605715}
   - component: {fileID: 1166242051188121558}
   m_Layer: 5
-  m_Name: Viewport
+  m_Name: ContentContainerViewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1997,11 +1997,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5172068202756817953, guid: 9507b6c32d70afc4b893907ca846cbee, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 160
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 5172068202756817953, guid: 9507b6c32d70afc4b893907ca846cbee, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 36.4
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 5172068202756817953, guid: 9507b6c32d70afc4b893907ca846cbee, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2037,7 +2037,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5172068202756817953, guid: 9507b6c32d70afc4b893907ca846cbee, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -13
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 5172068202756817953, guid: 9507b6c32d70afc4b893907ca846cbee, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

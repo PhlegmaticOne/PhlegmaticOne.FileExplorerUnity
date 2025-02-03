@@ -1,19 +1,21 @@
-﻿using UnityEngine;
+﻿using PhlegmaticOne.FileExplorer.Services.StaticView;
+using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Services.Destroying
 {
     internal sealed class ExplorerDestroyer : IExplorerDestroyer
     {
-        private readonly GameObject _rootObject;
+        private readonly ExplorerSceneObjects _sceneObjects;
 
-        public ExplorerDestroyer(GameObject rootObject)
+        public ExplorerDestroyer(ExplorerSceneObjects sceneObjects)
         {
-            _rootObject = rootObject;
+            _sceneObjects = sceneObjects;
         }
 
         public void Destroy()
         {
-            Object.Destroy(_rootObject);
+            var rootObject = _sceneObjects.RootGameObject;
+            Object.Destroy(rootObject);
         }
     }
 }

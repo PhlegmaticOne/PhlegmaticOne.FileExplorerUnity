@@ -12,19 +12,18 @@ namespace PhlegmaticOne.FileExplorer.Services
 {
     internal sealed class ExplorerServicesInstaller : MonoInstaller
     {
-        [SerializeField] private GameObject _rootObject;
-        [SerializeField] private Canvas _canvas;
+        [SerializeField] private ExplorerSceneObjects _sceneObjects;
         
         public override void Install(IDependencyContainer container)
         {
             container.RegisterInstance(Camera.main);
-            container.RegisterInstance(_canvas);
+            container.RegisterInstance(_sceneObjects);
             container.Register<IExplorerCancellationProvider, ExplorerCancellationProvider>();
             container.Register<IExplorerViewsProvider, ExplorerViewsProvider>();
             container.Register<IExplorerViewModelDisposer, ExplorerViewModelDisposer>();
             container.Register<IExplorerViewSetup, ExplorerViewSetup>();
             container.Register<IInternetProvider, InternetProvider>();
-            container.RegisterInstance(new ExplorerDestroyer(_rootObject));
+            container.Register<IExplorerDestroyer, ExplorerDestroyer>();
         }
     }
 }

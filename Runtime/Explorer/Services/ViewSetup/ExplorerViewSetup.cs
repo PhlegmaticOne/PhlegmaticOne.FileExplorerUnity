@@ -8,12 +8,15 @@ namespace PhlegmaticOne.FileExplorer.Services.StaticView
     {
         private readonly ExplorerConfig _explorerConfig;
         private readonly Camera _viewCamera;
-        private readonly Canvas _canvas;
+        private readonly ExplorerSceneObjects _sceneObjects;
 
-        public ExplorerViewSetup(ExplorerConfig explorerConfig, Camera viewCamera, Canvas canvas)
+        public ExplorerViewSetup(
+            ExplorerConfig explorerConfig, 
+            Camera viewCamera, 
+            ExplorerSceneObjects sceneObjects)
         {
             _viewCamera = viewCamera;
-            _canvas = canvas;
+            _sceneObjects = sceneObjects;
             _explorerConfig = explorerConfig;
         }
         
@@ -25,14 +28,17 @@ namespace PhlegmaticOne.FileExplorer.Services.StaticView
         
         private void SetupCanvas()
         {
-            _canvas.worldCamera = _viewCamera;
-            _canvas.sortingLayerName = _explorerConfig.View.SortingLayerName;
-            _canvas.sortingOrder = _explorerConfig.View.SortingOrder;
+            var canvas = _sceneObjects.Canvas;
+            canvas.worldCamera = _viewCamera;
+            canvas.sortingLayerName = _explorerConfig.View.SortingLayerName;
+            canvas.sortingOrder = _explorerConfig.View.SortingOrder;
         }
 
         private void SetupFont()
         {
-            foreach (var textComponent in FindTexts.Find())
+            var rootBehaviour = _sceneObjects.RootBehaviour;
+            
+            foreach (var textComponent in rootBehaviour.TextsInChild())
             {
                 textComponent.SetFont(_explorerConfig.View.FontAsset);
             }
