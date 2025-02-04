@@ -29,7 +29,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.I
         
         protected override Task ExecuteAction(FileEntryViewModel fileEntry, CancellationToken token)
         {
-            return _viewAudioProvider.ViewAudioAsync(fileEntry, AudioType.WAV, token);
+            return _viewAudioProvider.ViewAudioFile(fileEntry, AudioType.WAV, token);
         }
     }
 }

@@ -1586,6 +1586,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4018684642373430673}
   - component: {fileID: 6172408908828204695}
+  - component: {fileID: 208358959521459127}
   - component: {fileID: 3304348166230496805}
   - component: {fileID: 596601600736175795}
   m_Layer: 5
@@ -1622,6 +1623,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5935582796631660051}
   m_CullTransparentMesh: 1
+--- !u!114 &208358959521459127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5935582796631660051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 798ffd6540b2421aad33fd9f5ac2c11f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeText: {fileID: 3304348166230496805}
+  _timeFormat: mm\:ss
+  _format: '{0}/{1}'
 --- !u!114 &3304348166230496805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2025,7 +2041,7 @@ MonoBehaviour:
   _volumeSlider: {fileID: 6714854522301427708}
   _playPauseToggle: {fileID: 4637091282661287116}
   _soundToggle: {fileID: 3009646436247929666}
-  _timeText: {fileID: 3304348166230496805}
+  _timeText: {fileID: 208358959521459127}
   _fileNameText: {fileID: 3776864627877379622}
 --- !u!114 &1564364750619665551
 MonoBehaviour:

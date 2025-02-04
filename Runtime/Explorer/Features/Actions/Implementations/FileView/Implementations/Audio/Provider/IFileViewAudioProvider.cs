@@ -7,6 +7,6 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.I
 {
     internal interface IFileViewAudioProvider
     {
-        Task ViewAudioAsync(FileEntryViewModel viewModel, AudioType audioType, CancellationToken token);
+        Task ViewAudioFile(FileEntryViewModel file, AudioType audioType, CancellationToken token);
     }
 }

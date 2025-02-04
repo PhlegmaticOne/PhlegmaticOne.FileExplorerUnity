@@ -15,6 +15,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.V
         [SerializeField] private TextMeshProUGUI _errorText;
         [SerializeField] private ScrollRect _scrollRect;
         [SerializeField] private Slider _slider;
+        [SerializeField] private RectTransform _viewport;
         [SerializeField] private FileViewBase[] _fileViews;
 
         private FileViewBase _activeView;
@@ -35,6 +36,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.V
             _closeButton.onClick.RemoveListener(Close);
             _slider.onValueChanged.RemoveListener(ResizeFileView);
             _activeView.Release();
+            Destroy(_activeView.gameObject);
             _activeView = null;
         }
 
@@ -73,7 +75,8 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.V
 
         private FileViewBase GetActiveView(FileViewViewModel viewModel)
         {
-            return Array.Find(_fileViews, x => x.ViewType == viewModel.ViewType);
+            var view = Array.Find(_fileViews, x => x.ViewType == viewModel.ViewType);
+            return Instantiate(view, _viewport, false);
         }
     }
 }

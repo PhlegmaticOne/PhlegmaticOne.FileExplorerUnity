@@ -21,9 +21,9 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.I
             _audioLoader = audioLoader;
         }
         
-        public async Task ViewAudioAsync(FileEntryViewModel viewModel, AudioType audioType, CancellationToken token)
+        public async Task ViewAudioFile(FileEntryViewModel file, AudioType audioType, CancellationToken token)
         {
-            var audioContent = await _audioLoader.LoadClip(viewModel, audioType, token);
+            var audioContent = await _audioLoader.LoadClip(file, audioType, token);
             var fileViewViewModel = FileViewViewModel.Audio(audioContent);
             await _popupProvider.Show<FileViewPopup, FileViewViewModel>(fileViewViewModel);
         }

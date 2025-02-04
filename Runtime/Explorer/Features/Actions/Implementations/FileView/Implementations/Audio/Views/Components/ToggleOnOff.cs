@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace PhlegmaticOne.FileExplorer.Infrastructure.Audio.Views
+namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Implementations
 {
     internal sealed class ToggleOnOff : MonoBehaviour
     {

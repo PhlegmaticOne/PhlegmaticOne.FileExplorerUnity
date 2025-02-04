@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView.Views;
-using PhlegmaticOne.FileExplorer.Infrastructure.Audio;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 using UnityEngine;
 
