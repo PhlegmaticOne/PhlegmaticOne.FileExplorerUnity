@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Rename.Views
+namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Rename
 {
     internal sealed class RenameInputPopup : PopupViewAsync<RenameInputPopupViewModel>
     {

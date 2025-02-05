@@ -1,5 +1,6 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Extensions.Services;
+using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Extensions
 {
@@ -39,6 +40,11 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Exten
         public bool IsAudio()
         {
             return _fileExtensions.IsAudio(Value);
+        }
+
+        public AudioType GetAudioType()
+        {
+            return _fileExtensions.GetAudioType(Value);
         }
 
         private FileViewType GetFileViewType()

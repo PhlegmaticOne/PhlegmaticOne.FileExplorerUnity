@@ -1018,8 +1018,10 @@ MonoBehaviour:
   - {fileID: 8073524119010291873, guid: 14ba0ea9d6fa783418612ee87d6b8a78, type: 3}
   - {fileID: 7504130445254884668, guid: fd6c4819dfa52874e9d8e00a5318540d, type: 3}
   - {fileID: 8590558593555978219, guid: 577be0eab75dfb747bbc9f2d1c2d7599, type: 3}
+  - {fileID: 3220132153446549727, guid: 230a29a1d4d12ad4883687811d56c67f, type: 3}
   _viewPrefabs:
   - {fileID: 3473931920288436651, guid: 00de64cf0ab767549a82c7b129f09a4a, type: 3}
+  - {fileID: 2974216409333944795, guid: 8d594c49ce257bc4da28ab4cb98b9ae6, type: 3}
 --- !u!1 &6750021263553108727
 GameObject:
   m_ObjectHideFlags: 0

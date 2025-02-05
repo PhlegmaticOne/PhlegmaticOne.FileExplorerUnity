@@ -1,4 +1,5 @@
 ﻿using PhlegmaticOne.FileExplorer.Configuration;
+using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Extensions.Services
 {
@@ -10,7 +11,12 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Exten
         {
             _explorerConfig = explorerConfig;
         }
-        
+
+        public AudioType GetAudioType(string extension)
+        {
+            return _explorerConfig.Extensions.GetAudioType(extension);
+        }
+
         public bool IsText(string extension)
         {
             return _explorerConfig.Extensions.IsText(extension);

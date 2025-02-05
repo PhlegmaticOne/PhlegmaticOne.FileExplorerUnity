@@ -17,6 +17,13 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels
 
         public bool IsReadOnly => false;
 
+        public ReactiveCollection() { }
+
+        public ReactiveCollection(IEnumerable<T> items)
+        {
+            _collection.AddRange(items);
+        }
+
         public int IndexOf(T item)
         {
             return _collection.IndexOf(item);

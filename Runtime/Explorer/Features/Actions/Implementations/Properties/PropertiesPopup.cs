@@ -1,10 +1,11 @@
-﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
+﻿using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties.Views;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties.Views
+namespace PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties
 {
     internal sealed class PropertiesPopup : PopupViewAsync<PropertiesPopupViewModel>
     {

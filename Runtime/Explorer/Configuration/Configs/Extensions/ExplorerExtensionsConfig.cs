@@ -24,6 +24,11 @@ namespace PhlegmaticOne.FileExplorer.Configuration
             }
         };
 
+        public IReadOnlyList<ExplorerAudioExtensionData> GetAudioExtensions()
+        {
+            return _audioExtensions;
+        }
+
         public void AddTextExtension(string extension)
         {
             _textExtensions.Add(extension);
@@ -47,6 +52,11 @@ namespace PhlegmaticOne.FileExplorer.Configuration
         public bool IsAudio(string extension)
         {
             return _audioExtensions.Exists(x => x.Extension.Equals(extension, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public AudioType GetAudioType(string extension)
+        {
+            return _audioExtensions.Find(x => x.Extension == extension).AudioType;
         }
     }
 }

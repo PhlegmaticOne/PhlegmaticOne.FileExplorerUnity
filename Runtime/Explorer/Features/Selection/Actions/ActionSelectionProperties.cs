@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties;
-using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties.Views;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
 using PhlegmaticOne.FileExplorer.Features.Selection.Services;

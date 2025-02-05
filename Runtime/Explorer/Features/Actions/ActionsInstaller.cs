@@ -45,6 +45,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions
         {
             container.Register<IFileAudioLoader, FileAudioLoader>();
             container.Register<IFileViewAudioProvider, FileViewAudioProvider>();
+            container.Register<ISelectAudioViewProvider, SelectAudioViewProvider>();
         }
 
         private static void BindTextAction(IDependencyContainer container)
