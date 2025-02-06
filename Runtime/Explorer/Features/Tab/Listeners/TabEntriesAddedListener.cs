@@ -1,8 +1,9 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
+using PhlegmaticOne.FileExplorer.Services.Listeners;
 
-namespace PhlegmaticOne.FileExplorer.Listeners.TabItems
+namespace PhlegmaticOne.FileExplorer.Features.Tab
 {
     internal sealed class TabEntriesAddedListener : IExplorerActionListener
     {

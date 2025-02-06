@@ -18,6 +18,8 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation
             container.Register<IExplorerNavigator, ExplorerNavigator>();
             container.Register<INavigationProgressSetter, NavigationProgressSetter>();
             
+            container.RegisterInterfaces<NavigationBackRequestListener>();
+            
             container.RegisterSelf<NavigationViewModel>();
         }
     }

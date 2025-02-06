@@ -1,5 +1,5 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Navigation.ViewModels;
-using PhlegmaticOne.FileExplorer.Listeners;
+using PhlegmaticOne.FileExplorer.Services.Listeners;
 using PhlegmaticOne.FileExplorer.Services.StaticView;
 using PhlegmaticOne.FileExplorer.Services.Views;
 

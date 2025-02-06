@@ -20,6 +20,8 @@ namespace PhlegmaticOne.FileExplorer.Features.Tab
             
             container.RegisterPrefab(_fileEntryViewPrefab);
             
+            container.RegisterInterfaces<TabEntriesAddedListener>();
+            
             container.RegisterSelf<TabViewModel>();
         }
     }

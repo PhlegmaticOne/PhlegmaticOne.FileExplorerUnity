@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Searching.Services;
+using PhlegmaticOne.FileExplorer.Features.Tab;
 using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
-using PhlegmaticOne.FileExplorer.Listeners.TabItems;
 
 namespace PhlegmaticOne.FileExplorer.Features.Searching.ViewModels
 {

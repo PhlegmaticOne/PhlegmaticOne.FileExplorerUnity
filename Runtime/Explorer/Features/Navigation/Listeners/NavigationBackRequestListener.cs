@@ -4,7 +4,7 @@ using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Contracts;
 using PhlegmaticOne.FileExplorer.States;
 using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Listeners.Navigation
+namespace PhlegmaticOne.FileExplorer.Features.Navigation
 {
     internal sealed class NavigationBackRequestListener : IUpdateListener
     {

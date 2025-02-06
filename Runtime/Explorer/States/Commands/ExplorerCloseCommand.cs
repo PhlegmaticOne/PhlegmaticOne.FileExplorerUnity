@@ -1,8 +1,8 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Services;
-using PhlegmaticOne.FileExplorer.Listeners;
 using PhlegmaticOne.FileExplorer.Services.Cancellation;
 using PhlegmaticOne.FileExplorer.Services.Destroying;
 using PhlegmaticOne.FileExplorer.Services.Disposing;
+using PhlegmaticOne.FileExplorer.Services.Listeners;
 using PhlegmaticOne.FileExplorer.Services.Views;
 
 namespace PhlegmaticOne.FileExplorer.States.Commands

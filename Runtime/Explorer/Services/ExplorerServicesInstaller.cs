@@ -4,6 +4,7 @@ using PhlegmaticOne.FileExplorer.Services.Cancellation;
 using PhlegmaticOne.FileExplorer.Services.Destroying;
 using PhlegmaticOne.FileExplorer.Services.Disposing;
 using PhlegmaticOne.FileExplorer.Services.Internet;
+using PhlegmaticOne.FileExplorer.Services.Listeners;
 using PhlegmaticOne.FileExplorer.Services.StaticView;
 using PhlegmaticOne.FileExplorer.Services.Views;
 using UnityEngine;
@@ -24,6 +25,7 @@ namespace PhlegmaticOne.FileExplorer.Services
             container.Register<IExplorerViewSetup, ExplorerViewSetup>();
             container.Register<IInternetProvider, InternetProvider>();
             container.Register<IExplorerDestroyer, ExplorerDestroyer>();
+            container.RegisterSelf<ExplorerActionListeners>();
         }
     }
 }

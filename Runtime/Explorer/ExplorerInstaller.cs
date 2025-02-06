@@ -2,7 +2,6 @@
 using PhlegmaticOne.FileExplorer.Infrastructure;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
-using PhlegmaticOne.FileExplorer.Listeners;
 using PhlegmaticOne.FileExplorer.Popups;
 using PhlegmaticOne.FileExplorer.Runtime.Explorer.States;
 using PhlegmaticOne.FileExplorer.Services;
@@ -26,7 +25,6 @@ namespace PhlegmaticOne.FileExplorer
             
             container.InstallFrom<ViewProviderInstaller>();
             container.InstallFrom<ExplorerStatesInstaller>();
-            container.InstallFrom<ExplorerListenersInstaller>();
         }
     }
 }

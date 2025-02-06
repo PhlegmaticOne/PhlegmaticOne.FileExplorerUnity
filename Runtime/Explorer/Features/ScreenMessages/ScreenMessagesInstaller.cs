@@ -14,6 +14,8 @@ namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages
         {
             container.RegisterInstance(_screenMessagesView);
             
+            container.RegisterInterfaces<TabCenterTextChangeListener>();
+            
             container.RegisterSelf<ScreenMessagesViewModel>();
         }
     }
