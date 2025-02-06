@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 
-namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions.Handlers
+namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions
 {
     internal sealed class FileEntryActionExecuteHandler : IFileEntryActionExecuteHandler
     {

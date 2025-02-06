@@ -1,5 +1,5 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.FileView;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Extensions.Services;
+﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Extensions.Services;
+using PhlegmaticOne.FileExplorer.Popups.FileView;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Extensions

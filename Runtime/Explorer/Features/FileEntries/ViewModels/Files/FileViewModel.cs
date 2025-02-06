@@ -1,13 +1,13 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties;
-using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties.Core;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Services;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Operations;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Proprties;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Commands;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Extensions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Extensions.Services;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Properties;
 using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files

@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties;
-using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties.Core;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Services;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Operations;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Proprties;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Direcrories.Properties;
 using PhlegmaticOne.FileExplorer.Features.Navigation.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
 

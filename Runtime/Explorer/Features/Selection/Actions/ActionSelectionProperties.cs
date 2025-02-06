@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
 using PhlegmaticOne.FileExplorer.Features.Selection.Services;
 using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
+using PhlegmaticOne.FileExplorer.Popups.Properties;
 using PhlegmaticOne.FileExplorer.Services.Cancellation;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions

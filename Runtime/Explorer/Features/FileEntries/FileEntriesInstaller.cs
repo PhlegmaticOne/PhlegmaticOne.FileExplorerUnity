@@ -1,7 +1,5 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Factory;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions.Handlers;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions.Handlers.Popups;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Services;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.WebLoading;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Operations;
@@ -34,7 +32,6 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries
             container.Register<IFileEntryActionErrorHandler, FileEntryActionErrorHandler>();
             container.Register<IFileEntryActionStartHandler, FileEntryActionStartHandler>();
             container.Register<IFileEntryActionExecuteHandler, FileEntryActionExecuteHandler>();
-            container.Register<IFileEntryActionErrorViewProvider, FileEntryActionErrorViewProvider>();
             
             container.Register<IFileViewModelClickCommand, FileViewModelClickCommand>();
         }

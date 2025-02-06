@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions.Handlers.Popups;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
+using PhlegmaticOne.FileExplorer.Popups.Errors;
 
-namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions.Handlers
+namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions
 {
     internal sealed class FileEntryActionErrorHandler : IFileEntryActionErrorHandler
     {
-        private readonly IFileEntryActionErrorViewProvider _errorViewProvider;
+        private readonly IErrorPopupProvider _errorPopupProvider;
 
-        public FileEntryActionErrorHandler(IFileEntryActionErrorViewProvider errorViewProvider)
+        public FileEntryActionErrorHandler(IErrorPopupProvider errorPopupProvider)
         {
-            _errorViewProvider = errorViewProvider;
+            _errorPopupProvider = errorPopupProvider;
         }
         
         public Task HandleException(FileEntryViewModel fileEntry, Exception exception)
         {
-            return _errorViewProvider.ViewError(fileEntry, exception);
+            return _errorPopupProvider.ViewError(fileEntry, exception);
         }
     }
 }

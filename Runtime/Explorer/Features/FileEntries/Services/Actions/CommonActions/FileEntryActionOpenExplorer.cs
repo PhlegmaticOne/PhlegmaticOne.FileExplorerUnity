@@ -3,14 +3,13 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions.Handlers;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Services.Cancellation;
 #if UNITY_EDITOR_OSX
 using UnityEditor;
 #endif
 
-namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Actions
+namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions
 {
     internal sealed class FileEntryActionOpenExplorer : FileEntryAction
     {

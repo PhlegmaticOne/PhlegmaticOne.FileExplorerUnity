@@ -1,15 +1,14 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions.Handlers;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Operations;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Searching.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
 using PhlegmaticOne.FileExplorer.Services.Cancellation;
 
-namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Common.Actions
+namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions
 {
     internal sealed class FileEntryActionDelete : FileEntryAction
     {

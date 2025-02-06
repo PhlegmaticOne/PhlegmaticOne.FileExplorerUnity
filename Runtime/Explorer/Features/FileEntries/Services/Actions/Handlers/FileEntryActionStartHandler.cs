@@ -1,7 +1,7 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
 
-namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions.Handlers
+namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions
 {
     internal sealed class FileEntryActionStartHandler : IFileEntryActionStartHandler
     {

@@ -1,5 +1,5 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties.Core;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
+﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
+using PhlegmaticOne.FileExplorer.Features.Services.Proprties;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Services
 {

@@ -1,5 +1,5 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Actions.Implementations.Properties.Core;
-using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
+﻿using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.Services.Proprties;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Services
 {

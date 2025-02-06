@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions.Handlers;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Services.Cancellation;
 
