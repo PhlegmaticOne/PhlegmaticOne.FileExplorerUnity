@@ -1,13 +1,13 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Searching.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
-using PhlegmaticOne.FileExplorer.Services.Views;
+using PhlegmaticOne.FileExplorer.Services.StaticViews;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Features.Searching.Views
 {
-    internal sealed class SearchView : MonoBehaviour, IExplorerViewComponent
+    internal sealed class SearchView : MonoBehaviour, IExplorerStaticViewComponent
     {
         [SerializeField] private TMP_InputField _searchInput;
         [SerializeField] private Button _resetButton;

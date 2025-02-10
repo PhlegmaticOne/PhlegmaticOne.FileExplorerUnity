@@ -1,12 +1,12 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.ScreenMessages.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
-using PhlegmaticOne.FileExplorer.Services.Views;
+using PhlegmaticOne.FileExplorer.Services.StaticViews;
 using TMPro;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Views
 {
-    internal sealed class ScreenMessagesView : MonoBehaviour, IExplorerViewComponent
+    internal sealed class ScreenMessagesView : MonoBehaviour, IExplorerStaticViewComponent
     {
         [SerializeField] private GameObject _tabCenterTextContainer;
         [SerializeField] private TextMeshProUGUI _tabCenterText;

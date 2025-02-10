@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace PhlegmaticOne.FileExplorer.Services.Views
+namespace PhlegmaticOne.FileExplorer.Services.StaticViews
 {
-    internal sealed class ExplorerViewsProvider : IExplorerViewsProvider
+    internal sealed class ExplorerStaticViewComponentsProvider : IExplorerStaticViewComponentsProvider
     {
-        private readonly IExplorerViewComponent[] _viewComponents;
+        private readonly IExplorerStaticViewComponent[] _viewComponents;
 
-        public ExplorerViewsProvider(IExplorerViewComponent[] viewComponents)
+        public ExplorerStaticViewComponentsProvider(IExplorerStaticViewComponent[] viewComponents)
         {
             _viewComponents = viewComponents;
         }

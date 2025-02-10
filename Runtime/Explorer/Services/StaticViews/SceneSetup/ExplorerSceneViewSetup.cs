@@ -2,15 +2,15 @@
 using PhlegmaticOne.FileExplorer.Infrastructure.Views.Texts;
 using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Services.StaticView
+namespace PhlegmaticOne.FileExplorer.Services.StaticViews.SceneSetup
 {
-    internal sealed class ExplorerViewSetup : IExplorerViewSetup
+    internal sealed class ExplorerSceneViewSetup : IExplorerSceneViewSetup
     {
         private readonly ExplorerConfig _explorerConfig;
         private readonly Camera _viewCamera;
         private readonly ExplorerSceneObjects _sceneObjects;
 
-        public ExplorerViewSetup(
+        public ExplorerSceneViewSetup(
             ExplorerConfig explorerConfig, 
             Camera viewCamera, 
             ExplorerSceneObjects sceneObjects)

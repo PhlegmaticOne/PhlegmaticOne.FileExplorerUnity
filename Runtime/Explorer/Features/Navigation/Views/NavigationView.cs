@@ -1,12 +1,12 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Navigation.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
-using PhlegmaticOne.FileExplorer.Services.Views;
+using PhlegmaticOne.FileExplorer.Services.StaticViews;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Features.Navigation.Views
 {
-    internal sealed class NavigationView : MonoBehaviour, IExplorerViewComponent
+    internal sealed class NavigationView : MonoBehaviour, IExplorerStaticViewComponent
     {
         [SerializeField] private Button _backButton;
         

@@ -1,7 +1,7 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
-using PhlegmaticOne.FileExplorer.Services.Listeners;
+using PhlegmaticOne.FileExplorer.Services.ActionListeners;
 
 namespace PhlegmaticOne.FileExplorer.Features.Tab
 {

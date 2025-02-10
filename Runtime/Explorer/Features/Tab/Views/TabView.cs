@@ -1,11 +1,11 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
-using PhlegmaticOne.FileExplorer.Services.Views;
+using PhlegmaticOne.FileExplorer.Services.StaticViews;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.Tab.Views
 {
-    internal sealed class TabView : MonoBehaviour, IExplorerViewComponent
+    internal sealed class TabView : MonoBehaviour, IExplorerStaticViewComponent
     {
         [SerializeField] private TabCollectionView _collectionView;
         

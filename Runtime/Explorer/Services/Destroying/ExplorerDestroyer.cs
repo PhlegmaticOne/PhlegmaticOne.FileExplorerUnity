@@ -1,4 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.Services.StaticView;
+﻿using PhlegmaticOne.FileExplorer.Services.StaticViews.SceneSetup;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Services.Destroying

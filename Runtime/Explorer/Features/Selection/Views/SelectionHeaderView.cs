@@ -2,14 +2,14 @@
 using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Selection.Views.Data;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
-using PhlegmaticOne.FileExplorer.Services.Views;
+using PhlegmaticOne.FileExplorer.Services.StaticViews;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Views
 {
-    internal sealed class SelectionHeaderView : MonoBehaviour, IExplorerViewComponent
+    internal sealed class SelectionHeaderView : MonoBehaviour, IExplorerStaticViewComponent
     {
         [SerializeField] private VerticalLayoutGroup _offsetGroup;
         [SerializeField] private Button _actionsButton;

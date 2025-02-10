@@ -4,7 +4,7 @@ using PhlegmaticOne.FileExplorer.Features.Searching.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
 
-namespace PhlegmaticOne.FileExplorer.Services.Disposing
+namespace PhlegmaticOne.FileExplorer.Services.ViewModelDisposing
 {
     internal sealed class ExplorerViewModelDisposer : IExplorerViewModelDisposer
     {

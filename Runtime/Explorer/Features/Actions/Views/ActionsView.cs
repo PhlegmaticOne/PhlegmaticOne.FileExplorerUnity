@@ -1,12 +1,12 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
-using PhlegmaticOne.FileExplorer.Services.Views;
+using PhlegmaticOne.FileExplorer.Services.StaticViews;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions.Views
 {
-    internal sealed class ActionsView : MonoBehaviour, IExplorerViewComponent, IPointerClickHandler
+    internal sealed class ActionsView : MonoBehaviour, IExplorerStaticViewComponent, IPointerClickHandler
     {
         [SerializeField] private ActionDropdownView _actionDropdownView;
         

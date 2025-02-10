@@ -1,30 +1,30 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Services;
+using PhlegmaticOne.FileExplorer.Services.ActionListeners;
 using PhlegmaticOne.FileExplorer.Services.Cancellation;
 using PhlegmaticOne.FileExplorer.Services.Destroying;
-using PhlegmaticOne.FileExplorer.Services.Disposing;
-using PhlegmaticOne.FileExplorer.Services.Listeners;
-using PhlegmaticOne.FileExplorer.Services.Views;
+using PhlegmaticOne.FileExplorer.Services.StaticViews;
+using PhlegmaticOne.FileExplorer.Services.ViewModelDisposing;
 
 namespace PhlegmaticOne.FileExplorer.States.Commands
 {
     internal sealed class ExplorerCloseCommand : IExplorerCloseCommand
     {
         private readonly IExplorerDestroyer _destroyer;
-        private readonly IExplorerViewsProvider _viewsProvider;
+        private readonly IExplorerStaticViewComponentsProvider _staticViewComponentsProvider;
         private readonly IExplorerCancellationProvider _cancellationProvider;
         private readonly IExplorerViewModelDisposer _explorerViewModelDisposer;
         private readonly ExplorerActionListeners _listeners;
         private readonly IExplorerIconsProvider _iconsProvider;
 
         public ExplorerCloseCommand(IExplorerDestroyer destroyer,
-            IExplorerViewsProvider viewsProvider,
+            IExplorerStaticViewComponentsProvider staticViewComponentsProvider,
             IExplorerCancellationProvider cancellationProvider,
             IExplorerViewModelDisposer explorerViewModelDisposer,
             ExplorerActionListeners listeners,
             IExplorerIconsProvider iconsProvider)
         {
             _destroyer = destroyer;
-            _viewsProvider = viewsProvider;
+            _staticViewComponentsProvider = staticViewComponentsProvider;
             _cancellationProvider = cancellationProvider;
             _explorerViewModelDisposer = explorerViewModelDisposer;
             _listeners = listeners;
@@ -36,7 +36,7 @@ namespace PhlegmaticOne.FileExplorer.States.Commands
             _cancellationProvider.Cancel();
             _listeners.StopListen();
             _iconsProvider.Dispose();
-            _viewsProvider.Unbind();
+            _staticViewComponentsProvider.Unbind();
             _explorerViewModelDisposer.DisposeViewModels();
             _destroyer.Destroy();
         }

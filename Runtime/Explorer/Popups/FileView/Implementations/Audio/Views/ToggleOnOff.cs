@@ -39,12 +39,7 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
         {
             _listeners.Remove(action);
         }
-
-        public void RemoveAllListeners()
-        {
-            _listeners.Clear();
-        }
-
+        
         private void ChangeIsOnNotify()
         {
             UpdateIsOn(!_isOn, notify: true);

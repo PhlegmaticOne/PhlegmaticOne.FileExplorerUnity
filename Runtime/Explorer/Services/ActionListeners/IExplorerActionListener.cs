@@ -1,4 +1,4 @@
-﻿namespace PhlegmaticOne.FileExplorer.Services.Listeners
+﻿namespace PhlegmaticOne.FileExplorer.Services.ActionListeners
 {
     internal interface IExplorerActionListener
     {

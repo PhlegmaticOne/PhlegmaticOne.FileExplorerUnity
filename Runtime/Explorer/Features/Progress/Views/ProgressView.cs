@@ -1,11 +1,11 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Progress.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
-using PhlegmaticOne.FileExplorer.Services.Views;
+using PhlegmaticOne.FileExplorer.Services.StaticViews;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.Progress.Views
 {
-    internal sealed class ProgressView : MonoBehaviour, IExplorerViewComponent
+    internal sealed class ProgressView : MonoBehaviour, IExplorerStaticViewComponent
     {
         [SerializeField] private RectTransform _parent;
         [SerializeField] private RectTransform _rectTransform;

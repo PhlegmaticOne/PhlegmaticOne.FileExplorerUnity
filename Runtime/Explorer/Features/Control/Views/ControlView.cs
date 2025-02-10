@@ -1,12 +1,12 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Control.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
-using PhlegmaticOne.FileExplorer.Services.Views;
+using PhlegmaticOne.FileExplorer.Services.StaticViews;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Features.Control.Views
 {
-    internal sealed class ControlView : MonoBehaviour, IExplorerViewComponent
+    internal sealed class ControlView : MonoBehaviour, IExplorerStaticViewComponent
     {
         [SerializeField] private Button _closeButton;
         

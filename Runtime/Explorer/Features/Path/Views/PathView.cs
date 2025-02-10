@@ -1,11 +1,11 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Path.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
-using PhlegmaticOne.FileExplorer.Services.Views;
+using PhlegmaticOne.FileExplorer.Services.StaticViews;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.Path.Views
 {
-    internal sealed class PathView : MonoBehaviour, IExplorerViewComponent
+    internal sealed class PathView : MonoBehaviour, IExplorerStaticViewComponent
     {
         [SerializeField] private PathPartViewCollection _viewCollection;
 

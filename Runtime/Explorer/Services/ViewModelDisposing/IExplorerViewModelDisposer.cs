@@ -1,4 +1,4 @@
-﻿namespace PhlegmaticOne.FileExplorer.Services.Disposing
+﻿namespace PhlegmaticOne.FileExplorer.Services.ViewModelDisposing
 {
     internal interface IExplorerViewModelDisposer
     {

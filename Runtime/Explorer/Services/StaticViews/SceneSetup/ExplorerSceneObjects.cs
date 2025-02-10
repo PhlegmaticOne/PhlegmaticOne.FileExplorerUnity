@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Services.StaticView
+namespace PhlegmaticOne.FileExplorer.Services.StaticViews.SceneSetup
 {
     internal sealed class ExplorerSceneObjects : MonoBehaviour
     {

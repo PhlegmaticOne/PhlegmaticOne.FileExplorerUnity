@@ -1,24 +1,24 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Navigation.ViewModels;
-using PhlegmaticOne.FileExplorer.Services.Listeners;
-using PhlegmaticOne.FileExplorer.Services.StaticView;
-using PhlegmaticOne.FileExplorer.Services.Views;
+using PhlegmaticOne.FileExplorer.Services.ActionListeners;
+using PhlegmaticOne.FileExplorer.Services.StaticViews;
+using PhlegmaticOne.FileExplorer.Services.StaticViews.SceneSetup;
 
 namespace PhlegmaticOne.FileExplorer.States.Commands
 {
     internal sealed class ExplorerShowCommand : IExplorerShowCommand
     {
-        private readonly IExplorerViewsProvider _viewsProvider;
+        private readonly IExplorerStaticViewComponentsProvider _staticViewComponentsProvider;
         private readonly NavigationViewModel _navigationViewModel;
         private readonly ExplorerActionListeners _listeners;
-        private readonly IExplorerViewSetup _viewSetup;
+        private readonly IExplorerSceneViewSetup _viewSetup;
 
         public ExplorerShowCommand(
-            IExplorerViewsProvider viewsProvider,
+            IExplorerStaticViewComponentsProvider staticViewComponentsProvider,
             NavigationViewModel navigationViewModel,
             ExplorerActionListeners listeners,
-            IExplorerViewSetup viewSetup)
+            IExplorerSceneViewSetup viewSetup)
         {
-            _viewsProvider = viewsProvider;
+            _staticViewComponentsProvider = staticViewComponentsProvider;
             _navigationViewModel = navigationViewModel;
             _listeners = listeners;
             _viewSetup = viewSetup;
@@ -27,7 +27,7 @@ namespace PhlegmaticOne.FileExplorer.States.Commands
         public void Show()
         {
             _viewSetup.Setup();
-            _viewsProvider.Bind();
+            _staticViewComponentsProvider.Bind();
             _listeners.StartListen();
             _navigationViewModel.NavigateRoot();
         }
