@@ -3,13 +3,11 @@ using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Button = UnityEngine.UI.Button;
 
 namespace PhlegmaticOne.FileExplorer.Popups.FileView
 {
     internal sealed class FileViewPopup : PopupViewAsync<FileViewViewModel>
     {
-        [SerializeField] private Button _closeButton;
         [SerializeField] private TextMeshProUGUI _nameText;
         [SerializeField] private TextMeshProUGUI _errorText;
         [SerializeField] private ScrollRect _scrollRect;
@@ -19,11 +17,6 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
 
         private FileViewBase _activeView;
 
-        protected override void OnInitializing()
-        {
-            _closeButton.onClick.AddListener(Close);
-        }
-
         protected override void OnShowing(FileViewViewModel viewModel)
         {
             _nameText.text = viewModel.Name;
@@ -32,7 +25,6 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
 
         public override void Release()
         {
-            _closeButton.onClick.RemoveListener(Close);
             _slider.onValueChanged.RemoveListener(ResizeFileView);
             _activeView.Release();
             Destroy(_activeView.gameObject);

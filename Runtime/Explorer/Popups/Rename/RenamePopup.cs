@@ -11,13 +11,12 @@ namespace PhlegmaticOne.FileExplorer.Popups.Rename
         [SerializeField] private TextMeshProUGUI _headerText;
         [SerializeField] private TextMeshProUGUI _acceptButtonText;
         [SerializeField] private Button _acceptButton;
-        [SerializeField] private Button _discardButton;
 
         protected override void OnInitializing()
         {
             _inputField.onValueChanged.AddListener(UpdateOutputText);
-            _discardButton.onClick.AddListener(Discard);
             _acceptButton.onClick.AddListener(Close);
+            base.OnInitializing();
         }
 
         protected override void OnShowing(RenamePopupViewModel popupViewModel)
@@ -30,8 +29,8 @@ namespace PhlegmaticOne.FileExplorer.Popups.Rename
         public override void Release()
         {
             _inputField.onValueChanged.RemoveListener(UpdateOutputText);
-            _discardButton.onClick.RemoveListener(Discard);
             _acceptButton.onClick.RemoveListener(Close);
+            base.Release();
         }
 
         private void UpdateOutputText(string text)

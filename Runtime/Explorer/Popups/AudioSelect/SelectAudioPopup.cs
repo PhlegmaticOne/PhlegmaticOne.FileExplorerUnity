@@ -14,7 +14,6 @@ namespace PhlegmaticOne.FileExplorer.Popups.AudioSelect
         [SerializeField] private SelectAudioCollectionView _collectionView;
         [SerializeField] private TextMeshProUGUI _selectedExtensionText;
         [SerializeField] private Button _acceptButton;
-        [SerializeField] private Button _closeButton;
         
         [ViewInject]
         public void Construct(IViewProvider viewProvider)
@@ -24,8 +23,8 @@ namespace PhlegmaticOne.FileExplorer.Popups.AudioSelect
         
         protected override void OnInitializing()
         {
-            _closeButton.onClick.AddListener(Discard);
             _acceptButton.onClick.AddListener(Close);
+            base.OnInitializing();
         }
 
         protected override void OnShowing(SelectAudioViewModel viewModel)
@@ -42,9 +41,9 @@ namespace PhlegmaticOne.FileExplorer.Popups.AudioSelect
         {
             PopupViewModel.Unsubscribe();
             PopupViewModel.SelectedExtension.ValueChanged += SetSelectedExtension;
-            _closeButton.onClick.RemoveListener(Discard);
             _acceptButton.onClick.RemoveListener(Close);
             _collectionView.ClearViews();
+            base.Release();
         }
 
         private void SetSelectedExtension(string extension)

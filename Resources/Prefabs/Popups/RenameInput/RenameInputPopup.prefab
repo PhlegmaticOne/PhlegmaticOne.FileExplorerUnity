@@ -469,11 +469,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06186767c5e34afa9ba1647dd02ec6bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _closeButton: {fileID: 6756993017909872864}
   _inputField: {fileID: 4965484251379507778}
   _headerText: {fileID: 8277306247760579481}
   _acceptButtonText: {fileID: 7751014595158990750}
   _acceptButton: {fileID: 4956498154736035088}
-  _discardButton: {fileID: 6756993017909872864}
 --- !u!114 &1500259632566997108
 MonoBehaviour:
   m_ObjectHideFlags: 0
