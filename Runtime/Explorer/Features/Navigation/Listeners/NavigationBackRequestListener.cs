@@ -22,7 +22,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation
             _explorerStates = explorerStates;
         }
         
-        public void OnUpdate(float deltaTime)
+        public void OnUpdate()
         {
             if (!Input.GetKeyUp(KeyCode.Escape))
             {

@@ -2,7 +2,7 @@
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.Views.Texts
 {
-    internal static class FindTexts
+    internal static class MonoBehaviourTextComponentExtensions
     {
         public static TextComponent[] TextsInChild(this MonoBehaviour behaviour)
         {

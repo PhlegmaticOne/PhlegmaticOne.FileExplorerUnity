@@ -27,7 +27,6 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
         protected void Close()
         {
             _viewResult.TrySetResult(true);
-            PopupViewModel.Release();
             PopupViewModel = null;
             _viewResult = null;
         }

@@ -2,6 +2,6 @@
 {
     internal interface IUpdateListener
     {
-        void OnUpdate(float deltaTime);
+        void OnUpdate();
     }
 }

@@ -10,7 +10,5 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
         {
             IsDiscarded = true;
         }
-
-        public virtual void Release() { }
     }
 }
