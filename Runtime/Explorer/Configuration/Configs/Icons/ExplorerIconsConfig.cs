@@ -24,8 +24,8 @@ namespace PhlegmaticOne.FileExplorer.Configuration
             _iconsLoadType = ExplorerIconsLoadType.UseInBuildIconsAlways,
             _webLoadTimeout = 1,
             _inBuildData = new ExplorerIconsInBuildData(
-                directoryIconPath: "Sprites/directory",
-                fileIconPath: "Sprites/none")
+                directoryIconPath: "Sprites/FileIcons/directory",
+                fileIconPath: "Sprites/FileIcons/none")
         };
 
         public ExplorerIconsLoadType IconsLoadType

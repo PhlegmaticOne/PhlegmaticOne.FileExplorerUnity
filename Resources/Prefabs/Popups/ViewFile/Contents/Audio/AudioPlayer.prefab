@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0648bcbece6399f4fb21be352a7afb2a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9054073bbbf5b62438570b0f77672692, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -490,8 +490,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _toggleButton: {fileID: 6182991014352037952}
   _targetImage: {fileID: 5135856141915106691}
-  _onSprite: {fileID: 21300000, guid: 0648bcbece6399f4fb21be352a7afb2a, type: 3}
-  _offSprite: {fileID: 21300000, guid: 9054073bbbf5b62438570b0f77672692, type: 3}
+  _onSprite: {fileID: 21300000, guid: 9054073bbbf5b62438570b0f77672692, type: 3}
+  _offSprite: {fileID: 21300000, guid: 0648bcbece6399f4fb21be352a7afb2a, type: 3}
 --- !u!114 &8887635695297138553
 MonoBehaviour:
   m_ObjectHideFlags: 0

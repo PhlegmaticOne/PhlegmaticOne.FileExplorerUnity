@@ -32,9 +32,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 5962966234869664550}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 128, y: 128}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &5080717732058059286
@@ -126,9 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d58054692b8481c8e06d2e6b48490cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minSliderValue: 0
-  _maxSliderValue: 0
-  _initialSliderValue: 0
+  _minSliderValue: 0.1
+  _maxSliderValue: 5
+  _initialSliderValue: 1
   _useIntegerSliderValues: 0
   _image: {fileID: 1784049413495880791}
 --- !u!114 &4504196929504731630

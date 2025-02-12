@@ -8,11 +8,22 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Services.Root
     {
         public RootPathProvider(ExplorerConfig config)
         {
-            RootPath = string.IsNullOrEmpty(config.StartupLocation)
-                ? Application.persistentDataPath.ToForwardSlash()
-                : config.StartupLocation.ToForwardSlash();
+            RootPath = BuildRootPath(config);
         }
 
         public string RootPath { get; }
+
+        private static string BuildRootPath(ExplorerConfig config)
+        {
+#if UNITY_EDITOR
+            return string.IsNullOrEmpty(config.StartupLocation)
+                ? Application.persistentDataPath.ToForwardSlash()
+                : config.StartupLocation.ToForwardSlash();
+#else
+            return string.IsNullOrEmpty(config.StartupLocation)
+                ? Application.persistentDataPath.ToForwardSlash()
+                : System.IO.Path.Combine(Application.persistentDataPath, config.StartupLocation).ToForwardSlash();
+#endif
+        }
     }
 }

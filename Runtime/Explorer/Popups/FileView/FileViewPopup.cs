@@ -39,6 +39,8 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
             {
                 _activeView.gameObject.SetActive(true);
                 _scrollRect.content = _activeView.transform as RectTransform;
+                _scrollRect.horizontalNormalizedPosition = 0;
+                _scrollRect.verticalNormalizedPosition = 0;
                 SetupSlider(_activeView);
             }
             else
