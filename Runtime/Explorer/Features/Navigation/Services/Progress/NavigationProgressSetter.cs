@@ -1,7 +1,7 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Progress.ViewModels;
+﻿using PhlegmaticOne.FileExplorer.Features.Progress.Entities;
 using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Features.Navigation.Services
+namespace PhlegmaticOne.FileExplorer.Features.Navigation.Services.Progress
 {
     internal sealed class NavigationProgressSetter : INavigationProgressSetter
     {

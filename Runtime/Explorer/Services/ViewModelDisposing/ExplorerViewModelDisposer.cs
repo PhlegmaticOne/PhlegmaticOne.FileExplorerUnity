@@ -1,8 +1,8 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Path.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Searching.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
+﻿using PhlegmaticOne.FileExplorer.Features.Actions.Entities.Actions;
+using PhlegmaticOne.FileExplorer.Features.Path.Entities.Path;
+using PhlegmaticOne.FileExplorer.Features.Searching.Entities;
+using PhlegmaticOne.FileExplorer.Features.Selection.Entities;
+using PhlegmaticOne.FileExplorer.Features.Tab.Entities;
 
 namespace PhlegmaticOne.FileExplorer.Services.ViewModelDisposing
 {

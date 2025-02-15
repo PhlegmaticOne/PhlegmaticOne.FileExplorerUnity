@@ -1,6 +1,6 @@
-﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
+﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
 
-namespace PhlegmaticOne.FileExplorer.Features.Searching.Services
+namespace PhlegmaticOne.FileExplorer.Features.Searching.Services.Filters
 {
     internal interface IFileEntrySearchFilter
     {

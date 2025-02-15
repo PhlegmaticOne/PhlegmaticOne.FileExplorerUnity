@@ -1,7 +1,7 @@
 ﻿using System.IO;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Direcrories;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Direcrories;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Factory

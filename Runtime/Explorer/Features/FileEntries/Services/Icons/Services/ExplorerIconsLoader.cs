@@ -3,13 +3,12 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Configuration;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.WebLoading;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 using PhlegmaticOne.FileExplorer.Services.Internet;
 using UnityEngine;
 using TaskExtensions = PhlegmaticOne.FileExplorer.Infrastructure.Extensions.TaskExtensions;
 
-namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Services
+namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons
 {
     internal sealed class ExplorerIconsLoader : IExplorerIconsLoader
     {

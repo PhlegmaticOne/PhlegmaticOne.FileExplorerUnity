@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
 using UnityEngine;
 using UnityEngine.Networking;
 

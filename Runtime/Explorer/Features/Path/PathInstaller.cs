@@ -1,8 +1,9 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Path.Factory;
-using PhlegmaticOne.FileExplorer.Features.Path.Services;
+﻿using PhlegmaticOne.FileExplorer.Features.Path.Entities.Path;
+using PhlegmaticOne.FileExplorer.Features.Path.Entities.PathPart;
+using PhlegmaticOne.FileExplorer.Features.Path.Factory;
+using PhlegmaticOne.FileExplorer.Features.Path.Services.Builder;
+using PhlegmaticOne.FileExplorer.Features.Path.Services.Parser;
 using PhlegmaticOne.FileExplorer.Features.Path.Services.Root;
-using PhlegmaticOne.FileExplorer.Features.Path.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Path.Views;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
 using UnityEngine;

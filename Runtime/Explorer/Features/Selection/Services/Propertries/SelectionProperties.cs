@@ -1,7 +1,7 @@
-﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Proprties;
-using PhlegmaticOne.FileExplorer.Features.Services.Proprties;
+﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Properties;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Proprties;
 
-namespace PhlegmaticOne.FileExplorer.Features.Selection.Services
+namespace PhlegmaticOne.FileExplorer.Features.Selection.Services.Properties
 {
     internal readonly struct SelectionProperties
     {

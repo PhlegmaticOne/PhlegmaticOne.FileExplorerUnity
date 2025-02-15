@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.WebLoading
+namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons
 {
     internal interface IWebFileLoader
     {

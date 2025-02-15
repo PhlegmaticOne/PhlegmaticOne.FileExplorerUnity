@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels.Common;
+using PhlegmaticOne.FileExplorer.Features.Actions.Core;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Proprties;
-using PhlegmaticOne.FileExplorer.Features.Selection.Services;
+using PhlegmaticOne.FileExplorer.Features.Selection.Services.Properties;
 using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 using PhlegmaticOne.FileExplorer.Popups.Properties;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
 {
-    internal sealed class ActionSelectionProperties : IActionCommand
+    internal sealed class ActionSelectionProperties : IAction
     {
         private readonly IPopupProvider _popupProvider;
         private readonly ISelectionPropertiesProvider _selectionPropertiesProvider;
@@ -22,7 +22,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
             _selectionPropertiesProvider = selectionPropertiesProvider;
         }
 
-        public async Task ExecuteAction(CancellationToken token)
+        public async Task Execute(CancellationToken token)
         {
             var selectionProperties = _selectionPropertiesProvider.GetSelectionProperties();
             

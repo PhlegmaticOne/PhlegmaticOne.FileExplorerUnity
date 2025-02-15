@@ -5,7 +5,7 @@ using PhlegmaticOne.FileExplorer.Configuration;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Services
+namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons
 {
     internal sealed class ExplorerIconsProvider : IExplorerIconsProvider
     {

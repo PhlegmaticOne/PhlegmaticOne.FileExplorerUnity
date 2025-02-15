@@ -1,8 +1,8 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning;
-using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels.Common.Factory;
-using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels.Common.Handlers;
-using PhlegmaticOne.FileExplorer.Features.Actions.Views;
+﻿using PhlegmaticOne.FileExplorer.Features.Actions.Configs;
+using PhlegmaticOne.FileExplorer.Features.Actions.Core;
+using PhlegmaticOne.FileExplorer.Features.Actions.Entities.Action;
+using PhlegmaticOne.FileExplorer.Features.Actions.Entities.Actions;
+using PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
 using UnityEngine;

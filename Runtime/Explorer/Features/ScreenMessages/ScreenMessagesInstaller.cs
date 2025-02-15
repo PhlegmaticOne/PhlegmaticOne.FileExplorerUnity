@@ -1,5 +1,5 @@
-﻿using PhlegmaticOne.FileExplorer.Features.ScreenMessages.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.ScreenMessages.Views;
+﻿using PhlegmaticOne.FileExplorer.Features.ScreenMessages.Entities;
+using PhlegmaticOne.FileExplorer.Features.ScreenMessages.Listeners;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
 using UnityEngine;

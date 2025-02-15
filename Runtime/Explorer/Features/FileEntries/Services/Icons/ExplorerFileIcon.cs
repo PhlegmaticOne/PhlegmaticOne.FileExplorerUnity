@@ -1,8 +1,7 @@
 ﻿using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Services;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 using UnityEngine;
 

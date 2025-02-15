@@ -1,10 +1,10 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Navigation.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
+﻿using PhlegmaticOne.FileExplorer.Features.Navigation.Entities;
+using PhlegmaticOne.FileExplorer.Features.Selection.Entities;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Contracts;
 using PhlegmaticOne.FileExplorer.States;
 using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Features.Navigation
+namespace PhlegmaticOne.FileExplorer.Features.Navigation.Listeners
 {
     internal sealed class NavigationBackRequestListener : IUpdateListener
     {

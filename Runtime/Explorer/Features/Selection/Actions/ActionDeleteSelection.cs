@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels.Common;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Searching.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.Actions.Core;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
+using PhlegmaticOne.FileExplorer.Features.Searching.Entities;
+using PhlegmaticOne.FileExplorer.Features.Selection.Entities;
+using PhlegmaticOne.FileExplorer.Features.Tab.Entities;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
 {
-    internal sealed class ActionDeleteSelection : IActionCommand
+    internal sealed class ActionDeleteSelection : IAction
     {
         private readonly SelectionViewModel _selectionViewModel;
         private readonly TabViewModel _tabViewModel;
@@ -25,7 +25,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
             _searchViewModel = searchViewModel;
         }
 
-        public Task ExecuteAction(CancellationToken token)
+        public Task Execute(CancellationToken token)
         {
             var selection = _selectionViewModel.GetSelection();
             DeleteSelectedEntries(selection);

@@ -1,4 +1,4 @@
-﻿namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.WebLoading
+﻿namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons
 {
     internal sealed class WebLoadResult<T>
     {

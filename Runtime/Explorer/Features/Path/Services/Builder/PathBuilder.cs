@@ -1,7 +1,8 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Path.ViewModels;
+﻿using PhlegmaticOne.FileExplorer.Features.Path.Entities.Path;
+using PhlegmaticOne.FileExplorer.Features.Path.Entities.PathPart;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 
-namespace PhlegmaticOne.FileExplorer.Features.Path.Services
+namespace PhlegmaticOne.FileExplorer.Features.Path.Services.Builder
 {
     internal sealed class PathBuilder : IPathBuilder
     {

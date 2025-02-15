@@ -1,4 +1,4 @@
-﻿namespace PhlegmaticOne.FileExplorer.Features.Navigation.Services
+﻿namespace PhlegmaticOne.FileExplorer.Features.Navigation.Services.Progress
 {
     internal interface INavigationProgressSetter
     {

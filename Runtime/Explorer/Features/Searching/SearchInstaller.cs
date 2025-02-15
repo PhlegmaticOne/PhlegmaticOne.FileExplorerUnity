@@ -1,6 +1,5 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Searching.Services;
-using PhlegmaticOne.FileExplorer.Features.Searching.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Searching.Views;
+﻿using PhlegmaticOne.FileExplorer.Features.Searching.Entities;
+using PhlegmaticOne.FileExplorer.Features.Searching.Services.Filters;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
 using UnityEngine;

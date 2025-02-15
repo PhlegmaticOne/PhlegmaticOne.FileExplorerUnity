@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Features.Actions
+namespace PhlegmaticOne.FileExplorer.Features.Actions.Configs
 {
-    internal struct ActionViewData
+    internal readonly struct ActionViewData
     {
         public ActionViewData(Color textColor, Color backgroundColor, string description)
         {
@@ -11,8 +11,8 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions
             Description = description;
         }
         
-        public Color TextColor { get; set; }
-        public Color BackgroundColor { get; set; }
+        public Color TextColor { get; }
+        public Color BackgroundColor { get; }
         public string Description { get; }
     }
 }

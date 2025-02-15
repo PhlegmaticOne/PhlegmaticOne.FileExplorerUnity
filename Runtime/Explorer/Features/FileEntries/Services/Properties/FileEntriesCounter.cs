@@ -1,5 +1,5 @@
 ﻿using System;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Models;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Proprties
 {

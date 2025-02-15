@@ -1,11 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels.Common;
-using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.Actions.Core;
+using PhlegmaticOne.FileExplorer.Features.Selection.Entities;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
 {
-    internal sealed class ActionClearSelection : IActionCommand
+    internal sealed class ActionClearSelection : IAction
     {
         private readonly SelectionViewModel _selectionViewModel;
 
@@ -14,7 +14,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
             _selectionViewModel = selectionViewModel;
         }
 
-        public Task ExecuteAction(CancellationToken token)
+        public Task Execute(CancellationToken token)
         {
             _selectionViewModel.Clear();
             return Task.CompletedTask;

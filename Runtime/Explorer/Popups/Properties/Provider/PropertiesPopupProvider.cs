@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
 using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 
 namespace PhlegmaticOne.FileExplorer.Popups.Properties

@@ -1,4 +1,4 @@
-﻿namespace PhlegmaticOne.FileExplorer.Features.Selection.Services
+﻿namespace PhlegmaticOne.FileExplorer.Features.Selection.Services.Properties
 {
     internal interface ISelectionPropertiesProvider
     {

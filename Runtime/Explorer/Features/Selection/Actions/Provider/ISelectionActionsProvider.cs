@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.Actions.Entities.Action;
+using PhlegmaticOne.FileExplorer.Features.Selection.Entities;
 
-namespace PhlegmaticOne.FileExplorer.Features.Selection.Services
+namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
 {
     internal interface ISelectionActionsProvider
     {

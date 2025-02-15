@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Features.Actions
+namespace PhlegmaticOne.FileExplorer.Features.Actions.Configs
 {
     [Serializable]
     internal sealed class ActionsViewConfig

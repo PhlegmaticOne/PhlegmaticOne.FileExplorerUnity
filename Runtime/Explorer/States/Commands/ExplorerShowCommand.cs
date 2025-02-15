@@ -1,4 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Navigation.ViewModels;
+﻿using PhlegmaticOne.FileExplorer.Features.Navigation.Entities;
 using PhlegmaticOne.FileExplorer.Services.ActionListeners;
 using PhlegmaticOne.FileExplorer.Services.StaticViews;
 using PhlegmaticOne.FileExplorer.Services.StaticViews.SceneSetup;

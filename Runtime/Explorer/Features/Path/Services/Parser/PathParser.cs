@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using PhlegmaticOne.FileExplorer.Features.Path.Entities.PathPart;
 using PhlegmaticOne.FileExplorer.Features.Path.Factory;
 using PhlegmaticOne.FileExplorer.Features.Path.Services.Root;
-using PhlegmaticOne.FileExplorer.Features.Path.ViewModels;
 
-namespace PhlegmaticOne.FileExplorer.Features.Path.Services
+namespace PhlegmaticOne.FileExplorer.Features.Path.Services.Parser
 {
     internal sealed class PathParser : IPathParser
     {

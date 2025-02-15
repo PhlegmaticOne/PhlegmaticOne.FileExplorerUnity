@@ -1,7 +1,7 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Services.Proprties;
+﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Properties;
+using PhlegmaticOne.FileExplorer.Features.Selection.Entities;
 
-namespace PhlegmaticOne.FileExplorer.Features.Selection.Services
+namespace PhlegmaticOne.FileExplorer.Features.Selection.Services.Properties
 {
     internal sealed class SelectionPropertiesProvider : ISelectionPropertiesProvider
     {

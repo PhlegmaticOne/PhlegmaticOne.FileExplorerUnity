@@ -1,10 +1,11 @@
-﻿using PhlegmaticOne.FileExplorer.Features.ScreenMessages.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Searching.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
+﻿using PhlegmaticOne.FileExplorer.Features.ScreenMessages.Core;
+using PhlegmaticOne.FileExplorer.Features.ScreenMessages.Entities;
+using PhlegmaticOne.FileExplorer.Features.Searching.Entities;
+using PhlegmaticOne.FileExplorer.Features.Tab.Entities;
 using PhlegmaticOne.FileExplorer.Services.ActionListeners;
 using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages
+namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Listeners
 {
     internal sealed class TabCenterTextChangeListener : IExplorerActionListener
     {

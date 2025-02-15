@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Features.Services.Proprties
+namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Properties
 {
     internal struct FileSize
     {

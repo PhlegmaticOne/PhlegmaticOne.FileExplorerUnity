@@ -1,5 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Control.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Control.Views;
+﻿using PhlegmaticOne.FileExplorer.Features.Control.Entities;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
 using UnityEngine;

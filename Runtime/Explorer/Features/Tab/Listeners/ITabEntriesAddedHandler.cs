@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
 
-namespace PhlegmaticOne.FileExplorer.Features.Tab
+namespace PhlegmaticOne.FileExplorer.Features.Tab.Listeners
 {
     internal interface ITabEntriesAddedHandler
     {

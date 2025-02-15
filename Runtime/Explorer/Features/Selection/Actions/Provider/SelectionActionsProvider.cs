@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels.Common.Factory;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Searching.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Selection.Actions.Factory;
-using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.Actions.Core;
+using PhlegmaticOne.FileExplorer.Features.Actions.Entities.Action;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Actions;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
+using PhlegmaticOne.FileExplorer.Features.Searching.Entities;
+using PhlegmaticOne.FileExplorer.Features.Selection.Entities;
 
-namespace PhlegmaticOne.FileExplorer.Features.Selection.Services
+namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
 {
     internal sealed class SelectionActionsProvider : ISelectionActionsProvider
     {

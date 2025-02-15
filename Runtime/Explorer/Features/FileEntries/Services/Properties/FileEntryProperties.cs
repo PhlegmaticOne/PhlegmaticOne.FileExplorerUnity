@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using PhlegmaticOne.FileExplorer.Features.Services.Proprties;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Properties;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Proprties
 {

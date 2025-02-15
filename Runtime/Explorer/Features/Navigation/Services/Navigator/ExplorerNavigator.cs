@@ -2,10 +2,10 @@
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Factory;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 
-namespace PhlegmaticOne.FileExplorer.Features.Navigation.Services
+namespace PhlegmaticOne.FileExplorer.Features.Navigation.Services.Navigator
 {
     internal sealed class ExplorerNavigator : IExplorerNavigator
     {

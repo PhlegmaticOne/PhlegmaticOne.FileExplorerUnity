@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using PhlegmaticOne.FileExplorer.Features.Path.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.Path.Entities.PathPart;
 
-namespace PhlegmaticOne.FileExplorer.Features.Path.Services
+namespace PhlegmaticOne.FileExplorer.Features.Path.Services.Parser
 {
     internal interface IPathParser
     {

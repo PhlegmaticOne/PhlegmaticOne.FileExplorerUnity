@@ -1,6 +1,7 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Navigation.Services;
-using PhlegmaticOne.FileExplorer.Features.Navigation.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Navigation.Views;
+﻿using PhlegmaticOne.FileExplorer.Features.Navigation.Entities;
+using PhlegmaticOne.FileExplorer.Features.Navigation.Listeners;
+using PhlegmaticOne.FileExplorer.Features.Navigation.Services.Navigator;
+using PhlegmaticOne.FileExplorer.Features.Navigation.Services.Progress;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
 using UnityEngine;

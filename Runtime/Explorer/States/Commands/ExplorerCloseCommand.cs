@@ -1,4 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Services;
+﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons;
 using PhlegmaticOne.FileExplorer.Services.ActionListeners;
 using PhlegmaticOne.FileExplorer.Services.Cancellation;
 using PhlegmaticOne.FileExplorer.Services.Destroying;

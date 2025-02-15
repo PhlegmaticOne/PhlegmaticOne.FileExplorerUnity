@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Configuration;
 using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Services
+namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons
 {
     internal interface IExplorerIconsLoader
     {

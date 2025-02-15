@@ -1,5 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Progress.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Progress.Views;
+﻿using PhlegmaticOne.FileExplorer.Features.Progress.Entities;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
 using UnityEngine;
