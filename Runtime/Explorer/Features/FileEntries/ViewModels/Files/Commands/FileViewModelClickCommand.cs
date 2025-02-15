@@ -1,23 +1,22 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Actions;
 using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
-using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Commands
 {
     internal sealed class FileViewModelClickCommand : IFileViewModelClickCommand
     {
         private readonly SelectionViewModel _selectionViewModel;
-        private readonly IFileEntryActionsProvider _actionsProvider;
+        private readonly IFileEntryShowActionsProvider _showActionsProvider;
         private readonly IFileConfidentActionProvider _confidentActionProvider;
 
         public FileViewModelClickCommand(
             SelectionViewModel selectionViewModel,
-            IFileEntryActionsProvider actionsProvider,
+            IFileEntryShowActionsProvider showActionsProvider,
             IFileConfidentActionProvider confidentActionProvider)
         {
             _selectionViewModel = selectionViewModel;
-            _actionsProvider = actionsProvider;
+            _showActionsProvider = showActionsProvider;
             _confidentActionProvider = confidentActionProvider;
         }
         
@@ -31,11 +30,11 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Comma
 
             if (_confidentActionProvider.TryGetConfidentAction(fileViewModel, out var action))
             {
-                action.Execute().ForgetUnawareCancellation();
+                action.ExecuteCommand.Execute(null);
                 return;
             }
             
-            _actionsProvider.ShowActions(fileViewModel);
+            _showActionsProvider.ShowActions(fileViewModel);
         }
     }
 }

@@ -15,12 +15,12 @@ MonoBehaviour:
   _value:
     _startupLocation: 
     _icons:
-      _iconsLoadType: 3
+      _iconsLoadType: 1
       _iconsWebDirectoryUrl: https://static.openmygame.com/word_spells/test/krotov_test/Icons/
       _webLoadTimeout: 1
       _inBuildData:
-        _directoryIconPath: Sprites/directory
-        _fileIconPath: Sprites/none
+        _directoryIconPath: Sprites/FileIcons/directory
+        _fileIconPath: Sprites/FileIcons/none
     _extensions:
       _textExtensions:
       - .txt
@@ -34,6 +34,10 @@ MonoBehaviour:
         _audioType: 14
       - _extension: .wav
         _audioType: 20
+      - _extension: .aiff
+        _audioType: 2
+      - _extension: .mp3
+        _audioType: 13
     _view:
       _addFileEntriesBatchCount: 10
       _sortingLayerName: Default

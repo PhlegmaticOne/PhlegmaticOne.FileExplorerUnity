@@ -2,7 +2,7 @@
 using System.Linq;
 using PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Proprties;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Selection.Services;
 using PhlegmaticOne.FileExplorer.Features.Tab;

@@ -4,9 +4,9 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views.Texts
 {
     internal static class MonoBehaviourTextComponentExtensions
     {
-        public static TextComponent[] TextsInChild(this MonoBehaviour behaviour)
+        public static TextView[] TextsInChild(this MonoBehaviour behaviour)
         {
-            return behaviour.GetComponentsInChildren<TextComponent>(true);
+            return behaviour.GetComponentsInChildren<TextView>(true);
         }
     }
 }

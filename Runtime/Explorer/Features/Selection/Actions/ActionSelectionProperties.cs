@@ -1,35 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
+using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels.Common;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Proprties;
 using PhlegmaticOne.FileExplorer.Features.Selection.Services;
 using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 using PhlegmaticOne.FileExplorer.Popups.Properties;
-using PhlegmaticOne.FileExplorer.Services.Cancellation;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
 {
-    internal sealed class ActionSelectionProperties : ActionViewModel
+    internal sealed class ActionSelectionProperties : IActionCommand
     {
         private readonly IPopupProvider _popupProvider;
         private readonly ISelectionPropertiesProvider _selectionPropertiesProvider;
 
         public ActionSelectionProperties(
             IPopupProvider popupProvider,
-            ISelectionPropertiesProvider selectionPropertiesProvider,
-            IExplorerCancellationProvider cancellationProvider,
-            ActionsViewModel actionsViewModel) : base(actionsViewModel, cancellationProvider)
+            ISelectionPropertiesProvider selectionPropertiesProvider)
         {
             _popupProvider = popupProvider;
             _selectionPropertiesProvider = selectionPropertiesProvider;
         }
 
-        public override string Description => "Properties";
-        
-        public override ActionColor Color => ActionColor.Auto;
-        
-        protected override async Task ExecuteAction(CancellationToken token)
+        public async Task ExecuteAction(CancellationToken token)
         {
             var selectionProperties = _selectionPropertiesProvider.GetSelectionProperties();
             
@@ -43,7 +36,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
             await _popupProvider.Show<PropertiesPopup, PropertiesPopupViewModel>(propertiesViewModel);
         }
 
-        private string GetSelectionView(FileEntriesCounter count)
+        private static string GetSelectionView(FileEntriesCounter count)
         {
             return $"Files: {count.FilesCount}, Directories: {count.DirectoriesCount}";
         }

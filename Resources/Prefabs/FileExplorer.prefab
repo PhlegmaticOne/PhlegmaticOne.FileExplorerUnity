@@ -767,6 +767,78 @@ MonoBehaviour:
     _parent: {fileID: 7848643897183268857}
     _addOffsetX: 15
     _borderOffset: {x: 20, y: 15}
+  _viewConfig:
+    _actionsViewData:
+    - _key: Delete
+      _description: Delete
+      _textColorType: 1
+      _textColor: {r: 0.9607844, g: 0.2392157, b: 0.2392157, a: 1}
+      _backgroundColorType: 0
+      _backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+    - _key: OpenExplorer
+      _description: Open is OS
+      _textColorType: 0
+      _textColor: {r: 1, g: 1, b: 1, a: 1}
+      _backgroundColorType: 0
+      _backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+    - _key: Properties
+      _description: Show properties
+      _textColorType: 0
+      _textColor: {r: 1, g: 1, b: 1, a: 1}
+      _backgroundColorType: 0
+      _backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+    - _key: Rename
+      _description: Rename
+      _textColorType: 0
+      _textColor: {r: 1, g: 1, b: 1, a: 1}
+      _backgroundColorType: 0
+      _backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+    - _key: ShowText
+      _description: Show text
+      _textColorType: 1
+      _textColor: {r: 0.8584906, g: 0.7414778, b: 0.1579299, a: 1}
+      _backgroundColorType: 0
+      _backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+    - _key: ShowImage
+      _description: Show image
+      _textColorType: 1
+      _textColor: {r: 0.8584906, g: 0.7414778, b: 0.1579299, a: 1}
+      _backgroundColorType: 0
+      _backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+    - _key: ShowAudio
+      _description: Show audio
+      _textColorType: 1
+      _textColor: {r: 0.8584906, g: 0.7414778, b: 0.1579299, a: 1}
+      _backgroundColorType: 0
+      _backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+    - _key: ClearSelection
+      _description: Clear selection
+      _textColorType: 0
+      _textColor: {r: 1, g: 1, b: 1, a: 1}
+      _backgroundColorType: 0
+      _backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+    - _key: DeleteSelection
+      _description: Delete selection
+      _textColorType: 1
+      _textColor: {r: 0.9607844, g: 0.2392157, b: 0.2392157, a: 1}
+      _backgroundColorType: 0
+      _backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+    - _key: SelectionProperties
+      _description: Show properties
+      _textColorType: 0
+      _textColor: {r: 1, g: 1, b: 1, a: 1}
+      _backgroundColorType: 0
+      _backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+    - _key: SelectAll
+      _description: Select all
+      _textColorType: 0
+      _textColor: {r: 1, g: 1, b: 1, a: 1}
+      _backgroundColorType: 0
+      _backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+    _backgroundAutoColors:
+    - {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 1}
+    - {r: 0.122641504, g: 0.122641504, b: 0.122641504, a: 1}
+    _textAutoColor: {r: 0.8078432, g: 0.81568635, b: 0.83921576, a: 1}
 --- !u!1 &4568121788996877341
 GameObject:
   m_ObjectHideFlags: 0

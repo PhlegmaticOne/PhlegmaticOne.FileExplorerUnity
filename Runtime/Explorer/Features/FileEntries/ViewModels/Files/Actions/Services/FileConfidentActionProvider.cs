@@ -1,20 +1,20 @@
 ﻿using System;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
-using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
+using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Actions;
 using PhlegmaticOne.FileExplorer.Popups.FileView;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Actions
 {
     internal sealed class FileConfidentActionProvider : IFileConfidentActionProvider
     {
-        private readonly IDependencyContainer _dependencyContainer;
+        private readonly IFileEntryActionsFactory _factory;
 
-        public FileConfidentActionProvider(IDependencyContainer dependencyContainer)
+        public FileConfidentActionProvider(IFileEntryActionsFactory factory)
         {
-            _dependencyContainer = dependencyContainer;
+            _factory = factory;
         }
         
-        public bool TryGetConfidentAction(FileViewModel file, out FileEntryAction action)
+        public bool TryGetConfidentAction(FileViewModel file, out ActionViewModel action)
         {
             if (!file.Extension.IsViewable(out var viewType))
             {
@@ -26,13 +26,13 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels.Files.Actio
             return true;
         }
 
-        private FileEntryAction CreateAction(FileViewType viewType, FileViewModel file)
+        private ActionViewModel CreateAction(FileViewType viewType, FileViewModel file)
         {
             return viewType switch
             {
-                FileViewType.Image => _dependencyContainer.Instantiate<FileEntryActionShowImage>(file),
-                FileViewType.Text => _dependencyContainer.Instantiate<FileEntryActionShowText>(file),
-                FileViewType.Audio => _dependencyContainer.Instantiate<FileEntryActionPlayAudio>(file),
+                FileViewType.Image => _factory.ShowImage(file),
+                FileViewType.Text => _factory.ShowText(file),
+                FileViewType.Audio => _factory.ShowAudio(file),
                 _ => throw new ArgumentOutOfRangeException(nameof(viewType), viewType, null)
             };
         }

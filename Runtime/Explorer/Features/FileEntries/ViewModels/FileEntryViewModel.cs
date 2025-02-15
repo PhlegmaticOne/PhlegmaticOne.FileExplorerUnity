@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Services;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Operations;

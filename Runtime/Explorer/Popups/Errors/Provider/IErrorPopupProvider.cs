@@ -7,5 +7,6 @@ namespace PhlegmaticOne.FileExplorer.Popups.Errors
     internal interface IErrorPopupProvider
     {
         Task ViewError(FileEntryViewModel fileEntry, Exception exception);
+        Task ViewError(Exception exception);
     }
 }

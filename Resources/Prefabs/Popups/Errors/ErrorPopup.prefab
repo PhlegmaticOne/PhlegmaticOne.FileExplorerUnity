@@ -132,7 +132,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &3772622754531098935
@@ -400,7 +400,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &3458749371087527142
@@ -605,7 +605,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &1004598701690779742
@@ -677,10 +677,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5e781b329e2464c88ec7231e38062b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fileDescriptionText: {fileID: 4015480884388025108}
+  _closeButton: {fileID: 181373404640609092}
+  _titleText: {fileID: 4015480884388025108}
   _errorNameText: {fileID: 886281812561620057}
   _errorDescriptionText: {fileID: 2231334407207555363}
-  _closeButton: {fileID: 181373404640609092}
 --- !u!222 &5120362824049847088
 CanvasRenderer:
   m_ObjectHideFlags: 0

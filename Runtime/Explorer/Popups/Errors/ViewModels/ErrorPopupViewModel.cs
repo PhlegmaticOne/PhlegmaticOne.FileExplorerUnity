@@ -1,6 +1,7 @@
 ﻿using System;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Popups.Errors
 {
@@ -9,25 +10,31 @@ namespace PhlegmaticOne.FileExplorer.Popups.Errors
         private readonly FileEntryViewModel _fileEntry;
         private readonly Exception _exception;
 
-        public ErrorPopupViewModel(FileEntryViewModel fileEntry, Exception exception)
+        public ErrorPopupViewModel(string title, string message, string errorName)
         {
-            _fileEntry = fileEntry;
-            _exception = exception;
+            Title = new ReactiveProperty<string>(title);
+            Message = new ReactiveProperty<string>(message);
+            ErrorName = new ReactiveProperty<string>(errorName);
         }
 
-        public string GetFileDescription()
+        public static ErrorPopupViewModel FromFileError(FileEntryViewModel fileEntry, Exception exception)
         {
-            return $"{_fileEntry.Name} ({_fileEntry.EntryType})";
+            return new ErrorPopupViewModel(
+                title: $"{fileEntry.Name} ({fileEntry.EntryType})",
+                message: exception.Message,
+                errorName: exception.GetType().Name);
         }
 
-        public string GetErrorMessage()
+        public static ErrorPopupViewModel FromException(Exception exception)
         {
-            return _exception.Message;
+            return new ErrorPopupViewModel(
+                title: "Exception occured",
+                message: exception.Message,
+                errorName: exception.GetType().Name); 
         }
-
-        public string GetErrorName()
-        {
-            return _exception.GetType().Name;
-        }
+        
+        public ReactiveProperty<string> Title { get; }
+        public ReactiveProperty<string> Message { get; }
+        public ReactiveProperty<string> ErrorName { get; }
     }
 }

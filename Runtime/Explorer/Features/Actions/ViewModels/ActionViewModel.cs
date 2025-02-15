@@ -1,6 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
 using PhlegmaticOne.FileExplorer.Services.Cancellation;
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions.ViewModels
@@ -10,21 +12,23 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.ViewModels
         private readonly ActionsViewModel _actionsViewModel;
         private readonly IExplorerCancellationProvider _cancellationProvider;
 
-        protected ActionViewModel(
+        protected ActionViewModel(string key,
             ActionsViewModel actionsViewModel,
             IExplorerCancellationProvider cancellationProvider)
         {
+            Key = key;
             _actionsViewModel = actionsViewModel;
             _cancellationProvider = cancellationProvider;
+            ExecuteCommand = new CommandDelegateEmpty(ExecuteAction);
         }
-
-        public abstract string Description { get; }
-        public abstract ActionColor Color { get; }
         
-        public Task Execute()
+        public string Key { get; }
+        public ICommand ExecuteCommand { get; }
+        
+        private void ExecuteAction()
         {
             _actionsViewModel.Deactivate();
-            return ExecuteAction(_cancellationProvider.Token);
+            ExecuteAction(_cancellationProvider.Token).ForgetUnawareCancellation();
         }
 
         protected abstract Task ExecuteAction(CancellationToken token);

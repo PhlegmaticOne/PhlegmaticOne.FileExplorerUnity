@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Proprties;
 using PhlegmaticOne.FileExplorer.Features.Services.Proprties;
 

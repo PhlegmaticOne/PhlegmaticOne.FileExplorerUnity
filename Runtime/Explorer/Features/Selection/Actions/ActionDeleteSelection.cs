@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels.Common;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Searching.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Tab.ViewModels;
-using PhlegmaticOne.FileExplorer.Services.Cancellation;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
 {
-    internal sealed class ActionDeleteSelection : ActionViewModel
+    internal sealed class ActionDeleteSelection : IActionCommand
     {
         private readonly SelectionViewModel _selectionViewModel;
         private readonly TabViewModel _tabViewModel;
@@ -19,20 +18,14 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
         public ActionDeleteSelection(
             SelectionViewModel selectionViewModel,
             TabViewModel tabViewModel,
-            ActionsViewModel actionsViewModel,
-            IExplorerCancellationProvider cancellationProvider,
-            SearchViewModel searchViewModel) : base(actionsViewModel, cancellationProvider)
+            SearchViewModel searchViewModel)
         {
             _selectionViewModel = selectionViewModel;
             _tabViewModel = tabViewModel;
             _searchViewModel = searchViewModel;
         }
 
-        public override string Description => "Delete all";
-        
-        public override ActionColor Color => ActionColor.WithTextColor(UnityEngine.Color.red);
-        
-        protected override Task ExecuteAction(CancellationToken token)
+        public Task ExecuteAction(CancellationToken token)
         {
             var selection = _selectionViewModel.GetSelection();
             DeleteSelectedEntries(selection);

@@ -16,7 +16,13 @@ namespace PhlegmaticOne.FileExplorer.Popups.Errors
         
         public Task ViewError(FileEntryViewModel fileEntry, Exception exception)
         {
-            var viewModel = new ErrorPopupViewModel(fileEntry, exception);
+            var viewModel = ErrorPopupViewModel.FromFileError(fileEntry, exception);
+            return _popupProvider.Show<ErrorPopup, ErrorPopupViewModel>(viewModel);
+        }
+
+        public Task ViewError(Exception exception)
+        {
+            var viewModel = ErrorPopupViewModel.FromException(exception);
             return _popupProvider.Show<ErrorPopup, ErrorPopupViewModel>(viewModel);
         }
     }

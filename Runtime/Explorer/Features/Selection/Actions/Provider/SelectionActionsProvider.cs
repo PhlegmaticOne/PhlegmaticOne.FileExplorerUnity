@@ -1,27 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels;
+using PhlegmaticOne.FileExplorer.Features.Actions.ViewModels.Common.Factory;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.ViewModels;
 using PhlegmaticOne.FileExplorer.Features.Searching.ViewModels;
-using PhlegmaticOne.FileExplorer.Features.Selection.Actions;
+using PhlegmaticOne.FileExplorer.Features.Selection.Actions.Factory;
 using PhlegmaticOne.FileExplorer.Features.Selection.ViewModels;
-using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Services
 {
     internal sealed class SelectionActionsProvider : ISelectionActionsProvider
     {
-        private readonly IDependencyContainer _container;
-        private readonly IFileEntryActionsFactory[] _actionsFactories;
+        private readonly IActionViewModelFactory _factory;
+        private readonly IFileEntryShowActionsFactory[] _actionsFactories;
         private readonly SearchViewModel _searchViewModel;
 
         public SelectionActionsProvider(
-            IDependencyContainer container,
-            IFileEntryActionsFactory[] actionsFactories,
+            IActionViewModelFactory factory,
+            IFileEntryShowActionsFactory[] actionsFactories,
             SearchViewModel searchViewModel)
         {
-            _container = container;
+            _factory = factory;
             _actionsFactories = actionsFactories;
             _searchViewModel = searchViewModel;
         }
@@ -32,12 +32,12 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Services
 
             if (!viewModel.IsAllSelected && _searchViewModel.FoundEntriesCount != 0)
             {
-                result.Add(_container.Instantiate<ActionSelectAll>());
+                result.Add(_factory.SelectAll());
             }
 
             if (viewModel.IsAnySelected())
             {
-                result.Add(_container.Instantiate<ActionClearSelection>());
+                result.Add(_factory.ClearSelection());
             }
 
             if (viewModel.TryGetSingleSelection(out var fileEntry))
@@ -46,8 +46,8 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Services
             }
             else if(viewModel.IsAnySelected())
             {
-                result.Add(_container.Instantiate<ActionSelectionProperties>());
-                result.Add(_container.Instantiate<ActionDeleteSelection>());
+                result.Add(_factory.SelectionProperties());
+                result.Add(_factory.DeleteSelection());
             }
 
             return result;

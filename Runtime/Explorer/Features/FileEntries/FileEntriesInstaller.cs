@@ -1,4 +1,5 @@
-﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Factory;
+﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Actions;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Factory;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Actions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.Services;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons.WebLoading;
@@ -23,15 +24,16 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries
             container.Register<IFileOperations, FileOperations>();
             container.Register<IFileExtensions, FileExtensions>();
             
-            container.Register<IFileEntryActionsFactory, FileEntryActionsFactoryFile>();
-            container.Register<IFileEntryActionsFactory, FileEntryActionsFactoryDirectory>();
-            container.Register<IFileEntryActionsProvider, FileEntryActionsProvider>();
+            container.Register<IFileEntryShowActionsFactory, FileEntryShowActionsFactoryFile>();
+            container.Register<IFileEntryShowActionsFactory, FileEntryShowActionsFactoryDirectory>();
+            container.Register<IFileEntryShowActionsProvider, FileEntryShowActionsProvider>();
             container.Register<IFileConfidentActionProvider, FileConfidentActionProvider>();
             container.Register<IFileEntryFactory, FileEntryFactory>();
             
             container.Register<IFileEntryActionErrorHandler, FileEntryActionErrorHandler>();
             container.Register<IFileEntryActionStartHandler, FileEntryActionStartHandler>();
             container.Register<IFileEntryActionExecuteHandler, FileEntryActionExecuteHandler>();
+            container.Register<IFileEntryActionsFactory, FileEntryActionsFactory>();
             
             container.Register<IFileViewModelClickCommand, FileViewModelClickCommand>();
         }

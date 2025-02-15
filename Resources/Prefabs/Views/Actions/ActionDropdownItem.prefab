@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6376589947099169155}
   - component: {fileID: 5241389021587564014}
+  - component: {fileID: 8695184334915478705}
   - component: {fileID: 3815548813652272227}
   - component: {fileID: 2412975896052556948}
   - component: {fileID: 1193821840842594690}
@@ -53,10 +54,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93c47310e0854ed89b641620da4a580f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textComponents:
-  - {fileID: 9131608856119645873}
+  _button: {fileID: 8695184334915478705}
   _description: {fileID: 9131608856119645873}
   _background: {fileID: 2412975896052556948}
+--- !u!114 &8695184334915478705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222991046177493738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e61888576514e5185fb402d2595eb84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _button: {fileID: 1193821840842594690}
 --- !u!222 &3815548813652272227
 CanvasRenderer:
@@ -236,7 +248,7 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
