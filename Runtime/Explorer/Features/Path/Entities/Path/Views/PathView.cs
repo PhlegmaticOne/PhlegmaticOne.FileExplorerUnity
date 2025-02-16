@@ -6,7 +6,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Entities.Path
 {
     internal sealed class PathView : MonoBehaviour, IExplorerStaticViewComponent
     {
-        [SerializeField] private PathPartViewCollection _viewCollection;
+        [SerializeField] private ComponentCollectionPathParts _pathParts;
 
         private PathViewModel _viewModel;
 
@@ -18,12 +18,12 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Entities.Path
         
         public void Bind()
         {
-            _viewModel.PathParts.CollectionChanged += _viewCollection.UpdateView;
+            _pathParts.Bind(_viewModel.PathParts);
         }
 
         public void Unbind()
         {
-            _viewModel.PathParts.CollectionChanged -= _viewCollection.UpdateView;
+            _pathParts.Release();
         }
     }
 }

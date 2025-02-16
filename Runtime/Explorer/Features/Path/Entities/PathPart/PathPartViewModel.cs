@@ -1,6 +1,7 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Navigation.Entities;
 using PhlegmaticOne.FileExplorer.Features.Path.Services.Builder;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
 
 namespace PhlegmaticOne.FileExplorer.Features.Path.Entities.PathPart
 {
@@ -15,12 +16,14 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Entities.PathPart
         {
             _navigationViewModel = navigationViewModel;
             _pathBuilder = pathBuilder;
+            NavigateCommand = new CommandDelegateEmpty(Navigate);
             IsCurrent = new ReactiveProperty<bool>(false);
             Part = new ReactiveProperty<string>(part);
         }
         
         public ReactiveProperty<bool> IsCurrent { get; }
         public ReactiveProperty<string> Part { get; }
+        public ICommand NavigateCommand { get; }
 
         public void Navigate()
         {

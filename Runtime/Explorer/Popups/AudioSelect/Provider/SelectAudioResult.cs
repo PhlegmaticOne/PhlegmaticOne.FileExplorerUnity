@@ -2,7 +2,7 @@
 
 namespace PhlegmaticOne.FileExplorer.Popups.AudioSelect
 {
-    internal struct SelectAudioResult
+    internal readonly struct SelectAudioResult
     {
         public SelectAudioResult(bool isSelected, AudioType selectedAudioType)
         {

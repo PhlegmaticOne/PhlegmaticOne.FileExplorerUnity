@@ -1,13 +1,13 @@
 ﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components.Buttons;
 using PhlegmaticOne.FileExplorer.Services.StaticViews;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Features.Navigation.Entities
 {
     internal sealed class NavigationView : MonoBehaviour, IExplorerStaticViewComponent
     {
-        [SerializeField] private Button _backButton;
+        [SerializeField] private ComponentButton _backButton;
         
         private NavigationViewModel _viewModel;
 
@@ -19,24 +19,12 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.Entities
         
         public void Bind()
         {
-            _backButton.onClick.AddListener(NavigateBack);
-            _viewModel.IsLoading.ValueChanged += UpdateLoadingState;
+            _backButton.Bind(_viewModel.NavigateBackCommand);
         }
 
         public void Unbind()
         {
-            _backButton.onClick.RemoveListener(NavigateBack);
-            _viewModel.IsLoading.ValueChanged -= UpdateLoadingState;
-        }
-
-        private void UpdateLoadingState(bool isLoading)
-        {
-            _backButton.interactable = _viewModel.CanMoveBack();
-        }
-
-        private void NavigateBack()
-        {
-            _viewModel.NavigateBack();
+            _backButton.Release();
         }
     }
 }

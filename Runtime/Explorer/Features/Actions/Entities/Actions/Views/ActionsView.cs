@@ -1,4 +1,6 @@
 ﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components.Positions;
 using PhlegmaticOne.FileExplorer.Services.StaticViews;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,7 +9,9 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Entities.Actions
 {
     internal sealed class ActionsView : MonoBehaviour, IExplorerStaticViewComponent, IPointerClickHandler
     {
-        [SerializeField] private ActionDropdownView _actionDropdownView;
+        [SerializeField] private ComponentCollectionActions _actionDropdownView;
+        [SerializeField] private ComponentAnchoredPosition _anchoredPosition;
+        [SerializeField] private ComponentActiveObject _activeObject;
         
         private ActionsViewModel _viewModel;
 
@@ -19,36 +23,23 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Entities.Actions
         
         public void Bind()
         {
-            _viewModel.IsActive.ValueChanged += IsActiveOnValueChanged;
-            _viewModel.Position.ValueChanged += PositionOnValueChanged;
-            _viewModel.Actions.CollectionChanged += _actionDropdownView.UpdateView;
+            _activeObject.Bind(_viewModel.IsActive);
+            _anchoredPosition.Bind(_viewModel.Position);
+            _actionDropdownView.Bind(_viewModel.Actions);
+            _viewModel.Activated += Rebuild;
         }
 
         public void Unbind()
         {
-            _viewModel.IsActive.ValueChanged -= IsActiveOnValueChanged;
-            _viewModel.Position.ValueChanged -= PositionOnValueChanged;
-            _viewModel.Actions.CollectionChanged -= _actionDropdownView.UpdateView;
+            _activeObject.Release();
+            _anchoredPosition.Release();
+            _actionDropdownView.Release();
+            _viewModel.Activated -= Rebuild;
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
             _viewModel.Deactivate();
-        }
-
-        private void PositionOnValueChanged(Vector3 position)
-        {
-            _actionDropdownView.SetPosition(position);
-        }
-
-        private void IsActiveOnValueChanged(bool isActive)
-        {
-            gameObject.SetActive(isActive);
-
-            if (isActive)
-            {
-                Rebuild();
-            }
         }
 
         private void Rebuild()

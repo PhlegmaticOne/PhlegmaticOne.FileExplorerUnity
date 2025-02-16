@@ -1,15 +1,14 @@
-﻿using PhlegmaticOne.FileExplorer.Features.ScreenMessages.Core;
-using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
+﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
 using PhlegmaticOne.FileExplorer.Services.StaticViews;
-using TMPro;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Entities
 {
     internal sealed class ScreenMessagesView : MonoBehaviour, IExplorerStaticViewComponent
     {
-        [SerializeField] private GameObject _tabCenterTextContainer;
-        [SerializeField] private TextMeshProUGUI _tabCenterText;
+        [SerializeField] private ComponentActiveObject _activeObject;
+        [SerializeField] private ComponentText _text;
         
         private ScreenMessagesViewModel _viewModel;
 
@@ -21,25 +20,14 @@ namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Entities
         
         public void Bind()
         {
-            _viewModel.IsTabCenterMessageActive.ValueChanged += UpdateTabCenterMessageIsActive;
-            _viewModel.TabCenterMessage.ValueChanged += UpdateTabCenterText;
+            _activeObject.Bind(_viewModel.IsTabCenterMessageActive);
+            _text.Bind(_viewModel.TabCenterMessage);
         }
 
         public void Unbind()
         {
-            _viewModel.IsTabCenterMessageActive.ValueChanged -= UpdateTabCenterMessageIsActive;
-            _viewModel.TabCenterMessage.ValueChanged -= UpdateTabCenterText;
-        }
-        
-        private void UpdateTabCenterMessageIsActive(bool isActive)
-        {
-            _tabCenterTextContainer.SetActive(isActive);
-        }
-
-        private void UpdateTabCenterText(ScreenMessageData messageData)
-        {
-            _tabCenterText.text = messageData.Text;
-            _tabCenterText.color = messageData.Color;
+            _activeObject.Release();
+            _text.Release();
         }
     }
 }

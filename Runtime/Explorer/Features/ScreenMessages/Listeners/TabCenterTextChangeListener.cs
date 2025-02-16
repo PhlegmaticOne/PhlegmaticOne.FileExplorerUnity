@@ -1,9 +1,7 @@
-﻿using PhlegmaticOne.FileExplorer.Features.ScreenMessages.Core;
-using PhlegmaticOne.FileExplorer.Features.ScreenMessages.Entities;
+﻿using PhlegmaticOne.FileExplorer.Features.ScreenMessages.Entities;
 using PhlegmaticOne.FileExplorer.Features.Searching.Entities;
 using PhlegmaticOne.FileExplorer.Features.Tab.Entities;
 using PhlegmaticOne.FileExplorer.Services.ActionListeners;
-using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Listeners
 {
@@ -64,9 +62,8 @@ namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Listeners
 
         private void SetTabMessage(string message)
         {
-            var data = new ScreenMessageData(message, Color.white);
             _screenMessagesViewModel.IsTabCenterMessageActive.SetValueNotify(true);
-            _screenMessagesViewModel.TabCenterMessage.SetValueNotify(data);
+            _screenMessagesViewModel.TabCenterMessage.SetValueNotify(message);
         }
     }
 }

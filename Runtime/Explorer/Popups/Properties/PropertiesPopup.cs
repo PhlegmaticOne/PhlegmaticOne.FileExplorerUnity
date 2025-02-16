@@ -7,7 +7,7 @@ namespace PhlegmaticOne.FileExplorer.Popups.Properties
 {
     internal sealed class PropertiesPopup : PopupViewAsync<PropertiesPopupViewModel>
     {
-        [SerializeField] private PropertyCollectionView _collectionView;
+        [SerializeField] private ComponentCollectionProperties _collectionView;
 
         [ViewInject]
         public void Construct(IViewProvider viewProvider)

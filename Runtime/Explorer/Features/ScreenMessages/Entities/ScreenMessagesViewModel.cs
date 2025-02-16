@@ -1,5 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.Features.ScreenMessages.Core;
-using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
+﻿using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Entities
 {
@@ -7,11 +6,11 @@ namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Entities
     {
         public ScreenMessagesViewModel()
         {
-            TabCenterMessage = new ReactiveProperty<ScreenMessageData>();
+            TabCenterMessage = new ReactiveProperty<string>();
             IsTabCenterMessageActive = new ReactiveProperty<bool>(false);
         }
         
         public ReactiveProperty<bool> IsTabCenterMessageActive { get; }
-        public ReactiveProperty<ScreenMessageData> TabCenterMessage { get; }
+        public ReactiveProperty<string> TabCenterMessage { get; }
     }
 }

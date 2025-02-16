@@ -1,13 +1,13 @@
 ﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components.Buttons;
 using PhlegmaticOne.FileExplorer.Services.StaticViews;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Features.Control.Entities
 {
     internal sealed class ControlView : MonoBehaviour, IExplorerStaticViewComponent
     {
-        [SerializeField] private Button _closeButton;
+        [SerializeField] private ComponentButton _closeButton;
         
         private ControlViewModel _viewModel;
 
@@ -19,17 +19,12 @@ namespace PhlegmaticOne.FileExplorer.Features.Control.Entities
 
         public void Bind()
         {
-            _closeButton.onClick.AddListener(CloseExplorer);
+            _closeButton.Bind(_viewModel.CloseCommand);
         }
 
         public void Unbind()
         {
-            _closeButton.onClick.RemoveListener(CloseExplorer);
-        }
-
-        private void CloseExplorer()
-        {
-            _viewModel.Close();
+            _closeButton.Release();
         }
     }
 }

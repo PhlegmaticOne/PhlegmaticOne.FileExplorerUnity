@@ -12,6 +12,7 @@ using PhlegmaticOne.FileExplorer.Features.Selection.Entities;
 using PhlegmaticOne.FileExplorer.Features.Tab.Entities;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
 using PhlegmaticOne.FileExplorer.Services.Cancellation;
 
 namespace PhlegmaticOne.FileExplorer.Features.Navigation.Entities
@@ -45,10 +46,10 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.Entities
             _navigator = navigator;
             _cancellationProvider = cancellationProvider;
             _selectionViewModel = selectionViewModel;
-            IsLoading = new ReactiveProperty<bool>();
+            NavigateBackCommand = new CommandDelegateEmpty(() => NavigateBack(), CanMoveBack);
         }
-
-        public ReactiveProperty<bool> IsLoading { get; }
+        
+        public ICommand NavigateBackCommand { get; }
 
         public void Navigate(string path)
         {
@@ -89,7 +90,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.Entities
             return true;
         }
 
-        public bool CanMoveBack()
+        private bool CanMoveBack()
         {
             return !_pathViewModel.CurrentPathIsRoot();
         }
@@ -97,14 +98,14 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.Entities
         private async Task LoadTabAsync(string path)
         {
             var token = _cancellationProvider.Token;
-            IsLoading.SetValueNotify(true);
+            NavigateBackCommand.RaiseCanExecuteChanged();
             _progressSetter.SetActive(true);
 
             if (await LoadFileEntriesAsync(path, token))
             {
                 _progressSetter.Complete();
                 _tabViewModel.UpdateIsEmpty();
-                IsLoading.SetValueNotify(false);
+                NavigateBackCommand.RaiseCanExecuteChanged();
                 await Task.Delay(100, token);
                 _progressSetter.SetActive(false);
             }

@@ -22,7 +22,8 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Entities.Actions
             Actions = new ReactiveCollection<ActionViewModel>();
             Position = new ReactiveProperty<Vector3>();
         }
-        
+
+        public event System.Action Activated;
         public ReactiveProperty<bool> IsActive { get; }
         public ReactiveProperty<Vector3> Position { get; }
         public ReactiveCollection<ActionViewModel> Actions { get; }
@@ -33,6 +34,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Entities.Actions
             Actions.Clear();
             Actions.AddRange(actions);
             IsActive.SetValueNotify(true);
+            Activated?.Invoke();
         }
 
         public void SetActiveEntry(FileEntryViewModel fileEntry)

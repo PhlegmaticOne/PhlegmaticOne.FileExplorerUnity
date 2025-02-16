@@ -1,16 +1,16 @@
 ﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views;
-using TMPro;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components.Buttons;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Features.Path.Entities.PathPart
 {
     internal sealed class PathPartView : View
     {
-        [SerializeField] private TextMeshProUGUI _partText;
-        [SerializeField] private GameObject _nextMark;
-        [SerializeField] private Button _button;
+        [SerializeField] private ComponentText _partText;
+        [SerializeField] private ComponentActiveObject _nextMark;
+        [SerializeField] private ComponentButton _button;
         
         private PathPartViewModel _viewModel;
 
@@ -22,37 +22,16 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Entities.PathPart
 
         protected override void OnInitializing()
         {
-            UpdatePart(_viewModel.Part);
-            Subscribe();
+            _partText.Bind(_viewModel.Part);
+            _nextMark.Bind(_viewModel.IsCurrent, inverse: true);
+            _button.Bind(_viewModel.NavigateCommand);
         }
 
         public override void Release()
         {
-            _viewModel.Part.ValueChanged -= UpdatePart;
-            _viewModel.IsCurrent.ValueChanged -= UpdateNextMarkActive;
-            _button.onClick.RemoveListener(Navigate);
-        }
-
-        private void Subscribe()
-        {
-            _viewModel.Part.ValueChanged += UpdatePart;
-            _viewModel.IsCurrent.ValueChanged += UpdateNextMarkActive;
-            _button.onClick.AddListener(Navigate);
-        }
-
-        private void Navigate()
-        {
-            _viewModel.Navigate();
-        }
-
-        private void UpdatePart(string part)
-        {
-            _partText.text = part;
-        }
-
-        private void UpdateNextMarkActive(bool isCurrent)
-        {
-            _nextMark.SetActive(!isCurrent);
+            _partText.Release();
+            _nextMark.Release();
+            _button.Release();
         }
     }
 }

@@ -4,6 +4,7 @@ using PhlegmaticOne.FileExplorer.Features.Searching.Services.Filters;
 using PhlegmaticOne.FileExplorer.Features.Tab.Entities;
 using PhlegmaticOne.FileExplorer.Features.Tab.Listeners;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
 
 namespace PhlegmaticOne.FileExplorer.Features.Searching.Entities
 {

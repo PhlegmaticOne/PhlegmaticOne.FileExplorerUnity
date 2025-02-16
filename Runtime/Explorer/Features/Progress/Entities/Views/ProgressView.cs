@@ -1,4 +1,6 @@
-﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
+﻿using PhlegmaticOne.FileExplorer.Features.Progress.Entities.Components;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
 using PhlegmaticOne.FileExplorer.Services.StaticViews;
 using UnityEngine;
 
@@ -6,8 +8,8 @@ namespace PhlegmaticOne.FileExplorer.Features.Progress.Entities
 {
     internal sealed class ProgressView : MonoBehaviour, IExplorerStaticViewComponent
     {
-        [SerializeField] private RectTransform _parent;
-        [SerializeField] private RectTransform _rectTransform;
+        [SerializeField] private ComponentActiveObject _activeObject;
+        [SerializeField] private ComponentProgressSetter _progressSetter;
         
         private ProgressViewModel _viewModel;
 
@@ -19,25 +21,14 @@ namespace PhlegmaticOne.FileExplorer.Features.Progress.Entities
         
         public void Bind()
         {
-            _viewModel.IsActive.ValueChanged += UpdateProgressIsActive;
-            _viewModel.Progress.ValueChanged += UpdateProgress;
+            _activeObject.Bind(_viewModel.IsActive);
+            _progressSetter.Bind(_viewModel.Progress);
         }
 
         public void Unbind()
         {
-            _viewModel.IsActive.ValueChanged -= UpdateProgressIsActive;
-            _viewModel.Progress.ValueChanged -= UpdateProgress;
-        }
-
-        private void UpdateProgressIsActive(bool isActive)
-        {
-            gameObject.SetActive(isActive);
-        }
-
-        private void UpdateProgress(float progress)
-        {
-            var width = _parent.rect.width * progress;
-            _rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+            _activeObject.Release();
+            _progressSetter.Release();
         }
     }
 }

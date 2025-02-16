@@ -12,7 +12,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions
     internal sealed class ActionsInstaller : MonoInstaller
     {
         [SerializeField] private ActionsView _actionsView;
-        [SerializeField] private ActionDropdownView _actionDropdown;
+        [SerializeField] private ComponentCollectionActions _actionDropdown;
         [SerializeField] private ActionDropdownItemView _itemViewPrefab;
         [SerializeField] private ActionViewContainersData _containersData;
         [SerializeField] private ActionsViewConfig _viewConfig;

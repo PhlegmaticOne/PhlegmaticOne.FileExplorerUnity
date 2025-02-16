@@ -6,7 +6,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Tab.Entities
 {
     internal sealed class TabView : MonoBehaviour, IExplorerStaticViewComponent
     {
-        [SerializeField] private TabCollectionView _collectionView;
+        [SerializeField] private ComponentCollectionFileEntries _collectionView;
         
         private TabViewModel _viewModel;
 
@@ -18,12 +18,12 @@ namespace PhlegmaticOne.FileExplorer.Features.Tab.Entities
         
         public void Bind()
         {
-            _viewModel.FileEntries.CollectionChanged += _collectionView.UpdateView;
+            _collectionView.Bind(_viewModel.FileEntries);
         }
 
         public void Unbind()
         {
-            _viewModel.FileEntries.CollectionChanged -= _collectionView.UpdateView;
+            _collectionView.Release();
         }
     }
 }

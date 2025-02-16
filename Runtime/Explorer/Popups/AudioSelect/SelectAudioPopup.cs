@@ -11,7 +11,7 @@ namespace PhlegmaticOne.FileExplorer.Popups.AudioSelect
     {
         [SerializeField] private TextMeshProUGUI _headerText;
         [SerializeField] private TextMeshProUGUI _buttonText;
-        [SerializeField] private SelectAudioCollectionView _collectionView;
+        [SerializeField] private ComponentCollectionAudioEntries _collectionView;
         [SerializeField] private TextMeshProUGUI _selectedExtensionText;
         [SerializeField] private Button _acceptButton;
         

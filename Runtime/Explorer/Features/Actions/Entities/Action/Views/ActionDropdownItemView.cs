@@ -10,7 +10,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Entities.Action
 {
     internal sealed class ActionDropdownItemView : View
     {
-        [SerializeField] private ComponentViewButton _button;
+        [SerializeField] private ComponentButton _button;
         [SerializeField] private TextMeshProUGUI _description;
         [SerializeField] private Image _background;
         
@@ -28,25 +28,15 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Entities.Action
         {
             var viewData = _viewConfig.GetViewData(_action.Key);
             _button.Bind(_action.ExecuteCommand);
-            UpdateDescription(viewData.Description);
-            UpdateColors(viewData);
+            _description.text = viewData.Description;
+            _description.color = viewData.TextColor;
+            _background.color = viewData.BackgroundColor;
         }
 
         public override void Release()
         {
-            _button.Unbind();
+            _button.Release();
             _action = null;
-        }
-
-        private void UpdateDescription(string description)
-        {
-            _description.text = description;
-        }
-
-        private void UpdateColors(ActionViewData viewData)
-        {
-            _description.color = viewData.TextColor;
-            _background.color = viewData.BackgroundColor;
         }
     }
 }

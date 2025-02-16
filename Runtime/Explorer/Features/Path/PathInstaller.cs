@@ -13,7 +13,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Path
     internal sealed class PathInstaller : MonoInstaller
     {
         [SerializeField] private PathView _pathView;
-        [SerializeField] private PathPartViewCollection _viewCollection;
+        [SerializeField] private ComponentCollectionPathParts _viewCollection;
         [SerializeField] private PathPartView _pathPartViewPrefab;
         
         public override void Install(IDependencyContainer container)

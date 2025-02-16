@@ -10,7 +10,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Tab
     internal sealed class TabInstaller : MonoInstaller
     {
         [SerializeField] private TabView _tabView;
-        [SerializeField] private TabCollectionView _tabCollectionView;
+        [SerializeField] private ComponentCollectionFileEntries _tabCollectionView;
         [SerializeField] private FileEntryView _fileEntryViewPrefab;
         
         public override void Install(IDependencyContainer container)

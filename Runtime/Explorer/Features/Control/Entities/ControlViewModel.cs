@@ -1,4 +1,5 @@
 ﻿using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
 using PhlegmaticOne.FileExplorer.States;
 
 namespace PhlegmaticOne.FileExplorer.Features.Control.Entities
@@ -10,9 +11,12 @@ namespace PhlegmaticOne.FileExplorer.Features.Control.Entities
         public ControlViewModel(IExplorerStates states)
         {
             _states = states;
+            CloseCommand = new CommandDelegateEmpty(Close);
         }
+        
+        public ICommand CloseCommand { get; }
 
-        public void Close()
+        private void Close()
         {
             _states.Close();
         }
