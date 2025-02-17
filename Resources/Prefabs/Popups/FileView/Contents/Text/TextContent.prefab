@@ -55,6 +55,8 @@ MonoBehaviour:
   _maxSliderValue: 60
   _initialSliderValue: 18
   _useIntegerSliderValues: 1
+  _hasResizeSlider: 1
+  _lockScrolling: 0
   _text: {fileID: 308935659853004282}
 --- !u!114 &3236722282299756951
 MonoBehaviour:

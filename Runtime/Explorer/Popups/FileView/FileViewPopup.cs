@@ -1,22 +1,22 @@
 ﻿using System;
 using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
+using PhlegmaticOne.FileExplorer.Popups.FileView.Components;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Popups.FileView
 {
     internal sealed class FileViewPopup : PopupViewAsync<FileViewViewModel>
     {
         [SerializeField] private ComponentText _nameText;
+        [SerializeField] private FileViewScrollRectView _scrollRect;
         [SerializeField] private TextMeshProUGUI _errorText;
-        [SerializeField] private ScrollRect _scrollRect;
-        [SerializeField] private Slider _slider;
         [SerializeField] private RectTransform _viewport;
-        [SerializeField] private FileViewBase[] _fileViews;
+        [SerializeField] private RectTransform _sliderParent;
 
         private FileViewBase _activeView;
+        private ComponentFileViewScaleSlider _slider;
 
         protected override void OnShowing(FileViewViewModel viewModel)
         {
@@ -27,51 +27,36 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
         public override void Release()
         {
             _nameText.Release();
-            _slider.onValueChanged.RemoveListener(ResizeFileView);
-            _activeView.Release();
-            Destroy(_activeView.gameObject);
+            ViewProvider.ReleaseView(_activeView);
+            ViewProvider.ReleaseView(_slider);
             _activeView = null;
         }
 
         private void SetupActiveFileView(FileViewViewModel viewModel)
         {
-            _activeView = GetActiveView(viewModel);
-
-            if (_activeView.Setup(viewModel, out var errorMessage))
+            if (!viewModel.HasError())
             {
-                _activeView.gameObject.SetActive(true);
-                _scrollRect.content = _activeView.transform as RectTransform;
-                _scrollRect.horizontalNormalizedPosition = 0;
-                _scrollRect.verticalNormalizedPosition = 0;
-                SetupSlider(_activeView);
+                _activeView = GetFileView(viewModel);
+                _slider = ViewProvider.GetView<ComponentFileViewScaleSlider>(_sliderParent).View;
+                _scrollRect.Setup(_activeView);
+                _slider.Bind(_activeView);
             }
             else
             {
-                _errorText.text = errorMessage;
+                _errorText.text = viewModel.GetErrorMessage();
                 _errorText.gameObject.SetActive(true);
-                _slider.gameObject.SetActive(false);
             }
         }
 
-        private void SetupSlider(FileViewBase fileView)
+        private FileViewBase GetFileView(FileViewViewModel viewModel)
         {
-            _slider.gameObject.SetActive(fileView.HasResizeSlider);
-            _slider.minValue = fileView.MinSliderValue;
-            _slider.maxValue = fileView.MaxSliderValue;
-            _slider.wholeNumbers = fileView.UseIntegerSliderValues;
-            _slider.value = fileView.InitialSliderValue;
-            _slider.onValueChanged.AddListener(ResizeFileView);
-        }
-
-        private void ResizeFileView(float size)
-        {
-            _activeView.Resize(size);
-        }
-
-        private FileViewBase GetActiveView(FileViewViewModel viewModel)
-        {
-            var view = Array.Find(_fileViews, x => x.ViewType == viewModel.ViewType);
-            return Instantiate(view, _viewport, false);
+            return viewModel.ViewType switch
+            {
+                FileViewType.Image => ViewProvider.GetView<FileViewImage>(_viewport, viewModel).View,
+                FileViewType.Text => ViewProvider.GetView<FileViewText>(_viewport, viewModel).View,
+                FileViewType.Audio => ViewProvider.GetView<FileViewAudio>(_viewport, viewModel).View,
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 }

@@ -1,15 +1,10 @@
-﻿using System;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
-using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
+﻿using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Popups.Errors
 {
     internal sealed class ErrorPopupViewModel : PopupViewModel
     {
-        private readonly FileEntryViewModel _fileEntry;
-        private readonly Exception _exception;
-
         public ErrorPopupViewModel(IPopupProvider popupProvider) : base(popupProvider)
         {
             Title = new ReactiveProperty<string>();

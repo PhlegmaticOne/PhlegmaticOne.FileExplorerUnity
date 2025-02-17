@@ -8,22 +8,10 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
     {
         [SerializeField] private AudioPlayer _audioPlayer;
         
-        public override FileViewType ViewType => FileViewType.Audio;
-        public override bool HasResizeSlider => false;
-
-        public override bool Setup(FileViewViewModel viewModel, out string errorMessage)
+        protected override void OnInitializing()
         {
-            var content = viewModel.GetContent<AudioClip>();
-            
-            if (content.HasError)
-            {
-                errorMessage = content.ErrorMessage;
-                return false;
-            }
-
+            var content = ViewModel.GetContent<AudioClip>();
             PlayAudio(content).Forget();
-            errorMessage = null;
-            return true;
         }
 
         public override void Release()

@@ -130,6 +130,8 @@ MonoBehaviour:
   _maxSliderValue: 5
   _initialSliderValue: 1
   _useIntegerSliderValues: 0
+  _hasResizeSlider: 1
+  _lockScrolling: 0
   _image: {fileID: 1784049413495880791}
 --- !u!114 &4504196929504731630
 MonoBehaviour:

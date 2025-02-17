@@ -27,8 +27,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
             where TPopup : PopupViewAsync<TViewModel>
             where TViewModel : PopupViewModel
         {
-            var popup = _viewProvider.GetView<TPopup>(viewModel).View;
-            popup.transform.SetParent(_parent, false);
+            var popup = _viewProvider.GetView<TPopup>(_parent, viewModel).View;
             _activePopups.Push(popup);
             _graphic.enabled = true;
             

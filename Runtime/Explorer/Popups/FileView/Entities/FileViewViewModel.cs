@@ -19,7 +19,17 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
 
         public FileViewType ViewType { get; private set; }
         public ReactiveProperty<string> Name { get; }
-        
+
+        public bool HasError()
+        {
+            return _content.HasError;
+        }
+
+        public string GetErrorMessage()
+        {
+            return _content.ErrorMessage;
+        }
+
         public FileViewContent<T> GetContent<T>()
         {
             return (FileViewContent<T>)_content;

@@ -14,15 +14,21 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
             _settings = settings;
         }
         
-        public ViewContainer<T> GetView<T>(params object[] parameters) where T : View
+        public ViewContainer<T> GetView<T>(Transform parent, params object[] parameters) where T : View
         {
             var view = _container.Instantiate<T>(parameters);
+            view.transform.SetParent(parent, false);
             view.Initialize(_settings.FontAsset);
             return new ViewContainer<T>(view, this);
         }
 
         public void ReleaseView<T>(T view) where T : View
         {
+            if (view == null)
+            {
+                return;
+            }
+            
             view.Release();
             Object.Destroy(view.gameObject);
         }

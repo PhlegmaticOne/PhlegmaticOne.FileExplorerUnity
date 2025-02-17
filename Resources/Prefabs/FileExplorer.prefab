@@ -888,7 +888,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &1344352733437429081
 RectTransform:
@@ -931,6 +931,10 @@ MonoBehaviour:
   _viewPrefabs:
   - {fileID: 3473931920288436651, guid: 00de64cf0ab767549a82c7b129f09a4a, type: 3}
   - {fileID: 2974216409333944795, guid: 8d594c49ce257bc4da28ab4cb98b9ae6, type: 3}
+  - {fileID: 8036197056037982485, guid: f5b686f2f45ce8e41a165527a5d470f0, type: 3}
+  - {fileID: 6140485306685976455, guid: 8701aeda8a1319640b5b60e6a5ede38c, type: 3}
+  - {fileID: 7119023257553415506, guid: 9d757df4d1bade842816f9bb2af077ee, type: 3}
+  - {fileID: 1476907317099284110, guid: d8721d76bed3677488dc67a6b51933ce, type: 3}
 --- !u!1 &6750021263553108727
 GameObject:
   m_ObjectHideFlags: 0

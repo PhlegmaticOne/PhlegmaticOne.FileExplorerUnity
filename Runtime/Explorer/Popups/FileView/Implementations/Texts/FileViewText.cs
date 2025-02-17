@@ -7,21 +7,10 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
     {
         [SerializeField] private TextMeshProUGUI _text;
 
-        public override FileViewType ViewType => FileViewType.Text;
-
-        public override bool Setup(FileViewViewModel viewModel, out string errorMessage)
+        protected override void OnInitializing()
         {
-            var content = viewModel.GetContent<string>();
-
-            if (content.HasError)
-            {
-                errorMessage = content.ErrorMessage;
-                return false;
-            }
-            
+            var content = ViewModel.GetContent<string>();
             _text.text = content.Content;
-            errorMessage = null;
-            return true;
         }
 
         public override void Resize(float size)

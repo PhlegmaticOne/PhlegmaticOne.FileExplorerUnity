@@ -10,23 +10,12 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
 
         private Vector2 _imageSize;
         
-        public override FileViewType ViewType => FileViewType.Image;
-
-        public override bool Setup(FileViewViewModel viewModel, out string errorMessage)
+        protected override void OnInitializing()
         {
-            var content = viewModel.GetContent<Sprite>();
-
-            if (content.HasError)
-            {
-                errorMessage = content.ErrorMessage;
-                return false;
-            }
-
+            var content = ViewModel.GetContent<Sprite>();
             _image.sprite = content.Content;
             _image.SetNativeSize();
             _imageSize = _image.sprite.rect.size;
-            errorMessage = null;
-            return true;
         }
 
         public override void Resize(float size)

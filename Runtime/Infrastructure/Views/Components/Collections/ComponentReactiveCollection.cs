@@ -65,17 +65,16 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
             LayoutRebuilder.ForceRebuildLayoutImmediate(transform as RectTransform);
         }
 
-        public void AddViews(IEnumerable<TViewModel> viewModels)
+        private void AddViews(IEnumerable<TViewModel> viewModels)
         {
             foreach (var viewModel in viewModels)
             {
-                var view = _viewProvider.GetView<TView>(viewModel);
-                view.View.transform.SetParent(_viewsParent, false);
+                var view = _viewProvider.GetView<TView>(_viewsParent, viewModel);
                 _views.Add(viewModel, view);
             }
         }
 
-        public void RemoveViews(IEnumerable<TViewModel> viewModels)
+        private void RemoveViews(IEnumerable<TViewModel> viewModels)
         {
             foreach (var viewModel in viewModels)
             {
@@ -85,7 +84,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
             }
         }
 
-        public void ClearViews()
+        private void ClearViews()
         {
             foreach (var view in _views)
             {

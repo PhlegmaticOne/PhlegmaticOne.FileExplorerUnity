@@ -12,13 +12,13 @@ namespace PhlegmaticOne.FileExplorer.Popups.Properties
         protected override void OnShowing(PropertiesPopupViewModel popupViewModel)
         {
             _collectionView.Construct(ViewProvider);
-            _collectionView.AddViews(popupViewModel.Properties);
+            _collectionView.Bind(popupViewModel.Properties);
             _headerText.Bind(popupViewModel.HeaderText);
         }
 
         public override void Release()
         {
-            _collectionView.ClearViews();
+            _collectionView.Release();
             _headerText.Release();
             base.Release();
         }

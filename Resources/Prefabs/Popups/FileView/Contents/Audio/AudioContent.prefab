@@ -53,6 +53,8 @@ MonoBehaviour:
   _maxSliderValue: 0
   _initialSliderValue: 0
   _useIntegerSliderValues: 0
+  _hasResizeSlider: 0
+  _lockScrolling: 1
   _audioPlayer: {fileID: 2178532692378870026}
 --- !u!1001 &8320504411444398066
 PrefabInstance:
