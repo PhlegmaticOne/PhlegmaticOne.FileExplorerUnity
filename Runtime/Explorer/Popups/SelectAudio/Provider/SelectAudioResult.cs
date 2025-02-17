@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Popups.AudioSelect
+namespace PhlegmaticOne.FileExplorer.Popups.SelectAudio
 {
     internal readonly struct SelectAudioResult
     {

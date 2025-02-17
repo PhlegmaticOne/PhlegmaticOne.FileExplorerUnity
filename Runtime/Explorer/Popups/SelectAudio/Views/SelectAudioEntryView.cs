@@ -1,15 +1,15 @@
 ﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views;
-using TMPro;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components.Buttons;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace PhlegmaticOne.FileExplorer.Popups.AudioSelect
+namespace PhlegmaticOne.FileExplorer.Popups.SelectAudio
 {
     internal sealed class SelectAudioEntryView : View
     {
-        [SerializeField] private TextMeshProUGUI _extensionText;
-        [SerializeField] private Button _button;
+        [SerializeField] private ComponentText _extensionText;
+        [SerializeField] private ComponentButton _button;
         
         private SelectAudioEntryViewModel _viewModel;
 
@@ -21,18 +21,14 @@ namespace PhlegmaticOne.FileExplorer.Popups.AudioSelect
         
         protected override void OnInitializing()
         {
-            _extensionText.text = _viewModel.Extension;
-            _button.onClick.AddListener(SelectEntry);
+            _extensionText.Bind(_viewModel.Extension);
+            _button.Bind(_viewModel.SelectCommand);
         }
 
         public override void Release()
         {
-            _button.onClick.RemoveListener(SelectEntry);
-        }
-
-        private void SelectEntry()
-        {
-            _viewModel.Select();
+            _extensionText.Release();
+            _button.Release();
         }
     }
 }

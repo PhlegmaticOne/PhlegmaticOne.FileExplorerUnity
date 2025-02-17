@@ -1,20 +1,28 @@
 ﻿using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
-using TMPro;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Popups.Errors
 {
     internal sealed class ErrorPopup : PopupViewAsync<ErrorPopupViewModel>
     {
-        [SerializeField] private TextMeshProUGUI _titleText;
-        [SerializeField] private TextMeshProUGUI _errorNameText;
-        [SerializeField] private TextMeshProUGUI _errorDescriptionText;
+        [SerializeField] private ComponentText _titleText;
+        [SerializeField] private ComponentText _errorNameText;
+        [SerializeField] private ComponentText _errorDescriptionText;
 
         protected override void OnShowing(ErrorPopupViewModel viewModel)
         {
-            _titleText.text = viewModel.Title;
-            _errorNameText.text = viewModel.ErrorName;
-            _errorDescriptionText.text = viewModel.Message;
+            _titleText.Bind(viewModel.Title);
+            _errorNameText.Bind(viewModel.ErrorName);
+            _errorDescriptionText.Bind(viewModel.Message);
+        }
+
+        public override void Release()
+        {
+            _titleText.Release();
+            _errorNameText.Release();
+            _errorDescriptionText.Release();
+            base.Release();
         }
     }
 }

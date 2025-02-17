@@ -84,8 +84,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5172068202756817953}
-  - component: {fileID: 5935644487845476169}
+  - component: {fileID: 5828412189353120190}
   - component: {fileID: 3710783458554178940}
+  - component: {fileID: 5935644487845476169}
   - component: {fileID: 7645303895801017804}
   m_Layer: 5
   m_Name: CloseButton
@@ -114,14 +115,19 @@ RectTransform:
   m_AnchoredPosition: {x: -20, y: -13}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 1, y: 1}
---- !u!222 &5935644487845476169
-CanvasRenderer:
+--- !u!114 &5828412189353120190
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8005651152927059282}
-  m_CullTransparentMesh: 1
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e61888576514e5185fb402d2595eb84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 7645303895801017804}
 --- !u!114 &3710783458554178940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,6 +158,14 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!222 &5935644487845476169
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8005651152927059282}
+  m_CullTransparentMesh: 1
 --- !u!114 &7645303895801017804
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 using UnityEngine;
 
@@ -8,13 +9,16 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
 {
     internal sealed class FileViewAudioProvider : IFileViewAudioProvider
     {
+        private readonly IDependencyContainer _container;
         private readonly IPopupProvider _popupProvider;
         private readonly IFileAudioLoader _audioLoader;
 
         public FileViewAudioProvider(
+            IDependencyContainer container,
             IPopupProvider popupProvider,
             IFileAudioLoader audioLoader)
         {
+            _container = container;
             _popupProvider = popupProvider;
             _audioLoader = audioLoader;
         }
@@ -22,8 +26,9 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
         public async Task ViewAudioFile(FileEntryViewModel file, AudioType audioType, CancellationToken token)
         {
             var audioContent = await _audioLoader.LoadClip(file, audioType, token);
-            var fileViewViewModel = FileViewViewModel.Audio(audioContent);
-            await _popupProvider.Show<FileViewPopup, FileViewViewModel>(fileViewViewModel);
+            var viewModel = _container.Instantiate<FileViewViewModel>();
+            viewModel.SetupAudio(audioContent);
+            await _popupProvider.Show<FileViewPopup, FileViewViewModel>(viewModel);
         }
     }
 }

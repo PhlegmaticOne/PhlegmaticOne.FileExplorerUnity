@@ -10,27 +10,18 @@ namespace PhlegmaticOne.FileExplorer.Popups.Errors
         private readonly FileEntryViewModel _fileEntry;
         private readonly Exception _exception;
 
-        public ErrorPopupViewModel(string title, string message, string errorName)
+        public ErrorPopupViewModel(IPopupProvider popupProvider) : base(popupProvider)
         {
-            Title = new ReactiveProperty<string>(title);
-            Message = new ReactiveProperty<string>(message);
-            ErrorName = new ReactiveProperty<string>(errorName);
+            Title = new ReactiveProperty<string>();
+            Message = new ReactiveProperty<string>();
+            ErrorName = new ReactiveProperty<string>();
         }
 
-        public static ErrorPopupViewModel FromFileError(FileEntryViewModel fileEntry, Exception exception)
+        public void Setup(string title, string message, string errorName)
         {
-            return new ErrorPopupViewModel(
-                title: $"{fileEntry.Name} ({fileEntry.EntryType})",
-                message: exception.Message,
-                errorName: exception.GetType().Name);
-        }
-
-        public static ErrorPopupViewModel FromException(Exception exception)
-        {
-            return new ErrorPopupViewModel(
-                title: "Exception occured",
-                message: exception.Message,
-                errorName: exception.GetType().Name); 
+            Title.SetValueNotify(title);
+            Message.SetValueNotify(message);
+            ErrorName.SetValueNotify(errorName);
         }
         
         public ReactiveProperty<string> Title { get; }

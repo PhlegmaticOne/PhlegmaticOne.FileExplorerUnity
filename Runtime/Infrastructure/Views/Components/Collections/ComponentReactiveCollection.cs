@@ -25,21 +25,26 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
         
         public RectTransform Transform => transform as RectTransform;
         public Vector2 Size => Transform.rect.size;
-        public int ItemsCount => _views.Count;
 
         public void Bind(ReactiveCollection<TViewModel> collection)
         {
             _collection = collection;
             _collection.CollectionChanged += UpdateView;
+
+            if (collection.Count > 0)
+            {
+                AddViews(collection);
+            }
         }
 
         public void Release()
         {
+            ClearViews();
             _collection.CollectionChanged -= UpdateView;
             _collection = null;
         }
 
-        public void UpdateView(ReactiveCollectionChangedEventArgs<TViewModel> eventArgs)
+        private void UpdateView(ReactiveCollectionChangedEventArgs<TViewModel> eventArgs)
         {
             switch (eventArgs.Action)
             {
@@ -53,11 +58,6 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
                     ClearViews();
                     break;
             }
-        }
-        
-        public void SetPosition(Vector3 position)
-        {
-            Transform.anchoredPosition = position;
         }
         
         public void Rebuild()

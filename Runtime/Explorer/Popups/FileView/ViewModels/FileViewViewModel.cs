@@ -1,39 +1,35 @@
 ﻿using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Popups.FileView
 {
     internal sealed class FileViewViewModel : PopupViewModel
     {
-        private readonly FileViewContent _content;
-
-        public static FileViewViewModel Text(FileViewContent<string> textContent)
-        {
-            return new FileViewViewModel(textContent, FileViewType.Text);
-        }
-
-        public static FileViewViewModel Image(FileViewContent<Sprite> imageContent)
-        {
-            return new FileViewViewModel(imageContent, FileViewType.Image);
-        }
-
-        public static FileViewViewModel Audio(FileViewContent<AudioClip> audioContent)
-        {
-            return new FileViewViewModel(audioContent, FileViewType.Audio);
-        }
+        private FileViewContent _content;
         
-        public FileViewViewModel(FileViewContent content, FileViewType viewType)
+        public FileViewViewModel(IPopupProvider popupProvider) : base(popupProvider)
         {
-            _content = content;
-            ViewType = viewType;
+            Name = new ReactiveProperty<string>();
         }
 
-        public FileViewType ViewType { get; }
-        public string Name => _content.Name;
+        public void SetupAudio(FileViewContent<AudioClip> content) => Setup(content, FileViewType.Audio);
+        public void SetupImage(FileViewContent<Sprite> content) => Setup(content, FileViewType.Image);
+        public void SetupText(FileViewContent<string> content) => Setup(content, FileViewType.Text);
+
+        public FileViewType ViewType { get; private set; }
+        public ReactiveProperty<string> Name { get; }
         
         public FileViewContent<T> GetContent<T>()
         {
             return (FileViewContent<T>)_content;
+        }
+
+        private void Setup(FileViewContent content, FileViewType viewType)
+        {
+            _content = content;
+            ViewType = viewType;
+            Name.SetValueNotify(content.Name);
         }
     }
 }

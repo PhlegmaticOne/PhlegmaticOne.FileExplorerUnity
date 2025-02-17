@@ -6,11 +6,11 @@ namespace PhlegmaticOne.FileExplorer.Popups.Properties
     {
         public PropertyViewModel(string name, string value)
         {
-            Name = name;
-            Value = value;
+            Name = new ReactiveProperty<string>(name);
+            Value = new ReactiveProperty<string>(value);
         }
 
-        public string Name { get; }
-        public string Value { get; }
+        public ReactiveProperty<string> Name { get; }
+        public ReactiveProperty<string> Value { get; }
     }
 }

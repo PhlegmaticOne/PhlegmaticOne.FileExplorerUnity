@@ -1,23 +1,23 @@
 ﻿using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Configuration;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 
-namespace PhlegmaticOne.FileExplorer.Popups.AudioSelect
+namespace PhlegmaticOne.FileExplorer.Popups.SelectAudio
 {
     internal sealed class SelectAudioPopupProvider : ISelectAudioPopupProvider
     {
+        private readonly IDependencyContainer _container;
         private readonly IPopupProvider _popupProvider;
-        private readonly ExplorerConfig _config;
 
-        public SelectAudioPopupProvider(IPopupProvider popupProvider, ExplorerConfig config)
+        public SelectAudioPopupProvider(IDependencyContainer container, IPopupProvider popupProvider)
         {
+            _container = container;
             _popupProvider = popupProvider;
-            _config = config;
         }
         
         public async Task<SelectAudioResult> SelectAudioType()
         {
-            var viewModel = new SelectAudioViewModel("Select extension", "Accept", _config);
+            var viewModel = _container.Instantiate<SelectAudioViewModel>();
             await _popupProvider.Show<SelectAudioPopup, SelectAudioViewModel>(viewModel);
             return new SelectAudioResult(!viewModel.IsDiscarded, viewModel.GetAudioType());
         }

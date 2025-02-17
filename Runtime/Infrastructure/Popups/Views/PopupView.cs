@@ -1,23 +1,36 @@
 ﻿using PhlegmaticOne.FileExplorer.Infrastructure.Views;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components.Buttons;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
 {
     internal abstract class PopupView : View
     {
-        [SerializeField] private Button _closeButton;
+        [SerializeField] private ComponentButton _closeButton;
+        
+        private PopupViewModel _viewModel;
 
-        protected override void OnInitializing()
+        protected void SetViewModelBase(PopupViewModel viewModel)
         {
-            _closeButton.onClick.AddListener(Discard);
+            _viewModel = viewModel;
         }
 
-        public abstract void Discard();
+        protected sealed override void OnInitializing()
+        {
+            _closeButton.Bind(_viewModel.DiscardCommand);
+        }
+
+        public void Discard()
+        {
+            _viewModel.DiscardCommand.Execute(null);
+        }
+
+        public virtual void Close() { }
 
         public override void Release()
         {
-            _closeButton.onClick.RemoveListener(Discard);
+            _closeButton.Release();
+            _viewModel = null;
         }
     }
 }

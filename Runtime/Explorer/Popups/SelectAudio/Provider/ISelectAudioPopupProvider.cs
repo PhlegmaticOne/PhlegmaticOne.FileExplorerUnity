@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace PhlegmaticOne.FileExplorer.Popups.AudioSelect
+namespace PhlegmaticOne.FileExplorer.Popups.SelectAudio
 {
     internal interface ISelectAudioPopupProvider
     {

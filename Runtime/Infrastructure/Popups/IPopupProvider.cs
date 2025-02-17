@@ -7,5 +7,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
         Task Show<TPopup, TViewModel>(TViewModel viewModel)
             where TPopup : PopupViewAsync<TViewModel>
             where TViewModel : PopupViewModel;
+
+        void CloseLastPopup();
     }
 }

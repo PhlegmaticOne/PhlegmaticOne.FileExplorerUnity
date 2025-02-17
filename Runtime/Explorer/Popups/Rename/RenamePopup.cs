@@ -1,41 +1,29 @@
 ﻿using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
-using TMPro;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components.Buttons;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Popups.Rename
 {
     internal sealed class RenamePopup : PopupViewAsync<RenamePopupViewModel>
     {
-        [SerializeField] private TMP_InputField _inputField;
-        [SerializeField] private TextMeshProUGUI _headerText;
-        [SerializeField] private TextMeshProUGUI _acceptButtonText;
-        [SerializeField] private Button _acceptButton;
+        [SerializeField] private ComponentInput _inputField;
+        [SerializeField] private ComponentText _headerText;
+        [SerializeField] private ComponentButton _acceptButton;
 
-        protected override void OnInitializing()
+        protected override void OnShowing(RenamePopupViewModel viewModel)
         {
-            _inputField.onValueChanged.AddListener(UpdateOutputText);
-            _acceptButton.onClick.AddListener(Close);
-            base.OnInitializing();
-        }
-
-        protected override void OnShowing(RenamePopupViewModel popupViewModel)
-        {
-            _inputField.text = popupViewModel.InitialInputText;
-            _headerText.text = popupViewModel.HeaderText;
-            _acceptButtonText.text = popupViewModel.AcceptButtonText;
+            _acceptButton.Bind(viewModel.CloseCommand);
+            _inputField.Bind(viewModel.OutputText);
+            _headerText.Bind(viewModel.HeaderText);
         }
 
         public override void Release()
         {
-            _inputField.onValueChanged.RemoveListener(UpdateOutputText);
-            _acceptButton.onClick.RemoveListener(Close);
+            _acceptButton.Release();
+            _inputField.Release();
+            _headerText.Release();
             base.Release();
-        }
-
-        private void UpdateOutputText(string text)
-        {
-            PopupViewModel.OutputText = text;
         }
     }
 }

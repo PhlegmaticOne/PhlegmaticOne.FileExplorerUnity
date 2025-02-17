@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
 {
@@ -7,28 +9,30 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
         private TaskCompletionSource<bool> _viewResult;
 
         protected T PopupViewModel;
-        
-        public Task Show(T viewModel)
+        protected IViewProvider ViewProvider;
+
+        [ViewInject]
+        public void Construct(T viewModel, IViewProvider viewProvider)
         {
-            PopupViewModel = viewModel;
             _viewResult = new TaskCompletionSource<bool>();
-            OnShowing(viewModel);
+            ViewProvider = viewProvider;
+            PopupViewModel = viewModel;
+            SetViewModelBase(viewModel);
+        }
+        
+        public Task Show()
+        {
+            OnShowing(PopupViewModel);
             return _viewResult.Task;
         }
 
-        protected abstract void OnShowing(T viewModel);
-
-        public sealed override void Discard()
-        {
-            PopupViewModel.Discard();
-            Close();
-        }
-
-        protected void Close()
+        public override void Close()
         {
             _viewResult.TrySetResult(true);
             PopupViewModel = null;
             _viewResult = null;
         }
+
+        protected abstract void OnShowing(T viewModel);
     }
 }

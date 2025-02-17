@@ -5,28 +5,26 @@ using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Popups.AudioSelect
+namespace PhlegmaticOne.FileExplorer.Popups.SelectAudio
 {
     internal sealed class SelectAudioViewModel : PopupViewModel
     {
         private readonly ExplorerConfig _config;
 
-        public SelectAudioViewModel(string headerText, string buttonText, ExplorerConfig config)
+        public SelectAudioViewModel(
+            ExplorerConfig config,
+            IPopupProvider popupProvider) : base(popupProvider)
         {
             _config = config;
-            ButtonText = buttonText;
-            HeaderText = headerText;
             Entries = new ReactiveCollection<SelectAudioEntryViewModel>(GetEntries());
             SelectedExtension = new ReactiveProperty<string>();
             SetSelectedExtension(Entries[0]);
         }
 
-        public string HeaderText { get; }
-        public string ButtonText { get; }
         public ReactiveProperty<string> SelectedExtension { get; }
         public ReactiveCollection<SelectAudioEntryViewModel> Entries { get; }
 
-        public void Subscribe()
+        public void SubscribeExtensionsOnSelected()
         {
             foreach (var entry in Entries)
             {
@@ -34,7 +32,7 @@ namespace PhlegmaticOne.FileExplorer.Popups.AudioSelect
             }
         }
 
-        public void Unsubscribe()
+        public void UnsubscribeExtensionsOnSelected()
         {
             foreach (var entryViewModel in Entries)
             {

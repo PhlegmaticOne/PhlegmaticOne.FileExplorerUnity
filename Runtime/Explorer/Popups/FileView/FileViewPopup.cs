@@ -1,5 +1,6 @@
 ﻿using System;
 using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
 {
     internal sealed class FileViewPopup : PopupViewAsync<FileViewViewModel>
     {
-        [SerializeField] private TextMeshProUGUI _nameText;
+        [SerializeField] private ComponentText _nameText;
         [SerializeField] private TextMeshProUGUI _errorText;
         [SerializeField] private ScrollRect _scrollRect;
         [SerializeField] private Slider _slider;
@@ -19,12 +20,13 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
 
         protected override void OnShowing(FileViewViewModel viewModel)
         {
-            _nameText.text = viewModel.Name;
+            _nameText.Bind(viewModel.Name);
             SetupActiveFileView(viewModel);
         }
 
         public override void Release()
         {
+            _nameText.Release();
             _slider.onValueChanged.RemoveListener(ResizeFileView);
             _activeView.Release();
             Destroy(_activeView.gameObject);

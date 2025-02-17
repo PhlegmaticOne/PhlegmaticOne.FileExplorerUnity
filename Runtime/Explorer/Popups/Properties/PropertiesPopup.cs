@@ -1,6 +1,5 @@
-﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
-using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
-using PhlegmaticOne.FileExplorer.Infrastructure.Views;
+﻿using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Popups.Properties
@@ -8,21 +7,19 @@ namespace PhlegmaticOne.FileExplorer.Popups.Properties
     internal sealed class PropertiesPopup : PopupViewAsync<PropertiesPopupViewModel>
     {
         [SerializeField] private ComponentCollectionProperties _collectionView;
-
-        [ViewInject]
-        public void Construct(IViewProvider viewProvider)
-        {
-            _collectionView.Construct(viewProvider);
-        }
+        [SerializeField] private ComponentText _headerText;
 
         protected override void OnShowing(PropertiesPopupViewModel popupViewModel)
         {
+            _collectionView.Construct(ViewProvider);
             _collectionView.AddViews(popupViewModel.Properties);
+            _headerText.Bind(popupViewModel.HeaderText);
         }
 
         public override void Release()
         {
             _collectionView.ClearViews();
+            _headerText.Release();
             base.Release();
         }
     }

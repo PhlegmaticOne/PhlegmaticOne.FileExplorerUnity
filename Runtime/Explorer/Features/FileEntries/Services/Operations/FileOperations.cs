@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Operations
 {
@@ -20,7 +21,11 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Operations
             var directoryPath = System.IO.Path.GetDirectoryName(path)!;
             var newPath = System.IO.Path.Combine(directoryPath, newName + extension);
 
-            File.Delete(newPath);
+            if (!newPath.Equals(path, StringComparison.OrdinalIgnoreCase))
+            {
+                File.Delete(newPath);
+            }
+            
             File.Move(path, newPath);
 
             return newPath;
