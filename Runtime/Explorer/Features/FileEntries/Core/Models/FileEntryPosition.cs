@@ -5,6 +5,14 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Models
 {
     internal sealed class FileEntryPosition
     {
+        public FileEntryPosition() { }
+        public FileEntryPosition(Vector2 centerAnchoredPosition, Vector2 size, float offsetTop)
+        {
+            CenterAnchoredPosition = centerAnchoredPosition;
+            Size = size;
+            OffsetTop = offsetTop;
+        }
+
         public Vector2 CenterAnchoredPosition { get; private set; }
         public Vector2 Size { get; private set; }
         public float OffsetTop { get; private set; }

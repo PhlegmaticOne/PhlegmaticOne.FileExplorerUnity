@@ -5,10 +5,12 @@ using PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Models;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Proprties;
+using PhlegmaticOne.FileExplorer.Features.Searching.Entities;
 using PhlegmaticOne.FileExplorer.Features.Selection.Actions;
 using PhlegmaticOne.FileExplorer.Features.Tab.Entities;
 using PhlegmaticOne.FileExplorer.Features.Tab.Listeners;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
 {
@@ -17,34 +19,41 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
         private readonly ActionsViewModel _actionsViewModel;
         private readonly ISelectionActionsProvider _actionsProvider;
         private readonly TabViewModel _tabViewModel;
+        private readonly SearchViewModel _searchViewModel;
         private readonly List<FileEntryViewModel> _selection;
 
         public SelectionViewModel(
             ActionsViewModel actionsViewModel, 
             ISelectionActionsProvider actionsProvider,
-            TabViewModel tabViewModel)
+            TabViewModel tabViewModel,
+            SearchViewModel searchViewModel)
         {
             _actionsViewModel = actionsViewModel;
             _actionsProvider = actionsProvider;
             _tabViewModel = tabViewModel;
+            _searchViewModel = searchViewModel;
             _selection = new List<FileEntryViewModel>();
 
             IsAllSelected = new ReactiveProperty<bool>(false);
             IsSelectionActive = new ReactiveProperty<bool>(false);
-            Position = new FileEntryPosition();
             SelectedEntriesCount = new ReactiveProperty<FileEntriesCounter>(FileEntriesCounter.Zero);
+            ActionsCommand = new CommandDelegate<FileEntryPosition>(ShowSelectionActions);
+            ClearSelectionCommand = new CommandDelegateEmpty(() => Clear());
+            SelectDeselectCommand = new CommandDelegate<bool>(SelectDeselectAll);
         }
 
+        public ICommand ActionsCommand { get; }
+        public ICommand ClearSelectionCommand { get; }
+        public ICommand SelectDeselectCommand { get; }
         public ReactiveProperty<bool> IsSelectionActive { get; }
         public ReactiveProperty<bool> IsAllSelected { get; }
         public ReactiveProperty<FileEntriesCounter> SelectedEntriesCount { get; }
-        public FileEntryPosition Position { get; }
 
-        public void OnSelectionActionsClick()
+        private void ShowSelectionActions(FileEntryPosition position)
         {
-            var position = Position.ToActionViewPositionData(ActionViewAlignment.DockToTargetBottom);
+            var actionViewPosition = position.ToActionViewPositionData(ActionViewAlignment.DockToTargetBottom);
             var actions = _actionsProvider.GetActions(this);
-            _actionsViewModel.ShowActions(actions, position);
+            _actionsViewModel.ShowActions(actions, actionViewPosition);
         }
 
         public bool TryGetSingleSelection(out FileEntryViewModel fileEntry)
@@ -69,7 +78,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
             viewModel.IsSelected.SetValueNotify(newIsSelected);
             UpdateSelectionCollection(viewModel, newIsSelected);
             UpdateSelectionCount(viewModel, newIsSelected, notify: true);
-            UpdateIsSelectionActive();
+            UpdateIsSelectionActive(_selection.Count >= 1);
             UpdateIsAllSelected();
         }
 
@@ -87,7 +96,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
             
             SelectedEntriesCount.Raise();
             IsAllSelected.SetValueNotify(true);
-            IsSelectionActive.SetValueNotify(true);
+            UpdateIsSelectionActive(true);
         }
 
         public void Clear(bool isDisableSelection = true)
@@ -99,13 +108,25 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
             
             _selection.Clear();
             IsAllSelected.SetValueNotify(false);
-            IsSelectionActive.SetValueNotify(!isDisableSelection);
+            UpdateIsSelectionActive(!isDisableSelection);
             SelectedEntriesCount.SetValueNotify(FileEntriesCounter.Zero);
         }
 
         public void HandleEntriesAdded(IEnumerable<FileEntryViewModel> fileEntries)
         {
             IsAllSelected.SetValueNotify(false);
+        }
+        
+        private void SelectDeselectAll(bool isSelectAll)
+        {
+            if (!isSelectAll)
+            {
+                Clear(isDisableSelection: false);
+            }
+            else
+            {
+                SelectAll();
+            }
         }
 
         private void UpdateSelectionCount(FileEntryViewModel viewModel, bool newIsSelected, bool notify)
@@ -128,9 +149,10 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
             }
         }
 
-        private void UpdateIsSelectionActive()
+        private void UpdateIsSelectionActive(bool isActive)
         {
-            IsSelectionActive.SetValueNotify(_selection.Count >= 1);
+            IsSelectionActive.SetValueNotify(isActive);
+            _searchViewModel.SetActive(!isActive);
         }
 
         private void UpdateIsAllSelected()

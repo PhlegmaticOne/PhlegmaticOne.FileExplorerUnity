@@ -2,12 +2,12 @@
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands
 {
-    internal class CommandDelegate<T> : ICommand
+    internal sealed class CommandDelegate<T> : ICommand
     {
         private readonly Action<T> _executeAction;
         private readonly Func<bool> _canExecuteAction;
 
-        protected CommandDelegate(Action<T> executeAction, Func<bool> canExecuteAction = null)
+        public CommandDelegate(Action<T> executeAction, Func<bool> canExecuteAction = null)
         {
             _executeAction = executeAction;
             _canExecuteAction = canExecuteAction;

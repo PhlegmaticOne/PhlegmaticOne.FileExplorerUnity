@@ -1,7 +1,7 @@
-﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Scene;
-using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
+﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
+using PhlegmaticOne.FileExplorer.Services.Scene;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
@@ -17,7 +17,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
         private FileEntryViewModel _viewModel;
 
         [ViewInject]
-        public void Construct(FileEntryViewModel viewModel, IFileViewSceneService sceneService)
+        public void Construct(FileEntryViewModel viewModel, ISceneService sceneService)
         {
             _holdFileEntry.Construct(sceneService);
             _viewModel = viewModel;

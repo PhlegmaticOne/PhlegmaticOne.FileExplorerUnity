@@ -1,5 +1,5 @@
-﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Scene;
-using PhlegmaticOne.FileExplorer.Infrastructure.Behaviours;
+﻿using PhlegmaticOne.FileExplorer.Infrastructure.Behaviours;
+using PhlegmaticOne.FileExplorer.Services.Scene;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
@@ -10,9 +10,9 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
         [SerializeField] private RectTransform _rectTransform;
         
         private FileEntryViewModel _viewModel;
-        private IFileViewSceneService _sceneService;
+        private ISceneService _sceneService;
 
-        public void Construct(IFileViewSceneService sceneService)
+        public void Construct(ISceneService sceneService)
         {
             _sceneService = sceneService;
             _holdBehaviour.Construct(sceneService.ScrollRect);
@@ -52,7 +52,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
             _viewModel.Position.Update(
                 _rectTransform.anchoredPosition, 
                 _rectTransform.rect.size, 
-                _sceneService.GetOffset());
+                _sceneService.GetHeaderOffset());
             
             _viewModel.OnClick();
         }

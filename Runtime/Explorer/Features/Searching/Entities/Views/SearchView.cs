@@ -1,16 +1,16 @@
 ﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components.Buttons;
 using PhlegmaticOne.FileExplorer.Services.StaticViews;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Features.Searching.Entities
 {
     internal sealed class SearchView : MonoBehaviour, IExplorerStaticViewComponent
     {
-        [SerializeField] private TMP_InputField _searchInput;
-        [SerializeField] private Button _resetButton;
-        [SerializeField] private TextMeshProUGUI _searchCountText;
+        [SerializeField] private ComponentInput _searchInput;
+        [SerializeField] private ComponentButton _resetButton;
+        [SerializeField] private ComponentActiveObject _activeObject;
         
         private SearchViewModel _viewModel;
 
@@ -22,48 +22,16 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.Entities
         
         public void Bind()
         {
-            _viewModel.SearchText.ValueChanged += UpdateSearchInput;
-            _viewModel.FoundEntriesCount.ValueChanged += UpdateFoundEntriesCount;
-            _viewModel.IsActive.ValueChanged += UpdateIsActive;
-            _searchInput.onValueChanged.AddListener(SearchFileEntries);
-            _resetButton.onClick.AddListener(ResetSearch);
+            _searchInput.Bind(_viewModel.SearchText, _viewModel.SearchCommand);
+            _resetButton.Bind(_viewModel.ResetCommand);
+            _activeObject.Bind(_viewModel.IsActive);
         }
 
         public void Unbind()
         {
-            _viewModel.SearchText.ValueChanged -= UpdateSearchInput;
-            _viewModel.FoundEntriesCount.ValueChanged -= UpdateFoundEntriesCount;
-            _viewModel.IsActive.ValueChanged -= UpdateIsActive;
-            _searchInput.onValueChanged.RemoveListener(SearchFileEntries);
-            _resetButton.onClick.RemoveListener(ResetSearch);
-        }
-
-        private void UpdateIsActive(bool isActive)
-        {
-            _searchCountText.gameObject.SetActive(isActive);
-        }
-
-        private void UpdateFoundEntriesCount(int count)
-        {
-            if (count != -1)
-            {
-                _searchCountText.text = $"Found entries: {count}";
-            }
-        }
-
-        private void SearchFileEntries(string searchText)
-        {
-            _viewModel.Search(searchText);
-        }
-
-        private void ResetSearch()
-        {
-            _viewModel.Clear();
-        }
-
-        private void UpdateSearchInput(string searchText)
-        {
-            _searchInput.SetTextWithoutNotify(searchText);
+            _searchInput.Release();
+            _resetButton.Release();
+            _activeObject.Release();
         }
     }
 }

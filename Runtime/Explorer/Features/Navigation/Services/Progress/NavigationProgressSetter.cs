@@ -1,17 +1,17 @@
-﻿using PhlegmaticOne.FileExplorer.Features.Progress.Entities;
+﻿using PhlegmaticOne.FileExplorer.Features.HeaderInfo.Entities;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.Navigation.Services.Progress
 {
     internal sealed class NavigationProgressSetter : INavigationProgressSetter
     {
-        private readonly ProgressViewModel _progressViewModel;
+        private readonly HeaderInfoViewModel _headerInfoViewModel;
         
         private int _currentCount;
 
-        public NavigationProgressSetter(ProgressViewModel progressViewModel)
+        public NavigationProgressSetter(HeaderInfoViewModel headerInfoViewModel)
         {
-            _progressViewModel = progressViewModel;
+            _headerInfoViewModel = headerInfoViewModel;
         }
         
         public void AddDeltaProgress(int delta)
@@ -28,14 +28,14 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.Services.Progress
 
         public void SetActive(bool isActive)
         {
-            _progressViewModel.IsActive.SetValueNotify(isActive);
-            _progressViewModel.SetNormalizedProgress(0);
+            _headerInfoViewModel.SetProgressActive(isActive);
+            _headerInfoViewModel.SetNormalizedProgress(0);
             _currentCount = 0;
         }
 
         private void UpdateProgress()
         {
-            _progressViewModel.SetProgress(GetProgress());
+            _headerInfoViewModel.SetProgress(GetProgress());
         }
 
         private float GetProgress()

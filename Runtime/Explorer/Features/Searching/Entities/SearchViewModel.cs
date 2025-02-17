@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
+using PhlegmaticOne.FileExplorer.Features.HeaderInfo.Entities;
 using PhlegmaticOne.FileExplorer.Features.Searching.Services.Filters;
 using PhlegmaticOne.FileExplorer.Features.Tab.Entities;
 using PhlegmaticOne.FileExplorer.Features.Tab.Listeners;
@@ -13,40 +14,46 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.Entities
         private const int MinSearchLength = 2;
         
         private readonly TabViewModel _tabViewModel;
+        private readonly HeaderInfoViewModel _headerInfoViewModel;
         private readonly IFileEntrySearchFilter _fileEntrySearchFilter;
 
         public SearchViewModel(
             TabViewModel tabViewModel, 
+            HeaderInfoViewModel headerInfoViewModel,
             IFileEntrySearchFilter fileEntrySearchFilter)
         {
             _tabViewModel = tabViewModel;
+            _headerInfoViewModel = headerInfoViewModel;
             _fileEntrySearchFilter = fileEntrySearchFilter;
-            
+
+            IsActive = new ReactiveProperty<bool>(true);
             SearchText = new ReactiveProperty<string>(string.Empty);
-            IsActive = new ReactiveProperty<bool>(false);
+            IsSearching = new ReactiveProperty<bool>(false);
             FoundEntriesCount = new ReactiveProperty<int>(-1);
+            ResetCommand = new CommandDelegateEmpty(Clear);
+            SearchCommand = new CommandDelegate<string>(Search);
         }
 
         public ReactiveProperty<bool> IsActive { get; }
+        public ReactiveProperty<bool> IsSearching { get; }
         public ReactiveProperty<string> SearchText { get; }
         public ReactiveProperty<int> FoundEntriesCount { get; }
+        public ICommand ResetCommand { get; }
+        public ICommand SearchCommand { get; }
 
         public void Research()
         {
             Search(SearchText);
         }
-        
-        public void Search(string text)
+
+        public void SetActive(bool isActive)
         {
-            SearchText.SetValueWithoutNotify(text);
-            var foundEntriesCount = SearchEntries(text, _tabViewModel.FileEntries);
-            IsActive.SetValueNotify(foundEntriesCount != -1);
-            FoundEntriesCount.OverwriteForce(foundEntriesCount);
+            IsActive.SetValueNotify(isActive);
         }
 
         public void HandleEntriesAdded(IEnumerable<FileEntryViewModel> fileEntries)
         {
-            if (!IsActive && string.IsNullOrEmpty(SearchText))
+            if (!IsSearching && string.IsNullOrEmpty(SearchText))
             {
                 return;
             }
@@ -57,6 +64,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.Entities
             {
                 var newFoundCount = FoundEntriesCount + foundEntriesCount;
                 FoundEntriesCount.OverwriteForce(newFoundCount);
+                UpdateFoundEntriesCountHeader();
             }
         }
 
@@ -64,22 +72,37 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.Entities
         {
             SearchText.SetValueNotify(string.Empty);
             SetAllFileEntriesActive();
-            IsActive.SetValueNotify(false);
+            IsSearching.SetValueNotify(false);
             FoundEntriesCount.SetValueWithoutNotify(-1);
+            UpdateFoundEntriesCountHeader();
+        }
+
+        private void Search(string text)
+        {
+            var foundEntriesCount = SearchEntries(text, _tabViewModel.FileEntries);
+            IsSearching.SetValueNotify(foundEntriesCount != -1);
+            FoundEntriesCount.OverwriteForce(foundEntriesCount);
+            UpdateFoundEntriesCountHeader();
+        }
+
+        private void UpdateFoundEntriesCountHeader()
+        {
+            var message = FoundEntriesCount == -1 ? string.Empty : $"Found entries: {FoundEntriesCount}";
+            _headerInfoViewModel.SetInfoMessage(message);
         }
 
         private int SearchEntries(string text, IEnumerable<FileEntryViewModel> fileEntries)
         {
             if (text.Length >= MinSearchLength)
             {
-                return SearchFitFileEntries(text, fileEntries);
+                return FilterFileEntries(text, fileEntries);
             }
 
             SetAllFileEntriesActive();
             return -1;
         }
 
-        private int SearchFitFileEntries(string text, IEnumerable<FileEntryViewModel> fileEntries)
+        private int FilterFileEntries(string text, IEnumerable<FileEntryViewModel> fileEntries)
         {
             var count = 0;
             

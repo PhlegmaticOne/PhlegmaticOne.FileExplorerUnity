@@ -1,19 +1,31 @@
 ﻿using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Features.Progress.Entities
+namespace PhlegmaticOne.FileExplorer.Features.HeaderInfo.Entities
 {
-    internal sealed class ProgressViewModel : ViewModel
+    internal sealed class HeaderInfoViewModel : ViewModel
     {
-        public ProgressViewModel()
+        public HeaderInfoViewModel()
         {
             IsActive = new ReactiveProperty<bool>();
             Progress = new ReactiveProperty<float>();
+            InfoMessage = new ReactiveProperty<string>(string.Empty);
         }
         
         public ReactiveProperty<bool> IsActive { get; }
         public ReactiveProperty<float> Progress { get; }
+        public ReactiveProperty<string> InfoMessage { get; }
 
+        public void SetInfoMessage(string message)
+        {
+            InfoMessage.SetValueNotify(message);
+        }
+
+        public void SetProgressActive(bool isActive)
+        {
+            IsActive.SetValueNotify(isActive);
+        }
+        
         public void SetProgress(float progress)
         {
             SetNormalizedProgress(progress / 100f);

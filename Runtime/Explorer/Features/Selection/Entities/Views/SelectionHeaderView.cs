@@ -1,93 +1,65 @@
-﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Proprties;
+﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Models;
+using PhlegmaticOne.FileExplorer.Features.Selection.Entities.Components;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components.Buttons;
+using PhlegmaticOne.FileExplorer.Services.Scene;
 using PhlegmaticOne.FileExplorer.Services.StaticViews;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
 {
     internal sealed class SelectionHeaderView : MonoBehaviour, IExplorerStaticViewComponent
     {
-        [SerializeField] private VerticalLayoutGroup _offsetGroup;
-        [SerializeField] private Button _actionsButton;
-        [SerializeField] private Button _clearSelectionButton;
-        [SerializeField] private Toggle _selectDeselectAllToggle;
+        [SerializeField] private ComponentButton _actionsButton;
+        [SerializeField] private ComponentButton _clearSelectionButton;
+        [SerializeField] private ComponentActiveObject _selectionContainerActiveObject;
+        [SerializeField] private ComponentSelectionContainerLayout _selectionContainerLayout;
+        [SerializeField] private ComponentSelectionDescription _selectionDescription;
+        [SerializeField] private ComponentToggle _selectDeselectAllToggle;
+        
+        [SerializeField] private RectTransform _dropdownButtonRect;
         [SerializeField] private RectTransform _rectTransform;
-        [SerializeField] private GameObject _searchBarContainer;
-        [SerializeField] private GameObject _selectionCountContainer;
-        [SerializeField] private TextMeshProUGUI _selectionCountText;
         
         private SelectionViewModel _viewModel;
+        private ISceneService _sceneService;
 
         [ViewInject]
-        public void Construct(SelectionViewModel viewModel)
+        public void Construct(SelectionViewModel viewModel, ISceneService sceneService)
         {
+            _sceneService = sceneService;
             _viewModel = viewModel;
         }
         
         public void Bind()
         {
-            _actionsButton.onClick.AddListener(OpenActionsDropdown);
-            _clearSelectionButton.onClick.AddListener(ClearSelection);
-            _selectDeselectAllToggle.onValueChanged.AddListener(SelectDeselectAll);
-            _viewModel.IsSelectionActive.ValueChanged += UpdateSelectionIsActive;
-            _viewModel.SelectedEntriesCount.ValueChanged += UpdateSelectionCountView;
-            _viewModel.IsAllSelected.ValueChanged += UpdateIsAllSelected;
+            _actionsButton.Bind(_viewModel.ActionsCommand, CalculateViewPosition);
+            _clearSelectionButton.Bind(_viewModel.ClearSelectionCommand);
+            _selectionContainerActiveObject.Bind(_viewModel.IsSelectionActive);
+            _selectionContainerLayout.Bind(_viewModel.IsSelectionActive);
+            _selectionDescription.Bind(_viewModel.SelectedEntriesCount);
+            _selectDeselectAllToggle.Bind(_viewModel.IsAllSelected, _viewModel.SelectDeselectCommand);
         }
 
         public void Unbind()
         {
-            _actionsButton.onClick.RemoveListener(OpenActionsDropdown);
-            _clearSelectionButton.onClick.RemoveListener(ClearSelection);
-            _selectDeselectAllToggle.onValueChanged.RemoveListener(SelectDeselectAll);
-            _viewModel.IsSelectionActive.ValueChanged -= UpdateSelectionIsActive;
-            _viewModel.SelectedEntriesCount.ValueChanged -= UpdateSelectionCountView;
-            _viewModel.IsAllSelected.ValueChanged -= UpdateIsAllSelected;
+            _actionsButton.Release();
+            _clearSelectionButton.Release();
+            _selectionContainerActiveObject.Release();
+            _selectionContainerLayout.Release();
+            _selectionDescription.Release();
+            _selectDeselectAllToggle.Release();
         }
-        
-        private void OpenActionsDropdown()
+
+        private FileEntryPosition CalculateViewPosition()
         {
-            _viewModel.Position.Update(
-                _rectTransform.anchoredPosition, 
-                _rectTransform.rect.size, 
-                _offsetGroup.padding.top);
+            var buttonRect = _dropdownButtonRect.rect;
+            var containerPosition = _rectTransform.anchoredPosition;
             
-            _viewModel.OnSelectionActionsClick();
-        }
-
-        private void SelectDeselectAll(bool isSelected)
-        {
-            if (_viewModel.IsAllSelected)
-            {
-                _viewModel.Clear(isDisableSelection: false);
-            }
-            else
-            {
-                _viewModel.SelectAll();
-            }
-        }
-
-        private void ClearSelection()
-        {
-            _viewModel.Clear();
-        }
-
-        private void UpdateSelectionCountView(FileEntriesCounter counter)
-        {
-            var description = new SelectionHeaderViewDescription(counter.TotalCount);
-            _selectionCountText.text = description.GetDescription();
-        }
-
-        private void UpdateIsAllSelected(bool isAllSelected)
-        {
-            _selectDeselectAllToggle.SetIsOnWithoutNotify(isAllSelected);
-        }
-
-        private void UpdateSelectionIsActive(bool isActive)
-        {
-            _searchBarContainer.SetActive(!isActive);
-            _selectionCountContainer.SetActive(isActive);
+            return new FileEntryPosition(
+                new Vector2(containerPosition.x - buttonRect.width / 2, containerPosition.y),
+                new Vector2(buttonRect.width, _rectTransform.rect.height),
+                _sceneService.GetSafeZoneOffset());
         }
     }
 }

@@ -45,7 +45,7 @@ namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Listeners
 
         private void UpdateTabCenterMessage()
         {
-            if (_searchViewModel.IsActive && _searchViewModel.FoundEntriesCount == 0)
+            if (_searchViewModel.IsSearching && _searchViewModel.FoundEntriesCount == 0)
             {
                 SetTabMessage($"Tab has no entries containing \"{_searchViewModel.SearchText}\"");
                 return;

@@ -1,7 +1,7 @@
 ﻿using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Features.Progress.Entities.Components
+namespace PhlegmaticOne.FileExplorer.Features.HeaderInfo.Entities.Components
 {
     internal sealed class ComponentProgressSetter : MonoBehaviour
     {
