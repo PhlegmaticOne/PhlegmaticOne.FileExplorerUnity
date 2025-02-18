@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Configuration;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
+﻿using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Direcrories;
-using PhlegmaticOne.FileExplorer.Features.Navigation.Services.Navigator;
+using PhlegmaticOne.FileExplorer.Features.Navigation.Services.EntriesGenerationPolicies;
 using PhlegmaticOne.FileExplorer.Features.Navigation.Services.Progress;
 using PhlegmaticOne.FileExplorer.Features.Path.Entities.Path;
 using PhlegmaticOne.FileExplorer.Features.Searching.Entities;
@@ -19,31 +15,28 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.Entities
 {
     internal sealed class NavigationViewModel : ViewModel
     {
-        private readonly IExplorerNavigator _navigator;
         private readonly IExplorerCancellationProvider _cancellationProvider;
         private readonly SelectionViewModel _selectionViewModel;
+        private readonly IFileEntriesGenerationPolicy _entriesGenerationPolicy;
         private readonly TabViewModel _tabViewModel;
         private readonly SearchViewModel _searchViewModel;
         private readonly PathViewModel _pathViewModel;
         private readonly INavigationProgressSetter _progressSetter;
-        private readonly ExplorerConfig _config;
 
         public NavigationViewModel(
-            IExplorerNavigator navigator, 
+            IFileEntriesGenerationPolicy entriesGenerationPolicy, 
             IExplorerCancellationProvider cancellationProvider,
             SelectionViewModel selectionViewModel,
             TabViewModel tabViewModel,
             SearchViewModel searchViewModel,
             PathViewModel pathViewModel,
-            INavigationProgressSetter progressSetter,
-            ExplorerConfig config)
+            INavigationProgressSetter progressSetter)
         {
+            _entriesGenerationPolicy = entriesGenerationPolicy;
             _tabViewModel = tabViewModel;
             _searchViewModel = searchViewModel;
             _pathViewModel = pathViewModel;
             _progressSetter = progressSetter;
-            _config = config;
-            _navigator = navigator;
             _cancellationProvider = cancellationProvider;
             _selectionViewModel = selectionViewModel;
             NavigateBackCommand = new CommandDelegateEmpty(() => NavigateBack(), CanMoveBack);
@@ -101,7 +94,13 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.Entities
             NavigateBackCommand.RaiseCanExecuteChanged();
             _progressSetter.SetActive(true);
 
-            if (await LoadFileEntriesAsync(path, token))
+            await _entriesGenerationPolicy.GenerateFileEntriesAtPath(path, token, entries =>
+            {
+                _tabViewModel.AddRange(entries);
+                _progressSetter.AddDeltaProgress(entries.Count);
+            });
+
+            if (!token.IsCancellationRequested)
             {
                 _progressSetter.Complete();
                 _tabViewModel.UpdateIsEmpty();
@@ -109,40 +108,6 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.Entities
                 await Task.Delay(100, token);
                 _progressSetter.SetActive(false);
             }
-        }
-
-        private async Task<bool> LoadFileEntriesAsync(string path, CancellationToken token)
-        {
-            var batchCount = _config.View.AddFileEntriesBatchCount;
-            var batch = new List<FileEntryViewModel>(batchCount);
-            
-            await foreach (var fileEntry in _navigator.Navigate(path, token))
-            {
-                if (token.IsCancellationRequested) break;
-                
-                batch.Add(fileEntry);
-                
-                if (batch.Count == batchCount) AddBatchToTab(batch);
-                
-                await Task.Yield();
-
-                if (token.IsCancellationRequested) break;
-            }
-
-            if (batch.Count > 0 && !token.IsCancellationRequested)
-            {
-                AddBatchToTab(batch);
-                await Task.Yield();
-            }
-
-            return !token.IsCancellationRequested;
-        }
-
-        private void AddBatchToTab(ICollection<FileEntryViewModel> batch)
-        {
-            _tabViewModel.AddRange(batch);
-            _progressSetter.AddDeltaProgress(batch.Count);
-            batch.Clear();
         }
     }
 }

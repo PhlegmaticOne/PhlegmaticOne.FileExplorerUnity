@@ -1,5 +1,6 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Navigation.Entities;
 using PhlegmaticOne.FileExplorer.Features.Navigation.Listeners;
+using PhlegmaticOne.FileExplorer.Features.Navigation.Services.EntriesGenerationPolicies;
 using PhlegmaticOne.FileExplorer.Features.Navigation.Services.Navigator;
 using PhlegmaticOne.FileExplorer.Features.Navigation.Services.Progress;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
@@ -18,6 +19,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation
             
             container.Register<IExplorerNavigator, ExplorerNavigator>();
             container.Register<INavigationProgressSetter, NavigationProgressSetter>();
+            container.Register<IFileEntriesGenerationPolicy, FileEntriesGenerationPolicyBatch>();
             
             container.RegisterInterfaces<NavigationBackRequestListener>();
             
