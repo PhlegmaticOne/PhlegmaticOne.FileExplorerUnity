@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
 using PhlegmaticOne.FileExplorer.Popups.Errors;
 
-namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Actions
+namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Actions.Core
 {
     internal sealed class FileEntryActionErrorHandler : IFileEntryActionErrorHandler
     {

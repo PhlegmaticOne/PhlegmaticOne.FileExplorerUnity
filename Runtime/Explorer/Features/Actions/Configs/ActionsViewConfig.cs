@@ -13,7 +13,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Configs
         [SerializeField] private Color[] _backgroundAutoColors;
         [SerializeField] private Color _textAutoColor;
         
-        public ActionViewData GetViewData(string key)
+        public ActionStaticViewData GetViewData(string key)
         {
             var viewData = GetActionViewData(key);
             
@@ -25,7 +25,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Configs
                 ? viewData.TextColor 
                 : _textAutoColor;
 
-            return new ActionViewData(textColor, backgroundColor, viewData.Description);
+            return new ActionStaticViewData(textColor, backgroundColor, viewData.Description);
         }
 
         private ActionViewConfigData GetActionViewData(string actionKey)

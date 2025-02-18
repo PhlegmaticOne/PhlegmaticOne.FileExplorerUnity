@@ -2,7 +2,6 @@
 using System.Linq;
 using PhlegmaticOne.FileExplorer.Features.Actions.Entities.Actions;
 using PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Models;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Proprties;
 using PhlegmaticOne.FileExplorer.Features.Searching.Entities;
@@ -37,7 +36,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
             IsAllSelected = new ReactiveProperty<bool>(false);
             IsSelectionActive = new ReactiveProperty<bool>(false);
             SelectedEntriesCount = new ReactiveProperty<FileEntriesCounter>(FileEntriesCounter.Zero);
-            ActionsCommand = new CommandDelegate<FileEntryPosition>(ShowSelectionActions);
+            ActionsCommand = new CommandDelegate<ActionTargetViewPosition>(ShowSelectionActions);
             ClearSelectionCommand = new CommandDelegateEmpty(() => Clear());
             SelectDeselectCommand = new CommandDelegate<bool>(SelectDeselectAll);
         }
@@ -49,7 +48,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
         public ReactiveProperty<bool> IsAllSelected { get; }
         public ReactiveProperty<FileEntriesCounter> SelectedEntriesCount { get; }
 
-        private void ShowSelectionActions(FileEntryPosition position)
+        private void ShowSelectionActions(ActionTargetViewPosition position)
         {
             var actionViewPosition = position.ToActionViewPositionData(ActionViewAlignment.DockToTargetBottom);
             var actions = _actionsProvider.GetActions(this);

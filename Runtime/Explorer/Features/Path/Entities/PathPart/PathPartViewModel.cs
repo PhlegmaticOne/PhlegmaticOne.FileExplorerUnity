@@ -25,7 +25,12 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Entities.PathPart
         public ReactiveProperty<string> Part { get; }
         public ICommand NavigateCommand { get; }
 
-        public void Navigate()
+        public void SetCurrent(bool isCurrent)
+        {
+            IsCurrent.SetValueNotify(isCurrent);
+        }
+
+        private void Navigate()
         {
             if (IsCurrent)
             {
@@ -34,11 +39,6 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Entities.PathPart
             
             var path = _pathBuilder.BuildPathUntilPart(this);
             _navigationViewModel.Navigate(path);
-        }
-
-        public void SetCurrent(bool isCurrent)
-        {
-            IsCurrent.SetValueNotify(isCurrent);
         }
     }
 }

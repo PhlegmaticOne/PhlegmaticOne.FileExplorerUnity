@@ -1,4 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Models;
+﻿using PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning;
 using PhlegmaticOne.FileExplorer.Infrastructure.Behaviours;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
 using PhlegmaticOne.FileExplorer.Services.Scene;
@@ -54,9 +54,9 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
             _viewModel.ClickCommand.Execute(CalculateViewPosition());
         }
 
-        private FileEntryPosition CalculateViewPosition()
+        private ActionTargetViewPosition CalculateViewPosition()
         {
-            return new FileEntryPosition(
+            return new ActionTargetViewPosition(
                 _rectTransform.anchoredPosition,
                 _rectTransform.rect.size,
                 _sceneService.GetHeaderOffset());

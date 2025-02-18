@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using PhlegmaticOne.FileExplorer.Features.Actions.Core;
 using PhlegmaticOne.FileExplorer.Features.Actions.Entities.Action;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Actions;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Actions.Core;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
 using PhlegmaticOne.FileExplorer.Features.Searching.Entities;
 using PhlegmaticOne.FileExplorer.Features.Selection.Entities;

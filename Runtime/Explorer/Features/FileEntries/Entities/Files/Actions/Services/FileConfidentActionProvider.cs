@@ -1,7 +1,7 @@
 ﻿using System;
 using PhlegmaticOne.FileExplorer.Features.Actions.Entities.Action;
 using PhlegmaticOne.FileExplorer.Features.Entities.Files.Actions;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Actions;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Actions.Core;
 using PhlegmaticOne.FileExplorer.Services.ContentLoading;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files.Actions

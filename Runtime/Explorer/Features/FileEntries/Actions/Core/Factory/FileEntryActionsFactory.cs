@@ -2,7 +2,7 @@
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 
-namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Actions
+namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Actions.Core
 {
     internal sealed class FileEntryActionsFactory : IFileEntryActionsFactory
     {

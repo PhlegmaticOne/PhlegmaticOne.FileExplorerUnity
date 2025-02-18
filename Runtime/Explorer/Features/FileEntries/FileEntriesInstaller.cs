@@ -1,4 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Actions;
+﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Actions.Core;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Direcrories.Actions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files.Actions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files.Commands;

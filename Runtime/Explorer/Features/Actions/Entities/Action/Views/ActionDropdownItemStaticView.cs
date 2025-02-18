@@ -10,11 +10,11 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Entities.Action
         [SerializeField] private TextMeshProUGUI _description;
         [SerializeField] private Image _background;
 
-        public void Setup(ActionViewData viewData)
+        public void Setup(ActionStaticViewData staticViewData)
         {
-            _description.text = viewData.Description;
-            _description.color = viewData.TextColor;
-            _background.color = viewData.BackgroundColor;
+            _description.text = staticViewData.Description;
+            _description.color = staticViewData.TextColor;
+            _background.color = staticViewData.BackgroundColor;
         }
     }
 }

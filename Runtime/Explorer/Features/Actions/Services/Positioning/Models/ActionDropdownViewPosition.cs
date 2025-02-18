@@ -2,9 +2,9 @@
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning
 {
-    internal class ActionViewPositionData
+    internal sealed class ActionDropdownViewPosition
     {
-        public ActionViewPositionData(
+        public ActionDropdownViewPosition(
             Vector2 targetCenterAnchoredPosition, 
             Vector2 targetSize, 
             float targetOffsetFromTop, 

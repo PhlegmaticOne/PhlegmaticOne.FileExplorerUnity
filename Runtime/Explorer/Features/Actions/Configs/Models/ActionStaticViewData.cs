@@ -2,9 +2,9 @@
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions.Configs
 {
-    internal readonly struct ActionViewData
+    internal readonly struct ActionStaticViewData
     {
-        public ActionViewData(Color textColor, Color backgroundColor, string description)
+        public ActionStaticViewData(Color textColor, Color backgroundColor, string description)
         {
             TextColor = textColor;
             BackgroundColor = backgroundColor;

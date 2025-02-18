@@ -1,10 +1,9 @@
 ﻿using System;
 using PhlegmaticOne.FileExplorer.Features.Actions.Entities.Actions;
 using PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Models;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
 
-namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Actions
+namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Actions.Core
 {
     internal sealed class FileEntryShowActionsProvider : IFileEntryShowActionsProvider
     {
@@ -19,7 +18,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Actions
             _actionsFactory = actionsFactory;
         }
 
-        public void ShowActions(FileEntryViewModel fileEntry, FileEntryPosition position)
+        public void ShowActions(FileEntryViewModel fileEntry, ActionTargetViewPosition position)
         {
             var factory = Array.Find(_actionsFactory, x => x.EntryType == fileEntry.EntryType);
             var actions = factory.GetActions(fileEntry);

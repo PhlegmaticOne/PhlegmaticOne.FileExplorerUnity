@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using PhlegmaticOne.FileExplorer.Features.Actions.Entities.Action;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Actions;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Actions;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Actions.Core;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Models;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Direcrories.Actions

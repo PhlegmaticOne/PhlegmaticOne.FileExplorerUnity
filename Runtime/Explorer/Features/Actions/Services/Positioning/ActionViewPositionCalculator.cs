@@ -13,14 +13,14 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning
         
         // Target pivot is center-center
         // Dropdown pivot is left-up corner
-        public Vector2 Calculate(ActionViewPositionData targetPosition, Vector2 viewSize)
+        public Vector2 Calculate(ActionDropdownViewPosition targetPosition, Vector2 viewSize)
         {
             return new Vector2(
                 CalculateViewX(targetPosition, viewSize),
                 CalculateViewY(targetPosition, viewSize));
         }
         
-        private float CalculateViewX(ActionViewPositionData position, Vector2 size)
+        private float CalculateViewX(ActionDropdownViewPosition position, Vector2 size)
         {
             var targetCenter = position.TargetCenterAnchoredPosition;
             var targetSize = position.TargetSize;
@@ -37,7 +37,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning
             return clampedTargetCenterX;
         }
 
-        private float CalculateViewY(ActionViewPositionData position, Vector2 size)
+        private float CalculateViewY(ActionDropdownViewPosition position, Vector2 size)
         {
             var targetCenter = position.TargetCenterAnchoredPosition;
             var targetSize = position.TargetSize;

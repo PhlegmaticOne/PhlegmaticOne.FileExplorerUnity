@@ -1,4 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Models;
+﻿using PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components.Buttons;
@@ -50,12 +50,12 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
             _selectDeselectAllToggle.Release();
         }
 
-        private FileEntryPosition CalculateViewPosition()
+        private ActionTargetViewPosition CalculateViewPosition()
         {
             var buttonRect = _dropdownButtonRect.rect;
             var containerPosition = _rectTransform.anchoredPosition;
             
-            return new FileEntryPosition(
+            return new ActionTargetViewPosition(
                 new Vector2(containerPosition.x - buttonRect.width / 2, containerPosition.y),
                 new Vector2(buttonRect.width, _rectTransform.rect.height),
                 _sceneService.GetSafeZoneOffset());

@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Models;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files.Commands;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files.Extensions;
@@ -61,7 +62,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files
             return FileOperations.FileExists(Path);
         }
 
-        protected override void OnClick(FileEntryPosition position)
+        protected override void OnClick(ActionTargetViewPosition position)
         {
             _clickCommand.OnClick(this, position);
         }

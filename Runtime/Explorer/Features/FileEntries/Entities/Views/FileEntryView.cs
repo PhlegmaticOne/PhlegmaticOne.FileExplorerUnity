@@ -35,6 +35,9 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
         public override void Release()
         {
             _iconView.Release();
+            _fileName.Release();
+            _activeObjectSelf.Release();
+            _activeObjectSelection.Release();
             _holdFileEntry.Release();
             _viewModel = null;
         }

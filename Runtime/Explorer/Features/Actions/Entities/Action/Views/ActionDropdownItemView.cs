@@ -23,15 +23,20 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Entities.Action
 
         protected override void OnInitializing()
         {
-            var viewData = _viewConfig.GetViewData(_action.Key);
             _button.Bind(_action.ExecuteCommand);
-            _staticView.Setup(viewData);
+            SetupStaticView();
         }
 
         public override void Release()
         {
             _button.Release();
             _action = null;
+        }
+
+        private void SetupStaticView()
+        {
+            var viewData = _viewConfig.GetViewData(_action.Key);
+            _staticView.Setup(viewData);
         }
     }
 }

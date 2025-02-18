@@ -11,7 +11,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Entities.Actions
     {
         private readonly IActionViewPositionCalculator _positionCalculator;
         
-        private ActionViewPositionData _position;
+        private ActionDropdownViewPosition _position;
         private FileEntryViewModel _fileEntry;
         
         public ActionsViewModel(IActionViewPositionCalculator positionCalculator)
@@ -28,7 +28,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Entities.Actions
         public ReactiveProperty<Vector3> Position { get; }
         public ReactiveCollection<ActionViewModel> Actions { get; }
 
-        public void ShowActions(IEnumerable<ActionViewModel> actions, ActionViewPositionData position)
+        public void ShowActions(IEnumerable<ActionViewModel> actions, ActionDropdownViewPosition position)
         {
             _position = position;
             Actions.Clear();

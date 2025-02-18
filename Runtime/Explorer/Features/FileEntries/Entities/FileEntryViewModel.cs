@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Models;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Operations;
@@ -32,7 +33,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
             SelectionViewModel = selectionViewModel;
             FileOperations = fileOperations;
 
-            ClickCommand = new CommandDelegate<FileEntryPosition>(OnClick);
+            ClickCommand = new CommandDelegate<ActionTargetViewPosition>(OnClick);
             HoldClickCommand = new CommandDelegateEmpty(OnHoldClick);
         }
 
@@ -51,7 +52,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
         public abstract void Delete();
         public abstract bool Exists();
         public abstract void Dispose();
-        protected abstract void OnClick(FileEntryPosition position);
+        protected abstract void OnClick(ActionTargetViewPosition position);
 
         private void OnHoldClick()
         {

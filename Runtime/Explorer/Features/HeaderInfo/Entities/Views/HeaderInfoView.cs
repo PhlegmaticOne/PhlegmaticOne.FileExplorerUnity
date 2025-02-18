@@ -30,6 +30,7 @@ namespace PhlegmaticOne.FileExplorer.Features.HeaderInfo.Entities
         {
             _activeObject.Release();
             _progressSetter.Release();
+            _infoText.Release();
         }
     }
 }

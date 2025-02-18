@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Actions;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Actions.Core;
 using PhlegmaticOne.FileExplorer.Popups.FileView;
 using PhlegmaticOne.FileExplorer.Popups.SelectAudio;
 using UnityEngine;

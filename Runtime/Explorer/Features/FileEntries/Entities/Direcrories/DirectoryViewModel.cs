@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Models;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Direcrories.Properties;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons;
@@ -56,7 +57,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Direcrories
             return FileOperations.DirectoryExists(Path);
         }
 
-        protected override void OnClick(FileEntryPosition position)
+        protected override void OnClick(ActionTargetViewPosition position)
         {
             if (SelectionViewModel.IsSelectionActive)
             {

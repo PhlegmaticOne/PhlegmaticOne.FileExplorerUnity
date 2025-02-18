@@ -1,5 +1,5 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Actions.Entities.Action;
-using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Actions;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Actions.Core;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files.Actions;
 

@@ -1,7 +1,7 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
 using PhlegmaticOne.FileExplorer.Features.Tab.Entities;
 
-namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Actions
+namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Actions.Core
 {
     internal sealed class FileEntryActionStartHandler : IFileEntryActionStartHandler
     {

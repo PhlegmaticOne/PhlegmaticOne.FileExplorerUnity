@@ -4,9 +4,10 @@ using PhlegmaticOne.FileExplorer.Features.Actions.Entities.Action;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Models;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
 
-namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Actions
+namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Actions.Core
 {
-    internal abstract class FileEntryShowActionsFactory<T> : IFileEntryShowActionsFactory where T : FileEntryViewModel
+    internal abstract class FileEntryShowActionsFactory<T> : IFileEntryShowActionsFactory 
+        where T : FileEntryViewModel
     {
         public abstract FileEntryType EntryType { get; }
 
