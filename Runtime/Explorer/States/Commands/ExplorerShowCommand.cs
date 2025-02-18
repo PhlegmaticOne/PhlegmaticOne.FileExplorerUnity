@@ -9,13 +9,13 @@ namespace PhlegmaticOne.FileExplorer.States.Commands
     {
         private readonly IExplorerStaticViewComponentsProvider _staticViewComponentsProvider;
         private readonly NavigationViewModel _navigationViewModel;
-        private readonly ExplorerActionListeners _listeners;
+        private readonly IExplorerActionListeners _listeners;
         private readonly IExplorerSceneViewSetup _viewSetup;
 
         public ExplorerShowCommand(
             IExplorerStaticViewComponentsProvider staticViewComponentsProvider,
             NavigationViewModel navigationViewModel,
-            ExplorerActionListeners listeners,
+            IExplorerActionListeners listeners,
             IExplorerSceneViewSetup viewSetup)
         {
             _staticViewComponentsProvider = staticViewComponentsProvider;

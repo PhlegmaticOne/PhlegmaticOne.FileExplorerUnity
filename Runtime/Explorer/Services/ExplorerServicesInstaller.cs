@@ -2,6 +2,7 @@
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
 using PhlegmaticOne.FileExplorer.Services.ActionListeners;
 using PhlegmaticOne.FileExplorer.Services.Cancellation;
+using PhlegmaticOne.FileExplorer.Services.ContentLoading;
 using PhlegmaticOne.FileExplorer.Services.Destroying;
 using PhlegmaticOne.FileExplorer.Services.Internet;
 using PhlegmaticOne.FileExplorer.Services.Scene;
@@ -32,7 +33,16 @@ namespace PhlegmaticOne.FileExplorer.Services
             container.Register<IExplorerSceneViewSetup, ExplorerSceneViewSetup>();
             container.Register<IInternetProvider, InternetProvider>();
             container.Register<IExplorerDestroyer, ExplorerDestroyer>();
-            container.RegisterSelf<ExplorerActionListeners>();
+            container.Register<IExplorerActionListeners, ExplorerActionListeners>();
+            
+            BindContentLoaders(container);
+        }
+
+        private void BindContentLoaders(IDependencyContainer container)
+        {
+            container.Register<IFileAudioLoader, FileAudioLoader>();
+            container.Register<IFileTextLoader, FileTextLoader>();
+            container.Register<IFileImageLoader, FileImageLoader>();
         }
     }
 }

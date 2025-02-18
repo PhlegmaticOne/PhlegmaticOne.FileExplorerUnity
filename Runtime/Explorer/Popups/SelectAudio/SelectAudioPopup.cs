@@ -5,24 +5,25 @@ using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Popups.SelectAudio
 {
-    internal sealed class SelectAudioPopup : PopupViewAsync<SelectAudioViewModel>
+    internal sealed class SelectAudioPopup : PopupView<SelectAudioViewModel>
     {
         [SerializeField] private ComponentCollectionAudioEntries _collectionView;
         [SerializeField] private ComponentText _selectedExtensionText;
         [SerializeField] private ComponentButton _acceptButton;
 
-        protected override void OnShowing(SelectAudioViewModel viewModel)
+        protected override void OnInitializing()
         {
             _collectionView.Construct(ViewProvider);
-            viewModel.SubscribeExtensionsOnSelected();
-            _acceptButton.Bind(viewModel.CloseCommand);
-            _collectionView.Bind(viewModel.Entries);
-            _selectedExtensionText.Bind(viewModel.SelectedExtension);
+            ViewModel.SubscribeExtensionsOnSelected();
+            _acceptButton.Bind(ViewModel.CloseCommand);
+            _collectionView.Bind(ViewModel.Entries);
+            _selectedExtensionText.Bind(ViewModel.SelectedExtension);
+            base.OnInitializing();
         }
 
         public override void Release()
         {
-            PopupViewModel.UnsubscribeExtensionsOnSelected();
+            ViewModel.UnsubscribeExtensionsOnSelected();
             _acceptButton.Release();
             _collectionView.Release();
             _selectedExtensionText.Release();

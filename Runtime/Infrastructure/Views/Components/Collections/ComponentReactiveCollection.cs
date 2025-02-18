@@ -12,7 +12,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
     {
         [SerializeField] private RectTransform _viewsParent;
 
-        private readonly Dictionary<TViewModel, ViewContainer<TView>> _views = new();
+        private readonly Dictionary<TViewModel, IViewContainer<TView>> _views = new();
 
         private ReactiveCollection<TViewModel> _collection;
         private IViewProvider _viewProvider;
@@ -37,6 +37,11 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
             }
         }
 
+        public void Rebuild()
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(transform as RectTransform);
+        }
+
         public void Release()
         {
             ClearViews();
@@ -58,11 +63,6 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
                     ClearViews();
                     break;
             }
-        }
-        
-        public void Rebuild()
-        {
-            LayoutRebuilder.ForceRebuildLayoutImmediate(transform as RectTransform);
         }
 
         private void AddViews(IEnumerable<TViewModel> viewModels)

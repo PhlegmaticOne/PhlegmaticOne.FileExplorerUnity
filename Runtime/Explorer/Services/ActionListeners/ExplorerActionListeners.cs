@@ -1,6 +1,6 @@
 ﻿namespace PhlegmaticOne.FileExplorer.Services.ActionListeners
 {
-    internal sealed class ExplorerActionListeners
+    internal sealed class ExplorerActionListeners : IExplorerActionListeners
     {
         private readonly IExplorerActionListener[] _listeners;
 
@@ -13,7 +13,7 @@
         {
             foreach (var listener in _listeners)
             {
-                listener.StartListen();
+                listener.Start();
             }
         }
 
@@ -21,7 +21,7 @@
         {
             foreach (var listener in _listeners)
             {
-                listener.StopListen();
+                listener.Stop();
             }
         }
     }

@@ -1,8 +1,10 @@
 ﻿#if UNITY_ANDROID
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.SafeArea.Models
 {
+    [UsedImplicitly]
     internal sealed class SafeAreaDataAndroid : SafeAreaDataBase
     {
         public SafeAreaDataAndroid()

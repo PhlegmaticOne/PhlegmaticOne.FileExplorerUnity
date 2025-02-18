@@ -1,4 +1,4 @@
-﻿namespace PhlegmaticOne.FileExplorer.Popups.FileView
+﻿namespace PhlegmaticOne.FileExplorer.Services.ContentLoading
 {
     public enum FileViewType
     {

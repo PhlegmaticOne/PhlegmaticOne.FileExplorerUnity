@@ -1,5 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.Features.HeaderInfo.Entities.Components;
-using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
+﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
 using PhlegmaticOne.FileExplorer.Services.StaticViews;
 using UnityEngine;

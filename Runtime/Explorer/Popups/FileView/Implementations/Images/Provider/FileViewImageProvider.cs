@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
+using PhlegmaticOne.FileExplorer.Services.ContentLoading;
 
 namespace PhlegmaticOne.FileExplorer.Popups.FileView
 {
@@ -25,8 +26,11 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
         public async Task ViewImageAsync(FileEntryViewModel file, CancellationToken token)
         {
             var imageContent = await _imageLoader.GetImage(file, token);
-            var viewModel = _container.Instantiate<FileViewViewModel>();
-            viewModel.SetupImage(imageContent);
+            
+            var viewModel = _container
+                .Instantiate<FileViewViewModel>()
+                .SetupImage(imageContent);
+            
             await _popupProvider.Show<FileViewPopup, FileViewViewModel>(viewModel);
         }
     }

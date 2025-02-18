@@ -1,4 +1,4 @@
-﻿using PhlegmaticOne.FileExplorer.Popups.FileView;
+﻿using PhlegmaticOne.FileExplorer.Services.ContentLoading;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files.Extensions

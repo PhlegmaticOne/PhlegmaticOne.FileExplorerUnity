@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities.Components
+namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
 {
     internal sealed class ComponentSelectionContainerLayout : MonoBehaviour
     {

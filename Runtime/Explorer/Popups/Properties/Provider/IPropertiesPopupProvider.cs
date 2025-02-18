@@ -6,7 +6,7 @@ namespace PhlegmaticOne.FileExplorer.Popups.Properties
 {
     internal interface IPropertiesPopupProvider
     {
-        Task ViewFileProperties(FileEntryViewModel viewModel);
+        Task ViewFileProperties(FileEntryViewModel file);
         Task ViewProperties(IReadOnlyDictionary<string, string> properties, string header);
     }
 }

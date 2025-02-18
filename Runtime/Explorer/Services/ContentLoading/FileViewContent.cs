@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PhlegmaticOne.FileExplorer.Popups.FileView
+namespace PhlegmaticOne.FileExplorer.Services.ContentLoading
 {
     internal abstract class FileViewContent
     {

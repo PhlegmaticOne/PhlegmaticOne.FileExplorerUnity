@@ -49,12 +49,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967f1828e16949a58b530588e8caeea7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minSliderValue: 0
-  _maxSliderValue: 0
-  _initialSliderValue: 0
-  _useIntegerSliderValues: 0
-  _hasResizeSlider: 0
-  _lockScrolling: 1
+  _viewConfig:
+    _minSliderValue: 0
+    _maxSliderValue: 0
+    _initialSliderValue: 0
+    _useIntegerSliderValues: 0
+    _hasResizeSlider: 0
+    _lockScrolling: 1
   _audioPlayer: {fileID: 2178532692378870026}
 --- !u!1001 &8320504411444398066
 PrefabInstance:

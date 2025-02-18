@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
 
-namespace PhlegmaticOne.FileExplorer.Popups.FileView
+namespace PhlegmaticOne.FileExplorer.Services.ContentLoading
 {
     internal interface IFileTextLoader
     {

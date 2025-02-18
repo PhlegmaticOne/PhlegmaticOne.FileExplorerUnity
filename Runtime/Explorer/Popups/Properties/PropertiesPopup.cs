@@ -4,16 +4,17 @@ using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Popups.Properties
 {
-    internal sealed class PropertiesPopup : PopupViewAsync<PropertiesPopupViewModel>
+    internal sealed class PropertiesPopup : PopupView<PropertiesPopupViewModel>
     {
         [SerializeField] private ComponentCollectionProperties _collectionView;
         [SerializeField] private ComponentText _headerText;
 
-        protected override void OnShowing(PropertiesPopupViewModel popupViewModel)
+        protected override void OnInitializing()
         {
             _collectionView.Construct(ViewProvider);
-            _collectionView.Bind(popupViewModel.Properties);
-            _headerText.Bind(popupViewModel.HeaderText);
+            _collectionView.Bind(ViewModel.Properties);
+            _headerText.Bind(ViewModel.HeaderText);
+            base.OnInitializing();
         }
 
         public override void Release()

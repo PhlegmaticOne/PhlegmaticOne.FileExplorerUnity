@@ -1,5 +1,4 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Models;
-using PhlegmaticOne.FileExplorer.Features.Selection.Entities.Components;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components.Buttons;

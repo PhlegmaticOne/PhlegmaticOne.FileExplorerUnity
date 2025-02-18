@@ -1,13 +1,15 @@
 ﻿using System;
 using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
 using PhlegmaticOne.FileExplorer.Popups.FileView.Components;
+using PhlegmaticOne.FileExplorer.Services.ContentLoading;
 using TMPro;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Popups.FileView
 {
-    internal sealed class FileViewPopup : PopupViewAsync<FileViewViewModel>
+    internal sealed class FileViewPopup : PopupView<FileViewViewModel>
     {
         [SerializeField] private ComponentText _nameText;
         [SerializeField] private FileViewScrollRectView _scrollRect;
@@ -15,21 +17,23 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
         [SerializeField] private RectTransform _viewport;
         [SerializeField] private RectTransform _sliderParent;
 
-        private FileViewBase _activeView;
-        private ComponentFileViewScaleSlider _slider;
+        private IViewContainer<FileViewBase> _activeView;
+        private IViewContainer<ComponentFileViewScaleSlider> _slider;
 
-        protected override void OnShowing(FileViewViewModel viewModel)
+        protected override void OnInitializing()
         {
-            _nameText.Bind(viewModel.Name);
-            SetupActiveFileView(viewModel);
+            _nameText.Bind(ViewModel.Name);
+            SetupActiveFileView(ViewModel);
+            base.OnInitializing();
         }
 
         public override void Release()
         {
             _nameText.Release();
-            ViewProvider.ReleaseView(_activeView);
-            ViewProvider.ReleaseView(_slider);
+            _activeView.Release();
+            _slider.Release();
             _activeView = null;
+            _slider = null;
         }
 
         private void SetupActiveFileView(FileViewViewModel viewModel)
@@ -37,9 +41,8 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
             if (!viewModel.HasError())
             {
                 _activeView = GetFileView(viewModel);
-                _slider = ViewProvider.GetView<ComponentFileViewScaleSlider>(_sliderParent).View;
-                _scrollRect.Setup(_activeView);
-                _slider.Bind(_activeView);
+                _slider = ViewProvider.GetView<ComponentFileViewScaleSlider>(_sliderParent, _activeView.View);
+                _scrollRect.Setup(_activeView.View);
             }
             else
             {
@@ -48,13 +51,13 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
             }
         }
 
-        private FileViewBase GetFileView(FileViewViewModel viewModel)
+        private IViewContainer<FileViewBase> GetFileView(FileViewViewModel viewModel)
         {
             return viewModel.ViewType switch
             {
-                FileViewType.Image => ViewProvider.GetView<FileViewImage>(_viewport, viewModel).View,
-                FileViewType.Text => ViewProvider.GetView<FileViewText>(_viewport, viewModel).View,
-                FileViewType.Audio => ViewProvider.GetView<FileViewAudio>(_viewport, viewModel).View,
+                FileViewType.Image => ViewProvider.GetView<FileViewImage>(_viewport, viewModel),
+                FileViewType.Text => ViewProvider.GetView<FileViewText>(_viewport, viewModel),
+                FileViewType.Audio => ViewProvider.GetView<FileViewAudio>(_viewport, viewModel),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

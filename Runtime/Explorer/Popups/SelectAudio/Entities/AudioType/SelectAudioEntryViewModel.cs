@@ -17,7 +17,7 @@ namespace PhlegmaticOne.FileExplorer.Popups.SelectAudio
         public ICommand SelectCommand { get; }
         public ReactiveProperty<string> Extension { get; }
 
-        public void Select()
+        private void Select()
         {
             Selected?.Invoke(this);
         }

@@ -126,12 +126,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d58054692b8481c8e06d2e6b48490cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minSliderValue: 0.1
-  _maxSliderValue: 5
-  _initialSliderValue: 1
-  _useIntegerSliderValues: 0
-  _hasResizeSlider: 1
-  _lockScrolling: 0
+  _viewConfig:
+    _minSliderValue: 0.1
+    _maxSliderValue: 5
+    _initialSliderValue: 1
+    _useIntegerSliderValues: 0
+    _hasResizeSlider: 1
+    _lockScrolling: 0
   _image: {fileID: 1784049413495880791}
 --- !u!114 &4504196929504731630
 MonoBehaviour:

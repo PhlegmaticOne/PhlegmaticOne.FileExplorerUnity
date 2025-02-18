@@ -13,14 +13,14 @@ namespace PhlegmaticOne.FileExplorer.States.Commands
         private readonly IExplorerStaticViewComponentsProvider _staticViewComponentsProvider;
         private readonly IExplorerCancellationProvider _cancellationProvider;
         private readonly IExplorerViewModelDisposer _explorerViewModelDisposer;
-        private readonly ExplorerActionListeners _listeners;
+        private readonly IExplorerActionListeners _listeners;
         private readonly IExplorerIconsProvider _iconsProvider;
 
         public ExplorerCloseCommand(IExplorerDestroyer destroyer,
             IExplorerStaticViewComponentsProvider staticViewComponentsProvider,
             IExplorerCancellationProvider cancellationProvider,
             IExplorerViewModelDisposer explorerViewModelDisposer,
-            ExplorerActionListeners listeners,
+            IExplorerActionListeners listeners,
             IExplorerIconsProvider iconsProvider)
         {
             _destroyer = destroyer;

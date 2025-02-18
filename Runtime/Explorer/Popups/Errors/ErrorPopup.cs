@@ -4,17 +4,18 @@ using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Popups.Errors
 {
-    internal sealed class ErrorPopup : PopupViewAsync<ErrorPopupViewModel>
+    internal sealed class ErrorPopup : PopupView<ErrorPopupViewModel>
     {
         [SerializeField] private ComponentText _titleText;
         [SerializeField] private ComponentText _errorNameText;
         [SerializeField] private ComponentText _errorDescriptionText;
 
-        protected override void OnShowing(ErrorPopupViewModel viewModel)
+        protected override void OnInitializing()
         {
-            _titleText.Bind(viewModel.Title);
-            _errorNameText.Bind(viewModel.ErrorName);
-            _errorDescriptionText.Bind(viewModel.Message);
+            _titleText.Bind(ViewModel.Title);
+            _errorNameText.Bind(ViewModel.ErrorName);
+            _errorDescriptionText.Bind(ViewModel.Message);
+            base.OnInitializing();
         }
 
         public override void Release()

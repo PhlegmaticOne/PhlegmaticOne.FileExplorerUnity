@@ -1,4 +1,6 @@
-﻿using PhlegmaticOne.FileExplorer.Infrastructure.Behaviours;
+﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Models;
+using PhlegmaticOne.FileExplorer.Infrastructure.Behaviours;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
 using PhlegmaticOne.FileExplorer.Services.Scene;
 using UnityEngine;
 
@@ -44,17 +46,20 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
 
         private void HoldBehaviourOnHoldClicked()
         {
-            _viewModel.OnHoldClick();
+            _viewModel.HoldClickCommand.ExecuteWithoutParameter();
         }
 
         private void HoldBehaviourOnClicked()
         {
-            _viewModel.Position.Update(
-                _rectTransform.anchoredPosition, 
-                _rectTransform.rect.size, 
+            _viewModel.ClickCommand.Execute(CalculateViewPosition());
+        }
+
+        private FileEntryPosition CalculateViewPosition()
+        {
+            return new FileEntryPosition(
+                _rectTransform.anchoredPosition,
+                _rectTransform.rect.size,
                 _sceneService.GetHeaderOffset());
-            
-            _viewModel.OnClick();
         }
     }
 }

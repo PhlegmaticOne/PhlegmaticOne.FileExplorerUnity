@@ -61,9 +61,9 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files
             return FileOperations.FileExists(Path);
         }
 
-        public override void OnClick()
+        protected override void OnClick(FileEntryPosition position)
         {
-            _clickCommand.OnClick(this);
+            _clickCommand.OnClick(this, position);
         }
 
         public override void Dispose()

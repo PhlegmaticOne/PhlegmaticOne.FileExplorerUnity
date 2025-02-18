@@ -16,12 +16,14 @@ namespace PhlegmaticOne.FileExplorer.Popups.Properties
         public ReactiveCollection<PropertyViewModel> Properties { get; }
         public ReactiveProperty<string> HeaderText { get; }
 
-        public void Setup(IReadOnlyDictionary<string, string> properties, string header)
+        public PropertiesPopupViewModel Setup(IReadOnlyDictionary<string, string> properties, string header)
         {
             Properties.AddRange(
                 properties.Select(x => new PropertyViewModel(x.Key, x.Value)));
             
             HeaderText.SetValueNotify(header);
+            
+            return this;
         }
     }
 }

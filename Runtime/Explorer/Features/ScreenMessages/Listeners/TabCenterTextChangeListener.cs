@@ -21,13 +21,13 @@ namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Listeners
             _tabViewModel = tabViewModel;
         }
 
-        public void StartListen()
+        public void Start()
         {
             _searchViewModel.FoundEntriesCount.ValueChanged += UpdateFoundEntriesCount;
             _tabViewModel.IsEmpty.ValueChanged += UpdateMessageOnTabEmptyChanged;
         }
 
-        public void StopListen()
+        public void Stop()
         {
             _searchViewModel.FoundEntriesCount.ValueChanged -= UpdateFoundEntriesCount;
             _tabViewModel.IsEmpty.ValueChanged -= UpdateMessageOnTabEmptyChanged;

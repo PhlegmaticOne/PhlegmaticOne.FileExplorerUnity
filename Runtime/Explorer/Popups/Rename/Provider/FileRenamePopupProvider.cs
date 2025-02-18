@@ -18,17 +18,20 @@ namespace PhlegmaticOne.FileExplorer.Popups.Rename
             _popupProvider = popupProvider;
         }
         
-        public async Task<FileRenameResult> GetRenameData(FileEntryViewModel viewModel)
+        public async Task<FileRenameResult> GetRenameData(FileEntryViewModel file)
         {
-            var inputViewModel = _container.Instantiate<RenamePopupViewModel>();
-            
-            inputViewModel.Setup(
-                initialInputText: System.IO.Path.GetFileNameWithoutExtension(viewModel.Path),
-                headerText: GetRenameHeader(viewModel));
+            var viewModel = _container
+                .Instantiate<RenamePopupViewModel>()
+                .Setup(GetInitialInputText(file), GetRenameHeader(file));
 
-            await _popupProvider.Show<RenamePopup, RenamePopupViewModel>(inputViewModel);
+            await _popupProvider.Show<RenamePopup, RenamePopupViewModel>(viewModel);
             
-            return new FileRenameResult(inputViewModel.OutputText, !inputViewModel.IsDiscarded);
+            return new FileRenameResult(viewModel.OutputText, !viewModel.IsDiscarded);
+        }
+
+        private static string GetInitialInputText(FileEntryViewModel viewModel)
+        {
+            return System.IO.Path.GetFileNameWithoutExtension(viewModel.Path);
         }
 
         private static string GetRenameHeader(FileEntryViewModel viewModel)

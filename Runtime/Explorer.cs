@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer
 {
-    public class Explorer : IExplorer
+    public sealed class Explorer : IExplorer
     {
         private readonly IExplorerConfig _config;
 

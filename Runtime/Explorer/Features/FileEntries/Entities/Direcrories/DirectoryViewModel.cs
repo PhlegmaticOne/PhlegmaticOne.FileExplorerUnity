@@ -56,7 +56,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Direcrories
             return FileOperations.DirectoryExists(Path);
         }
 
-        public override void OnClick()
+        protected override void OnClick(FileEntryPosition position)
         {
             if (SelectionViewModel.IsSelectionActive)
             {

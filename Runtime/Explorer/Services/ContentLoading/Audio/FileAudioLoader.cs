@@ -5,7 +5,7 @@ using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace PhlegmaticOne.FileExplorer.Popups.FileView
+namespace PhlegmaticOne.FileExplorer.Services.ContentLoading
 {
     internal sealed class FileAudioLoader : IFileAudioLoader
     {

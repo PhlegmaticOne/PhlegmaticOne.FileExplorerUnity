@@ -16,12 +16,12 @@ namespace PhlegmaticOne.FileExplorer.Features.Tab.Listeners
             _handlers = handlers;
         }
         
-        public void StartListen()
+        public void Start()
         {
             _tabViewModel.FileEntries.CollectionChanged += HandleEntriesAdded;
         }
 
-        public void StopListen()
+        public void Stop()
         {
             _tabViewModel.FileEntries.CollectionChanged -= HandleEntriesAdded;
         }

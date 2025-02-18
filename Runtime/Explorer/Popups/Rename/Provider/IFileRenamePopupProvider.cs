@@ -5,6 +5,6 @@ namespace PhlegmaticOne.FileExplorer.Popups.Rename
 {
     internal interface IFileRenamePopupProvider
     {
-        Task<FileRenameResult> GetRenameData(FileEntryViewModel viewModel);
+        Task<FileRenameResult> GetRenameData(FileEntryViewModel file);
     }
 }

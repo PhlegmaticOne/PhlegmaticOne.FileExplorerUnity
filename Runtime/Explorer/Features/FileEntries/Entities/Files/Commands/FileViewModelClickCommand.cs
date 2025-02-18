@@ -1,6 +1,8 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Actions;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Models;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files.Actions;
 using PhlegmaticOne.FileExplorer.Features.Selection.Entities;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files.Commands
 {
@@ -20,21 +22,21 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files.Command
             _confidentActionProvider = confidentActionProvider;
         }
         
-        public void OnClick(FileViewModel fileViewModel)
+        public void OnClick(FileViewModel file, FileEntryPosition position)
         {
             if (_selectionViewModel.IsSelectionActive)
             {
-                _selectionViewModel.UpdateSelection(fileViewModel);
+                _selectionViewModel.UpdateSelection(file);
                 return;
             }
 
-            if (_confidentActionProvider.TryGetConfidentAction(fileViewModel, out var action))
+            if (_confidentActionProvider.TryGetConfidentAction(file, out var action))
             {
-                action.ExecuteCommand.Execute(null);
+                action.ExecuteCommand.ExecuteWithoutParameter();
                 return;
             }
             
-            _showActionsProvider.ShowActions(fileViewModel);
+            _showActionsProvider.ShowActions(file, position);
         }
     }
 }

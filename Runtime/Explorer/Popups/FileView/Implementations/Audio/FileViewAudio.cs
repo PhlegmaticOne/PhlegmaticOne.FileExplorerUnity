@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
+using PhlegmaticOne.FileExplorer.Services.ContentLoading;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Popups.FileView

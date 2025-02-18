@@ -19,19 +19,30 @@ namespace PhlegmaticOne.FileExplorer.Popups.Properties
             _popupProvider = popupProvider;
         }
         
-        public Task ViewFileProperties(FileEntryViewModel viewModel)
+        public Task ViewFileProperties(FileEntryViewModel file)
         {
-            var properties = viewModel.GetProperties().GetPropertiesView();
-            var propertiesViewModel = _container.Instantiate<PropertiesPopupViewModel>();
-            propertiesViewModel.Setup(properties, "File properties");
-            return _popupProvider.Show<PropertiesPopup, PropertiesPopupViewModel>(propertiesViewModel);
+            var properties = file.GetProperties().GetPropertiesView();
+            
+            var viewModel = _container
+                .Instantiate<PropertiesPopupViewModel>()
+                .Setup(properties, GetFilePropertiesHeader(file));
+            
+            return _popupProvider.Show<PropertiesPopup, PropertiesPopupViewModel>(viewModel);
         }
 
         public Task ViewProperties(IReadOnlyDictionary<string, string> properties, string header)
         {
-            var propertiesViewModel = _container.Instantiate<PropertiesPopupViewModel>();
-            propertiesViewModel.Setup(properties, header);
-            return _popupProvider.Show<PropertiesPopup, PropertiesPopupViewModel>(propertiesViewModel);
+            var viewModel = _container
+                .Instantiate<PropertiesPopupViewModel>()
+                .Setup(properties, header);
+            
+            return _popupProvider.Show<PropertiesPopup, PropertiesPopupViewModel>(viewModel);
+        }
+
+        private static string GetFilePropertiesHeader(FileEntryViewModel file)
+        {
+            var fileType = file.EntryType.ToString();
+            return $"{fileType} properties";
         }
     }
 }

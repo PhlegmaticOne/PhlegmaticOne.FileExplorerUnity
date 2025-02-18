@@ -12,8 +12,8 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
             _scrollRect.content = fileView.transform as RectTransform;
             _scrollRect.horizontalNormalizedPosition = 0;
             _scrollRect.verticalNormalizedPosition = 0;
-            _scrollRect.horizontal = !fileView.LockScrolling;
-            _scrollRect.vertical = !fileView.LockScrolling;
+            _scrollRect.horizontal = !fileView.ViewConfig.LockScrolling;
+            _scrollRect.vertical = !fileView.ViewConfig.LockScrolling;
         }
     }
 }

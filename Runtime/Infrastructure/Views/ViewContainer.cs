@@ -1,6 +1,6 @@
 ﻿namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
 {
-    internal sealed class ViewContainer<T> where T : View
+    internal sealed class ViewContainer<T> : IViewContainer<T> where T : View
     {
         private readonly IViewProvider _viewProvider;
 

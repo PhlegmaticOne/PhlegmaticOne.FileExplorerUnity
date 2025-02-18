@@ -51,12 +51,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 412e16c3fa5442f0998e9477f6db73e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minSliderValue: 8
-  _maxSliderValue: 60
-  _initialSliderValue: 18
-  _useIntegerSliderValues: 1
-  _hasResizeSlider: 1
-  _lockScrolling: 0
+  _viewConfig:
+    _minSliderValue: 8
+    _maxSliderValue: 60
+    _initialSliderValue: 20
+    _useIntegerSliderValues: 1
+    _hasResizeSlider: 1
+    _lockScrolling: 0
   _text: {fileID: 308935659853004282}
 --- !u!114 &3236722282299756951
 MonoBehaviour:

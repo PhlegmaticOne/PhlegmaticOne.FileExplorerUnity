@@ -6,7 +6,7 @@ using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Popups.FileView
+namespace PhlegmaticOne.FileExplorer.Services.ContentLoading
 {
     internal sealed class FileImageLoader : IFileImageLoader
     {

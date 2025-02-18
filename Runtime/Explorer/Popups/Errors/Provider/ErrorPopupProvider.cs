@@ -19,24 +19,20 @@ namespace PhlegmaticOne.FileExplorer.Popups.Errors
         
         public Task ViewError(FileEntryViewModel fileEntry, Exception exception)
         {
-            var viewModel = _container.Instantiate<ErrorPopupViewModel>();
-            
-            viewModel.Setup(
-                title: $"{fileEntry.Name} ({fileEntry.EntryType})",
-                message: exception.Message,
-                errorName: exception.GetType().Name);
+            var viewModel = _container
+                .Instantiate<ErrorPopupViewModel>()
+                .SetTitle($"{fileEntry.Name} ({fileEntry.EntryType})")
+                .SetErrorFromException(exception);
             
             return _popupProvider.Show<ErrorPopup, ErrorPopupViewModel>(viewModel);
         }
 
         public Task ViewError(Exception exception)
         {
-            var viewModel = _container.Instantiate<ErrorPopupViewModel>();
-            
-            viewModel.Setup(
-                title: "Exception occured",
-                message: exception.Message,
-                errorName: exception.GetType().Name);
+            var viewModel = _container
+                .Instantiate<ErrorPopupViewModel>()
+                .SetTitle("Exception occured")
+                .SetErrorFromException(exception);
             
             return _popupProvider.Show<ErrorPopup, ErrorPopupViewModel>(viewModel);
         }

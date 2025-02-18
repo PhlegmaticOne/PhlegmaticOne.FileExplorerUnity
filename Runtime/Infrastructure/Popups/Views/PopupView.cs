@@ -1,4 +1,7 @@
-﻿using PhlegmaticOne.FileExplorer.Infrastructure.Views;
+﻿using System.Threading.Tasks;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components.Buttons;
 using UnityEngine;
 
@@ -15,14 +18,14 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
             _viewModel = viewModel;
         }
 
-        protected sealed override void OnInitializing()
+        protected override void OnInitializing()
         {
             _closeButton.Bind(_viewModel.DiscardCommand);
         }
 
         public void Discard()
         {
-            _viewModel.DiscardCommand.Execute(null);
+            _viewModel.DiscardCommand.ExecuteWithoutParameter();
         }
 
         public virtual void Close() { }
@@ -31,6 +34,35 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
         {
             _closeButton.Release();
             _viewModel = null;
+        }
+    }
+    
+    internal abstract class PopupView<T> : PopupView where T : PopupViewModel
+    {
+        private TaskCompletionSource<bool> _viewResult;
+
+        protected T ViewModel;
+        protected IViewProvider ViewProvider;
+
+        [ViewInject]
+        public void Construct(T viewModel, IViewProvider viewProvider)
+        {
+            _viewResult = new TaskCompletionSource<bool>();
+            ViewProvider = viewProvider;
+            ViewModel = viewModel;
+            SetViewModelBase(viewModel);
+        }
+        
+        public Task WaitClose()
+        {
+            return _viewResult.Task;
+        }
+
+        public override void Close()
+        {
+            _viewResult.TrySetResult(true);
+            ViewModel = null;
+            _viewResult = null;
         }
     }
 }

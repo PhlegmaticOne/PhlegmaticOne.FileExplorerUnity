@@ -29,6 +29,7 @@ namespace PhlegmaticOne.FileExplorer.Popups.SelectAudio
         {
             _extensionText.Release();
             _button.Release();
+            _viewModel = null;
         }
     }
 }

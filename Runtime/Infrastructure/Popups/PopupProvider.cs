@@ -14,42 +14,42 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
         [SerializeField] private Transform _parent;
 
         private IViewProvider _viewProvider;
-        private Stack<PopupView> _activePopups;
+        private Stack<IViewContainer<PopupView>> _activePopups;
 
         [ViewInject]
         public void Construct(IViewProvider viewProvider)
         {
             _viewProvider = viewProvider;
-            _activePopups = new Stack<PopupView>();
+            _activePopups = new Stack<IViewContainer<PopupView>>();
         }
         
         public async Task Show<TPopup, TViewModel>(TViewModel viewModel) 
-            where TPopup : PopupViewAsync<TViewModel>
+            where TPopup : PopupView<TViewModel>
             where TViewModel : PopupViewModel
         {
-            var popup = _viewProvider.GetView<TPopup>(_parent, viewModel).View;
+            var popup = _viewProvider.GetView<TPopup>(_parent, viewModel);
             _activePopups.Push(popup);
             _graphic.enabled = true;
             
-            await popup.Show();
+            await popup.View.WaitClose();
             
-            _viewProvider.ReleaseView(popup);
-            _graphic.enabled = false;
+            popup.Release();
+            _graphic.enabled = _activePopups.Count > 0;
         }
 
         public void CloseLastPopup()
         {
-            if (_activePopups.TryPop(out var popupView))
+            if (_activePopups.TryPop(out var popup))
             {
-                popupView.Close();
+                popup.View.Close();
             }
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (_activePopups.TryPop(out var popupView))
+            if (_activePopups.TryPop(out var popup))
             {
-                popupView.Discard();
+                popup.View.Discard();
             }
         }
     }

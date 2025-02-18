@@ -1,4 +1,5 @@
-﻿using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
+﻿using System;
+using PhlegmaticOne.FileExplorer.Infrastructure.Popups;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Popups.Errors
@@ -12,11 +13,17 @@ namespace PhlegmaticOne.FileExplorer.Popups.Errors
             ErrorName = new ReactiveProperty<string>();
         }
 
-        public void Setup(string title, string message, string errorName)
+        public ErrorPopupViewModel SetTitle(string title)
         {
             Title.SetValueNotify(title);
-            Message.SetValueNotify(message);
-            ErrorName.SetValueNotify(errorName);
+            return this;
+        }
+
+        public ErrorPopupViewModel SetErrorFromException(Exception exception)
+        {
+            Message.SetValueNotify(exception.Message);
+            ErrorName.SetValueNotify(exception.GetType().Name);
+            return this;
         }
         
         public ReactiveProperty<string> Title { get; }

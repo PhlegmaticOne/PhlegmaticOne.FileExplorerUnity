@@ -14,7 +14,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
             _settings = settings;
         }
         
-        public ViewContainer<T> GetView<T>(Transform parent, params object[] parameters) where T : View
+        public IViewContainer<T> GetView<T>(Transform parent, params object[] parameters) where T : View
         {
             var view = _container.Instantiate<T>(parameters);
             view.transform.SetParent(parent, false);

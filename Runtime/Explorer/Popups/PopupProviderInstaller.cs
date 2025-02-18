@@ -67,13 +67,8 @@ namespace PhlegmaticOne.FileExplorer.Popups
 
         private static void BindFileViewPopup(IDependencyContainer container)
         {
-            container.Register<IFileAudioLoader, FileAudioLoader>();
             container.Register<IFileViewAudioProvider, FileViewAudioProvider>();
-            
-            container.Register<IFileTextLoader, FileTextLoader>();
             container.Register<IFileViewTextProvider, FileViewTextProvider>();
-            
-            container.Register<IFileImageLoader, FileImageLoader>();
             container.Register<IFileViewImageProvider, FileViewImageProvider>();
         }
         

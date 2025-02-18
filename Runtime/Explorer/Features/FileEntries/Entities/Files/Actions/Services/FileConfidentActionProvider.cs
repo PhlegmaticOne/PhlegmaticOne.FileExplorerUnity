@@ -2,7 +2,7 @@
 using PhlegmaticOne.FileExplorer.Features.Actions.Entities.Action;
 using PhlegmaticOne.FileExplorer.Features.Entities.Files.Actions;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Actions;
-using PhlegmaticOne.FileExplorer.Popups.FileView;
+using PhlegmaticOne.FileExplorer.Services.ContentLoading;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files.Actions
 {
@@ -27,7 +27,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files.Actions
             return true;
         }
 
-        private ActionViewModel CreateAction(FileViewType viewType, FileViewModel file)
+        private ActionViewModel CreateAction(FileViewType viewType, FileEntryViewModel file)
         {
             return viewType switch
             {

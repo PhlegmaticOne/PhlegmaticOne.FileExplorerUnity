@@ -7,6 +7,7 @@ using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Operations;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Proprties;
 using PhlegmaticOne.FileExplorer.Features.Selection.Entities;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
 {
@@ -26,11 +27,13 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
             Name = new ReactiveProperty<string>(name);
             IsSelected = new ReactiveProperty<bool>(false);
             IsActive = new ReactiveProperty<bool>(true);
-            Position = new FileEntryPosition();
             Icon = new ExplorerIconData();
             IconsProvider = iconsProvider;
             SelectionViewModel = selectionViewModel;
             FileOperations = fileOperations;
+
+            ClickCommand = new CommandDelegate<FileEntryPosition>(OnClick);
+            HoldClickCommand = new CommandDelegateEmpty(OnHoldClick);
         }
 
         public abstract FileEntryType EntryType { get; }
@@ -38,18 +41,19 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
         public ReactiveProperty<bool> IsSelected { get; }
         public ReactiveProperty<bool> IsActive { get; }
         public string Path { get; protected set; }
-        public FileEntryPosition Position { get; }
         public ExplorerIconData Icon { get; }
+        public ICommand ClickCommand { get; }
+        public ICommand HoldClickCommand { get; }
         
         public abstract Task InitializeAsync(CancellationToken cancellationToken);
         public abstract FileEntryProperties GetProperties();
         public abstract void Rename(string newName);
         public abstract void Delete();
         public abstract bool Exists();
-        public abstract void OnClick();
         public abstract void Dispose();
+        protected abstract void OnClick(FileEntryPosition position);
 
-        public void OnHoldClick()
+        private void OnHoldClick()
         {
             if (!SelectionViewModel.IsSelectionActive)
             {

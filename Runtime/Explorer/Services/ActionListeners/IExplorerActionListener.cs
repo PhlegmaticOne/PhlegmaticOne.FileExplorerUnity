@@ -2,7 +2,7 @@
 {
     internal interface IExplorerActionListener
     {
-        void StartListen();
-        void StopListen();
+        void Start();
+        void Stop();
     }
 }

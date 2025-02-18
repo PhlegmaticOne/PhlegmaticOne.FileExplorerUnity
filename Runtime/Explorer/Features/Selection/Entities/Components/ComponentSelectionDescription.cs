@@ -3,7 +3,7 @@ using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using TMPro;
 using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities.Components
+namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
 {
     internal sealed class ComponentSelectionDescription : MonoBehaviour
     {

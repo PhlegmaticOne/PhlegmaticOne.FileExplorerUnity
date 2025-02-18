@@ -14,10 +14,11 @@ namespace PhlegmaticOne.FileExplorer.Popups.Rename
         public ReactiveProperty<string> HeaderText { get; }
         public ReactiveProperty<string> OutputText { get; }
 
-        public void Setup(string initialInputText, string headerText)
+        public RenamePopupViewModel Setup(string initialInputText, string headerText)
         {
             OutputText.SetValueNotify(initialInputText);
             HeaderText.SetValueNotify(headerText);
+            return this;
         }
     }
 }

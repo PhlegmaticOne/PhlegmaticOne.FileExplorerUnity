@@ -4,7 +4,7 @@ using UnityEngine;
 namespace PhlegmaticOne.FileExplorer.Configuration
 {
     [Serializable]
-    public class ExplorerAudioExtensionData
+    public sealed class ExplorerAudioExtensionData
     {
         [SerializeField] private string _extension;
         [SerializeField] private AudioType _audioType;

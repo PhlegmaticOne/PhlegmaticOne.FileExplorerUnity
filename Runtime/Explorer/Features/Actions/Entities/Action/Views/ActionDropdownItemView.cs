@@ -2,17 +2,14 @@
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components.Buttons;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions.Entities.Action
 {
     internal sealed class ActionDropdownItemView : View
     {
         [SerializeField] private ComponentButton _button;
-        [SerializeField] private TextMeshProUGUI _description;
-        [SerializeField] private Image _background;
+        [SerializeField] private ActionDropdownItemStaticView _staticView;
         
         private ActionViewModel _action;
         private ActionsViewConfig _viewConfig;
@@ -28,9 +25,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Entities.Action
         {
             var viewData = _viewConfig.GetViewData(_action.Key);
             _button.Bind(_action.ExecuteCommand);
-            _description.text = viewData.Description;
-            _description.color = viewData.TextColor;
-            _background.color = viewData.BackgroundColor;
+            _staticView.Setup(viewData);
         }
 
         public override void Release()
