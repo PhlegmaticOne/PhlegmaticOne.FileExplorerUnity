@@ -7,18 +7,18 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
 {
     internal sealed class FileViewViewModel : PopupViewModel
     {
-        private FileViewContent _content;
+        private FileContent _content;
         
         public FileViewViewModel(IPopupProvider popupProvider) : base(popupProvider)
         {
             Name = new ReactiveProperty<string>();
         }
 
-        public FileViewViewModel SetupAudio(FileViewContent<AudioClip> content) => Setup(content, FileViewType.Audio);
-        public FileViewViewModel SetupImage(FileViewContent<Sprite> content) => Setup(content, FileViewType.Image);
-        public FileViewViewModel SetupText(FileViewContent<string> content) => Setup(content, FileViewType.Text);
+        public FileViewViewModel SetupAudio(FileContent<AudioClip> content) => Setup(content, FileContentType.Audio);
+        public FileViewViewModel SetupImage(FileContent<Sprite> content) => Setup(content, FileContentType.Image);
+        public FileViewViewModel SetupText(FileContent<string> content) => Setup(content, FileContentType.Text);
 
-        public FileViewType ViewType { get; private set; }
+        public FileContentType ContentType { get; private set; }
         public ReactiveProperty<string> Name { get; }
 
         public bool HasError()
@@ -31,15 +31,15 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
             return _content.ErrorMessage;
         }
 
-        public FileViewContent<T> GetContent<T>()
+        public FileContent<T> GetContent<T>()
         {
-            return (FileViewContent<T>)_content;
+            return (FileContent<T>)_content;
         }
 
-        private FileViewViewModel Setup(FileViewContent content, FileViewType viewType)
+        private FileViewViewModel Setup(FileContent content, FileContentType contentType)
         {
             _content = content;
-            ViewType = viewType;
+            ContentType = contentType;
             Name.SetValueNotify(content.Name);
             return this;
         }

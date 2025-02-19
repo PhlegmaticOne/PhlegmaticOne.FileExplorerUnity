@@ -8,14 +8,11 @@ namespace PhlegmaticOne.FileExplorer.Services.Scene
         private readonly RectTransform _headerTransform;
         private readonly VerticalLayoutGroup _safeZoneLayout;
 
-        public SceneService(ScrollRect scrollRect, RectTransform headerTransform, VerticalLayoutGroup safeZoneLayout)
+        public SceneService(RectTransform headerTransform, VerticalLayoutGroup safeZoneLayout)
         {
-            ScrollRect = scrollRect;
             _headerTransform = headerTransform;
             _safeZoneLayout = safeZoneLayout;
         }
-
-        public ScrollRect ScrollRect { get; }
 
         public float GetHeaderOffset()
         {

@@ -57,13 +57,12 @@ namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Listeners
                 return;
             }
             
-            _screenMessagesViewModel.IsTabCenterMessageActive.SetValueNotify(false);
+            _screenMessagesViewModel.SetMessageDisabled();
         }
 
         private void SetTabMessage(string message)
         {
-            _screenMessagesViewModel.IsTabCenterMessageActive.SetValueNotify(true);
-            _screenMessagesViewModel.TabCenterMessage.SetValueNotify(message);
+            _screenMessagesViewModel.SetMessage(message);
         }
     }
 }

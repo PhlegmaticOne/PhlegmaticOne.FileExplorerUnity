@@ -20,7 +20,6 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView.Components
         protected override void OnInitializing()
         {
             var config = _fileView.ViewConfig;
-            _slider.gameObject.SetActive(config.HasResizeSlider);
             _slider.minValue = config.MinSliderValue;
             _slider.maxValue = config.MaxSliderValue;
             _slider.wholeNumbers = config.UseIntegerSliderValues;

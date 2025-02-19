@@ -3,7 +3,8 @@ using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 
 namespace PhlegmaticOne.FileExplorer.Features.Tab.Entities
 {
-    internal sealed class ComponentCollectionFileEntries : ComponentReactiveCollection<FileEntryViewModel, FileEntryView>
+    internal sealed class ComponentCollectionFileEntries : 
+        ComponentReactiveCollection<FileEntryViewModel, FileEntryView>
     {
     }
 }

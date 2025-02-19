@@ -12,5 +12,16 @@ namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Entities
         
         public ReactiveProperty<bool> IsTabCenterMessageActive { get; }
         public ReactiveProperty<string> TabCenterMessage { get; }
+
+        public void SetMessageDisabled()
+        {
+            IsTabCenterMessageActive.SetValueNotify(false);
+        }
+
+        public void SetMessage(string message)
+        {
+            IsTabCenterMessageActive.SetValueNotify(true);
+            TabCenterMessage.SetValueNotify(message);
+        }
     }
 }

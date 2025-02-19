@@ -17,7 +17,6 @@ namespace PhlegmaticOne.FileExplorer.Services
     internal sealed class ExplorerServicesInstaller : MonoInstaller
     {
         [SerializeField] private ExplorerSceneObjects _sceneObjects;
-        [SerializeField] private ScrollRect _scrollRect;
         [SerializeField] private RectTransform _headerTransform;
         [SerializeField] private VerticalLayoutGroup _safeZoneLayout;
         
@@ -25,7 +24,7 @@ namespace PhlegmaticOne.FileExplorer.Services
         {
             container.RegisterInstance(Camera.main);
             container.RegisterInstance(_sceneObjects);
-            container.RegisterInstance(new SceneService(_scrollRect, _headerTransform, _safeZoneLayout));
+            container.RegisterInstance(new SceneService(_headerTransform, _safeZoneLayout));
 
             container.Register<IExplorerCancellationProvider, ExplorerCancellationProvider>();
             container.Register<IExplorerStaticViewComponentsProvider, ExplorerStaticViewComponentsProvider>();

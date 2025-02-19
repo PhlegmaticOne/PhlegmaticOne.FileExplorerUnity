@@ -9,7 +9,7 @@ namespace PhlegmaticOne.FileExplorer.Services.ContentLoading
 {
     internal sealed class FileAudioLoader : IFileAudioLoader
     {
-        public async Task<FileViewContent<AudioClip>> LoadClip(
+        public async Task<FileContent<AudioClip>> LoadClip(
             FileEntryViewModel file, AudioType audioType, CancellationToken cancellationToken)
         {
             try
@@ -26,11 +26,11 @@ namespace PhlegmaticOne.FileExplorer.Services.ContentLoading
                 
                 var handler = (DownloadHandlerAudioClip) request.downloadHandler;
                 handler.streamAudio = true;
-                return FileViewContent<AudioClip>.FromContent(handler.audioClip, file.Name);
+                return FileContent<AudioClip>.FromContent(handler.audioClip, file.Name);
             }
             catch (Exception e)
             {
-                return FileViewContent<AudioClip>.FromError(e);
+                return FileContent<AudioClip>.FromError(e);
             }
         }
 

@@ -20,10 +20,10 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files.Extensi
             return !string.IsNullOrEmpty(Value);
         }
         
-        public bool IsViewable(out FileViewType viewType)
+        public bool IsViewable(out FileContentType contentType)
         {
-            viewType = GetFileViewType();
-            return viewType != FileViewType.None;
+            contentType = GetFileViewType();
+            return contentType != FileContentType.None;
         }
 
         public bool IsText()
@@ -46,24 +46,24 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files.Extensi
             return _fileExtensions.GetAudioType(Value);
         }
 
-        private FileViewType GetFileViewType()
+        private FileContentType GetFileViewType()
         {
             if (IsText())
             {
-                return FileViewType.Text;
+                return FileContentType.Text;
             }
 
             if (IsImage())
             {
-                return FileViewType.Image;
+                return FileContentType.Image;
             }
 
             if (IsAudio())
             {
-                return FileViewType.Audio;
+                return FileContentType.Audio;
             }
 
-            return FileViewType.None;
+            return FileContentType.None;
         }
     }
 }

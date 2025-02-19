@@ -31,7 +31,7 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
         {
             _nameText.Release();
             _activeView.Release();
-            _slider.Release();
+            _slider?.Release();
             _activeView = null;
             _slider = null;
         }
@@ -41,8 +41,12 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
             if (!viewModel.HasError())
             {
                 _activeView = GetFileView(viewModel);
-                _slider = ViewProvider.GetView<ComponentFileViewScaleSlider>(_sliderParent, _activeView.View);
                 _scrollRect.Setup(_activeView.View);
+                
+                if (_activeView.View.ViewConfig.HasResizeSlider)
+                {
+                    _slider = ViewProvider.GetView<ComponentFileViewScaleSlider>(_sliderParent, _activeView.View);
+                }
             }
             else
             {
@@ -53,11 +57,11 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
 
         private IViewContainer<FileViewBase> GetFileView(FileViewViewModel viewModel)
         {
-            return viewModel.ViewType switch
+            return viewModel.ContentType switch
             {
-                FileViewType.Image => ViewProvider.GetView<FileViewImage>(_viewport, viewModel),
-                FileViewType.Text => ViewProvider.GetView<FileViewText>(_viewport, viewModel),
-                FileViewType.Audio => ViewProvider.GetView<FileViewAudio>(_viewport, viewModel),
+                FileContentType.Image => ViewProvider.GetView<FileViewImage>(_viewport, viewModel),
+                FileContentType.Text => ViewProvider.GetView<FileViewText>(_viewport, viewModel),
+                FileContentType.Audio => ViewProvider.GetView<FileViewAudio>(_viewport, viewModel),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

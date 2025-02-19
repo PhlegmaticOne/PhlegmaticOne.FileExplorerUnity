@@ -27,14 +27,14 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files.Actions
             return true;
         }
 
-        private ActionViewModel CreateAction(FileViewType viewType, FileEntryViewModel file)
+        private ActionViewModel CreateAction(FileContentType contentType, FileEntryViewModel file)
         {
-            return viewType switch
+            return contentType switch
             {
-                FileViewType.Image => _factory.ShowImage(file),
-                FileViewType.Text => _factory.ShowText(file),
-                FileViewType.Audio => _factory.ShowAudio(file),
-                _ => throw new ArgumentOutOfRangeException(nameof(viewType), viewType, null)
+                FileContentType.Image => _factory.ShowImage(file),
+                FileContentType.Text => _factory.ShowText(file),
+                FileContentType.Audio => _factory.ShowAudio(file),
+                _ => throw new ArgumentOutOfRangeException(nameof(contentType), contentType, null)
             };
         }
     }

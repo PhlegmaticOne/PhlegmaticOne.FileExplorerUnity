@@ -6,6 +6,6 @@ namespace PhlegmaticOne.FileExplorer.Services.ContentLoading
 {
     internal interface IFileTextLoader
     {
-        Task<FileViewContent<string>> GetText(FileEntryViewModel file, CancellationToken token);
+        Task<FileContent<string>> GetText(FileEntryViewModel file, CancellationToken token);
     }
 }

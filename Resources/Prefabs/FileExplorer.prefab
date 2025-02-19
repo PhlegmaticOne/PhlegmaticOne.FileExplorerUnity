@@ -835,7 +835,7 @@ GameObject:
   - component: {fileID: 8492431077786210329}
   - component: {fileID: 988637841796698435}
   m_Layer: 5
-  m_Name: '[Control]'
+  m_Name: '[Closing]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -872,7 +872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 148be8d1fbb4490793ac60e0aecfd75a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controlView: {fileID: 9041926386638918387}
+  _closingView: {fileID: 9041926386638918387}
 --- !u!1 &6259119409291412465
 GameObject:
   m_ObjectHideFlags: 0
@@ -1103,7 +1103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneObjects: {fileID: 3526574222669129748}
-  _scrollRect: {fileID: 4584528324795520571}
   _headerTransform: {fileID: 607888867421897871}
   _safeZoneLayout: {fileID: 8763544520522885811}
 --- !u!114 &3526574222669129748
@@ -1121,6 +1120,7 @@ MonoBehaviour:
   _canvas: {fileID: 7108996452861892047}
   _rootBehaviour: {fileID: 115437197894741681}
   _rootGameObject: {fileID: 3656310467629247418}
+  _scrollRect: {fileID: 4584528324795520571}
 --- !u!1 &7271631829525530854
 GameObject:
   m_ObjectHideFlags: 0

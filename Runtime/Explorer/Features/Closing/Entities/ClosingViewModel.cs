@@ -2,13 +2,13 @@
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
 using PhlegmaticOne.FileExplorer.States;
 
-namespace PhlegmaticOne.FileExplorer.Features.Control.Entities
+namespace PhlegmaticOne.FileExplorer.Features.Closing.Entities
 {
-    internal sealed class ControlViewModel : ViewModel
+    internal sealed class ClosingViewModel : ViewModel
     {
         private readonly IExplorerStates _states;
 
-        public ControlViewModel(IExplorerStates states)
+        public ClosingViewModel(IExplorerStates states)
         {
             _states = states;
             CloseCommand = new CommandDelegateEmpty(Close);

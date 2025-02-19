@@ -8,16 +8,16 @@ namespace PhlegmaticOne.FileExplorer.Services.ContentLoading
 {
     internal sealed class FileTextLoader : IFileTextLoader
     {
-        public async Task<FileViewContent<string>> GetText(FileEntryViewModel file, CancellationToken token)
+        public async Task<FileContent<string>> GetText(FileEntryViewModel file, CancellationToken token)
         {
             try
             {
                 var text = await File.ReadAllTextAsync(file.Path, token);
-                return FileViewContent<string>.FromContent(text, file.Name);
+                return FileContent<string>.FromContent(text, file.Name);
             }
             catch (Exception e)
             {
-                return FileViewContent<string>.FromError(e);
+                return FileContent<string>.FromError(e);
             }
         }
     }

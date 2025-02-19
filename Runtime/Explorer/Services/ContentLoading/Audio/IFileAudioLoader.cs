@@ -7,7 +7,7 @@ namespace PhlegmaticOne.FileExplorer.Services.ContentLoading
 {
     internal interface IFileAudioLoader
     {
-        Task<FileViewContent<AudioClip>> LoadClip(
+        Task<FileContent<AudioClip>> LoadClip(
             FileEntryViewModel file, AudioType audioType, CancellationToken cancellationToken);
     }
 }

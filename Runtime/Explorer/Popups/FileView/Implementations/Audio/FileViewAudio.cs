@@ -1,7 +1,4 @@
-﻿using System.Threading.Tasks;
-using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
-using PhlegmaticOne.FileExplorer.Services.ContentLoading;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Popups.FileView
 {
@@ -12,18 +9,12 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
         protected override void OnInitializing()
         {
             var content = ViewModel.GetContent<AudioClip>();
-            PlayAudio(content).Forget();
+            _audioPlayer.StartPlay(content.Content, content.Name);
         }
 
         public override void Release()
         {
             _audioPlayer.ReleaseAudio();
-        }
-
-        private async Task PlayAudio(FileViewContent<AudioClip> content)
-        {
-            await Task.Delay(20);
-            _audioPlayer.StartPlay(content.Content, content.Name);
         }
     }
 }

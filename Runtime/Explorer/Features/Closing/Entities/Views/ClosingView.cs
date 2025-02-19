@@ -3,16 +3,16 @@ using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components.Buttons;
 using PhlegmaticOne.FileExplorer.Services.StaticViews;
 using UnityEngine;
 
-namespace PhlegmaticOne.FileExplorer.Features.Control.Entities
+namespace PhlegmaticOne.FileExplorer.Features.Closing.Entities
 {
-    internal sealed class ControlView : MonoBehaviour, IExplorerStaticViewComponent
+    internal sealed class ClosingView : MonoBehaviour, IExplorerStaticViewComponent
     {
         [SerializeField] private ComponentButton _closeButton;
         
-        private ControlViewModel _viewModel;
+        private ClosingViewModel _viewModel;
 
         [ViewInject]
-        public void Construct(ControlViewModel viewModel)
+        public void Construct(ClosingViewModel viewModel)
         {
             _viewModel = viewModel;
         }

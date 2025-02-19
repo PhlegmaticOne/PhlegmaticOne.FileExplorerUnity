@@ -43,7 +43,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Actions
             {
                 result.AddRange(GetSingleSelectionActions(fileEntry));
             }
-            else if(viewModel.IsAnySelected())
+            else if (viewModel.IsAnySelected())
             {
                 result.Add(_factory.SelectionProperties());
                 result.Add(_factory.DeleteSelection());

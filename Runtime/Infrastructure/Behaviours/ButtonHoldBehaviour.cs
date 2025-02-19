@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.Behaviours
 {
-    internal sealed class ButtonHoldBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
+    internal sealed class ButtonHoldBehaviour : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler,
+        IBeginDragHandler, IEndDragHandler
     {
         [SerializeField] private float _holdDuration = 0.5f;
-        
+
         public event Action OnClicked;
         public event Action OnHoldClicked;
 
@@ -37,7 +38,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Behaviours
             {
                 _scrollRect.OnBeginDrag(eventData);
             }
-            
+
             _isDragging = true;
         }
 
@@ -47,14 +48,14 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Behaviours
             {
                 return;
             }
-            
+
             _holdTime += Time.deltaTime;
 
             if (_holdTime < _holdDuration || _isDragging)
             {
                 return;
             }
-            
+
             OnHoldClicked?.Invoke();
             _isLongPressInvoked = true;
             ResetState();
@@ -66,7 +67,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Behaviours
             {
                 _scrollRect.OnEndDrag(eventData);
             }
-            
+
             _isDragging = false;
             ResetState();
         }
@@ -85,7 +86,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Behaviours
                 return;
             }
 
-            if(_isDragging)
+            if (_isDragging)
             {
                 return;
             }

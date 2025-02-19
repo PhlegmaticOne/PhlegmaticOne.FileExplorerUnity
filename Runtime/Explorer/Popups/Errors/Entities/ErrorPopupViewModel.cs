@@ -12,6 +12,10 @@ namespace PhlegmaticOne.FileExplorer.Popups.Errors
             Message = new ReactiveProperty<string>();
             ErrorName = new ReactiveProperty<string>();
         }
+        
+        public ReactiveProperty<string> Title { get; }
+        public ReactiveProperty<string> Message { get; }
+        public ReactiveProperty<string> ErrorName { get; }
 
         public ErrorPopupViewModel SetTitle(string title)
         {
@@ -25,9 +29,5 @@ namespace PhlegmaticOne.FileExplorer.Popups.Errors
             ErrorName.SetValueNotify(exception.GetType().Name);
             return this;
         }
-        
-        public ReactiveProperty<string> Title { get; }
-        public ReactiveProperty<string> Message { get; }
-        public ReactiveProperty<string> ErrorName { get; }
     }
 }

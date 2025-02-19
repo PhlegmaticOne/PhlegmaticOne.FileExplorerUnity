@@ -7,6 +7,6 @@ namespace PhlegmaticOne.FileExplorer.Services.ContentLoading
 {
     internal interface IFileImageLoader
     {
-        Task<FileViewContent<Sprite>> GetImage(FileEntryViewModel file, CancellationToken token);
+        Task<FileContent<Sprite>> GetImage(FileEntryViewModel file, CancellationToken token);
     }
 }

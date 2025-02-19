@@ -2,6 +2,7 @@
 using PhlegmaticOne.FileExplorer.Infrastructure.Behaviours;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
 using PhlegmaticOne.FileExplorer.Services.Scene;
+using PhlegmaticOne.FileExplorer.Services.StaticViews.SceneSetup;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
@@ -14,10 +15,10 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
         private FileEntryViewModel _viewModel;
         private ISceneService _sceneService;
 
-        public void Construct(ISceneService sceneService)
+        public void Construct(ISceneService sceneService, ExplorerSceneObjects sceneObjects)
         {
             _sceneService = sceneService;
-            _holdBehaviour.Construct(sceneService.ScrollRect);
+            _holdBehaviour.Construct(sceneObjects.ScrollRect);
         }
 
         public void Bind(FileEntryViewModel viewModel)
