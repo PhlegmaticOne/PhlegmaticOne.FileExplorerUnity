@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
+using PhlegmaticOne.FileExplorer.Popups.FileView.Models;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -12,38 +14,100 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
         private readonly AudioSource _audioSource;
         private readonly AudioClip _audioClip;
 
-        private bool _isActive;
         private float _lastVolume;
+        private bool _isReleased;
         
         public AudioViewModel(AudioSource audioSource, AudioClip audioClip, string name)
         {
             _audioSource = audioSource;
             _audioClip = audioClip;
+            _lastVolume = _audioSource.volume;
 
-            Name = name;
-            Volume = new ReactiveProperty<float>(_audioSource.volume);
-            Time = new ReactiveProperty<float>(0);
+            Name = new ReactiveProperty<string>(name);
+            Volume = new ReactiveProperty<float>(_lastVolume);
             IsMuted = new ReactiveProperty<bool>(GetIsMuted());
-            Duration = audioClip.length;
+            Time = new ReactiveProperty<AudioTimeData>(new AudioTimeData(audioClip.length));
+            PlayPauseCommand = new CommandDelegate<bool>(SetIsPlaying);
+            MuteUnmuteCommand = new CommandDelegate<bool>(SetMuted);
+            RealTime = new ReactiveProperty<float>(0);
+            IsPlaying = new ReactiveProperty<bool>(false);
+            SetTimeCommand = new CommandDelegate<float>(SetTime);
+            SetVolumeCommand = new CommandDelegate<float>(SetVolume);
         }
 
-        public event Action ClipTick;
-        public string Name { get; }
-        public float Duration { get; }
-        public ReactiveProperty<float> Volume { get; }
+        public ReactiveProperty<string> Name { get; }
         public ReactiveProperty<bool> IsMuted { get; }
-        public ReactiveProperty<float> Time { get; }
+        public ReactiveProperty<float> Volume { get; }
+        public ReactiveProperty<bool> IsPlaying { get; }
+        public ReactiveProperty<float> RealTime { get; }
+        public ReactiveProperty<AudioTimeData> Time { get; }
+        public ICommand PlayPauseCommand { get; }
+        public ICommand MuteUnmuteCommand { get; }
+        public ICommand SetTimeCommand { get; }
+        public ICommand SetVolumeCommand { get; }
 
         public void Play()
         {
-            _isActive = true;
             _audioSource.clip = _audioClip;
             _audioSource.Play();
+            IsPlaying.SetValueNotify(true);
+            SetTime(0.01f);
             LoopUpdateTime().Forget();
         }
 
-        public void SetIsPlaying(bool isPlaying)
+        public float GetDuration()
         {
+            return Time.Value.Duration;
+        }
+
+        public void Release()
+        {
+            _isReleased = true;
+            IsPlaying.SetValueNotify(false);
+            _audioSource.Stop();
+            _audioSource.clip = null;
+            Object.Destroy(_audioClip);
+        }
+
+        private async Task LoopUpdateTime()
+        {
+            while (!_isReleased && ClipIsPlaying())
+            {
+                var realTime = _audioSource.time;
+                var realTimeSpan = TimeSpan.FromSeconds(realTime);
+
+                if (realTimeSpan.TotalSeconds - Time.Value.CurrentTime >= 1)
+                {
+                    SetTimeProperty((float)realTimeSpan.TotalSeconds);
+                }
+                
+                RealTime.SetValueNotify(realTime);
+                
+                await Task.Yield();
+            }
+            
+            ResetAudio();
+        }
+
+        private void ResetAudio()
+        {
+            IsPlaying.SetValueNotify(false);
+            RealTime.SetValueNotify(0);
+            SetTimeProperty(0);
+        }
+
+        private void SetIsPlaying(bool isPlaying)
+        {
+            if (!ClipIsPlaying())
+            {
+                if (isPlaying)
+                {
+                    Play();
+                }
+                
+                return;
+            }
+            
             if (isPlaying)
             {
                 _audioSource.Play();
@@ -54,26 +118,20 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
             }
         }
 
-        public float GetRealTime()
+        private void SetTime(float time)
         {
-            return _audioSource.time;
+            var timeClamped = Mathf.Clamp(time, 0.01f, _audioClip.length);
+            _audioSource.time = timeClamped;
+            SetTimeProperty(timeClamped);
         }
 
-        public void SetTime(float time)
-        {
-            var timeClamped = Mathf.Clamp(time, 0, _audioClip.length);
-            _audioSource.time = time;
-            Time.SetValueNotify(timeClamped);
-        }
-
-        public void SetVolume(float volume)
+        private void SetVolume(float volume)
         {
             _audioSource.volume = Mathf.Clamp01(volume);
-            Volume.SetValueWithoutNotify(volume);
             IsMuted.SetValueNotify(GetIsMuted());
         }
 
-        public void SetMuted(bool isMuted)
+        private void SetMuted(bool isMuted)
         {
             if (isMuted)
             {
@@ -86,32 +144,17 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
                 _audioSource.volume = _lastVolume;
                 Volume.SetValueNotify(_lastVolume);
             }
-            
-            IsMuted.SetValueWithoutNotify(isMuted);
         }
 
-        public void Release()
+        private void SetTimeProperty(float time)
         {
-            _isActive = false;
-            _audioSource.Stop();
-            Object.Destroy(_audioClip);
+            Time.Value.SetTime(time);
+            Time.Raise();
         }
 
-        private async Task LoopUpdateTime()
+        private bool ClipIsPlaying()
         {
-            while (_isActive)
-            {
-                var time = TimeSpan.FromSeconds(_audioSource.time);
-
-                if (time.TotalSeconds - Time.Value >= 1)
-                {
-                    Time.SetValueNotify((float)time.TotalSeconds);
-                }
-                
-                ClipTick?.Invoke();
-                
-                await Task.Yield();
-            }
+            return _audioSource.isPlaying || !Mathf.Approximately(_audioSource.time, 0);
         }
 
         private bool GetIsMuted()

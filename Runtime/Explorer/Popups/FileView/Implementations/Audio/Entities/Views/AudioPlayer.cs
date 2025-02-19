@@ -1,116 +1,45 @@
-﻿using TMPro;
+﻿using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Popups.FileView
 {
     internal sealed class AudioPlayer : MonoBehaviour
     {
         [SerializeField] private AudioSource _audioSource;
-        [SerializeField] private Slider _timelineSlider;
-        [SerializeField] private Slider _volumeSlider;
-        [SerializeField] private ToggleOnOff _playPauseToggle;
-        [SerializeField] private ToggleOnOff _soundToggle;
-        [SerializeField] private AudioTimeView _timeText;
-        [SerializeField] private TextMeshProUGUI _fileNameText;
+        [SerializeField] private ComponentText _fileNameText;
+        [SerializeField] private ComponentSlider _timelineSlider;
+        [SerializeField] private ComponentSlider _volumeSlider;
+        [SerializeField] private ComponentToggleOnOff _playPauseToggle;
+        [SerializeField] private ComponentToggleOnOff _soundToggle;
+        [SerializeField] private ComponentAudioTime _timeText;
 
         private AudioViewModel _viewModel;
 
         public void StartPlay(AudioClip clip, string displayName)
         {
             _viewModel = new AudioViewModel(_audioSource, clip, displayName);
-            Subscribe();
-            SetupView();
+            
+            _fileNameText.Bind(_viewModel.Name);
+            _timelineSlider.Bind(_viewModel.RealTime, _viewModel.SetTimeCommand, maxValue: _viewModel.GetDuration());
+            _volumeSlider.Bind(_viewModel.Volume, _viewModel.SetVolumeCommand);
+            _soundToggle.Bind(_viewModel.IsMuted, _viewModel.MuteUnmuteCommand);
+            _playPauseToggle.Bind(_viewModel.IsPlaying, _viewModel.PlayPauseCommand);
+            _timeText.Bind(_viewModel.Time);
+            
             _viewModel.Play();
         }
 
         public void ReleaseAudio()
         {
-            Unsubscribe();
+            _fileNameText.Release();
+            _timelineSlider.Release();
+            _volumeSlider.Release();
+            _soundToggle.Release();
+            _playPauseToggle.Release();
+            _timeText.Release();
+            
             _viewModel.Release();
             _viewModel = null;
-        }
-
-        private void SetupView()
-        {
-            _fileNameText.text = _viewModel.Name;
-            
-            _soundToggle.SetIsOnWithoutNotify(!_viewModel.IsMuted);
-
-            _playPauseToggle.SetIsOnWithoutNotify(true);
-
-            _timelineSlider.minValue = 0;
-            _timelineSlider.maxValue = _viewModel.Duration;
-
-            _volumeSlider.minValue = 0;
-            _volumeSlider.maxValue = 1;
-            _volumeSlider.value = _viewModel.Volume;
-        }
-
-        private void Subscribe()
-        {
-            _soundToggle.AddListener(HandleSoundToggleChanged);
-            _playPauseToggle.AddListener(HandlePlayPauseChanged);
-            _timelineSlider.onValueChanged.AddListener(SetTime);
-            _volumeSlider.onValueChanged.AddListener(SetVolume);
-            
-            _viewModel.Time.ValueChanged += UpdateTimeView;
-            _viewModel.Volume.ValueChanged += UpdateVolumeView;
-            _viewModel.IsMuted.ValueChanged += UpdateIsMutedView;
-            _viewModel.ClipTick += UpdateTimeSlider;
-        }
-
-        private void Unsubscribe()
-        {
-            _soundToggle.RemoveListener(HandleSoundToggleChanged);
-            _playPauseToggle.RemoveListener(HandlePlayPauseChanged);
-            _timelineSlider.onValueChanged.RemoveListener(SetTime);
-            _volumeSlider.onValueChanged.RemoveListener(SetVolume);
-            
-            _viewModel.Time.ValueChanged -= UpdateTimeView;
-            _viewModel.Volume.ValueChanged -= UpdateVolumeView;
-            _viewModel.IsMuted.ValueChanged -= UpdateIsMutedView;
-            _viewModel.ClipTick -= UpdateTimeSlider;
-        }
-
-        private void SetTime(float time)
-        {
-            _viewModel.SetTime(time);
-        }
-
-        private void SetVolume(float volume)
-        {
-            _viewModel.SetVolume(volume);
-        }
-
-        private void HandlePlayPauseChanged(bool isPlay)
-        {
-            _viewModel.SetIsPlaying(isPlay);
-        }
-
-        private void UpdateTimeSlider()
-        {
-            _timelineSlider.SetValueWithoutNotify(_viewModel.GetRealTime());
-        }
-
-        private void HandleSoundToggleChanged(bool isActive)
-        {
-            _viewModel.SetMuted(!isActive);
-        }
-        
-        private void UpdateIsMutedView(bool isMuted)
-        {
-            _soundToggle.SetIsOnWithoutNotify(!isMuted);
-        }
-
-        private void UpdateVolumeView(float volume)
-        {
-            _volumeSlider.SetValueWithoutNotify(volume);
-        }
-
-        private void UpdateTimeView(float time)
-        {
-            _timeText.UpdateTime(time, _viewModel.Duration);
         }
     }
 }
