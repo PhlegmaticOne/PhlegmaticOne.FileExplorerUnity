@@ -1,5 +1,8 @@
-﻿using PhlegmaticOne.FileExplorer.Configuration;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using PhlegmaticOne.FileExplorer.Configuration;
 using UnityEngine;
+using TaskExtensions = PhlegmaticOne.FileExplorer.Infrastructure.Extensions.TaskExtensions;
 
 namespace PhlegmaticOne.FileExplorer
 {
@@ -12,11 +15,15 @@ namespace PhlegmaticOne.FileExplorer
             _config = config;
         }
         
-        public void Open()
+        public async Task Open(CancellationToken token = default)
         {
-            var context = Resources.Load<ExplorerContext>("Prefabs/FileExplorer");
-            var explorerInstance = Object.Instantiate(context);
-            explorerInstance.ConstructAndShow(_config);
+            var context = await TaskExtensions
+                .LoadFromResourcesAsync<ExplorerContext>("Prefabs/FileExplorer", token);
+
+            var instance = await TaskExtensions
+                .InstantiateAsync(context, token);
+            
+            instance.ConstructAndShow(_config);
         }
     }
 }

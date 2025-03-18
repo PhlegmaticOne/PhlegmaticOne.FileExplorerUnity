@@ -64,17 +64,31 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Extensions
         }
 
         public static async Task<T> LoadFromResourcesAsync<T>(
-            string path, CancellationToken cancellationToken) where T : Object
+            string path, CancellationToken token) where T : Object
         {
             var operation = Resources.LoadAsync<T>(path);
 
             while (!operation.isDone)
             {
-                cancellationToken.ThrowIfCancellationRequested();
+                token.ThrowIfCancellationRequested();
                 await Task.Yield();
             }
 
             return (T)operation.asset;
+        }
+        
+        public static async Task<T> InstantiateAsync<T>(
+            T asset, CancellationToken token) where T : Object
+        {
+            var instantiateOperation = Object.InstantiateAsync(asset);
+
+            while (!instantiateOperation.isDone)
+            {
+                token.ThrowIfCancellationRequested();
+                await Task.Yield();
+            }
+
+            return instantiateOperation.Result[0];
         }
     }
 }

@@ -1,7 +1,10 @@
-﻿namespace PhlegmaticOne.FileExplorer
+﻿using System.Threading;
+using System.Threading.Tasks;
+
+namespace PhlegmaticOne.FileExplorer
 {
     public interface IExplorer
     {
-        void Open();
+        Task Open(CancellationToken token = default);
     }
 }
