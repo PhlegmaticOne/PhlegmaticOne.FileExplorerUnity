@@ -1,5 +1,7 @@
-﻿using PhlegmaticOne.FileExplorer.Configuration;
+﻿using System.Threading.Tasks;
+using PhlegmaticOne.FileExplorer.Configuration;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
+using PhlegmaticOne.FileExplorer.Runtime.Explorer.Services.Result;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer
@@ -8,7 +10,7 @@ namespace PhlegmaticOne.FileExplorer
     {
         [SerializeField] private MonoContext _context;
 
-        public void ConstructAndShow(IExplorerConfig config)
+        public Task<ExplorerShowResult> ConstructAndShow(IExplorerConfig config)
         {
             _context.Install(container =>
             {
@@ -16,6 +18,7 @@ namespace PhlegmaticOne.FileExplorer
             });
             
             _context.Resolve<ExplorerEntryPoint>().Start();
+            return _context.Resolve<IExplorerResultProvider>().WaitForResult();
         }
 
         private void Update()

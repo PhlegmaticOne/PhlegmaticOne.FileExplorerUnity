@@ -1,4 +1,5 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons;
+using PhlegmaticOne.FileExplorer.Runtime.Explorer.Services.Result;
 using PhlegmaticOne.FileExplorer.Services.ActionListeners;
 using PhlegmaticOne.FileExplorer.Services.Cancellation;
 using PhlegmaticOne.FileExplorer.Services.Destroying;
@@ -15,13 +16,15 @@ namespace PhlegmaticOne.FileExplorer.States.Commands
         private readonly IExplorerViewModelDisposer _explorerViewModelDisposer;
         private readonly IExplorerActionListeners _listeners;
         private readonly IExplorerIconsProvider _iconsProvider;
+        private readonly IExplorerResultSetter _resultSetter;
 
         public ExplorerCloseCommand(IExplorerDestroyer destroyer,
             IExplorerStaticViewComponentsProvider staticViewComponentsProvider,
             IExplorerCancellationProvider cancellationProvider,
             IExplorerViewModelDisposer explorerViewModelDisposer,
             IExplorerActionListeners listeners,
-            IExplorerIconsProvider iconsProvider)
+            IExplorerIconsProvider iconsProvider,
+            IExplorerResultSetter resultSetter)
         {
             _destroyer = destroyer;
             _staticViewComponentsProvider = staticViewComponentsProvider;
@@ -29,6 +32,7 @@ namespace PhlegmaticOne.FileExplorer.States.Commands
             _explorerViewModelDisposer = explorerViewModelDisposer;
             _listeners = listeners;
             _iconsProvider = iconsProvider;
+            _resultSetter = resultSetter;
         }
         
         public void Close()
@@ -37,6 +41,7 @@ namespace PhlegmaticOne.FileExplorer.States.Commands
             _listeners.StopListen();
             _iconsProvider.Dispose();
             _staticViewComponentsProvider.Unbind();
+            _resultSetter.SetExplorerResult();
             _explorerViewModelDisposer.DisposeViewModels();
             _destroyer.Destroy();
         }

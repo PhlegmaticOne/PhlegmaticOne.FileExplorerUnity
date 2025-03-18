@@ -19,9 +19,10 @@ namespace PhlegmaticOne.FileExplorer.ExploreSample
             _explorer = new Explorer(_configScriptable);
         }
 
-        private void OpenExplorer()
+        private async void OpenExplorer()
         {
-            _explorer.Open();
+            var showResult = await _explorer.Open();
+            Debug.Log($"Explorer is showed: {showResult.IsShowed}");
         }
     }
 }

@@ -5,6 +5,6 @@ namespace PhlegmaticOne.FileExplorer
 {
     public interface IExplorer
     {
-        Task Open(CancellationToken token = default);
+        Task<ExplorerShowResult> Open(CancellationToken token = default);
     }
 }

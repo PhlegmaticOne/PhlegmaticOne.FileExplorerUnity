@@ -1,5 +1,6 @@
 ﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
+using PhlegmaticOne.FileExplorer.Runtime.Explorer.Services.Result;
 using PhlegmaticOne.FileExplorer.Services.ActionListeners;
 using PhlegmaticOne.FileExplorer.Services.Cancellation;
 using PhlegmaticOne.FileExplorer.Services.ContentLoading;
@@ -33,6 +34,8 @@ namespace PhlegmaticOne.FileExplorer.Services
             container.Register<IInternetProvider, InternetProvider>();
             container.Register<IExplorerDestroyer, ExplorerDestroyer>();
             container.Register<IExplorerActionListeners, ExplorerActionListeners>();
+            container.Register<IExplorerResultProvider, ExplorerResultProvider>();
+            container.Register<IExplorerResultSetter, ExplorerResultSetter>();
             
             BindContentLoaders(container);
         }
