@@ -12,7 +12,8 @@ public class ExploreFilesBehaviour : MonoBehaviour
     public void OpenExplorer()
     {
         IExplorer explorer = new Explorer(_configScriptable);
-        explorer.Open();
+        var showResult = await explorer.Open();
+        Debug.Log(showResult.IsShowed);
     }
 }
 ```
