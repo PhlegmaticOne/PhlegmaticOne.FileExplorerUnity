@@ -2,10 +2,8 @@
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using UnityEngine;
 using UnityEngine.Networking;
 using Debug = UnityEngine.Debug;
-using Object = UnityEngine.Object;
 
 namespace PhlegmaticOne.FileExplorer.Infrastructure.Extensions
 {
@@ -61,34 +59,6 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Extensions
             timeoutTimer.Stop();
 
             return result;
-        }
-
-        public static async Task<T> LoadFromResourcesAsync<T>(
-            string path, CancellationToken token) where T : Object
-        {
-            var operation = Resources.LoadAsync<T>(path);
-
-            while (!operation.isDone)
-            {
-                token.ThrowIfCancellationRequested();
-                await Task.Yield();
-            }
-
-            return (T)operation.asset;
-        }
-        
-        public static async Task<T> InstantiateAsync<T>(
-            T asset, CancellationToken token) where T : Object
-        {
-            var instantiateOperation = Object.InstantiateAsync(asset);
-
-            while (!instantiateOperation.isDone)
-            {
-                token.ThrowIfCancellationRequested();
-                await Task.Yield();
-            }
-
-            return instantiateOperation.Result[0];
         }
     }
 }

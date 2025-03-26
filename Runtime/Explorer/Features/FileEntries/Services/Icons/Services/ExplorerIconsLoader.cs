@@ -6,7 +6,6 @@ using PhlegmaticOne.FileExplorer.Configuration;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 using PhlegmaticOne.FileExplorer.Services.Internet;
 using UnityEngine;
-using TaskExtensions = PhlegmaticOne.FileExplorer.Infrastructure.Extensions.TaskExtensions;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons
 {
@@ -92,7 +91,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons
                 _ => config.InBuildData.FileIconPath
             };
 
-            return TaskExtensions.LoadFromResourcesAsync<Sprite>(path, cancellationToken);
+            return AssetExtensions.LoadFromResourcesAsync<Sprite>(path, cancellationToken);
         }
 
         private static void EnsureDirectoryCreated(string path)

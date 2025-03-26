@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Configuration;
-using TaskExtensions = PhlegmaticOne.FileExplorer.Infrastructure.Extensions.TaskExtensions;
+using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 
 namespace PhlegmaticOne.FileExplorer
 {
@@ -18,10 +18,10 @@ namespace PhlegmaticOne.FileExplorer
         {
             try
             {
-                var context = await TaskExtensions
+                var context = await AssetExtensions
                     .LoadFromResourcesAsync<ExplorerContext>("Prefabs/FileExplorer", token);
 
-                var instance = await TaskExtensions
+                var instance = await AssetExtensions
                     .InstantiateAsync(context, token);
             
                 return await instance.ConstructAndShow(_config);
