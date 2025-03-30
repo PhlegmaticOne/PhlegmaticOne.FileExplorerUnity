@@ -1,9 +1,9 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning;
 using PhlegmaticOne.FileExplorer.Infrastructure.Behaviours;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
-using PhlegmaticOne.FileExplorer.Services.Scene;
-using PhlegmaticOne.FileExplorer.Services.StaticViews.SceneSetup;
+using PhlegmaticOne.FileExplorer.Services.LayoutUtils;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
 {
@@ -13,12 +13,14 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
         [SerializeField] private RectTransform _rectTransform;
         
         private FileEntryViewModel _viewModel;
-        private ISceneService _sceneService;
+        private IExplorerLayoutUtils _explorerLayoutUtils;
 
-        public void Construct(ISceneService sceneService, ExplorerSceneObjects sceneObjects)
+        public void Construct(
+            IExplorerLayoutUtils explorerLayoutUtils, 
+            ScrollRect scrollRect)
         {
-            _sceneService = sceneService;
-            _holdBehaviour.Construct(sceneObjects.ScrollRect);
+            _explorerLayoutUtils = explorerLayoutUtils;
+            _holdBehaviour.Construct(scrollRect);
         }
 
         public void Bind(FileEntryViewModel viewModel)
@@ -60,7 +62,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
             return new ActionTargetViewPosition(
                 _rectTransform.anchoredPosition,
                 _rectTransform.rect.size,
-                _sceneService.GetHeaderOffset());
+                _explorerLayoutUtils.GetHeaderOffset());
         }
     }
 }

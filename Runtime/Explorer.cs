@@ -1,12 +1,15 @@
-﻿using System.Threading;
+﻿using System;
 using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Configuration;
 using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
+using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer
 {
     public sealed class Explorer : IExplorer
     {
+        private const string PrefabsFileExplorerPath = "Prefabs/FileExplorer";
+        
         private readonly IExplorerConfig _config;
 
         public Explorer(IExplorerConfig config)
@@ -14,20 +17,21 @@ namespace PhlegmaticOne.FileExplorer
             _config = config;
         }
         
-        public async Task<ExplorerShowResult> Open(CancellationToken token = default)
+        public async Task<ExplorerShowResult> Open()
         {
             try
             {
                 var context = await AssetExtensions
-                    .LoadFromResourcesAsync<ExplorerContext>("Prefabs/FileExplorer", token);
+                    .LoadFromResourcesAsync<ExplorerContext>(PrefabsFileExplorerPath);
 
                 var instance = await AssetExtensions
-                    .InstantiateAsync(context, token);
+                    .InstantiateAsync(context);
             
                 return await instance.ConstructAndShow(_config);
             }
-            catch
+            catch (Exception exception)
             {
+                Debug.LogError(exception);
                 return ExplorerShowResult.NotShowed();
             }
         }

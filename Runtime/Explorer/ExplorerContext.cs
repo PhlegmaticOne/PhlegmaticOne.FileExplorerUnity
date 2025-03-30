@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Configuration;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
-using PhlegmaticOne.FileExplorer.Runtime.Explorer.Services.Result;
+using PhlegmaticOne.FileExplorer.Lifecycle.Show;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer
@@ -16,14 +16,10 @@ namespace PhlegmaticOne.FileExplorer
             {
                 container.RegisterInstance(config.Value);
             });
-            
-            _context.Resolve<ExplorerEntryPoint>().Start();
-            return _context.Resolve<IExplorerResultProvider>().WaitForResult();
-        }
 
-        private void Update()
-        {
-            _context.OnUpdate();
+            return _context
+                .Resolve<IExplorerShowCommand>()
+                .ShowWithResult();
         }
     }
 }

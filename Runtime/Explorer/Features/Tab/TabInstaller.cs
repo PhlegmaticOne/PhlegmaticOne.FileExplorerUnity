@@ -3,6 +3,7 @@ using PhlegmaticOne.FileExplorer.Features.Tab.Entities;
 using PhlegmaticOne.FileExplorer.Features.Tab.Listeners;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.Tab
@@ -23,6 +24,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Tab
             container.RegisterInterfaces<TabEntriesAddedListener>();
             
             container.RegisterSelf<TabViewModel>();
+            container.Register<IViewModelDisposable, TabViewModel>();
         }
     }
 }

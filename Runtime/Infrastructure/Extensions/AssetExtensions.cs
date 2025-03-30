@@ -7,7 +7,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Extensions
     internal static class AssetExtensions
     {
         public static async Task<T> LoadFromResourcesAsync<T>(
-            string path, CancellationToken token) where T : Object
+            string path, CancellationToken token = default) where T : Object
         {
             var operation = Resources.LoadAsync<T>(path);
 
@@ -21,7 +21,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Extensions
         }
         
         public static async Task<T> InstantiateAsync<T>(
-            T asset, CancellationToken token) where T : Object
+            T asset, CancellationToken token = default) where T : Object
         {
             var instantiateOperation = Object.InstantiateAsync(asset);
 

@@ -13,18 +13,17 @@ namespace PhlegmaticOne.FileExplorer
     {
         [SerializeField] private ExplorerFeaturesInstaller _featuresInstaller;
         [SerializeField] private ExplorerServicesInstaller _servicesInstaller;
+        [SerializeField] private ExplorerLifecycleInstaller _lifecycleInstaller;
         [SerializeField] private PopupProviderInstaller _popupProviderInstaller;
         
         public override void Install(IDependencyContainer container)
         {
-            container.RegisterSelf<ExplorerEntryPoint>();
-            
             _featuresInstaller.Install(container);
             _servicesInstaller.Install(container);
             _popupProviderInstaller.Install(container);
+            _lifecycleInstaller.Install(container);
             
             container.InstallFrom<ViewProviderInstaller>();
-            container.InstallFrom<ExplorerStatesInstaller>();
         }
     }
 }

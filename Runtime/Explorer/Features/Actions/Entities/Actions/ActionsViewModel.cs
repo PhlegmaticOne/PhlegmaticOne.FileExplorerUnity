@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions.Entities.Actions
 {
-    internal sealed class ActionsViewModel : ViewModel
+    internal sealed class ActionsViewModel : ViewModel, IViewModelDisposable
     {
         private readonly IActionViewPositionCalculator _positionCalculator;
         
@@ -56,6 +56,11 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Entities.Actions
             _fileEntry?.IsSelected.SetValueNotify(false);
             _position = null;
             _fileEntry = null;
+        }
+
+        public void Dispose()
+        {
+            Deactivate();
         }
     }
 }

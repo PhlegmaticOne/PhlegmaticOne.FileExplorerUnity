@@ -1,9 +1,9 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning;
+using PhlegmaticOne.FileExplorer.Features.CommonInterfaces;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components.Buttons;
-using PhlegmaticOne.FileExplorer.Services.Scene;
-using PhlegmaticOne.FileExplorer.Services.StaticViews;
+using PhlegmaticOne.FileExplorer.Services.LayoutUtils;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
@@ -21,12 +21,12 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
         [SerializeField] private RectTransform _rectTransform;
         
         private SelectionViewModel _viewModel;
-        private ISceneService _sceneService;
+        private IExplorerLayoutUtils _explorerLayoutUtils;
 
         [ViewInject]
-        public void Construct(SelectionViewModel viewModel, ISceneService sceneService)
+        public void Construct(SelectionViewModel viewModel, IExplorerLayoutUtils explorerLayoutUtils)
         {
-            _sceneService = sceneService;
+            _explorerLayoutUtils = explorerLayoutUtils;
             _viewModel = viewModel;
         }
         
@@ -58,7 +58,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
             return new ActionTargetViewPosition(
                 new Vector2(containerPosition.x - buttonRect.width / 2, containerPosition.y),
                 new Vector2(buttonRect.width, _rectTransform.rect.height),
-                _sceneService.GetSafeZoneOffset());
+                _explorerLayoutUtils.GetSafeZoneOffset());
         }
     }
 }

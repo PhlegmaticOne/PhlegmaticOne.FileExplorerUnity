@@ -4,7 +4,7 @@ using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.Tab.Entities
 {
-    internal sealed class TabViewModel : ViewModel
+    internal sealed class TabViewModel : ViewModel, IViewModelDisposable
     {
         public TabViewModel()
         {
@@ -58,6 +58,11 @@ namespace PhlegmaticOne.FileExplorer.Features.Tab.Entities
             
             FileEntries.Clear();
             IsEmpty.SetValue(true, isNotify);
+        }
+
+        public void Dispose()
+        {
+            Clear();
         }
     }
 }

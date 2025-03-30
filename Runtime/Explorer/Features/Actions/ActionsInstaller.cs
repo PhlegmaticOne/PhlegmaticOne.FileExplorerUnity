@@ -5,6 +5,7 @@ using PhlegmaticOne.FileExplorer.Features.Actions.Entities.Actions;
 using PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.Actions
@@ -32,6 +33,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions
             container.Register<IActionErrorHandler, ActionErrorHandler>();
 
             container.RegisterSelf<ActionsViewModel>();
+            container.Register<IViewModelDisposable, ActionsViewModel>();
         }
     }
 }

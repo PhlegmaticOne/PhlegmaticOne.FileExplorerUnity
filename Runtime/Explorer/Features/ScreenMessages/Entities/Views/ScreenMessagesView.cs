@@ -1,6 +1,6 @@
-﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
+﻿using PhlegmaticOne.FileExplorer.Features.CommonInterfaces;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
-using PhlegmaticOne.FileExplorer.Services.StaticViews;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Entities

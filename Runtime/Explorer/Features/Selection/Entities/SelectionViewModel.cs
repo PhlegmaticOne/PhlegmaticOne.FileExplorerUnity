@@ -13,7 +13,7 @@ using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
 {
-    internal sealed class SelectionViewModel : ViewModel, ITabEntriesAddedHandler
+    internal sealed class SelectionViewModel : ViewModel, ITabEntriesAddedHandler, IViewModelDisposable
     {
         private readonly ActionsViewModel _actionsViewModel;
         private readonly ISelectionActionsProvider _actionsProvider;
@@ -159,6 +159,11 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
             var activeCount = _tabViewModel.FileEntries.Count(x => x.IsActive);
             var isAllSelected = activeCount != 0 && _selection.Count == activeCount;
             IsAllSelected.SetValueNotify(isAllSelected);
+        }
+
+        public void Dispose()
+        {
+            Clear();
         }
     }
 }

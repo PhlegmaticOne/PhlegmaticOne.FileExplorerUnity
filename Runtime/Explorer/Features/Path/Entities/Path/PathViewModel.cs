@@ -9,7 +9,7 @@ using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 
 namespace PhlegmaticOne.FileExplorer.Features.Path.Entities.Path
 {
-    internal sealed class PathViewModel : ViewModel
+    internal sealed class PathViewModel : ViewModel, IViewModelDisposable
     {
         private readonly IPathParser _pathParser;
         private readonly IRootPathProvider _rootPathProvider;
@@ -87,6 +87,11 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Entities.Path
         {
             var removeCount = PathParts.Count - parseResult.Count;
             PathParts.RemoveRangeFromLast(removeCount);
+        }
+
+        public void Dispose()
+        {
+            Clear();
         }
     }
 }

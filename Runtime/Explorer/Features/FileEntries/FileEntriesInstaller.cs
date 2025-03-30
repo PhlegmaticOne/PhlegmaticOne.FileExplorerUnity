@@ -8,13 +8,19 @@ using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Operations;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries
 {
     internal sealed class FileEntriesInstaller : MonoInstaller
     {
+        [SerializeField] private ScrollRect _scrollRect;
+        
         public override void Install(IDependencyContainer container)
         {
+            container.RegisterInstance(_scrollRect);
+            
             container.Register<IWebFileLoader, WebFileLoader>();
             container.Register<IExplorerIconsLoader, ExplorerIconsLoader>();
             container.Register<IExplorerIconsProvider, ExplorerIconsProvider>();

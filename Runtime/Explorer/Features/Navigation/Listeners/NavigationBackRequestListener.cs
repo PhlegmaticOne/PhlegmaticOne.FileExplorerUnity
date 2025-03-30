@@ -1,7 +1,7 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Navigation.Entities;
 using PhlegmaticOne.FileExplorer.Features.Selection.Entities;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Contracts;
-using PhlegmaticOne.FileExplorer.States;
+using PhlegmaticOne.FileExplorer.Lifecycle.Close;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.Navigation.Listeners
@@ -10,16 +10,16 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.Listeners
     {
         private readonly SelectionViewModel _selectionViewModel;
         private readonly NavigationViewModel _navigationViewModel;
-        private readonly IExplorerStates _explorerStates;
+        private readonly IExplorerCloseCommand _closeCommand;
 
         public NavigationBackRequestListener(
             SelectionViewModel selectionViewModel,
             NavigationViewModel navigationViewModel,
-            IExplorerStates explorerStates)
+            IExplorerCloseCommand closeCommand)
         {
             _selectionViewModel = selectionViewModel;
             _navigationViewModel = navigationViewModel;
-            _explorerStates = explorerStates;
+            _closeCommand = closeCommand;
         }
         
         public void OnUpdate()
@@ -37,7 +37,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.Listeners
             
             if (!_navigationViewModel.NavigateBack())
             {
-                _explorerStates.Close();
+                _closeCommand.Close();
             }
         }
     }

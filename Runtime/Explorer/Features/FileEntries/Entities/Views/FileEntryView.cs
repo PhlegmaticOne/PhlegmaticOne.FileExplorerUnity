@@ -1,9 +1,9 @@
 ﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
-using PhlegmaticOne.FileExplorer.Services.Scene;
-using PhlegmaticOne.FileExplorer.Services.StaticViews.SceneSetup;
+using PhlegmaticOne.FileExplorer.Services.LayoutUtils;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
 {
@@ -20,10 +20,10 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
         [ViewInject]
         public void Construct(
             FileEntryViewModel viewModel, 
-            ISceneService sceneService, 
-            ExplorerSceneObjects sceneObjects)
+            IExplorerLayoutUtils explorerLayoutUtils, 
+            ScrollRect scrollRect)
         {
-            _holdFileEntry.Construct(sceneService, sceneObjects);
+            _holdFileEntry.Construct(explorerLayoutUtils, scrollRect);
             _viewModel = viewModel;
         }
         

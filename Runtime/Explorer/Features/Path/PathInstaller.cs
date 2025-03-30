@@ -6,6 +6,7 @@ using PhlegmaticOne.FileExplorer.Features.Path.Services.Parser;
 using PhlegmaticOne.FileExplorer.Features.Path.Services.Root;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installers;
+using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.Path
@@ -29,6 +30,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Path
             container.Register<IRootPathProvider, RootPathProvider>();
             
             container.RegisterSelf<PathViewModel>();
+            container.Register<IViewModelDisposable, PathViewModel>();
         }
     }
 }

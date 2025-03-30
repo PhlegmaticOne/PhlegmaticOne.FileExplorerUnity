@@ -5,6 +5,7 @@ namespace PhlegmaticOne.FileExplorer.Services.Cancellation
     internal sealed class ExplorerCancellationProvider : IExplorerCancellationProvider
     {
         private CancellationTokenSource _cancellationTokenSource;
+        private CancellationToken _externalToken;
         
         public ExplorerCancellationProvider()
         {
@@ -13,11 +14,21 @@ namespace PhlegmaticOne.FileExplorer.Services.Cancellation
 
         public CancellationToken Token => _cancellationTokenSource.Token;
 
+        public void SetupExternalToken(CancellationToken token)
+        {
+            _externalToken = token;
+        }
+
         public void Cancel()
         {
             _cancellationTokenSource.Cancel();
             _cancellationTokenSource.Dispose();
             _cancellationTokenSource = new CancellationTokenSource();
+        }
+
+        private void RegenerateToken()
+        {
+            _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource();
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using PhlegmaticOne.FileExplorer.Features.ScreenMessages.Entities;
+﻿using PhlegmaticOne.FileExplorer.Features.CommonInterfaces;
+using PhlegmaticOne.FileExplorer.Features.ScreenMessages.Entities;
 using PhlegmaticOne.FileExplorer.Features.Searching.Entities;
 using PhlegmaticOne.FileExplorer.Features.Tab.Entities;
-using PhlegmaticOne.FileExplorer.Services.ActionListeners;
 
 namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Listeners
 {

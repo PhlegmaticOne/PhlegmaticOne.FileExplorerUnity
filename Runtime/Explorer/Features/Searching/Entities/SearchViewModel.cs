@@ -9,7 +9,7 @@ using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
 
 namespace PhlegmaticOne.FileExplorer.Features.Searching.Entities
 {
-    internal sealed class SearchViewModel : ViewModel, ITabEntriesAddedHandler
+    internal sealed class SearchViewModel : ViewModel, ITabEntriesAddedHandler, IViewModelDisposable
     {
         private const int MinSearchLength = 2;
         
@@ -122,6 +122,11 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.Entities
             {
                 fileEntry.IsActive.SetValueNotify(true);
             }
+        }
+
+        public void Dispose()
+        {
+            Clear();
         }
     }
 }

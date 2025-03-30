@@ -1,5 +1,5 @@
-﻿using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
-using PhlegmaticOne.FileExplorer.Services.StaticViews;
+﻿using PhlegmaticOne.FileExplorer.Features.CommonInterfaces;
+using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.Path.Entities.Path

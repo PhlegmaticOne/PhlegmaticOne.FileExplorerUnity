@@ -28,8 +28,8 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installe
         {
             return _container.Resolve<T>();
         }
-        
-        public void OnUpdate()
+
+        private void Update()
         {
             foreach (var updateListener in _updateListeners.AsSpan())
             {
