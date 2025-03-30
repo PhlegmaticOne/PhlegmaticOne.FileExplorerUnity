@@ -17,7 +17,6 @@ namespace PhlegmaticOne.FileExplorer.Services
         
         public override void Install(IDependencyContainer container)
         {
-            container.RegisterInstance(Camera.main);
             container.RegisterInstance(new ExplorerLayoutUtils(_headerTransform, _safeZoneLayout));
 
             container.Register<IExplorerCancellationProvider, ExplorerCancellationProvider>();
