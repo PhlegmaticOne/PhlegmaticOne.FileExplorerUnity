@@ -26,6 +26,8 @@ MonoBehaviour:
       - .txt
       - .json
       - .xml
+      - .meta
+      - .cs
       _imageExtensions:
       - .jpg
       - .png
@@ -40,6 +42,4 @@ MonoBehaviour:
         _audioType: 13
     _view:
       _addFileEntriesBatchCount: 10
-      _sortingLayerName: Default
-      _sortingOrder: 999
       _fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

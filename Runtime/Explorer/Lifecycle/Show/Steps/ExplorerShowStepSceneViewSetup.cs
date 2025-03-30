@@ -11,14 +11,14 @@ namespace PhlegmaticOne.FileExplorer.Lifecycle.Show.Steps
         [SerializeField] private MonoBehaviour _rootBehaviour;
         
         private ExplorerConfig _explorerConfig;
-        private Camera _viewCamera;
+        private ExplorerShowParameters _showParameters;
 
         [ViewInject]
         public void Construct(
-            ExplorerConfig explorerConfig,
-            Camera viewCamera)
+            ExplorerShowParameters showParameters,
+            ExplorerConfig explorerConfig)
         {
-            _viewCamera = viewCamera;
+            _showParameters = showParameters;
             _explorerConfig = explorerConfig;
         }
 
@@ -30,9 +30,9 @@ namespace PhlegmaticOne.FileExplorer.Lifecycle.Show.Steps
 
         private void SetupCanvas()
         {
-            _canvas.worldCamera = _viewCamera;
-            _canvas.sortingLayerName = _explorerConfig.View.SortingLayerName;
-            _canvas.sortingOrder = _explorerConfig.View.SortingOrder;
+            _canvas.worldCamera = _showParameters.GetCamera();
+            _canvas.sortingLayerName = _showParameters.SortingLayerName;
+            _canvas.sortingOrder = _showParameters.OrderInLayer;
         }
 
         private void SetupFont()

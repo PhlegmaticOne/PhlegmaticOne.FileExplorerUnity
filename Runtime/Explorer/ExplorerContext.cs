@@ -10,11 +10,12 @@ namespace PhlegmaticOne.FileExplorer
     {
         [SerializeField] private MonoContext _context;
 
-        public Task<ExplorerShowResult> ConstructAndShow(IExplorerConfig config)
+        public Task<ExplorerShowResult> ConstructAndShow(IExplorerConfig config, ExplorerShowParameters parameters)
         {
             _context.Install(container =>
             {
                 container.RegisterInstance(config.Value);
+                container.RegisterInstance(parameters);
             });
 
             return _context
