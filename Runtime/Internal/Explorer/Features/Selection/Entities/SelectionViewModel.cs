@@ -10,6 +10,8 @@ using PhlegmaticOne.FileExplorer.Features.Tab.Entities;
 using PhlegmaticOne.FileExplorer.Features.Tab.Listeners;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
+using PhlegmaticOne.FileExplorer.Lifecycle.Close;
+using PhlegmaticOne.FileExplorer.Services.ShowConfiguration;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
 {
@@ -19,24 +21,29 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
         private readonly ISelectionActionsProvider _actionsProvider;
         private readonly TabViewModel _tabViewModel;
         private readonly SearchViewModel _searchViewModel;
+        private readonly IExplorerShowConfiguration _showConfiguration;
+        
         private readonly List<FileEntryViewModel> _selection;
 
         public SelectionViewModel(
             ActionsViewModel actionsViewModel, 
             ISelectionActionsProvider actionsProvider,
             TabViewModel tabViewModel,
-            SearchViewModel searchViewModel)
+            SearchViewModel searchViewModel,
+            IExplorerShowConfiguration showConfiguration)
         {
             _actionsViewModel = actionsViewModel;
             _actionsProvider = actionsProvider;
             _tabViewModel = tabViewModel;
             _searchViewModel = searchViewModel;
+            _showConfiguration = showConfiguration;
+            
             _selection = new List<FileEntryViewModel>();
-
+            IsAcceptSelection = new ReactiveProperty<bool>(showConfiguration.IsSelectAnyFiles());
             IsAllSelected = new ReactiveProperty<bool>(false);
             IsSelectionActive = new ReactiveProperty<bool>(false);
             SelectedEntriesCount = new ReactiveProperty<FileEntriesCounter>(FileEntriesCounter.Zero);
-            ActionsCommand = new CommandDelegate<ActionTargetViewPosition>(ShowSelectionActions);
+            ActionsCommand = new CommandDelegate<ActionTargetViewPosition>(ShowSelectionActions, CanShowActions);
             ClearSelectionCommand = new CommandDelegateEmpty(() => Clear());
             SelectDeselectCommand = new CommandDelegate<bool>(SelectDeselectAll);
         }
@@ -46,6 +53,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
         public ICommand SelectDeselectCommand { get; }
         public ReactiveProperty<bool> IsSelectionActive { get; }
         public ReactiveProperty<bool> IsAllSelected { get; }
+        public ReactiveProperty<bool> IsAcceptSelection { get; }
         public ReactiveProperty<FileEntriesCounter> SelectedEntriesCount { get; }
 
         private void ShowSelectionActions(ActionTargetViewPosition position)
@@ -114,6 +122,11 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
         public void HandleEntriesAdded(IEnumerable<FileEntryViewModel> fileEntries)
         {
             IsAllSelected.SetValueNotify(false);
+        }
+
+        private bool CanShowActions()
+        {
+            return _showConfiguration.IsInvestigateFiles();
         }
         
         private void SelectDeselectAll(bool isSelectAll)

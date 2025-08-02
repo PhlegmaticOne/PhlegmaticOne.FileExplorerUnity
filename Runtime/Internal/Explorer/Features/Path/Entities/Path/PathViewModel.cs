@@ -39,6 +39,11 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Entities.Path
 
         public bool CurrentPathIsRoot()
         {
+            if (string.IsNullOrEmpty(Path.Value))
+            {
+                return true;
+            }
+            
             return Path.Value.Equals(GetRootPath());
         }
 

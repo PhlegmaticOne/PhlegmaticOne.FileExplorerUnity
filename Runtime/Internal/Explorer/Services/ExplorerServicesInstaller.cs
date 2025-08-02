@@ -5,6 +5,7 @@ using PhlegmaticOne.FileExplorer.Services.Cancellation;
 using PhlegmaticOne.FileExplorer.Services.ContentLoading;
 using PhlegmaticOne.FileExplorer.Services.Internet;
 using PhlegmaticOne.FileExplorer.Services.LayoutUtils;
+using PhlegmaticOne.FileExplorer.Services.ShowConfiguration;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +24,7 @@ namespace PhlegmaticOne.FileExplorer.Services
             container.Register<IInternetProvider, InternetProvider>();
             container.Register<IExplorerResultProvider, ExplorerResultProvider>();
             container.Register<IExplorerResultSetter, ExplorerResultSetter>();
+            container.Register<IExplorerShowConfiguration, ShowConfiguration.ExplorerShowConfigurationDefault>();
             
             BindContentLoaders(container);
         }

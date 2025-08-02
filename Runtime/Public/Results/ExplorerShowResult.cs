@@ -1,24 +1,32 @@
+using System;
+using System.Linq;
+
 namespace PhlegmaticOne.FileExplorer
 {
     public readonly struct ExplorerShowResult
     {
-        public static ExplorerShowResult Showed()
+        public static ExplorerShowResult Showed(string[] selectedFiles = null)
         {
-            return new ExplorerShowResult(isShowed: true);
+            return new ExplorerShowResult(isShowed: true, selectedFiles ?? Array.Empty<string>());
         }
         
         public static ExplorerShowResult NotShowed()
         {
-            return new ExplorerShowResult(isShowed: false);
+            return new ExplorerShowResult(isShowed: false, Array.Empty<string>());
         }
 
-        public ExplorerShowResult(bool isShowed)
+        private ExplorerShowResult(bool isShowed, string[] selectedFiles)
         {
             IsShowed = isShowed;
-            SelectedFile = null;
+            SelectedFiles = selectedFiles;
         }
 
         public bool IsShowed { get; }
-        public string SelectedFile { get; }
+        public string[] SelectedFiles { get; }
+
+        public string GetSingleSelection()
+        {
+            return SelectedFiles.FirstOrDefault();
+        }
     }
 }

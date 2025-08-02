@@ -9,6 +9,7 @@ namespace PhlegmaticOne.FileExplorer
         public int OrderInLayer { get; private set; }
         public string SortingLayerName { get; private set; } = "Default";
         public string StartupLocation { get; private set; } = string.Empty;
+        public ExplorerShowTypePayload ShowTypePayload { get; private set; } = ExplorerShowTypePayload.InvestigateFiles();
 
         public ExplorerShowConfiguration WithCamera(Camera camera)
         {
@@ -31,6 +32,12 @@ namespace PhlegmaticOne.FileExplorer
         public ExplorerShowConfiguration WithStartupLocation(string startupLocation)
         {
             StartupLocation = startupLocation;
+            return this;
+        }
+
+        public ExplorerShowConfiguration WithShowPayload(ExplorerShowTypePayload showPayload)
+        {
+            ShowTypePayload = showPayload;
             return this;
         }
 

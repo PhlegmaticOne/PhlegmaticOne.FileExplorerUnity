@@ -3,29 +3,30 @@ using System.Threading.Tasks;
 using PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Models;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Direcrories.Properties;
+using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files.Commands;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Operations;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Proprties;
-using PhlegmaticOne.FileExplorer.Features.Navigation.Entities;
-using PhlegmaticOne.FileExplorer.Features.Selection.Entities;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Direcrories
 {
     internal sealed class DirectoryViewModel : FileEntryViewModel
     {
         private const string DirectoryExtension = "directory";
-        
-        private readonly NavigationViewModel _navigationViewModel;
+
+        private readonly IDirectoryViewModelClickCommand _clickCommand;
+        private readonly IDirectoryViewModelHoldClickCommand _holdClickCommand;
 
         public DirectoryViewModel(
             string name, string path,
             IExplorerIconsProvider iconsProvider, 
-            SelectionViewModel selectionViewModel,
-            NavigationViewModel navigationViewModel,
+            IDirectoryViewModelClickCommand clickCommand,
+            IDirectoryViewModelHoldClickCommand holdClickCommand,
             IFileOperations fileOperations) : 
-            base(name, path, iconsProvider, selectionViewModel, fileOperations)
+            base(name, path, iconsProvider, fileOperations)
         {
-            _navigationViewModel = navigationViewModel;
+            _clickCommand = clickCommand;
+            _holdClickCommand = holdClickCommand;
         }
 
         public override FileEntryType EntryType => FileEntryType.Directory;
@@ -59,14 +60,12 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Direcrories
 
         protected override void OnClick(ActionTargetViewPosition position)
         {
-            if (SelectionViewModel.IsSelectionActive)
-            {
-                SelectionViewModel.UpdateSelection(this);
-            }
-            else
-            {
-                _navigationViewModel.Navigate(this);
-            }
+            _clickCommand.OnClick(this, position);
+        }
+
+        protected override void OnHoldClick()
+        {
+            _holdClickCommand.OnHoldClick(this);
         }
 
         public override void Dispose()

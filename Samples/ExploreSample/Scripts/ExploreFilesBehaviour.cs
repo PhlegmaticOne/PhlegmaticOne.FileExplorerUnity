@@ -21,10 +21,12 @@ namespace PhlegmaticOne.FileExplorer.ExploreSample
 
         private async void OpenExplorer()
         {
-            var showResult = await _explorer.Open(new ExplorerShowParameters()
+            var showResult = await _explorer.Open(new ExplorerShowConfiguration()
                 .WithCamera(Camera.main)
                 .WithSortingLayerName("Default")
-                .WithOrderInLayer(999));
+                .WithOrderInLayer(999)
+                .WithStartupLocation(Application.persistentDataPath)
+                .WithShowPayload(ExplorerShowTypePayload.SelectMultipleFiles()));
             
             Debug.Log($"Explorer is showed: {showResult.IsShowed}");
         }

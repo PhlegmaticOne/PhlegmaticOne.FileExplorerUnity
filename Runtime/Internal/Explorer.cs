@@ -8,7 +8,7 @@ namespace PhlegmaticOne.FileExplorer
 {
     public sealed class Explorer : IExplorer
     {
-        private const string PrefabsFileExplorerPath = "Prefabs/FileExplorer";
+        private const string ExplorerPath = "Prefabs/FileExplorer";
         
         private readonly IExplorerConfig _config;
 
@@ -21,12 +21,8 @@ namespace PhlegmaticOne.FileExplorer
         {
             try
             {
-                var context = await AssetExtensions
-                    .LoadFromResourcesAsync<ExplorerContext>(PrefabsFileExplorerPath);
-
-                var instance = await AssetExtensions
-                    .InstantiateAsync(context);
-            
+                var context = await AssetExtensions.LoadFromResourcesAsync<ExplorerContext>(ExplorerPath);
+                var instance = await AssetExtensions.InstantiateAsync(context);
                 return await instance.ConstructAndShow(_config, configuration);
             }
             catch (Exception exception)

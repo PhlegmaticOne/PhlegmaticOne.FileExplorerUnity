@@ -40,7 +40,26 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries
             container.Register<IFileEntryActionExecuteHandler, FileEntryActionExecuteHandler>();
             container.Register<IFileEntryActionsFactory, FileEntryActionsFactory>();
             
-            container.Register<IFileViewModelClickCommand, FileViewModelClickCommand>();
+            BindCommands(container);
+        }
+
+        private static void BindCommands(IDependencyContainer container)
+        {
+            var showTypePayload = container.Resolve<ExplorerShowConfiguration>().ShowTypePayload;
+            
+            if (!showTypePayload.IsSelectAnyFiles())
+            {
+                container.Register<IFileViewModelClickCommand, FileViewModelClickCommandDefault>();
+                container.Register<IDirectoryViewModelClickCommand, DirectoryViewModelClickCommandDefault>();
+            }
+            else
+            {
+                container.Register<IFileViewModelClickCommand, FileViewModelClickCommandSelection>();
+                container.Register<IDirectoryViewModelClickCommand, DirectoryViewModelClickCommandSelection>();
+            }
+            
+            container.Register<IFileViewModelHoldClickCommand, FileViewModelHoldClickCommandDefault>();
+            container.Register<IDirectoryViewModelHoldClickCommand, DirectoryViewModelHoldClickCommandDefault>();
         }
     }
 }

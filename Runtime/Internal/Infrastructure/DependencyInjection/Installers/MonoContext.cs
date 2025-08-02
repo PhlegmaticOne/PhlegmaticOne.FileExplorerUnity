@@ -14,12 +14,13 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Installe
 
         public void Install(Action<IDependencyContainer> installAction = null)
         {
-            foreach (var installer in _installers.AsSpan())
+            installAction?.Invoke(_container);
+
+            foreach (var installer in _installers)
             {
                 installer.Install(_container);
             }
             
-            installAction?.Invoke(_container);
             _container.Inject();
             _updateListeners = _container.ResolveAll<IUpdateListener>();
         }

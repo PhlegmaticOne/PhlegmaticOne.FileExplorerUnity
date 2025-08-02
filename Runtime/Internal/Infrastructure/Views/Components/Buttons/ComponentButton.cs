@@ -18,6 +18,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views.Components.Buttons
             _command = command;
             _command.CanExecuteChanged += UpdateInteraction;
             _button.onClick.AddListener(ExecuteCommand);
+            UpdateInteraction();
         }
 
         public void Release()

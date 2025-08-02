@@ -8,25 +8,26 @@ using PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files.Properties;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Operations;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Proprties;
-using PhlegmaticOne.FileExplorer.Features.Selection.Entities;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files
 {
     internal sealed class FileViewModel : FileEntryViewModel
     {
         private readonly IFileViewModelClickCommand _clickCommand;
+        private readonly IFileViewModelHoldClickCommand _holdClickCommand;
         private readonly ExplorerFileIcon _fileIcon;
         
         public FileViewModel(
             string name, string path, string extension,
             IExplorerIconsProvider iconsProvider,
             IFileViewModelClickCommand clickCommand,
-            SelectionViewModel selectionViewModel,
+            IFileViewModelHoldClickCommand holdClickCommand,
             IFileOperations fileOperations,
             IFileExtensions fileExtensions) : 
-            base(name, path, iconsProvider, selectionViewModel, fileOperations)
+            base(name, path, iconsProvider, fileOperations)
         {
             _clickCommand = clickCommand;
+            _holdClickCommand = holdClickCommand;
             Extension = new FileExtension(fileExtensions, extension);
             _fileIcon = new ExplorerFileIcon(this, iconsProvider);
         }
@@ -65,6 +66,11 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files
         protected override void OnClick(ActionTargetViewPosition position)
         {
             _clickCommand.OnClick(this, position);
+        }
+
+        protected override void OnHoldClick()
+        {
+            _holdClickCommand.OnHoldClick(this);
         }
 
         public override void Dispose()

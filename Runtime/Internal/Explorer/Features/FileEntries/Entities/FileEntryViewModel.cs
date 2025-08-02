@@ -6,7 +6,6 @@ using PhlegmaticOne.FileExplorer.Features.FileEntries.Core.Models;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Icons;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Operations;
 using PhlegmaticOne.FileExplorer.Features.FileEntries.Services.Proprties;
-using PhlegmaticOne.FileExplorer.Features.Selection.Entities;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
 
@@ -15,32 +14,31 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
     internal abstract class FileEntryViewModel : ViewModel, IDisposable
     {
         protected readonly IExplorerIconsProvider IconsProvider;
-        protected readonly SelectionViewModel SelectionViewModel;
         protected readonly IFileOperations FileOperations;
 
         protected FileEntryViewModel(
             string name, string path,
             IExplorerIconsProvider iconsProvider,
-            SelectionViewModel selectionViewModel,
             IFileOperations fileOperations)
         {
             Path = path;
             Name = new ReactiveProperty<string>(name);
             IsSelected = new ReactiveProperty<bool>(false);
             IsActive = new ReactiveProperty<bool>(true);
+            IsClickable = new ReactiveProperty<bool>(true);
             Icon = new ExplorerIconData();
             IconsProvider = iconsProvider;
-            SelectionViewModel = selectionViewModel;
             FileOperations = fileOperations;
 
-            ClickCommand = new CommandDelegate<ActionTargetViewPosition>(OnClick);
-            HoldClickCommand = new CommandDelegateEmpty(OnHoldClick);
+            ClickCommand = new CommandDelegate<ActionTargetViewPosition>(ExecuteOnClick);
+            HoldClickCommand = new CommandDelegateEmpty(ExecuteOnHoldClick);
         }
 
         public abstract FileEntryType EntryType { get; }
         public ReactiveProperty<string> Name { get; }
         public ReactiveProperty<bool> IsSelected { get; }
         public ReactiveProperty<bool> IsActive { get; }
+        public ReactiveProperty<bool> IsClickable { get; }
         public string Path { get; protected set; }
         public ExplorerIconData Icon { get; }
         public ICommand ClickCommand { get; }
@@ -52,14 +50,24 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
         public abstract void Delete();
         public abstract bool Exists();
         public abstract void Dispose();
-        protected abstract void OnClick(ActionTargetViewPosition position);
 
-        private void OnHoldClick()
+        private void ExecuteOnClick(ActionTargetViewPosition position)
         {
-            if (!SelectionViewModel.IsSelectionActive)
+            if (IsClickable)
             {
-                SelectionViewModel.UpdateSelection(this);
+                OnClick(position);
             }
         }
+
+        private void ExecuteOnHoldClick()
+        {
+            if (IsClickable)
+            {
+                OnHoldClick();
+            }
+        }
+        
+        protected abstract void OnClick(ActionTargetViewPosition position);
+        protected abstract void OnHoldClick();
     }
 }

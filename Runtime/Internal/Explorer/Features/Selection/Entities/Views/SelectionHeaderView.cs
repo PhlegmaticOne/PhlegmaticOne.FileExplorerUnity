@@ -1,4 +1,5 @@
 ﻿using PhlegmaticOne.FileExplorer.Features.Actions.Services.Positioning;
+using PhlegmaticOne.FileExplorer.Features.Closing.Entities;
 using PhlegmaticOne.FileExplorer.Features.CommonInterfaces;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using PhlegmaticOne.FileExplorer.Infrastructure.Views.Components;
@@ -15,17 +16,22 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
         [SerializeField] private ComponentActiveObject _selectionContainerActiveObject;
         [SerializeField] private ComponentSelectionContainerLayout _selectionContainerLayout;
         [SerializeField] private ComponentSelectionDescription _selectionDescription;
-        [SerializeField] private ComponentToggle _selectDeselectAllToggle;
+        [SerializeField] private ComponentSelectionButtons _selectionButtons;
         
         [SerializeField] private RectTransform _dropdownButtonRect;
         [SerializeField] private RectTransform _rectTransform;
         
         private SelectionViewModel _viewModel;
         private IExplorerLayoutUtils _explorerLayoutUtils;
+        private ClosingViewModel _closingViewModel;
 
         [ViewInject]
-        public void Construct(SelectionViewModel viewModel, IExplorerLayoutUtils explorerLayoutUtils)
+        public void Construct(
+            SelectionViewModel viewModel, 
+            ClosingViewModel closingViewModel,
+            IExplorerLayoutUtils explorerLayoutUtils)
         {
+            _closingViewModel = closingViewModel;
             _explorerLayoutUtils = explorerLayoutUtils;
             _viewModel = viewModel;
         }
@@ -37,7 +43,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
             _selectionContainerActiveObject.Bind(_viewModel.IsSelectionActive);
             _selectionContainerLayout.Bind(_viewModel.IsSelectionActive);
             _selectionDescription.Bind(_viewModel.SelectedEntriesCount);
-            _selectDeselectAllToggle.Bind(_viewModel.IsAllSelected, _viewModel.SelectDeselectCommand);
+            _selectionButtons.Bind(_viewModel, _closingViewModel);
         }
 
         public void Unbind()
@@ -47,7 +53,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
             _selectionContainerActiveObject.Release();
             _selectionContainerLayout.Release();
             _selectionDescription.Release();
-            _selectDeselectAllToggle.Release();
+            _selectionButtons.Release();
         }
 
         private ActionTargetViewPosition CalculateViewPosition()

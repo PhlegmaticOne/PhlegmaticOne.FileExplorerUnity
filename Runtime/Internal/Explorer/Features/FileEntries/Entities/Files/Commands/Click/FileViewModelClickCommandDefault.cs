@@ -6,13 +6,13 @@ using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
 
 namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files.Commands
 {
-    internal sealed class FileViewModelClickCommand : IFileViewModelClickCommand
+    internal sealed class FileViewModelClickCommandDefault : IFileViewModelClickCommand
     {
         private readonly SelectionViewModel _selectionViewModel;
         private readonly IFileEntryShowActionsProvider _showActionsProvider;
         private readonly IFileConfidentActionProvider _confidentActionProvider;
 
-        public FileViewModelClickCommand(
+        public FileViewModelClickCommandDefault(
             SelectionViewModel selectionViewModel,
             IFileEntryShowActionsProvider showActionsProvider,
             IFileConfidentActionProvider confidentActionProvider)
