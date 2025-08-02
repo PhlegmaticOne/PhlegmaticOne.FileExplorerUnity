@@ -29,6 +29,11 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities.Files.Command
                 _navigationViewModel.Navigate(directory);
                 return;
             }
+
+            if (!_showConfiguration.CanSelectDirectories())
+            {
+                return;
+            }
             
             if (_showConfiguration.IsSelectSingleFile())
             {

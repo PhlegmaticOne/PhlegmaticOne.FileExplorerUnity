@@ -26,7 +26,7 @@ namespace PhlegmaticOne.FileExplorer.ExploreSample
                 .WithSortingLayerName("Default")
                 .WithOrderInLayer(999)
                 .WithStartupLocation(Application.persistentDataPath)
-                .WithShowPayload(ExplorerShowTypePayload.SelectMultipleFiles()));
+                .WithShowPayload(ExplorerShowTypePayload.SelectMultipleFiles(".txt")));
             
             Debug.Log($"Explorer is showed: {showResult.IsShowed}");
         }

@@ -14,6 +14,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
         [SerializeField] private ComponentActiveObject _activeObjectSelf;
         [SerializeField] private ComponentActiveObject _activeObjectSelection;
         [SerializeField] private ComponentHoldFileEntry _holdFileEntry;
+        [SerializeField] private ComponentClickable _componentClickable;
         
         private FileEntryViewModel _viewModel;
 
@@ -31,6 +32,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
         {
             _iconView.Setup(_viewModel.Icon);
             _fileName.Bind(_viewModel.Name);
+            _componentClickable.Bind(_viewModel.IsClickable);
             _activeObjectSelf.Bind(_viewModel.IsActive);
             _activeObjectSelection.Bind(_viewModel.IsSelected);
             _holdFileEntry.Bind(_viewModel);
@@ -43,6 +45,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
             _activeObjectSelf.Release();
             _activeObjectSelection.Release();
             _holdFileEntry.Release();
+            _componentClickable.Release();
             _viewModel = null;
         }
     }

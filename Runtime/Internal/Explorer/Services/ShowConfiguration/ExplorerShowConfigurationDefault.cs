@@ -28,7 +28,7 @@
         public bool IsSupportedExtension(string extension)
         {
             var extensions = _showTypePayload.SupportedExtensions;
-            return extensions.Count == 0 || extension.Contains(extension);
+            return extensions.Count == 0 || extensions.Contains(extension);
         }
     }
 }

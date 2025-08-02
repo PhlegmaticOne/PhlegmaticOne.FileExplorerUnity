@@ -5,6 +5,8 @@ namespace PhlegmaticOne.FileExplorer
 {
     public sealed class ExplorerShowTypePayload
     {
+        public const string DirectoryExtension = "directory";
+        
         public static ExplorerShowTypePayload InvestigateFiles()
         {
             return new ExplorerShowTypePayload(
