@@ -1,19 +1,18 @@
-﻿using PhlegmaticOne.FileExplorer.Configuration;
-using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
+﻿using PhlegmaticOne.FileExplorer.Infrastructure.Extensions;
 using UnityEngine;
 
 namespace PhlegmaticOne.FileExplorer.Features.Path.Services.Root
 {
     internal sealed class RootPathProvider : IRootPathProvider
     {
-        public RootPathProvider(ExplorerConfig config)
+        public RootPathProvider(ExplorerShowConfiguration config)
         {
             RootPath = BuildRootPath(config);
         }
 
         public string RootPath { get; }
 
-        private static string BuildRootPath(ExplorerConfig config)
+        private static string BuildRootPath(ExplorerShowConfiguration config)
         {
 #if UNITY_EDITOR
             return string.IsNullOrEmpty(config.StartupLocation)

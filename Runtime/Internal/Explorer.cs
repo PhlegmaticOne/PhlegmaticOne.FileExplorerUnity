@@ -17,7 +17,7 @@ namespace PhlegmaticOne.FileExplorer
             _config = config;
         }
         
-        public async Task<ExplorerShowResult> Open(ExplorerShowParameters parameters)
+        public async Task<ExplorerShowResult> Open(ExplorerShowConfiguration configuration)
         {
             try
             {
@@ -27,7 +27,7 @@ namespace PhlegmaticOne.FileExplorer
                 var instance = await AssetExtensions
                     .InstantiateAsync(context);
             
-                return await instance.ConstructAndShow(_config, parameters);
+                return await instance.ConstructAndShow(_config, configuration);
             }
             catch (Exception exception)
             {
