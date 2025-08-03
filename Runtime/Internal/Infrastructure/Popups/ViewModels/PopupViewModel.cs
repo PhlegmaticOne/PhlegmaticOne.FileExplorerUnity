@@ -20,7 +20,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
 
         private void Close()
         {
-            _popupProvider.CloseLastPopup();
+            _popupProvider.Close(this);
         }
 
         private void Discard()

@@ -8,6 +8,6 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
             where TPopup : PopupView<TViewModel>
             where TViewModel : PopupViewModel;
 
-        void CloseLastPopup();
+        void Close(PopupViewModel viewModel);
     }
 }

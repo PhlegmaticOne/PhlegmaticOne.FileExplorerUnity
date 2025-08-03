@@ -14,13 +14,13 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
         [SerializeField] private Transform _parent;
 
         private IViewProvider _viewProvider;
-        private Stack<IViewContainer<PopupView>> _activePopups;
+        private List<PopupEntry> _activePopups;
 
         [ViewInject]
         public void Construct(IViewProvider viewProvider)
         {
             _viewProvider = viewProvider;
-            _activePopups = new Stack<IViewContainer<PopupView>>();
+            _activePopups = new List<PopupEntry>();
         }
         
         public async Task Show<TPopup, TViewModel>(TViewModel viewModel) 
@@ -28,7 +28,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
             where TViewModel : PopupViewModel
         {
             var popup = _viewProvider.GetView<TPopup>(_parent, viewModel);
-            _activePopups.Push(popup);
+            _activePopups.Add(new PopupEntry(popup, viewModel));
             _graphic.enabled = true;
             
             await popup.View.WaitClose();
@@ -37,20 +37,27 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
             _graphic.enabled = _activePopups.Count > 0;
         }
 
-        public void CloseLastPopup()
+        public void Close(PopupViewModel viewModel)
         {
-            if (_activePopups.TryPop(out var popup))
+            var entry = _activePopups.Find(x => x.ViewModel == viewModel);
+
+            if (entry is not null)
             {
-                popup.View.Close();
+                _activePopups.Remove(entry);
+                entry.GetView().Close();
             }
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (_activePopups.TryPop(out var popup))
+            if (_activePopups.Count == 0)
             {
-                popup.View.Discard();
+                return;
             }
+            
+            var lastPopup = _activePopups[^1];
+            _activePopups.RemoveAt(_activePopups.Count - 1);
+            lastPopup.GetView().Discard();
         }
     }
 }
