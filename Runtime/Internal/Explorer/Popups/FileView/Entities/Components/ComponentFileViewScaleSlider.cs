@@ -11,7 +11,7 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView.Components
         
         private FileViewBase _fileView;
 
-        [ViewInject]
+        [Inject]
         public void Construct(FileViewBase fileView)
         {
             _fileView = fileView;

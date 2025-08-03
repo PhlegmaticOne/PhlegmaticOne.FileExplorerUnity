@@ -10,7 +10,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Tab.Entities
         
         private TabViewModel _viewModel;
 
-        [ViewInject]
+        [Inject]
         public void Construct(TabViewModel viewModel)
         {
             _viewModel = viewModel;

@@ -14,7 +14,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Actions.Entities.Action
         private ActionViewModel _action;
         private ActionsViewConfig _viewConfig;
 
-        [ViewInject]
+        [Inject]
         public void Construct(ActionViewModel action, ActionsViewConfig viewConfig)
         {
             _viewConfig = viewConfig;

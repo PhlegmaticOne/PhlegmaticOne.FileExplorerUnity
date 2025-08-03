@@ -10,7 +10,7 @@ namespace PhlegmaticOne.FileExplorer.Popups.FileView
         
         protected FileViewViewModel ViewModel;
 
-        [ViewInject]
+        [Inject]
         public void Construct(FileViewViewModel viewModel)
         {
             ViewModel = viewModel;

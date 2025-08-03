@@ -54,7 +54,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Policies
         private static MethodInfo GetInjectMethod(Type type)
         {
             return type.GetMethods()
-                .FirstOrDefault(x => x.GetCustomAttribute<ViewInjectAttribute>() != null);
+                .FirstOrDefault(x => x.GetCustomAttribute<InjectAttribute>() != null);
         }
     }
 }

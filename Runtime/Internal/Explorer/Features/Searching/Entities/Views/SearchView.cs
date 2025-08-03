@@ -14,7 +14,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Searching.Entities
         
         private SearchViewModel _viewModel;
 
-        [ViewInject]
+        [Inject]
         public void Construct(SearchViewModel viewModel)
         {
             _viewModel = viewModel;

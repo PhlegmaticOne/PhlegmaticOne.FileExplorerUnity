@@ -12,7 +12,7 @@ namespace PhlegmaticOne.FileExplorer.Popups.Properties
         
         private PropertyViewModel _viewModel;
 
-        [ViewInject]
+        [Inject]
         public void Construct(PropertyViewModel viewModel)
         {
             _viewModel = viewModel;

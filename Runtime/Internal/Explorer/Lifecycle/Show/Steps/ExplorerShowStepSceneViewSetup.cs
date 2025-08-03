@@ -13,7 +13,7 @@ namespace PhlegmaticOne.FileExplorer.Lifecycle.Show.Steps
         private ExplorerConfig _explorerConfig;
         private ExplorerSceneConfiguration _sceneConfiguration;
 
-        [ViewInject]
+        [Inject]
         public void Construct(
             ExplorerShowConfiguration showConfiguration,
             ExplorerConfig explorerConfig)

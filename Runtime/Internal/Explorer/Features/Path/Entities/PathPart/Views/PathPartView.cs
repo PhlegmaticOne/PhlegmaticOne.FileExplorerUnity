@@ -14,7 +14,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Entities.PathPart
         
         private PathPartViewModel _viewModel;
 
-        [ViewInject]
+        [Inject]
         public void Construct(PathPartViewModel viewModel)
         {
             _viewModel = viewModel;

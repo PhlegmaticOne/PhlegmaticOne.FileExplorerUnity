@@ -16,7 +16,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
         private IViewProvider _viewProvider;
         private List<PopupEntry> _activePopups;
 
-        [ViewInject]
+        [Inject]
         public void Construct(IViewProvider viewProvider)
         {
             _viewProvider = viewProvider;

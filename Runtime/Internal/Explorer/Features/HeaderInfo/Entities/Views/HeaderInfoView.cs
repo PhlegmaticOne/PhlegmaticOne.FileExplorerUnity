@@ -13,7 +13,7 @@ namespace PhlegmaticOne.FileExplorer.Features.HeaderInfo.Entities
         
         private HeaderInfoViewModel _viewModel;
 
-        [ViewInject]
+        [Inject]
         public void Construct(HeaderInfoViewModel viewModel)
         {
             _viewModel = viewModel;

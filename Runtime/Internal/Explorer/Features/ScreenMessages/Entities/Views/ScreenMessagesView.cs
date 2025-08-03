@@ -12,7 +12,7 @@ namespace PhlegmaticOne.FileExplorer.Features.ScreenMessages.Entities
         
         private ScreenMessagesViewModel _viewModel;
 
-        [ViewInject]
+        [Inject]
         public void Construct(ScreenMessagesViewModel viewModel)
         {
             _viewModel = viewModel;

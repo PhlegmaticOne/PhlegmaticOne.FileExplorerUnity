@@ -25,7 +25,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities
         private IExplorerLayoutUtils _explorerLayoutUtils;
         private ClosingViewModel _closingViewModel;
 
-        [ViewInject]
+        [Inject]
         public void Construct(
             SelectionViewModel viewModel, 
             ClosingViewModel closingViewModel,

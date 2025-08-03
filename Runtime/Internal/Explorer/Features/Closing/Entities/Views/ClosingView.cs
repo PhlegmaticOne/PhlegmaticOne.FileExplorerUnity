@@ -11,7 +11,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Closing.Entities
         
         private ClosingViewModel _viewModel;
 
-        [ViewInject]
+        [Inject]
         public void Construct(ClosingViewModel viewModel)
         {
             _viewModel = viewModel;

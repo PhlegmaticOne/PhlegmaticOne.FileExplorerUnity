@@ -13,7 +13,7 @@ namespace PhlegmaticOne.FileExplorer.Popups.SelectAudio
         
         private SelectAudioEntryViewModel _viewModel;
 
-        [ViewInject]
+        [Inject]
         public void Construct(SelectAudioEntryViewModel viewModel)
         {
             _viewModel = viewModel;

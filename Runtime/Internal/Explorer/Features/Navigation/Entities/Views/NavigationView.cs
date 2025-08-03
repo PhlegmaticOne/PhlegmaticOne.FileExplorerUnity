@@ -11,7 +11,7 @@ namespace PhlegmaticOne.FileExplorer.Features.Navigation.Entities
         
         private NavigationViewModel _viewModel;
 
-        [ViewInject]
+        [Inject]
         public void Construct(NavigationViewModel viewModel)
         {
             _viewModel = viewModel;

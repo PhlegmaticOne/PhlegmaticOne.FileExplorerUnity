@@ -19,7 +19,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
         
         private FileEntryViewModel _viewModel;
 
-        [ViewInject]
+        [Inject]
         public void Construct(
             FileEntryViewModel viewModel, 
             IExplorerLayoutUtils explorerLayoutUtils, 

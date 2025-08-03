@@ -20,7 +20,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
         private ReactiveCollection<TViewModel> _collection;
         private IViewProvider _viewProvider;
 
-        [ViewInject]
+        [Inject]
         public void Construct(IViewProvider viewProvider)
         {
             _viewProvider = viewProvider;

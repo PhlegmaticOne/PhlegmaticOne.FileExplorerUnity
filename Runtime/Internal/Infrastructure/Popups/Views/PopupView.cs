@@ -44,7 +44,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Popups
         protected T ViewModel;
         protected IViewProvider ViewProvider;
 
-        [ViewInject]
+        [Inject]
         public void Construct(T viewModel, IViewProvider viewProvider)
         {
             _viewResult = new TaskCompletionSource<bool>();
