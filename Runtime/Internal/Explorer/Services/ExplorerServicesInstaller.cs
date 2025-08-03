@@ -24,7 +24,7 @@ namespace PhlegmaticOne.FileExplorer.Services
             container.Register<IInternetProvider, InternetProvider>();
             container.Register<IExplorerResultProvider, ExplorerResultProvider>();
             container.Register<IExplorerResultSetter, ExplorerResultSetter>();
-            container.Register<IExplorerShowConfiguration, ShowConfiguration.ExplorerShowConfigurationDefault>();
+            container.Register<IExplorerShowConfiguration, ExplorerShowConfigurationDefault>();
             
             BindContentLoaders(container);
         }
