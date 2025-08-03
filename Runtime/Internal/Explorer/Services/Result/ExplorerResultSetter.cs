@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using PhlegmaticOne.FileExplorer.Features.Selection.Entities;
 using PhlegmaticOne.FileExplorer.Services.ShowConfiguration;
 
@@ -22,13 +23,8 @@ namespace PhlegmaticOne.FileExplorer.Runtime.Explorer.Services.Result
         
         public void SetExplorerResult()
         {
-            if (_showConfiguration.IsSelectAnyFiles())
-            {
-                _resultProvider.SetResult(ExplorerShowResult.Showed(GetSelection()));
-                return;
-            }
-            
-            _resultProvider.SetResult(ExplorerShowResult.Showed());
+            var selection = _showConfiguration.IsSelectAnyFiles() ? GetSelection() : Array.Empty<string>();
+            _resultProvider.SetResult(ExplorerShowResult.Showed(selection));
         }
 
         private string[] GetSelection()

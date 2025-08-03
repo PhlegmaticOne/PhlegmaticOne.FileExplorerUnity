@@ -1,33 +1,14 @@
-﻿using UnityEngine;
-
-namespace PhlegmaticOne.FileExplorer
+﻿namespace PhlegmaticOne.FileExplorer
 {
     public sealed class ExplorerShowConfiguration
     {
-        private Camera _camera;
-        
-        public int OrderInLayer { get; private set; }
-        public string SortingLayerName { get; private set; } = "Default";
         public string StartupLocation { get; private set; } = string.Empty;
-        public ExplorerShowTypePayload ShowTypePayload { get; private set; } = ExplorerShowTypePayload.InvestigateFiles();
 
-        public ExplorerShowConfiguration WithCamera(Camera camera)
-        {
-            _camera = camera;
-            return this;
-        }
-
-        public ExplorerShowConfiguration WithSortingLayerName(string sortingLayerName)
-        {
-            SortingLayerName = sortingLayerName;
-            return this;
-        }
-
-        public ExplorerShowConfiguration WithOrderInLayer(int orderIndex)
-        {
-            OrderInLayer = orderIndex;
-            return this;
-        }
+        public ExplorerSceneConfiguration SceneConfiguration { get; private set; } =
+            ExplorerSceneConfiguration.Default();
+        
+        public ExplorerShowTypePayload ShowTypePayload { get; private set; } = 
+            ExplorerShowTypePayload.InvestigateFiles();
 
         public ExplorerShowConfiguration WithStartupLocation(string startupLocation)
         {
@@ -35,15 +16,16 @@ namespace PhlegmaticOne.FileExplorer
             return this;
         }
 
-        public ExplorerShowConfiguration WithShowPayload(ExplorerShowTypePayload showPayload)
+        public ExplorerShowConfiguration WithSceneConfiguration(ExplorerSceneConfiguration sceneConfiguration)
         {
-            ShowTypePayload = showPayload;
+            SceneConfiguration = sceneConfiguration;
             return this;
         }
 
-        internal Camera GetCamera()
+        public ExplorerShowConfiguration WithShowType(ExplorerShowTypePayload showPayload)
         {
-            return _camera == null ? Camera.main : _camera;
+            ShowTypePayload = showPayload;
+            return this;
         }
     }
 }
