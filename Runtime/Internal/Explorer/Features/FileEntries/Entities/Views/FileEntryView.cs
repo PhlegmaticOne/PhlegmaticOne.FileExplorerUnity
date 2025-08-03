@@ -15,6 +15,7 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
         [SerializeField] private ComponentActiveObject _activeObjectSelection;
         [SerializeField] private ComponentHoldFileEntry _holdFileEntry;
         [SerializeField] private ComponentClickable _componentClickable;
+        [SerializeField] private CanvasGroup _canvasGroup;
         
         private FileEntryViewModel _viewModel;
 
@@ -36,6 +37,16 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
             _activeObjectSelf.Bind(_viewModel.IsActive);
             _activeObjectSelection.Bind(_viewModel.IsSelected);
             _holdFileEntry.Bind(_viewModel);
+        }
+
+        protected override void OnVisible()
+        {
+            _canvasGroup.alpha = 1;
+        }
+
+        protected override void OnInvisible()
+        {
+            _canvasGroup.alpha = 0;
         }
 
         public override void Release()

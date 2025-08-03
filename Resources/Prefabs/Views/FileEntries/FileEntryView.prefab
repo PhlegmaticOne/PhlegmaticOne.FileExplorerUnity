@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 7232174441267344192}
   - component: {fileID: 6555950693875073515}
   - component: {fileID: 3006436098699995956}
+  - component: {fileID: 3649675815644695761}
   m_Layer: 5
   m_Name: FileEntryView
   m_TagString: Untagged
@@ -143,12 +144,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1228794719504b42b5ec8d4d96c93686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rectTransform: {fileID: 6545781763563102268}
   _iconView: {fileID: 5507072498743529323}
   _fileName: {fileID: 8836954609065029383}
   _activeObjectSelf: {fileID: 7232174441267344192}
   _activeObjectSelection: {fileID: 3757954413728214223}
   _holdFileEntry: {fileID: 6555950693875073515}
   _componentClickable: {fileID: 7540942220606170134}
+  _canvasGroup: {fileID: 3649675815644695761}
 --- !u!114 &7232174441267344192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +192,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _holdDuration: 0.5
+--- !u!225 &3649675815644695761
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3397796466140875353}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4574836633827192167
 GameObject:
   m_ObjectHideFlags: 0

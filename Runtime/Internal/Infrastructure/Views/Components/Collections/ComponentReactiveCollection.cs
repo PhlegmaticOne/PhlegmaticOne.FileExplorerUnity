@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using PhlegmaticOne.FileExplorer.Infrastructure.DependencyInjection.Attibutes;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
+using PhlegmaticOne.FileExplorer.Infrastructure.Views.Behaviours;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +13,7 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
         where TView : View
     {
         [SerializeField] private RectTransform _viewsParent;
+        [SerializeReference] private IReactiveCollectionBehaviour[] _behaviours = Array.Empty<IReactiveCollectionBehaviour>();
 
         private readonly Dictionary<TViewModel, IViewContainer<TView>> _views = new();
 
@@ -31,6 +34,11 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
             _collection = collection;
             _collection.CollectionChanged += UpdateView;
 
+            foreach (var behaviour in _behaviours)
+            {
+                behaviour.OnBind();
+            }
+
             if (collection.Count > 0)
             {
                 AddViews(collection);
@@ -47,6 +55,11 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
             ClearViews();
             _collection.CollectionChanged -= UpdateView;
             _collection = null;
+            
+            foreach (var behaviour in _behaviours)
+            {
+                behaviour.OnRelease();
+            }
         }
 
         private void UpdateView(ReactiveCollectionChangedEventArgs<TViewModel> eventArgs)
@@ -71,6 +84,11 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
             {
                 var view = _viewProvider.GetView<TView>(_viewsParent, viewModel);
                 _views.Add(viewModel, view);
+
+                foreach (var behaviour in _behaviours)
+                {
+                    behaviour.OnAdded(view.View);
+                }
             }
         }
 
@@ -81,6 +99,11 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
                 var view = _views[viewModel];
                 view.Release();
                 _views.Remove(viewModel);
+                
+                foreach (var behaviour in _behaviours)
+                {
+                    behaviour.OnRemoved(view.View);
+                }
             }
         }
 
@@ -92,6 +115,11 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views
             }
             
             _views.Clear();
+            
+            foreach (var behaviour in _behaviours)
+            {
+                behaviour.OnClear();
+            }
         }
     }
 }

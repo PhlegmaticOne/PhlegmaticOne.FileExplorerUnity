@@ -281,6 +281,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _viewsParent: {fileID: 3911536743798692879}
+  _behaviours:
+  - rid: 5478085865329393664
+  references:
+    version: 2
+    RefIds:
+    - rid: 5478085865329393664
+      type: {class: ReactiveCollectionScrollHandler, ns: PhlegmaticOne.FileExplorer.Infrastructure.Views.Scroll, asm: PhlegmaticOne.FileExplorer}
+      data:
+        _scroll: {fileID: 7969041902608776647}
 --- !u!114 &610405169506847034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,7 +349,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!222 &2677205634826995066
 CanvasRenderer:
   m_ObjectHideFlags: 0

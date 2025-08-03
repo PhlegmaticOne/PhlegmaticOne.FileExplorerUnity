@@ -26,8 +26,12 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Entities
 
         private void UpdateIsClickable(bool isClickable)
         {
-            var alpha = isClickable ? 1 : DisabledAlpha;
-            _canvasGroup.alpha = alpha;
+            _canvasGroup.alpha = GetAlpha(isClickable);
+        }
+
+        private static float GetAlpha(bool isClickable)
+        {
+            return isClickable ? 1 : DisabledAlpha;
         }
     }
 }
