@@ -44,14 +44,12 @@ namespace PhlegmaticOne.FileExplorer.Infrastructure.Views.Scroll
 
         private void UpdateChildren(Vector2 scrollPosition)
         {
-            Span<Vector3> childCorners = stackalloc Vector3[4];
-
-            Span<Vector3> viewportCorners = stackalloc Vector3[4];
-            var viewportRect = _viewport.GetWorldCornersRectNonAlloc(viewportCorners);
+            Span<Vector3> corners = stackalloc Vector3[4];
+            var viewportRect = _viewport.GetWorldCornersRectNonAlloc(corners);
             
             foreach (var child in _children)
             {
-                var childRect = child.RectTransform.GetWorldCornersRectNonAlloc(childCorners);
+                var childRect = child.RectTransform.GetWorldCornersRectNonAlloc(corners);
                 var isVisible = childRect.Overlaps(viewportRect);
                 child.OnVisibleUpdate(isVisible);
             }
