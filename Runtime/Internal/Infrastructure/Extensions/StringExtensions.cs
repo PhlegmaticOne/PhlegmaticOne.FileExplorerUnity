@@ -4,7 +4,13 @@
     {
         public static string ToForwardSlash(this string path)
         {
-            return path.Replace("\\", "/");
+            var replaced = path.Replace('\\', '/');
+            return replaced[^1] == '/' ? RemoveLastChar(replaced) : replaced;
+        }
+
+        private static string RemoveLastChar(string value)
+        {
+            return value.Remove(value.Length - 1);
         }
     }
 }
