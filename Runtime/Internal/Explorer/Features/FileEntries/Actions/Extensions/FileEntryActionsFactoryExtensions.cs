@@ -12,12 +12,6 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Actions
             return factory.Create<FileEntryActionProperties>(FileEntryActionKeys.Properties, fileEntry);
         }
         
-        internal static ActionViewModel OpenExplorer(
-            this IFileEntryActionsFactory factory, FileEntryViewModel fileEntry)
-        {
-            return factory.Create<FileEntryActionOpenExplorer>(FileEntryActionKeys.OpenExplorer, fileEntry);
-        }
-        
         internal static ActionViewModel Rename(
             this IFileEntryActionsFactory factory, FileEntryViewModel fileEntry)
         {
@@ -29,5 +23,13 @@ namespace PhlegmaticOne.FileExplorer.Features.FileEntries.Actions
         {
             return factory.Create<FileEntryActionDelete>(FileEntryActionKeys.Delete, fileEntry);
         }
+
+#if UNITY_EDITOR
+        internal static ActionViewModel OpenExplorer(
+            this IFileEntryActionsFactory factory, FileEntryViewModel fileEntry)
+        {
+            return factory.Create<FileEntryActionOpenExplorer>(FileEntryActionKeys.OpenExplorer, fileEntry);
+        }
+#endif
     }
 }
