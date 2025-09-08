@@ -21,6 +21,9 @@ namespace PhlegmaticOne.FileExplorer.Runtime.Explorer.States
 
         private void BindShow(IDependencyContainer container)
         {
+#if UNITY_ANDROID
+            container.Register<IExplorerShowStep, ExplorerShowStepRequestAndroidPermissions>();
+#endif
             container.RegisterInstance(_stepSceneViewSetup);
             container.Register<IExplorerShowStep, ExplorerShowStepStaticViewBind>();
             container.Register<IExplorerShowStep, ExplorerShowStepStartActionListeners>();

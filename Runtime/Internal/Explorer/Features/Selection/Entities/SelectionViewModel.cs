@@ -10,7 +10,6 @@ using PhlegmaticOne.FileExplorer.Features.Tab.Entities;
 using PhlegmaticOne.FileExplorer.Features.Tab.Listeners;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels;
 using PhlegmaticOne.FileExplorer.Infrastructure.ViewModels.Commands;
-using PhlegmaticOne.FileExplorer.Lifecycle.Close;
 using PhlegmaticOne.FileExplorer.Services.ShowConfiguration;
 
 namespace PhlegmaticOne.FileExplorer.Features.Selection.Entities

@@ -1,4 +1,5 @@
 ﻿using System;
+using PhlegmaticOne.FileExplorer.Configuration.Configs.AndroidPermissions;
 using TMPro;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace PhlegmaticOne.FileExplorer.Configuration
         [SerializeField] private ExplorerIconsConfig _icons;
         [SerializeField] private ExplorerExtensionsConfig _extensions;
         [SerializeField] private ExplorerViewConfig _view;
+        [SerializeField] private ExplorerAndroidPermissionsConfig _androidPermissionsConfig;
 
         public static ExplorerConfig Create(TMP_FontAsset fontAsset)
         {
@@ -33,5 +35,6 @@ namespace PhlegmaticOne.FileExplorer.Configuration
         public ExplorerIconsConfig Icons => _icons;
         public ExplorerExtensionsConfig Extensions => _extensions;
         public ExplorerViewConfig View => _view;
+        public ExplorerAndroidPermissionsConfig PermissionsConfig => _androidPermissionsConfig;
     }
 }
