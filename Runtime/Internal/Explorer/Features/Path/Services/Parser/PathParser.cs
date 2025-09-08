@@ -36,11 +36,19 @@ namespace PhlegmaticOne.FileExplorer.Features.Path.Services.Parser
 
         private void FillPathPartsNextFromRootPath(string path, ICollection<PathPartViewModel> result)
         {
-            var memory = path.AsMemory(_rootPathProvider.RootPath.Length + 1);
+            var rootPath = _rootPathProvider.RootPath;
+
+            if (path.Length <= rootPath.Length)
+            {
+                return;
+            }
+            
+            var addOffset = rootPath[^1] == '/' ? 0 : 1;
+            var memory = path.AsMemory(rootPath.Length + addOffset);
     
             while (true)
             {
-                var index = memory.Span.IndexOfAny('\\', '/');
+                var index = memory.Span.IndexOf('/');
 
                 if (index is 0 or -1)
                 {
